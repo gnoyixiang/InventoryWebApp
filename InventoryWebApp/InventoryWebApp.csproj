@@ -212,10 +212,12 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="PurchaseOrderDetail.aspx" />
     <Content Include="RequisitionDetails.aspx" />
     <Content Include="RequisitionList.aspx" />
     <Content Include="Scripts\fancy-sidebar-navigation.js" />
     <Content Include="Layout.Master" />
+    <Content Include="ViewPurchaseOrders.aspx" />
     <Content Include="WebForm2.aspx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
@@ -410,6 +412,13 @@
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PurchaseOrderDetail.aspx.cs">
+      <DependentUpon>PurchaseOrderDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PurchaseOrderDetail.aspx.designer.cs">
+      <DependentUpon>PurchaseOrderDetail.aspx</DependentUpon>
+    </Compile>
     <Compile Include="RequisitionDetails.aspx.cs">
       <DependentUpon>RequisitionDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -439,6 +448,13 @@
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewPurchaseOrders.aspx.cs">
+      <DependentUpon>ViewPurchaseOrders.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPurchaseOrders.aspx.designer.cs">
+      <DependentUpon>ViewPurchaseOrders.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
