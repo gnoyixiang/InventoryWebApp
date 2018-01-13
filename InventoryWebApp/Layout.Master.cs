@@ -17,7 +17,7 @@ namespace InventoryWebApp
             //Session["UserRole"] = "departmentHead";
 
             //Session["ChangeRole"] = "actingStoreSupervisor";
-            Session["ChangeRole"] = "actingDepartmentHead";
+            //Session["ChangeRole"] = "actingDepartmentHead";
             //Session["ChangeRole"] = "departmentRep";
         }
     }
