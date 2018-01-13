@@ -9,7 +9,8 @@
                 <h3>Purchase Orders </h3>
             </div>
             <div class="col-md-3 col-sm-4">
-                <asp:Button runat="server" ID="btnCreate" Text="Create New" CssClass="btn btn-info btn-lg" Style="margin: 20px 0; float: right;" />
+                <a href="/CreateNewOrder" class="btn btn-success btn-lg" role="button" style="margin: 20px 0; width:100%;">Create New</a>
+                <%--<asp:Button runat="server" ID="btnCreate" Text="Create New" CssClass="btn btn-info btn-lg" Style="margin: 20px 0; float: right;" />--%>
             </div>
         </div>
     </div>

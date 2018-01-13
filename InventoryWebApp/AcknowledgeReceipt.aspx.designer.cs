@@ -10,7 +10,7 @@
 namespace InventoryWebApp {
     
     
-    public partial class PurchaseOrderDetail {
+    public partial class AcknowledgeReceipt {
         
         /// <summary>
         /// lblOrderID control.
@@ -101,23 +101,5 @@ namespace InventoryWebApp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblApprovedDate;
-        
-        /// <summary>
-        /// lblReceivedBy control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblReceivedBy;
-        
-        /// <summary>
-        /// lblReceivedDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblReceivedDate;
     }
 }
