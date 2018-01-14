@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8e75b7039f684dcd906811c605acfd59" Name="Diagram1">
+        <EntityTypeShape EntityType="Team8_SSISModel.Adjustment" Width="1.5" PointX="3" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Team8_SSISModel.AssignRole" Width="1.5" PointX="6" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Team8_SSISModel.Category" Width="1.5" PointX="3.75" PointY="27.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Team8_SSISModel.CollectionPoint" Width="1.5" PointX="5.25" PointY="20.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Team8_SSISModel.Department" Width="1.5" PointX="7.5" PointY="20" IsExpanded="true" />
+        <EntityTypeShape EntityType="Team8_SSISModel.Disbursement" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Team8_SSISModel.DisbursementDetail" Width="1.5" PointX="8.25" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Team8_SSISModel.Employee" Width="1.5" PointX="3" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Team8_SSISModel.PODetail" Width="1.5" PointX="8.25" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Team8_SSISModel.PurchaseOrder" Width="1.5" PointX="6" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Team8_SSISModel.Request" Width="1.5" PointX="10.75" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Team8_SSISModel.RequestDetail" Width="1.5" PointX="13" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Team8_SSISModel.Retrieval" Width="1.5" PointX="8.25" PointY="26.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Team8_SSISModel.Role" Width="1.5" PointX="0.75" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="Team8_SSISModel.StationeryCatalogue" Width="1.5" PointX="6" PointY="25.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Team8_SSISModel.Supplier" Width="1.5" PointX="3.75" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Team8_SSISModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Team8_SSISModel.Tender" Width="1.5" PointX="6" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Team8_SSISModel.TenderDetail" Width="1.5" PointX="8.25" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="Team8_SSISModel.User" Width="1.5" PointX="0.75" PointY="12.25" IsExpanded="true" />
+        <AssociationConnector Association="Team8_SSISModel.FK_Adjustment_StationeryCatalogue" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_Adjustment_User" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_Adjustment_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_AssignRole_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_AssignRole_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_AssignRole_User_AssignedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_StationeryCatalogue_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_CollectionPoint_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_Department_CollectionPoint" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_Department_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_Department_Employee1" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_Disbursement_Department1" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_Employee_Department" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_Request_Department" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_Disbursement_User" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_DisbursementDetail_Disbursement" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_DisbursementDetail_Request" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_DisbursementReqDetail_StationeryCatalogue" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_Employee_Employee2" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_Employee_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_Employee_Role1" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_Employee_User" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_PODetail_PurchaseOrder" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_PODetail_StationeryCatalogue" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_PurchaseOrder_Supplier" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_PurchaseOrder_User" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_PurchaseOrder_User_ApprovedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_PurchaseOrder_User_ReceivedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_Request_User" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_Request_User_ApprovedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_RequestDetail_Request" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_RequestDetail_StationeryCatalogue" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_Retrieval_StationeryCatalogue" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_StationeryCatalogue_Supplier" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_StationeryCatalogue_Supplier1" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_StationeryCatalogue_Supplier2" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_TenderDetails_StationeryCatalogue" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_Tender_Supplier" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_Tender_User" ManuallyRouted="false" />
+        <AssociationConnector Association="Team8_SSISModel.FK_TenderDetails_Tender" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

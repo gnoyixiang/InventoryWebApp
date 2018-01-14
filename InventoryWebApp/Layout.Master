@@ -119,7 +119,7 @@
                 <% if ((string)Session["UserRole"] == "departmentHead")
                     {%>
                 <li id="menu-RequestDepartmentHead">
-                    <a href="#RequestEmployeeSubmenu" data-toggle="collapse" aria-expanded="false">Manage Requests</a>
+                    <a href="RequestDepartmentHead" data-toggle="collapse" aria-expanded="false">Manage Requests</a>
                     <ul class="collapse list-unstyled submenu" id="RequestDepartmentHead">
                         <li><a href="#">View Requests</a></li>
                         <li><a href="#">Approve Requests</a></li>
@@ -157,11 +157,11 @@
                     </ul>
                 </div>
             </nav>
-            <ul class="breadcrumb">
+            <%-- <ul class="breadcrumb">
                 <li><a href="#">Home</a></li>
                 <li><a href="#">Manage Requests</a></li>
                 <li class="active">View Requests</li>
-            </ul>
+            </ul>--%>
 
             <!-- Fill Content Here -->
             <form id="form1" runat="server">
@@ -169,24 +169,25 @@
                     <asp:ContentPlaceHolder ID="MainContent" runat="server">
                     </asp:ContentPlaceHolder>
                 </div>
+
+
+
+                <!-- jQuery CDN -->
+                <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+                <!-- Bootstrap Js CDN -->
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+                <script>
+                    $(document).ready(function () {
+                        $('li[id^="menu-"].active .collapse').collapse('show');
+                        $('li[id^="menu-"].active a[aria-expanded=false]').attr('aria-expanded', 'true');
+
+
+                    });
+                </script>
             </form>
         </div>
 
     </div>
-
-
-    <!-- jQuery CDN -->
-    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-    <!-- Bootstrap Js CDN -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            $('li[id^="menu-"].active .collapse').collapse('show');
-            $('li[id^="menu-"].active a[aria-expanded=false]').attr('aria-expanded', 'true');
-
-
-        });
-    </script>
 </body>
 </html>
