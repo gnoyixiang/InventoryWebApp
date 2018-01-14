@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InventoryWebApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,7 +16,7 @@ namespace InventoryWebApp
         }
         private void BindGrid()
         {
-            GridViewNewRequest.DataSource = (List<InventoryWebApp.Models.StationeryCatalogue>)Session["ItemDetails"];
+            GridViewNewRequest.DataSource = (List<StationeryDTO>)Session["ItemDetails"];
             GridViewNewRequest.DataBind();
         }
     }

@@ -471,7 +471,7 @@
       <DependentUpon>Layout.Master</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\StationeryCatalogue.cs" />
+    <Compile Include="Models\StationeryDTO.cs" />
     <Compile Include="PODetail.cs">
       <DependentUpon>Team8_SSIS.tt</DependentUpon>
     </Compile>

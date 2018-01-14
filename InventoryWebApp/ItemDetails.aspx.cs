@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InventoryWebApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -57,11 +58,22 @@ namespace InventoryWebApp
             if (Page.IsValid)
             {
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "$('#myModal').modal('show');", true);
-                List<InventoryWebApp.Models.StationeryCatalogue> addItem = (List<InventoryWebApp.Models.StationeryCatalogue>)Session["ItemDetails"];
-                addItem = addItem ?? new List<InventoryWebApp.Models.StationeryCatalogue>();
-                InventoryWebApp.Models.StationeryCatalogue newItem = new InventoryWebApp.Models.StationeryCatalogue(tbxItemCode.Text, tbxCategory.Text, tbxDescription.Text, Convert.ToInt32(tbxQuantity.Text));
-                addItem.Add(newItem);
-                Session["ItemDetails"] = addItem;
+                if (rdlQuantity.SelectedItem.Selected)
+                {
+                    List<StationeryDTO> addItem = (List<StationeryDTO>)Session["ItemDetails"];
+                    addItem = addItem ?? new List<StationeryDTO>();
+                    StationeryDTO newItem = new StationeryDTO(tbxItemCode.Text, tbxCategory.Text, tbxDescription.Text, Convert.ToInt32(rdlQuantity.SelectedItem.Text));
+                    addItem.Add(newItem);
+                    Session["ItemDetails"] = addItem;
+                }
+                else if(!String.IsNullOrEmpty(tbxQuantity.Text))
+                {
+                    List<StationeryDTO> addItem = (List<StationeryDTO>)Session["ItemDetails"];
+                    addItem = addItem ?? new List<StationeryDTO>();
+                    StationeryDTO newItem = new StationeryDTO(tbxItemCode.Text, tbxCategory.Text, tbxDescription.Text, Convert.ToInt32(tbxQuantity.Text));
+                    addItem.Add(newItem);
+                    Session["ItemDetails"] = addItem;
+                }
             }
         }
     }
