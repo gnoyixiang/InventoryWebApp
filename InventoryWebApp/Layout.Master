@@ -184,8 +184,6 @@
         $(document).ready(function () {
             $('li[id^="menu-"].active .collapse').collapse('show');
             $('li[id^="menu-"].active a[aria-expanded=false]').attr('aria-expanded', 'true');
-
-
         });
     </script>
 </body>

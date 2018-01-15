@@ -216,6 +216,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="NewSupplierDetail.aspx" />
     <Content Include="PurchaseOrderDetail.aspx" />
     <Content Include="RequisitionList.aspx" />
     <Content Include="Scripts\fancy-sidebar-navigation.js" />
@@ -384,6 +385,23 @@
     </Compile>
     <Compile Include="AcknowledgeReceipt.aspx.designer.cs">
       <DependentUpon>AcknowledgeReceipt.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\Category.cs" />
+    <Compile Include="Models\Entities\AddData.cs" />
+    <Compile Include="Models\Entities\EntityModel.cs" />
+    <Compile Include="Models\Entities\Supplier.cs" />
+    <Compile Include="Models\Entities\SupplierDetail.cs" />
+    <Compile Include="Models\Entities\PODetail.cs" />
+    <Compile Include="Models\Entities\PurchaseOrder.cs" />
+    <Compile Include="Models\Entities\StationeryCatalogue.cs" />
+    <Compile Include="Models\Entities\Tender.cs" />
+    <Compile Include="Models\Entities\TenderDetail.cs" />
+    <Compile Include="NewSupplierDetail.aspx.cs">
+      <DependentUpon>NewSupplierDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NewSupplierDetail.aspx.designer.cs">
+      <DependentUpon>NewSupplierDetail.aspx</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
