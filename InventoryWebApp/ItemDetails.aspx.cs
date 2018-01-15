@@ -10,7 +10,7 @@ namespace InventoryWebApp
 {
     public partial class ItemDetails : System.Web.UI.Page
     {
-        Team8_SSISEntities SSIS = new Team8_SSISEntities();
+        EntityModel SSIS = new EntityModel();
         protected void Page_Load(object sender, EventArgs e)
         {
             
@@ -58,19 +58,20 @@ namespace InventoryWebApp
             if (Page.IsValid)
             {
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "$('#myModal').modal('show');", true);
-                if (rdlQuantity.SelectedItem.Selected)
-                {
-                    List<StationeryDTO> addItem = (List<StationeryDTO>)Session["ItemDetails"];
-                    addItem = addItem ?? new List<StationeryDTO>();
-                    StationeryDTO newItem = new StationeryDTO(tbxItemCode.Text, tbxCategory.Text, tbxDescription.Text, Convert.ToInt32(rdlQuantity.SelectedItem.Text));
-                    addItem.Add(newItem);
-                    Session["ItemDetails"] = addItem;
-                }
-                else if(!String.IsNullOrEmpty(tbxQuantity.Text))
+                
+                if(!String.IsNullOrEmpty(tbxQuantity.Text))
                 {
                     List<StationeryDTO> addItem = (List<StationeryDTO>)Session["ItemDetails"];
                     addItem = addItem ?? new List<StationeryDTO>();
                     StationeryDTO newItem = new StationeryDTO(tbxItemCode.Text, tbxCategory.Text, tbxDescription.Text, Convert.ToInt32(tbxQuantity.Text));
+                    addItem.Add(newItem);
+                    Session["ItemDetails"] = addItem;
+                }
+                else if (rdlQuantity.SelectedItem.Selected)
+                {
+                    List<StationeryDTO> addItem = (List<StationeryDTO>)Session["ItemDetails"];
+                    addItem = addItem ?? new List<StationeryDTO>();
+                    StationeryDTO newItem = new StationeryDTO(tbxItemCode.Text, tbxCategory.Text, tbxDescription.Text, Convert.ToInt32(rdlQuantity.SelectedItem.Text));
                     addItem.Add(newItem);
                     Session["ItemDetails"] = addItem;
                 }

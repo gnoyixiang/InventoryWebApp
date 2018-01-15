@@ -6,12 +6,13 @@ namespace InventoryWebApp
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class TenderDetail
+    [Table("SupplierDetail")]
+    public partial class SupplierDetail
     {
         [Key]
         [Column(Order = 0)]
         [StringLength(20)]
-        public string TenderCode { get; set; }
+        public string SupplierCode { get; set; }
 
         [Key]
         [Column(Order = 1)]
@@ -22,6 +23,6 @@ namespace InventoryWebApp
 
         public virtual StationeryCatalogue StationeryCatalogue { get; set; }
 
-        public virtual Tender Tender { get; set; }
+        public virtual Supplier Supplier { get; set; }
     }
 }

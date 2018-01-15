@@ -64,13 +64,13 @@
                 <% if ((string)Session["UserRole"] == "employee")
                     {%>
                 <li>
-                    <a href="#">View Catalog</a>
+                    <a href="/ViewCatalogue.aspx">View Catalog</a>
                 </li>
                 <li id="menu-RequestEmployee" class="active">
                     <a href="#RequestEmployeeSubmenu" data-toggle="collapse" aria-expanded="false">Manage Requests</a>
                     <ul class="collapse list-unstyled submenu" id="RequestEmployeeSubmenu">
                         <li><a href="#">View Requests</a></li>
-                        <li><a href="#">Create Request</a></li>
+                        <li><a href="/CreateRequest.aspx">Create Request</a></li>
                         <% if ((string)Session["ChangeRole"] == "actingDepartmentHead")
                             {%>
                         <li class="active"><a href="#">Approve Requests</a></li>
@@ -80,7 +80,7 @@
                 <li><a href="#">View Disbursements</a></li>
                 <% if ((string)Session["ChangeRole"] == "departmentRep")
                     {%>
-                <li><a href="#">Update Collection Point</a></li>
+                <li><a href="/UpdateCollectionPoint.aspx">Update Collection Point</a></li>
                 <%} %>
 
                 <%} %>

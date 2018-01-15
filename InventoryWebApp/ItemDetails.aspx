@@ -3,6 +3,11 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+     <ul class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">View Catalogue</a></li>
+                <li class="active">Item Details</li>
+            </ul>
     <h3>Item Details</h3>
     <table>
         <tr>

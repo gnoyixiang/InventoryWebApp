@@ -200,6 +200,7 @@
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
     <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
     <Content Include="Account\VerifyPhoneNumber.aspx" />
+    <Content Include="UpdateCollectionPoint.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -220,16 +221,6 @@
     <Content Include="RequisitionList.aspx" />
     <Content Include="Scripts\fancy-sidebar-navigation.js" />
     <Content Include="Layout.Master" />
-    <Content Include="Team8_SSIS.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Team8_SSIS.edmx</DependentUpon>
-      <LastGenOutput>Team8_SSIS.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Team8_SSIS.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Team8_SSIS.edmx</DependentUpon>
-      <LastGenOutput>Team8_SSIS.cs</LastGenOutput>
-    </Content>
     <Content Include="ViewCatalogue.aspx" />
     <Content Include="ViewPurchaseOrders.aspx" />
     <Content Include="WebForm2.aspx" />
@@ -276,13 +267,6 @@
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Site.Mobile.Master" />
-    <EntityDeploy Include="Team8_SSIS.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Team8_SSIS.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Team8_SSIS.edmx.diagram">
-      <DependentUpon>Team8_SSIS.edmx</DependentUpon>
-    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -396,10 +380,37 @@
     <Compile Include="Account\VerifyPhoneNumber.aspx.designer.cs">
       <DependentUpon>VerifyPhoneNumber.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Adjustment.cs">
-      <DependentUpon>Team8_SSIS.tt</DependentUpon>
+    <Compile Include="Adjustment.cs" />
+    <Compile Include="AssignRole.cs" />
+    <Compile Include="Category.cs" />
+    <Compile Include="CollectionPoint.cs" />
+    <Compile Include="Department.cs" />
+    <Compile Include="Disbursement.cs" />
+    <Compile Include="DisbursementDetail.cs" />
+    <Compile Include="Employee.cs" />
+    <Compile Include="EntityModel.cs" />
+    <Compile Include="PODetail.cs" />
+    <Compile Include="PurchaseOrder.cs" />
+    <Compile Include="Request.cs" />
+    <Compile Include="RequestDetail.cs" />
+    <Compile Include="Retrieval.cs" />
+    <Compile Include="Role.cs" />
+    <Compile Include="StationeryCatalogue.cs" />
+    <Compile Include="Supplier.cs" />
+    <Compile Include="SupplierDetail.cs" />
+    <Compile Include="sysdiagram.cs" />
+    <Compile Include="Tender.cs" />
+    <Compile Include="TenderDetail.cs" />
+    <Compile Include="UpdateCollectionPoint.aspx.cs">
+      <DependentUpon>UpdateCollectionPoint.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UpdateCollectionPoint.aspx.designer.cs">
+      <DependentUpon>UpdateCollectionPoint.aspx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\CatalogueController.cs" />
+    <Compile Include="Controllers\CollectionPointController.cs" />
+    <Compile Include="Controllers\RequestController.cs" />
     <Compile Include="CreateRequest.aspx.cs">
       <DependentUpon>CreateRequest.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -425,15 +436,6 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="AssignRole.cs">
-      <DependentUpon>Team8_SSIS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Category.cs">
-      <DependentUpon>Team8_SSIS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CollectionPoint.cs">
-      <DependentUpon>Team8_SSIS.tt</DependentUpon>
-    </Compile>
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -448,18 +450,6 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Department.cs">
-      <DependentUpon>Team8_SSIS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Disbursement.cs">
-      <DependentUpon>Team8_SSIS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DisbursementDetail.cs">
-      <DependentUpon>Team8_SSIS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Employee.cs">
-      <DependentUpon>Team8_SSIS.tt</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -472,13 +462,7 @@
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\StationeryDTO.cs" />
-    <Compile Include="PODetail.cs">
-      <DependentUpon>Team8_SSIS.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PurchaseOrder.cs">
-      <DependentUpon>Team8_SSIS.tt</DependentUpon>
-    </Compile>
     <Compile Include="PurchaseOrderDetail.aspx.cs">
       <DependentUpon>PurchaseOrderDetail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -486,24 +470,12 @@
     <Compile Include="PurchaseOrderDetail.aspx.designer.cs">
       <DependentUpon>PurchaseOrderDetail.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Request.cs">
-      <DependentUpon>Team8_SSIS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="RequestDetail.cs">
-      <DependentUpon>Team8_SSIS.tt</DependentUpon>
-    </Compile>
     <Compile Include="RequisitionList.aspx.cs">
       <DependentUpon>RequisitionList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="RequisitionList.aspx.designer.cs">
       <DependentUpon>RequisitionList.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Retrieval.cs">
-      <DependentUpon>Team8_SSIS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Role.cs">
-      <DependentUpon>Team8_SSIS.tt</DependentUpon>
     </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
@@ -520,39 +492,9 @@
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
-    <Compile Include="StationeryCatalogue.cs">
-      <DependentUpon>Team8_SSIS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Supplier.cs">
-      <DependentUpon>Team8_SSIS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sysdiagram.cs">
-      <DependentUpon>Team8_SSIS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Team8_SSIS.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Team8_SSIS.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Team8_SSIS.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Team8_SSIS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Team8_SSIS.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Team8_SSIS.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Tender.cs">
-      <DependentUpon>Team8_SSIS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TenderDetail.cs">
-      <DependentUpon>Team8_SSIS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="User.cs">
-      <DependentUpon>Team8_SSIS.tt</DependentUpon>
-    </Compile>
+    <Compile Include="User.cs" />
+    <Compile Include="UserClaim.cs" />
+    <Compile Include="UserLogin.cs" />
     <Compile Include="ViewCatalogue.aspx.cs">
       <DependentUpon>ViewCatalogue.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
