@@ -5,42 +5,67 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data.Entity;
+using InventoryWebApp.Models;
 
 namespace InventoryWebApp
 {
     public partial class RequisitionList : System.Web.UI.Page
     {
+        Models.EntityModel em = new Models.EntityModel();
+        static private readonly string[] SEARCH_ITEMS = { "--Select Category--", "RequestCode", "DateCreated", "Status" };
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 LoadGridData();
-
+                DropDownList1.DataSource = SEARCH_ITEMS;
+                DropDownList1.DataBind();
             }
 
         }
         private void LoadGridData()
         {
-            //I am adding dummy data here. You should bring data from your repository.
-            DataTable dt = new DataTable();
-            dt.Columns.Add("Id");
-            dt.Columns.Add("Name");
-            for (int i = 0; i < 10; i++)
-            {
-                DataRow dr = dt.NewRow();
-                dr["Id"] = i + 1;
-                dr["Name"] = "Student " + (i + 1);
-                dt.Rows.Add(dr);
-            }
-            GridView1.DataSource = dt;
-            GridView1.DataBind();
-        }
-        protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            GridView1.PageIndex = e.NewPageIndex;
-            LoadGridData();
+
+            ListView1.DataSource = GetAllRequest();
+            ListView1.DataBind();
         }
 
+
+        private List<Request> GetAllRequest()
+        {
+            var listRequest = em.Requests.ToList();
+            return listRequest;
+        }      
+
+        private List<Request> SearchRequest(string SearchParam, string SearchString)
+        {
+
+            using (em)
+            {
+                if (SearchParam == "RequestCode")
+                {
+                    return em.Requests.Where(b => b.RequestCode.ToUpper().Contains(SearchString.Trim().ToUpper())).ToList();
+                }
+                if (SearchParam == "DepartmentCode")
+                {
+                    return em.Requests.Where(b => b.DepartmentCode.ToUpper().Contains(SearchString.Trim().ToUpper())).ToList();
+                }
+                if (SearchParam == "DateCreated")
+                {
+                    return em.Requests.Where(b => b.DateCreated==Convert.ToDateTime(SearchString)).ToList();
+                }
+                return em.Requests.ToList();
+            }
+        }
+
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            ListView1.DataSource=SearchRequest(DropDownList1.SelectedItem.ToString(), txtBxSearchRequisition.Text);
+            ListView1.DataBind();
+
+        }
     }
 
 
