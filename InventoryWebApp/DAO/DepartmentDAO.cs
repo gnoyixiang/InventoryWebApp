@@ -1,24 +1,17 @@
-﻿using InventoryWebApp.Models.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using InventoryWebApp.Models.Entities;
 
 namespace InventoryWebApp.DAO
 {
-    public class DepartmentDAO
+    public class DepartmentDAO : IDepartmentDAO
     {
         EntityModel em = new EntityModel();
 
-        public DepartmentDAO()
+        public void AddDepartment(string deptCode, string deptName, string point, string contact, string phone, string fax, string head, string rep)
         {
-
-        }
-
-        public void AddDepartment(string deptCode, string deptName, string point,string contact,string phone,string fax,string head,string rep)
-        {
-
-
             Department dept = new Department();
             dept.DepartmentCode = deptCode;
             dept.DepartmentName = deptName;
@@ -42,7 +35,7 @@ namespace InventoryWebApp.DAO
         }
 
 
-        public void UpdateDepartment(string deptCode,string phone,string fax,string head)
+        public void UpdateDepartment(string deptCode, string phone, string fax, string head)
         {
             Department dept = em.Departments.Where(x => x.DepartmentCode == deptCode).First();
             dept.TelephoneNo = phone;

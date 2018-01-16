@@ -13,7 +13,8 @@ namespace InventoryWebApp.DAO
         public PurchaseOrder GetPurchaseOrder(string purchaseOrderCode)
         {
             PurchaseOrder po = null;
-            using (EntityModel em = new EntityModel()) {
+            using (EntityModel em = new EntityModel())
+            {
                 po = em.PurchaseOrders
                     .Where(p => p.PurchaseOrderCode == purchaseOrderCode)
                     .FirstOrDefault<PurchaseOrder>();
@@ -27,7 +28,7 @@ namespace InventoryWebApp.DAO
             using (em = new EntityModel())
             {
                 poList = em.PurchaseOrders
-                    .Where(p=>p.Status == status).ToList<PurchaseOrder>();
+                    .Where(p => p.Status == status).ToList<PurchaseOrder>();
             }
             return poList;
         }
@@ -224,8 +225,8 @@ namespace InventoryWebApp.DAO
 
         public int AddPurchaseOrder(PurchaseOrder purchaseOrder)
         {
-            int result=-1;
-            using(em = new EntityModel())
+            int result = -1;
+            using (em = new EntityModel())
             {
                 em.PurchaseOrders.Add(purchaseOrder);
                 result = em.SaveChanges();
@@ -243,6 +244,6 @@ namespace InventoryWebApp.DAO
             }
             return result;
         }
-        
+
     }
 }
