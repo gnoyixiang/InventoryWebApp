@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace InventoryWebApp.DAO
 {
-    public class CatagoryDAO 
+    public class CatagoryDAO : ICatagoryDAO
     {
         EntityModel em = new EntityModel();
         public List<Category> SearchByCategory(string keyword)
@@ -16,30 +16,37 @@ namespace InventoryWebApp.DAO
         }
         public int AddCategory(Category c)
         {
-            Category category = new Category
+            try
             {
-                CategoryCode = c.CategoryCode,
-                CategoryName = c.CategoryName
-            };
-            em.Categories.Add(category);
-            return em.SaveChanges();
+                em.Categories.Add(c);
+                return em.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
         }
         public int UpdateCategory(Category c)
         {
             Category category = em.Categories.Where(x => x.CategoryCode == c.CategoryCode).FirstOrDefault();
-            category.CategoryName = c.CategoryName;
-            return em.SaveChanges();
+            if( category != null)
+            {
+                category.CategoryName = c.CategoryName;
+                return em.SaveChanges();
+            }
+            else
+                return 0;
         }
-        public int DeleteCategory(string categoryCode)
+        public void DeleteCategory(string categoryCode)
         {
             Category category = em.Categories.Where(x => x.CategoryCode == categoryCode).FirstOrDefault();
             em.Categories.Remove(category);
-            return em.SaveChanges();
+            em.SaveChanges();
         }
-        public string GetCategory(string categoryCode)
+        public Category GetCategory(string categoryCode)
         {
             Category category = em.Categories.Where(x => x.CategoryCode == categoryCode).ToList<Category>()[0];
-            return category.CategoryCode;
+            return category;
         }
     }
 }

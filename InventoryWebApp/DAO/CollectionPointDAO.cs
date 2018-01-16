@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace InventoryWebApp.DAO
 {
-    public class CollectionPointDAO 
+    public class CollectionPointDAO : ICollectionPointDAO
     {
         EntityModel em = new EntityModel();
         public List<CollectionPoint> SearchByCollectionPointCode(string keyword)
@@ -20,29 +20,34 @@ namespace InventoryWebApp.DAO
         }
         public int AddCollectionPoint(CollectionPoint c)
         {
-            CollectionPoint collectionPoint = new CollectionPoint
+            try
             {
-                CollectionPointCode = c.CollectionPointCode,
-                CollectionVenue = c.CollectionVenue,
-                CollectionTime = c.CollectionTime,
-                SClerkInCharge = c.SClerkInCharge
-            };
-            em.CollectionPoints.Add(collectionPoint);
-            return em.SaveChanges();
+                em.CollectionPoints.Add(c);
+                return em.SaveChanges();
+            }
+            catch(Exception e)
+            {
+                return 0;
+            }
         }
         public int UpdateCollectionPoint(CollectionPoint c)
         {
             CollectionPoint collectionPoint = em.CollectionPoints.Where(x => x.CollectionPointCode == c.CollectionPointCode).FirstOrDefault();
-            collectionPoint.CollectionVenue = c.CollectionVenue;
-            collectionPoint.CollectionTime = c.CollectionTime;
-            collectionPoint.SClerkInCharge = c.SClerkInCharge;
-            return em.SaveChanges();
+            if( collectionPoint != null)
+            {
+                collectionPoint.CollectionVenue = c.CollectionVenue;
+                collectionPoint.CollectionTime = c.CollectionTime;
+                collectionPoint.SClerkInCharge = c.SClerkInCharge;
+                return em.SaveChanges();
+            }
+            else
+                return 0;
         }
-        public int DeleteCollectionPoint(string collectionPointCode)
+        public void DeleteCollectionPoint(string collectionPointCode)
         {
             CollectionPoint collectionPoint = em.CollectionPoints.Where(x => x.CollectionPointCode == collectionPointCode).FirstOrDefault();
             em.CollectionPoints.Remove(collectionPoint);
-            return em.SaveChanges();
+            em.SaveChanges();
         }
     }
 }
