@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace InventoryWebApp.DAO
 {
-    public class TenderDetailsDAOImpl
+    public class AdjustmentDAO
     {
     }
 }
