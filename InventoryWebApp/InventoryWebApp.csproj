@@ -444,6 +444,9 @@
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\PurchaseOrderController.cs" />
+    <Compile Include="DAO\PurchaseOrderDAO.cs" />
+    <Compile Include="DAO\PurchaseOrderDAOImpl.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
