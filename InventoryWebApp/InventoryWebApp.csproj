@@ -406,12 +406,16 @@
     <Compile Include="DAO\DisbursementDetailsDAO.cs" />
     <Compile Include="DAO\IPODetailsDAO.cs" />
     <Compile Include="DAO\IPurchaseOrderDAO.cs" />
+    <Compile Include="DAO\IRetrievalDAO.cs" />
+    <Compile Include="DAO\IRetrievalDetailsDAO.cs" />
     <Compile Include="DAO\ITenderDAO.cs" />
     <Compile Include="DAO\ITenderDetailsDAO.cs" />
     <Compile Include="DAO\PODetailsDAO.cs" />
     <Compile Include="DAO\PurchaseOrderDAO.cs" />
     <Compile Include="DAO\IDisbursementDAO.cs" />
     <Compile Include="DAO\IDisbursementDetailsDAO.cs" />
+    <Compile Include="DAO\RetrievalDAO.cs" />
+    <Compile Include="DAO\RetrievalDetailsDAO.cs" />
     <Compile Include="DAO\StationeryCatalogueDAO.cs" />
     <Compile Include="DAO\TenderDAO.cs" />
     <Compile Include="DAO\TenderDetailsDAO.cs" />
