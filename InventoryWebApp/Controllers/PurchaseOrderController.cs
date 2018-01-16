@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace InventoryWebApp.Controllers
 {
-    interface PurchaseOrderController
+    public class PurchaseOrderController
     {
     }
 }
