@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace InventoryWebApp.DAO
-{
+{ 
     interface PurchaseOrderDAO
     {
-        
+            
     }
 }
