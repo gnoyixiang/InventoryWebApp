@@ -401,11 +401,13 @@
     <Compile Include="Controllers\StoreClerkController.cs" />
     <Compile Include="Controllers\StoreManagerController.cs" />
     <Compile Include="Controllers\StoreSupervisorController.cs" />
+    <Compile Include="DAO\AdjustmentDAO.cs" />
     <Compile Include="DAO\AssignRoleDAO.cs" />
     <Compile Include="DAO\CatagoryDAO.cs" />
     <Compile Include="DAO\CollectionPointDAO.cs" />
     <Compile Include="DAO\DisbursementDAO.cs" />
     <Compile Include="DAO\DisbursementDetailsDAO.cs" />
+    <Compile Include="DAO\IAdjustmentDAO.cs" />
     <Compile Include="DAO\IAssignRoleDAO.cs" />
     <Compile Include="DAO\ICatagoryDAO.cs" />
     <Compile Include="DAO\ICollectionPointDAO.cs" />
@@ -414,6 +416,8 @@
     <Compile Include="DAO\IEmployeeDAO.cs" />
     <Compile Include="DAO\IPODetailsDAO.cs" />
     <Compile Include="DAO\IPurchaseOrderDAO.cs" />
+    <Compile Include="DAO\IRequestDAO.cs" />
+    <Compile Include="DAO\IRequestDetailsDAO.cs" />
     <Compile Include="DAO\IRetrievalDAO.cs" />
     <Compile Include="DAO\IRetrievalDetailsDAO.cs" />
     <Compile Include="DAO\IRoleDAO.cs" />
@@ -427,6 +431,8 @@
     <Compile Include="DAO\IDisbursementDetailsDAO.cs" />
     <Compile Include="DAO\DepartmentDAO.cs" />
     <Compile Include="DAO\EmployeeDAO.cs" />
+    <Compile Include="DAO\RequestDAO.cs" />
+    <Compile Include="DAO\RequestDetailsDAO.cs" />
     <Compile Include="DAO\RetrievalDAO.cs" />
     <Compile Include="DAO\RetrievalDetailsDAO.cs" />
     <Compile Include="DAO\RoleDAO.cs" />

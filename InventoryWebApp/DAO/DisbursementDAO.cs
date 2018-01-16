@@ -76,7 +76,7 @@ namespace InventoryWebApp.DAO
         {
             em = new EntityModel();
 
-            return em.Disbursements.Where(d => d.Status.Contains(status)).ToList();
+            return em.Disbursements.Where(d => d.Status == status).ToList();
         }
 
         //Update
