@@ -7,5 +7,6 @@ namespace InventoryWebApp.Controllers
 {
     public class EmployeeController
     {
+
     }
 }
