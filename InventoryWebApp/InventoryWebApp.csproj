@@ -409,6 +409,8 @@
     <Compile Include="DAO\DisbursementDetailsDAO.cs" />
     <Compile Include="DAO\IPODetailsDAO.cs" />
     <Compile Include="DAO\IPurchaseOrderDAO.cs" />
+    <Compile Include="DAO\ISupplierDAO.cs" />
+    <Compile Include="DAO\ISupplierDetailsDAO.cs" />
     <Compile Include="DAO\ITenderDAO.cs" />
     <Compile Include="DAO\ITenderDetailsDAO.cs" />
     <Compile Include="DAO\PODetailsDAO.cs" />
@@ -418,6 +420,8 @@
     <Compile Include="DAO\DepartmentDAO.cs" />
     <Compile Include="DAO\EmployeeDAO.cs" />
     <Compile Include="DAO\StationeryCatalogueDAO.cs" />
+    <Compile Include="DAO\SupplierDAO.cs" />
+    <Compile Include="DAO\SupplierDetailsDAO.cs" />
     <Compile Include="DAO\TenderDAO.cs" />
     <Compile Include="DAO\TenderDetailsDAO.cs" />
     <Compile Include="Default.aspx.cs">
