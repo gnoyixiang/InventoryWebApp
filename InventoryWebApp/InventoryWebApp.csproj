@@ -406,6 +406,8 @@
     <Compile Include="DAO\PurchaseOrderDAOImpl.cs" />
     <Compile Include="DAO\RequestDAO.cs" />
     <Compile Include="DAO\RequestDAOImpl.cs" />
+    <Compile Include="DAO\RequestDetailsDAO.cs" />
+    <Compile Include="DAO\RequestDetailsImpl.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
