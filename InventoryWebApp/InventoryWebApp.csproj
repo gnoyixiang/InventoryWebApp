@@ -393,6 +393,7 @@
     <Compile Include="Models\PurchaseOrder.cs" />
     <Compile Include="Models\Request.cs" />
     <Compile Include="Models\RequestDetail.cs" />
+    <Compile Include="Models\RequestDTO.cs" />
     <Compile Include="Models\Retrieval.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\StationeryCatalogue.cs" />

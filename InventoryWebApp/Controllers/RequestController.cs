@@ -7,6 +7,10 @@ namespace InventoryWebApp.Controllers
 {
     public class RequestController
     {
+        EntityModel em = new EntityModel();
+        public void AddRequisition()
+        {
 
+        }
     }
 }

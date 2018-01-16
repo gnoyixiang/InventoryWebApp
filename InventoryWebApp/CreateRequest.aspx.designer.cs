@@ -49,13 +49,13 @@ namespace InventoryWebApp {
         protected global::System.Web.UI.WebControls.TextBox tbxEmpName;
         
         /// <summary>
-        /// GridViewNewRequest control.
+        /// gvNewRequest control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewNewRequest;
+        protected global::System.Web.UI.WebControls.GridView gvNewRequest;
         
         /// <summary>
         /// btnAddItem control.

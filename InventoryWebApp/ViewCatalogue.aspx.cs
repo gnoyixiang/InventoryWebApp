@@ -45,8 +45,8 @@ namespace InventoryWebApp
             }
             try
             {
-                this.GridViewCatalogue.DataSource = list;
-                this.GridViewCatalogue.DataBind();
+                this.gvCatalogue.DataSource = list;
+                this.gvCatalogue.DataBind();
             }
             catch(Exception ex)
             {
@@ -58,12 +58,12 @@ namespace InventoryWebApp
         {
             List<StationeryCatalogue> stationerylist = new List<StationeryCatalogue>();
             stationerylist = cC.listAll();
-            GridViewCatalogue.DataSource = stationerylist;
-            GridViewCatalogue.DataBind();
+            gvCatalogue.DataSource = stationerylist;
+            gvCatalogue.DataBind();
         }
         protected void OnPageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            GridViewCatalogue.PageIndex = e.NewPageIndex;
+            gvCatalogue.PageIndex = e.NewPageIndex;
             this.BindGrid();
         }
     }

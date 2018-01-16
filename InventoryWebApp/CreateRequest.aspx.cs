@@ -20,8 +20,8 @@ namespace InventoryWebApp
         }
         private void BindGrid()
         {
-            GridViewNewRequest.DataSource = (List<StationeryDTO>)Session["ItemDetails"];
-            GridViewNewRequest.DataBind();
+            gvNewRequest.DataSource = (List<StationeryDTO>)Session["ItemDetails"];
+            gvNewRequest.DataBind();
         }
 
         protected void btnAddItem_Click(object sender, EventArgs e)
@@ -40,39 +40,39 @@ namespace InventoryWebApp
             BindGrid();
         }
 
-        protected void GridViewNewRequest_RowEditing(object sendr, GridViewEditEventArgs e)
+        protected void gvNewRequest_RowEditing(object sendr, GridViewEditEventArgs e)
         {
-            GridViewNewRequest.EditIndex = e.NewEditIndex;
+            gvNewRequest.EditIndex = e.NewEditIndex;
             BindGrid();
         }
 
-        protected void GridViewNewRequest_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        protected void gvNewRequest_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             List<StationeryDTO> st = (List<StationeryDTO>)Session["ItemDetails"];
             st.Remove(st[e.RowIndex]);
             BindGrid();
         }
 
-        protected void GridViewNewRequest_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        protected void gvNewRequest_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
-            GridViewNewRequest.EditIndex = -1;
+            gvNewRequest.EditIndex = -1;
             BindGrid();
         }
 
-        protected void GridViewNewRequest_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        protected void gvNewRequest_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
-            GridViewRow row = GridViewNewRequest.Rows[e.RowIndex];
+            GridViewRow row = gvNewRequest.Rows[e.RowIndex];
             string quantity = (row.FindControl("tbxQuantity") as TextBox).Text;
             List<StationeryDTO> st = (List<StationeryDTO>)Session["ItemDetails"];
             st[e.RowIndex].Quantity = Convert.ToInt32(quantity);
             Session["ItemDetails"] = st;
-            GridViewNewRequest.EditIndex = -1;
+            gvNewRequest.EditIndex = -1;
             BindGrid();
         }
 
-        protected void GridViewNewRequest_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        protected void gvNewRequest_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            GridViewNewRequest.PageIndex = e.NewPageIndex;
+            gvNewRequest.PageIndex = e.NewPageIndex;
             this.BindGrid();
         }
     }

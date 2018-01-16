@@ -35,14 +35,14 @@
             </td>
         </tr>
     </table>
-    <asp:GridView ID="GridViewNewRequest" runat="server" AutoGenerateColumns="False" 
+    <asp:GridView ID="gvNewRequest" runat="server" AutoGenerateColumns="False" 
         CellPadding="4" ForeColor="#333333"
         GridLines="None" Width="100%" 
-        OnRowEditing="GridViewNewRequest_RowEditing" 
-        OnRowDeleting="GridViewNewRequest_RowDeleting" 
-        OnRowCancelingEdit="GridViewNewRequest_RowCancelingEdit" 
-        OnRowUpdating="GridViewNewRequest_RowUpdating" 
-        OnPageIndexChanging="GridViewNewRequest_PageIndexChanging"
+        OnRowEditing="gvNewRequest_RowEditing" 
+        OnRowDeleting="gvNewRequest_RowDeleting" 
+        OnRowCancelingEdit="gvNewRequest_RowCancelingEdit" 
+        OnRowUpdating="gvNewRequest_RowUpdating" 
+        OnPageIndexChanging="gvNewRequest_PageIndexChanging"
         PageSize="10" AllowPaging="True">
         <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
         <Columns>

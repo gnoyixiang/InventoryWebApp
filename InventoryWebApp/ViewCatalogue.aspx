@@ -18,7 +18,7 @@
     <br />
     <br />
     <br />
-    <asp:GridView ID="GridViewCatalogue" runat="server" AutoGenerateColumns="False" Width="100%" AllowPaging="True"
+    <asp:GridView ID="gvCatalogue" runat="server" AutoGenerateColumns="False" Width="100%" AllowPaging="True"
     OnPageIndexChanging="OnPageIndexChanging" CellPadding="4" ForeColor="#333333" GridLines="None">
         <AlternatingRowStyle BackColor="White" />
      <Columns>
