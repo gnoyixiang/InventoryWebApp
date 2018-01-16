@@ -33,16 +33,15 @@ namespace InventoryWebApp.DAO
         }
         public int AddStationery(StationeryCatalogue st)
         {
-            try
-            {
+            //try
+            //{
                 em.StationeryCatalogues.Add(st);
                 return em.SaveChanges(); 
-            }
-            catch (Exception e)
-            {
-
-                return 0;
-            }
+            //}
+            //catch (Exception e)
+            //{
+            //    return 0;
+            //}
         }
         public int UpdateStationery(StationeryCatalogue st)
         {

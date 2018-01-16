@@ -15,7 +15,6 @@ namespace ConsoleTestApp
             IPurchaseOrderDAO IPO = new PurchaseOrderDAO();
             var po = IPO.GetPurchaseOrder("123");
             Console.WriteLine(po.UserName);
-                
         }
     }
 }

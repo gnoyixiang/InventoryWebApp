@@ -49,5 +49,10 @@ namespace InventoryWebApp.DAO
             em.CollectionPoints.Remove(collectionPoint);
             em.SaveChanges();
         }
+        public CollectionPoint GetCollectionPoint(string collectionPointCode)
+        {
+            CollectionPoint cp = em.CollectionPoints.Where(x => x.CollectionPointCode == collectionPointCode).FirstOrDefault();
+            return cp;
+        }
     }
 }
