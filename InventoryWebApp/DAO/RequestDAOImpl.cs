@@ -5,7 +5,7 @@ using System.Web;
 
 namespace InventoryWebApp.DAO
 {
-    public class RequestDAOImpl:RequestDAO
+    public class RequestDAOImpl
     {
     }
 }

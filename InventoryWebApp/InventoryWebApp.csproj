@@ -408,6 +408,12 @@
     <Compile Include="DAO\DisbursementDAO.cs" />
     <Compile Include="DAO\DisbursementDetailsDAO.cs" />
     <Compile Include="DAO\EmployeeDAOImpl.cs" />
+    <Compile Include="DAO\IPODetailsDAO.cs" />
+    <Compile Include="DAO\IPurchaseOrderDAO.cs" />
+    <Compile Include="DAO\ITenderDAO.cs" />
+    <Compile Include="DAO\ITenderDetailsDAO.cs" />
+    <Compile Include="DAO\PODetailsDAO.cs" />
+    <Compile Include="DAO\PurchaseOrderDAO.cs" />
     <Compile Include="DAO\IDisbursementDAO.cs" />
     <Compile Include="DAO\IDisbursementDetailsDAO.cs" />
     <Compile Include="DAO\PurchaseOrderDAOImpl.cs" />
@@ -419,8 +425,8 @@
     <Compile Include="DAO\StationeryCatalogueDAOImpl.cs" />
     <Compile Include="DAO\SupplierDAOImpl.cs" />
     <Compile Include="DAO\SupplierDetailsDAOImpl.cs" />
-    <Compile Include="DAO\TenderDAOImpl.cs" />
-    <Compile Include="DAO\TenderDetailsDAOImpl.cs" />
+    <Compile Include="DAO\TenderDAO.cs" />
+    <Compile Include="DAO\TenderDetailsDAO.cs" />
     <Compile Include="DAO\UserDAOImpl.cs" />
     <Compile Include="DAO\UserRoleDAOImpl.cs" />
     <Compile Include="Default.aspx.cs">
@@ -495,6 +501,7 @@
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="TestDAO.cs" />
     <Compile Include="ViewPurchaseOrders.aspx.cs">
       <DependentUpon>ViewPurchaseOrders.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
