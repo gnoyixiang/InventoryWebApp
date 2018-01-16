@@ -19,6 +19,7 @@ namespace InventoryWebApp
                 string itemcode = Request.QueryString["ItemCode"];
                 try
                 {
+                    Session["ItemDetails"] = Session["ItemDetails"] != null?(List<StationeryDTO>)Session["ItemDetails"] : new List<StationeryDTO>();
                     StationeryCatalogue itemInfo = SSIS.StationeryCatalogues.Where(x => x.ItemCode == itemcode).FirstOrDefault();
                     if (itemInfo != null)
                     {
@@ -58,22 +59,40 @@ namespace InventoryWebApp
             if (Page.IsValid)
             {
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "$('#myModal').modal('show');", true);
-                
-                if(!String.IsNullOrEmpty(tbxQuantity.Text))
+
+                List<StationeryDTO> addItem = (List<StationeryDTO>)Session["ItemDetails"];
+                StationeryDTO newItem = addItem.FirstOrDefault(x => x.ItemCode == tbxItemCode.Text);
+                if (newItem == null)
                 {
-                    List<StationeryDTO> addItem = (List<StationeryDTO>)Session["ItemDetails"];
-                    addItem = addItem ?? new List<StationeryDTO>();
-                    StationeryDTO newItem = new StationeryDTO(tbxItemCode.Text, tbxCategory.Text, tbxDescription.Text, Convert.ToInt32(tbxQuantity.Text));
-                    addItem.Add(newItem);
-                    Session["ItemDetails"] = addItem;
+                    if (!String.IsNullOrEmpty(tbxQuantity.Text))
+                    {
+                        newItem = new StationeryDTO(tbxItemCode.Text, tbxCategory.Text, tbxDescription.Text, Convert.ToInt32(tbxQuantity.Text));
+                        addItem.Add(newItem);
+                        Session["ItemDetails"] = addItem;
+                    }
+                    else if (rdlQuantity.SelectedItem.Selected)
+                    {
+                        newItem = new StationeryDTO(tbxItemCode.Text, tbxCategory.Text, tbxDescription.Text, Convert.ToInt32(rdlQuantity.SelectedItem.Text));
+                        addItem.Add(newItem);
+                        Session["ItemDetails"] = addItem;
+                    }
                 }
-                else if (rdlQuantity.SelectedItem.Selected)
+                else
                 {
-                    List<StationeryDTO> addItem = (List<StationeryDTO>)Session["ItemDetails"];
-                    addItem = addItem ?? new List<StationeryDTO>();
-                    StationeryDTO newItem = new StationeryDTO(tbxItemCode.Text, tbxCategory.Text, tbxDescription.Text, Convert.ToInt32(rdlQuantity.SelectedItem.Text));
-                    addItem.Add(newItem);
-                    Session["ItemDetails"] = addItem;
+                    if (!String.IsNullOrEmpty(tbxQuantity.Text))
+                    {
+                        newItem.Quantity += Convert.ToInt32(tbxQuantity.Text) ;
+                        addItem.RemoveAll(x => x.ItemCode == tbxItemCode.Text);
+                        addItem.Add(newItem);
+                        Session["ItemDetails"] = addItem;
+                    }
+                    else if (rdlQuantity.SelectedItem.Selected)
+                    {
+                        newItem.Quantity += Convert.ToInt32(rdlQuantity.SelectedItem.Text) ;
+                        addItem.RemoveAll(x => x.ItemCode == tbxItemCode.Text);
+                        addItem.Add(newItem);
+                        Session["ItemDetails"] = addItem;
+                    }
                 }
             }
         }
