@@ -21,7 +21,7 @@ namespace ConsoleTestApp
 
             Console.WriteLine(po.UserName);
             Console.WriteLine(po.UserName);
-
+            Console.WriteLine(po.UserName);
         }
     }
 }
