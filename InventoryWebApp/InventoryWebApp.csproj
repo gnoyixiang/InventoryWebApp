@@ -208,6 +208,7 @@
     <Content Include="Content\custom2.css" />
     <Content Include="Content\Site.css" />
     <Content Include="CreateNewOrder.aspx" />
+    <Content Include="EditPurchaseOrder.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -385,6 +386,13 @@
     </Compile>
     <Compile Include="AcknowledgeReceipt.aspx.designer.cs">
       <DependentUpon>AcknowledgeReceipt.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EditPurchaseOrder.aspx.cs">
+      <DependentUpon>EditPurchaseOrder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditPurchaseOrder.aspx.designer.cs">
+      <DependentUpon>EditPurchaseOrder.aspx</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\Category.cs" />
     <Compile Include="Models\Entities\AddData.cs" />

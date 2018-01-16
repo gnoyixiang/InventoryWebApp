@@ -231,8 +231,6 @@ namespace InventoryWebApp
             //var lblInsertAmount = (Label)listItems.InsertItem.FindControl("lblAmount");
             //total+= decimal.Parse(lblInsertAmount.Text);
             lblGrandTotal.Text = total.ToString();
-
-            
             
         }
 
@@ -250,7 +248,6 @@ namespace InventoryWebApp
                 var lblAmount = (Label)parentItem.FindControl("lblAmount");
                 lblAmount.Text = getAmount(txtOrderQty.Text, lblPrice.Text).ToString();
                 //} 
-
             }
         }
 

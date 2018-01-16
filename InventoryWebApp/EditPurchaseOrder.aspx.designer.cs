@@ -10,7 +10,7 @@
 namespace InventoryWebApp {
     
     
-    public partial class PurchaseOrderDetail {
+    public partial class EditPurchaseOrder {
         
         /// <summary>
         /// panelError control.
@@ -58,15 +58,6 @@ namespace InventoryWebApp {
         protected global::System.Web.UI.WebControls.Label lblSupplierName;
         
         /// <summary>
-        /// lblDeliverAddress control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDeliverAddress;
-        
-        /// <summary>
         /// lblEstDeliverDate control.
         /// </summary>
         /// <remarks>
@@ -74,24 +65,6 @@ namespace InventoryWebApp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblEstDeliverDate;
-        
-        /// <summary>
-        /// lblAttnTo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAttnTo;
-        
-        /// <summary>
-        /// listDetails control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ListView listDetails;
         
         /// <summary>
         /// lblOrderBy control.
