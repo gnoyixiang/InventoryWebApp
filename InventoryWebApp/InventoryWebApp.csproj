@@ -411,6 +411,8 @@
     <Compile Include="DAO\ICollectionPointDAO.cs" />
     <Compile Include="DAO\IPODetailsDAO.cs" />
     <Compile Include="DAO\IPurchaseOrderDAO.cs" />
+    <Compile Include="DAO\IRetrievalDAO.cs" />
+    <Compile Include="DAO\IRetrievalDetailsDAO.cs" />
     <Compile Include="DAO\IStationeryCatalogueDAO.cs" />
     <Compile Include="DAO\ITenderDAO.cs" />
     <Compile Include="DAO\ITenderDetailsDAO.cs" />
@@ -472,6 +474,7 @@
     <Compile Include="Models\Entities\User.cs" />
     <Compile Include="Models\Entities\UserClaim.cs" />
     <Compile Include="Models\Entities\UserLogin.cs" />
+    <Compile Include="Models\Entities\Util.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PurchaseOrderDetail.aspx.cs">
