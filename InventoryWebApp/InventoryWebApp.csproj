@@ -81,6 +81,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
@@ -198,6 +200,8 @@
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
     <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
     <Content Include="Account\VerifyPhoneNumber.aspx" />
+    <Content Include="AuthoriseStaff.aspx" />
+    <Content Include="BusinessLogic.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -374,6 +378,14 @@
     <Compile Include="Account\VerifyPhoneNumber.aspx.designer.cs">
       <DependentUpon>VerifyPhoneNumber.aspx</DependentUpon>
     </Compile>
+    <Compile Include="BusinessLogic.aspx.cs">
+      <DependentUpon>BusinessLogic.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BusinessLogic.aspx.designer.cs">
+      <DependentUpon>BusinessLogic.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Adjustment.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="About.aspx.cs">
       <DependentUpon>About.aspx</DependentUpon>
@@ -385,6 +397,16 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Model\AssignRole.cs" />
+    <Compile Include="AuthoriseStaff.aspx.cs">
+      <DependentUpon>AuthoriseStaff.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AuthoriseStaff.aspx.designer.cs">
+      <DependentUpon>AuthoriseStaff.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Category.cs" />
+    <Compile Include="Model\CollectionPoint.cs" />
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -399,6 +421,11 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Model\Department.cs" />
+    <Compile Include="Model\Disbursement.cs" />
+    <Compile Include="Model\DisbursementDetail.cs" />
+    <Compile Include="Model\Employee.cs" />
+    <Compile Include="Model\EntityModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -409,8 +436,10 @@
     <Compile Include="Layout.Master.designer.cs">
       <DependentUpon>Layout.Master</DependentUpon>
     </Compile>
-    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Model\IdentityModels.cs" />
+    <Compile Include="Model\PODetail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Model\PurchaseOrder.cs" />
     <Compile Include="PurchaseOrderDetail.aspx.cs">
       <DependentUpon>PurchaseOrderDetail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -418,6 +447,8 @@
     <Compile Include="PurchaseOrderDetail.aspx.designer.cs">
       <DependentUpon>PurchaseOrderDetail.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Model\Request.cs" />
+    <Compile Include="Model\RequestDetail.cs" />
     <Compile Include="RequisitionList.aspx.cs">
       <DependentUpon>RequisitionList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -425,6 +456,8 @@
     <Compile Include="RequisitionList.aspx.designer.cs">
       <DependentUpon>RequisitionList.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Model\Retrieval.cs" />
+    <Compile Include="Model\Role.cs" />
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -439,7 +472,15 @@
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
-    <Compile Include="Startup.cs" />
+    <Compile Include="Model\StationeryCatalogue.cs" />
+    <Compile Include="Model\Supplier.cs" />
+    <Compile Include="Model\SupplierDetail.cs" />
+    <Compile Include="Model\sysdiagram.cs" />
+    <Compile Include="Model\Tender.cs" />
+    <Compile Include="Model\TenderDetail.cs" />
+    <Compile Include="Model\User.cs" />
+    <Compile Include="Model\UserClaim.cs" />
+    <Compile Include="Model\UserLogin.cs" />
     <Compile Include="ViewPurchaseOrders.aspx.cs">
       <DependentUpon>ViewPurchaseOrders.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
