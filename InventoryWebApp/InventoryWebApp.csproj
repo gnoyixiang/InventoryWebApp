@@ -81,6 +81,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
@@ -419,6 +421,30 @@
     <Compile Include="Layout.Master.designer.cs">
       <DependentUpon>Layout.Master</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entities\Adjustment.cs" />
+    <Compile Include="Models\Entities\AssignRole.cs" />
+    <Compile Include="Models\Entities\Category.cs" />
+    <Compile Include="Models\Entities\CollectionPoint.cs" />
+    <Compile Include="Models\Entities\Department.cs" />
+    <Compile Include="Models\Entities\Disbursement.cs" />
+    <Compile Include="Models\Entities\DisbursementDetail.cs" />
+    <Compile Include="Models\Entities\Employee.cs" />
+    <Compile Include="Models\Entities\EntityModel.cs" />
+    <Compile Include="Models\Entities\PODetail.cs" />
+    <Compile Include="Models\Entities\PurchaseOrder.cs" />
+    <Compile Include="Models\Entities\Request.cs" />
+    <Compile Include="Models\Entities\RequestDetail.cs" />
+    <Compile Include="Models\Entities\Retrieval.cs" />
+    <Compile Include="Models\Entities\RetrievalDetail.cs" />
+    <Compile Include="Models\Entities\Role.cs" />
+    <Compile Include="Models\Entities\StationeryCatalogue.cs" />
+    <Compile Include="Models\Entities\Supplier.cs" />
+    <Compile Include="Models\Entities\SupplierDetail.cs" />
+    <Compile Include="Models\Entities\Tender.cs" />
+    <Compile Include="Models\Entities\TenderDetail.cs" />
+    <Compile Include="Models\Entities\User.cs" />
+    <Compile Include="Models\Entities\UserClaim.cs" />
+    <Compile Include="Models\Entities\UserLogin.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PurchaseOrderDetail.aspx.cs">
