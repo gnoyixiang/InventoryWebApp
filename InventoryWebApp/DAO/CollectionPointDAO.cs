@@ -43,11 +43,11 @@ namespace InventoryWebApp.DAO
             else
                 return 0;
         }
-        public int DeleteCollectionPoint(string collectionPointCode)
+        public void DeleteCollectionPoint(string collectionPointCode)
         {
             CollectionPoint collectionPoint = em.CollectionPoints.Where(x => x.CollectionPointCode == collectionPointCode).FirstOrDefault();
             em.CollectionPoints.Remove(collectionPoint);
-            return em.SaveChanges();
+            em.SaveChanges();
         }
     }
 }

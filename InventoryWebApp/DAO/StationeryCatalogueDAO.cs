@@ -64,11 +64,11 @@ namespace InventoryWebApp.DAO
             else
                 return 0;
         }
-        public int DeleteStationery(string itemCode)
+        public void DeleteStationery(string itemCode)
         {
             StationeryCatalogue stationery = em.StationeryCatalogues.Where(x => x.ItemCode == itemCode).FirstOrDefault();
             em.StationeryCatalogues.Remove(stationery);
-            return em.SaveChanges();
+            em.SaveChanges();
         }
     }
 }

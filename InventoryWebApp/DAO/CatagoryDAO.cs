@@ -37,11 +37,11 @@ namespace InventoryWebApp.DAO
             else
                 return 0;
         }
-        public int DeleteCategory(string categoryCode)
+        public void DeleteCategory(string categoryCode)
         {
             Category category = em.Categories.Where(x => x.CategoryCode == categoryCode).FirstOrDefault();
             em.Categories.Remove(category);
-            return em.SaveChanges();
+            em.SaveChanges();
         }
         public Category GetCategory(string categoryCode)
         {
