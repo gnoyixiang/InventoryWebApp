@@ -396,8 +396,11 @@
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\PurchaseOrderController.cs" />
+    <Compile Include="Controllers\StoreSupervisorController.cs" />
     <Compile Include="DAO\PurchaseOrderDAO.cs" />
     <Compile Include="DAO\PurchaseOrderDAOImpl.cs" />
+    <Compile Include="DAO\StoreSupervisorDAO.cs" />
+    <Compile Include="DAO\StoreSupervisorDAOImpl.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

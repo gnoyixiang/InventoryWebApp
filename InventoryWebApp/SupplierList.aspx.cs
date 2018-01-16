@@ -15,8 +15,8 @@ namespace InventoryWebApp
         {
             if (!IsPostBack)
             {
-                //GridViewSupplierList.DataSource = StoreSupervisorBusinessLogic.SupplierList();
-                //GridViewSupplierList.DataBind();
+                gvSupplierList.DataSource =
+                gvSupplierList.DataBind();
             }
         }
     }
