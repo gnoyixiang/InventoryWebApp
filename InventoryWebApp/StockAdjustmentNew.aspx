@@ -23,9 +23,9 @@
                 <asp:Label ID="ReasonLabel" runat="server" Text="Reason:"></asp:Label>
                 <asp:TextBox ID="ReasonTextBox" runat="server" Text="enter new reason..."></asp:TextBox>
                 <br />
-                <asp:Button ID="SubmitStockAdjustment" runat="server" Text="Submit" />
-                <asp:Button ID="SaveStockAdjustment" runat="server" Text="Save" />
-                <asp:Button ID="DiscardStockAdjustment" runat="server" Text="Cancel" />
+                <asp:Button ID="SubmitStockAdjustment" runat="server" Text="Submit" OnClick="SubmitStockAdjustment_Click" />
+                <asp:Button ID="SaveStockAdjustment" runat="server" Text="Save" OnClick="SaveStockAdjustment_Click" />
+                <asp:Button ID="DiscardStockAdjustment" runat="server" Text="Cancel" OnClick="DiscardStockAdjustment_Click" />
                 
             </div>
             <div class="col-sm-2">

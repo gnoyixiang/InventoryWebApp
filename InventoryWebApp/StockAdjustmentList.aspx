@@ -8,7 +8,16 @@
             <div class="col-sm-10">
                 <h3>Inventory Adjustment Request Status</h3>
                 <p>&nbsp;</p>
-                <asp:GridView ID="AdjustmentStatusList" runat="server"></asp:GridView>
+                <asp:GridView ID="AdjustmentStatusList" runat="server" AutoGenerateColumns="False">
+                    <Columns>
+                        <asp:BoundField DataField="AdjustmentCode" HeaderText="Adjustment Code" />
+                        <asp:BoundField DataField="ItemCode" HeaderText="Item" />
+                        <asp:BoundField DataField="QuantOnHand" HeaderText="Quantity To Adjust" />
+                        <asp:BoundField DataField="DateCreated" HeaderText="Created Date" />
+                        <asp:BoundField DataField="Status" HeaderText="Status" />
+                        <asp:BoundField DataField="Reason" HeaderText="Reason" />
+                    </Columns>
+                </asp:GridView>
                 <asp:Button ID="NewStockAdjustment" runat="server" Text="New" OnClick="NewStockAdjustment_Click" />
             </div>
             <div class="col-sm-2">

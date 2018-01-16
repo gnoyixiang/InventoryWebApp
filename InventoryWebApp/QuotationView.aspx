@@ -7,7 +7,16 @@
             <div class="col-sm-10">
                 <h3>Stationery Supply Quotation List</h3>
                 <p>&nbsp;</p>
-                <asp:GridView ID="QuotationList" runat="server"></asp:GridView>
+                <asp:GridView ID="QuotationList" runat="server" AutoGenerateColumns="False">
+                    <Columns>
+                        <asp:BoundField DataField="SupplierCode" HeaderText="Supplier Code" Visible="False" />
+                        <asp:BoundField DataField="SupplierName" HeaderText="Supplier Name" />
+                        <asp:BoundField DataField="Address" HeaderText="Supplier Address" />
+                        <asp:BoundField DataField="ContactName" HeaderText="Contact Person" />
+                        <asp:BoundField DataField="PhoneNo" HeaderText="Contact Number" />
+                        <asp:HyperLinkField DataNavigateUrlFields="SupplierCode" DataNavigateUrlFormatString="~\QuotationPrint.aspx?SupplierCode={0}" Text="View" />
+                    </Columns>
+                </asp:GridView>
                 
             </div>
             <div class="col-sm-2">
