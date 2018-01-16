@@ -438,6 +438,12 @@
       <DependentUpon>CreateNewOrder.aspx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\PurchaseOrderController.cs" />
+    <Compile Include="Controllers\DepartmentHeadController.cs" />
+    <Compile Include="Controllers\DepartmentRepController.cs" />
+    <Compile Include="Controllers\EmployeeController.cs" />
+    <Compile Include="Controllers\StoreClerkController.cs" />
+    <Compile Include="Controllers\StoreManagerController.cs" />
+    <Compile Include="Controllers\StoreSupervisorController.cs" />
     <Compile Include="DAO\PurchaseOrderDAO.cs" />
     <Compile Include="DAO\PurchaseOrderDAOImpl.cs" />
     <Compile Include="Default.aspx.cs">
