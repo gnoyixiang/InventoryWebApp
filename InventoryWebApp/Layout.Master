@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Layout.master.cs" Inherits="InventoryWebApp.Layout" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Layout.Master.cs" Inherits="InventoryWebApp.Layout" %>
 
 <!DOCTYPE html>
 
@@ -13,7 +13,7 @@
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="/Content/custom2.css">
     <!-- Scrollbar Custom CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <%--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">--%>
     <!-- FontsAwesome -->
     <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
     <asp:ContentPlaceHolder ID="head" runat="server">
@@ -23,35 +23,29 @@
     <div class="wrapper">
         <!-- Sidebar Holder -->
         <nav id="sidebar">
-            <div class="sidebar-header" >
-                <h3 style="text-align:center;">Stationary Store</h3>
-                <h4 style="text-align:center;">Inventory System</h4>
+            <div class="sidebar-header">
+                <h3 style="text-align: center;">Stationary Store</h3>
+                <h4 style="text-align: center;">Inventory System</h4>
             </div>
 
+
             <ul class="list-unstyled components">
-                <li class="navsideitems">
-                    <a href="#AccountSubmenu" data-toggle="collapse" aria-expanded="false">Welcome, Esther</a>
-                    <ul class="collapse list-unstyled submenu" id="AccountSubmenu">
-                        <li><a href="#">Manage Account </a></li>
-                        <li><a href="#">Logout</a></li>
-                    </ul>
-                </li>
-                <li class="navsideitems">
-                    <a href="#">Home</a>
-                </li>
-                <li class="active" id="Request">
-                    <a href="#RequestSubmenu" data-toggle="collapse" aria-expanded="false">Manage Requests</a>
-                    <ul class="collapse list-unstyled submenu" id="RequestSubmenu">
-                        <li class="active"><a href="#">View Requests</a></li>
+                <!-- Store Clerk -->
+                <% if ((string)Session["UserRole"] == "storeClerk")
+                    {%>
+                <li id="menu-RequestClerk">
+                    <a href="#RequestClerkSubmenu" data-toggle="collapse" aria-expanded="false">Manage Requests</a>
+                    <ul class="collapse list-unstyled submenu" id="RequestClerkSubmenu">
+                        <li><a href="#">View Requests</a></li>
                         <li><a href="#">Retrieve Items</a></li>
                         <li><a href="#">Allocate Items</a></li>
                         <li><a href="#">Disburse Items</a></li>
                     </ul>
                 </li>
-                <li id="Reorder">
+                <li class="active" id="menu-Reorder">
                     <a href="#ReorderSubmenu" data-toggle="collapse" aria-expanded="false">Manage Re-order</a>
                     <ul class="collapse list-unstyled submenu" id="ReorderSubmenu">
-                        <li><a href="#">View All Orders</a></li>
+                        <li class="active"><a href="#">View All Orders</a></li>
                         <li><a href="#">Create New Order</a></li>
                     </ul>
                 </li>
@@ -64,10 +58,83 @@
                 <li>
                     <a href="#">View / Print Quotation</a>
                 </li>
-                <li role="separator" class="divider"></li>
+                <%} %>
 
-                
+                <!-- Employee -->
+                <% if ((string)Session["UserRole"] == "employee")
+                    {%>
+                <li>
+                    <a href="#">View Catalog</a>
+                </li>
+                <li id="menu-RequestEmployee" class="active">
+                    <a href="#RequestEmployeeSubmenu" data-toggle="collapse" aria-expanded="false">Manage Requests</a>
+                    <ul class="collapse list-unstyled submenu" id="RequestEmployeeSubmenu">
+                        <li><a href="#">View Requests</a></li>
+                        <li><a href="#">Create Request</a></li>
+                        <% if ((string)Session["ChangeRole"] == "actingDepartmentHead")
+                            {%>
+                        <li class="active"><a href="#">Approve Requests</a></li>
+                        <%} %>
+                    </ul>
+                </li>
+                <li><a href="#">View Disbursements</a></li>
+                <% if ((string)Session["ChangeRole"] == "departmentRep")
+                    {%>
+                <li><a href="#">Update Collection Point</a></li>
+                <%} %>
+
+                <%} %>
+
+                <!-- Store Supervisor -->
+                <% if ((string)Session["UserRole"] == "storeSupervisor" || (string)Session["ChangeRole"] == "actingStoreSupervisor")
+                    {%>
+                <li>
+                    <a href="#">Pending PO</a>
+                </li>
+                <% if (!((string)Session["ChangeRole"] == "actingStoreSupervisor"))
+                    {%>
+                <li>
+                    <a href="#">Assigning Authority</a>
+                </li>
+                <%} %>
+                <li>
+                    <a href="#">Adjust Stock</a>
+                </li>
+                <li>
+                    <a href="#">Generate Trend Analysis</a>
+                </li>
+                <li>
+                    <a href="#">View Employees</a>
+                </li>
+                <li>
+                    <a href="#">View Supplier</a>
+                </li>
+                <li>
+                    <a href="#">View Stock Card</a>
+                </li>
+
+                <%} %>
+
+                <!-- Department Head -->
+                <% if ((string)Session["UserRole"] == "departmentHead")
+                    {%>
+                <li id="menu-RequestDepartmentHead">
+                    <a href="#RequestEmployeeSubmenu" data-toggle="collapse" aria-expanded="false">Manage Requests</a>
+                    <ul class="collapse list-unstyled submenu" id="RequestDepartmentHead">
+                        <li><a href="#">View Requests</a></li>
+                        <li><a href="#">Approve Requests</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Authorise Staff</a>
+                </li>
+                <%} %>
+
+
+                <li role="separator" class="divider"></li>
             </ul>
+
+
         </nav>
 
         <!-- Page Content Holder -->
@@ -75,29 +142,17 @@
 
             <nav class="navbar navbar-default">
                 <div class="container-fluid">
-
-                    <div class="navbar-header">
-                        <%--<button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
-                            <i class="fa fa-bars" aria-hidden="true"></i>
-                            <span>Menu</span>
-                        </button>--%>
-                        <button type="button" id="sidebarCollapse" class="navbar-btn">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </button>
-                    </div>
                     <ul class="nav navbar-nav navbar-right" id="navtopitems">
                         <li><a href="#">Home</a></li>
                         <li><a class="dropdown-toggle" id="dropdownMenu2" data-toggle="dropdown">Welcome, Esther
     <span class="caret"></span></a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                    <li><a href="#">Manage Account</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">Logout</a></li>
-                                </ul>
-                                
-                                
+                                <li><a href="#">Manage Account</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Logout</a></li>
+                            </ul>
+
+
                         </li>
                     </ul>
                 </div>
@@ -114,9 +169,9 @@
                     <asp:ContentPlaceHolder ID="MainContent" runat="server">
                     </asp:ContentPlaceHolder>
                 </div>
-            </form>            
+            </form>
         </div>
-        
+
     </div>
 
 
@@ -124,40 +179,13 @@
     <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
     <!-- Bootstrap Js CDN -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <!-- jQuery Custom Scroller CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-
-<%--    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#sidebar").mCustomScrollbar({
-                theme: "minimal"
-            });
-
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar, #content').toggleClass('active');
-                $('.collapse.in').toggleClass('in');
-                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-            });
-        });
-
-    </script>--%>
 
     <script>
         $(document).ready(function () {
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar').toggleClass('active');
-                $(this).toggleClass('active');
-                
-                if (!$('#Request').hasClass('active')) {
-                    $('#Request .collapse.in').toggleClass('in');
-                    $('#Request a[aria-expanded=true]').attr('aria-expanded', 'false');
-                }
-                if (!$('#Reorder').hasClass('active')) {
-                    $('#Reorder .collapse.in').toggleClass('in');
-                    $('#Reorder a[aria-expanded=true]').attr('aria-expanded', 'false');
-                }
-            });
-            
+            $('li[id^="menu-"].active .collapse').collapse('show');
+            $('li[id^="menu-"].active a[aria-expanded=false]').attr('aria-expanded', 'true');
+
+
         });
     </script>
 </body>

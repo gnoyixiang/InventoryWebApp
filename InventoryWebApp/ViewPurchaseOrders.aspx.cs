@@ -7,11 +7,11 @@ using System.Web.UI.WebControls;
 
 namespace InventoryWebApp
 {
-    public partial class WebForm2 : System.Web.UI.Page
+    public partial class ViewPurchaseOrders : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
         }
     }
 }
