@@ -7,5 +7,6 @@ namespace InventoryWebApp.DAO
 {
     public class AssignRoleDAOImpl
     {
+
     }
 }
