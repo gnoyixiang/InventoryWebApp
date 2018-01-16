@@ -416,7 +416,6 @@
     <Compile Include="DAO\PurchaseOrderDAO.cs" />
     <Compile Include="DAO\IDisbursementDAO.cs" />
     <Compile Include="DAO\IDisbursementDetailsDAO.cs" />
-    <Compile Include="DAO\PurchaseOrderDAOImpl.cs" />
     <Compile Include="DAO\RequestDAOImpl.cs" />
     <Compile Include="DAO\RequestDetailsDAOImpl.cs" />
     <Compile Include="DAO\RetrievalDAOImpl.cs" />
