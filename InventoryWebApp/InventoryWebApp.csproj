@@ -380,27 +380,27 @@
     <Compile Include="Account\VerifyPhoneNumber.aspx.designer.cs">
       <DependentUpon>VerifyPhoneNumber.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Adjustment.cs" />
-    <Compile Include="AssignRole.cs" />
-    <Compile Include="Category.cs" />
-    <Compile Include="CollectionPoint.cs" />
-    <Compile Include="Department.cs" />
-    <Compile Include="Disbursement.cs" />
-    <Compile Include="DisbursementDetail.cs" />
-    <Compile Include="Employee.cs" />
-    <Compile Include="EntityModel.cs" />
-    <Compile Include="PODetail.cs" />
-    <Compile Include="PurchaseOrder.cs" />
-    <Compile Include="Request.cs" />
-    <Compile Include="RequestDetail.cs" />
-    <Compile Include="Retrieval.cs" />
-    <Compile Include="Role.cs" />
-    <Compile Include="StationeryCatalogue.cs" />
-    <Compile Include="Supplier.cs" />
-    <Compile Include="SupplierDetail.cs" />
-    <Compile Include="sysdiagram.cs" />
-    <Compile Include="Tender.cs" />
-    <Compile Include="TenderDetail.cs" />
+    <Compile Include="Models\Adjustment.cs" />
+    <Compile Include="Models\AssignRole.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\CollectionPoint.cs" />
+    <Compile Include="Models\Department.cs" />
+    <Compile Include="Models\Disbursement.cs" />
+    <Compile Include="Models\DisbursementDetail.cs" />
+    <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\EntityModel.cs" />
+    <Compile Include="Models\PODetail.cs" />
+    <Compile Include="Models\PurchaseOrder.cs" />
+    <Compile Include="Models\Request.cs" />
+    <Compile Include="Models\RequestDetail.cs" />
+    <Compile Include="Models\Retrieval.cs" />
+    <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\StationeryCatalogue.cs" />
+    <Compile Include="Models\Supplier.cs" />
+    <Compile Include="Models\SupplierDetail.cs" />
+    <Compile Include="Models\sysdiagram.cs" />
+    <Compile Include="Models\Tender.cs" />
+    <Compile Include="Models\TenderDetail.cs" />
     <Compile Include="UpdateCollectionPoint.aspx.cs">
       <DependentUpon>UpdateCollectionPoint.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -492,9 +492,9 @@
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
-    <Compile Include="User.cs" />
-    <Compile Include="UserClaim.cs" />
-    <Compile Include="UserLogin.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserClaim.cs" />
+    <Compile Include="Models\UserLogin.cs" />
     <Compile Include="ViewCatalogue.aspx.cs">
       <DependentUpon>ViewCatalogue.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
