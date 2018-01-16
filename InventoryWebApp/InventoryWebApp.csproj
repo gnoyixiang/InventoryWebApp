@@ -414,6 +414,8 @@
     <Compile Include="DAO\IRetrievalDAO.cs" />
     <Compile Include="DAO\IRetrievalDetailsDAO.cs" />
     <Compile Include="DAO\IStationeryCatalogueDAO.cs" />
+    <Compile Include="DAO\ISupplierDAO.cs" />
+    <Compile Include="DAO\ISupplierDetailsDAO.cs" />
     <Compile Include="DAO\ITenderDAO.cs" />
     <Compile Include="DAO\ITenderDetailsDAO.cs" />
     <Compile Include="DAO\PODetailsDAO.cs" />
@@ -422,17 +424,13 @@
     <Compile Include="DAO\IDisbursementDetailsDAO.cs" />
     <Compile Include="DAO\DepartmentDAO.cs" />
     <Compile Include="DAO\EmployeeDAO.cs" />
-    <Compile Include="DAO\RequestDetailsDAO.cs" />
     <Compile Include="DAO\RetrievalDAO.cs" />
     <Compile Include="DAO\RetrievalDetailsDAO.cs" />
-    <Compile Include="DAO\RoleDAO.cs" />
     <Compile Include="DAO\StationeryCatalogueDAO.cs" />
     <Compile Include="DAO\SupplierDAO.cs" />
     <Compile Include="DAO\SupplierDetailsDAO.cs" />
     <Compile Include="DAO\TenderDAO.cs" />
     <Compile Include="DAO\TenderDetailsDAO.cs" />
-    <Compile Include="DAO\UserDAO.cs" />
-    <Compile Include="DAO\UserRoleDAO.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
