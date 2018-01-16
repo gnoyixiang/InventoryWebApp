@@ -22,6 +22,7 @@ namespace InventoryWebApp
                 LoadGridData();
                 DropDownList1.DataSource = SEARCH_ITEMS;
                 DropDownList1.DataBind();
+
             }
 
         }
@@ -48,9 +49,9 @@ namespace InventoryWebApp
                 {
                     return em.Requests.Where(b => b.RequestCode.ToUpper().Contains(SearchString.Trim().ToUpper())).ToList();
                 }
-                if (SearchParam == "DepartmentCode")
+                if (SearchParam == "Status")
                 {
-                    return em.Requests.Where(b => b.DepartmentCode.ToUpper().Contains(SearchString.Trim().ToUpper())).ToList();
+                    return em.Requests.Where(b => b.Status.ToUpper().Contains(SearchString.Trim().ToUpper())).ToList();
                 }
                 if (SearchParam == "DateCreated")
                 {
@@ -62,9 +63,14 @@ namespace InventoryWebApp
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            ListView1.DataSource=SearchRequest(DropDownList1.SelectedItem.ToString(), txtBxSearchRequisition.Text);
-            ListView1.DataBind();
+                ListView1.DataSource = SearchRequest(DropDownList1.SelectedItem.ToString(), txtBxSearchRequisition.Text);
+                ListView1.DataBind();
+        }
 
+        protected void btnRefresh_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("RequisitionList.aspx");
+            txtBxSearchRequisition.Text = null;
         }
     }
 

@@ -157,11 +157,11 @@
                     </ul>
                 </div>
             </nav>
-            <ul class="breadcrumb">
+<%--            <ul class="breadcrumb">
                 <li><a href="#">Home</a></li>
                 <li><a href="#">Manage Requests</a></li>
                 <li class="active">View Requests</li>
-            </ul>
+            </ul>--%>
 
             <!-- Fill Content Here -->
             <form id="form1" runat="server">
