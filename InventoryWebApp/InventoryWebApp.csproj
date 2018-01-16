@@ -411,6 +411,8 @@
     <Compile Include="DAO\ICollectionPointDAO.cs" />
     <Compile Include="DAO\IPODetailsDAO.cs" />
     <Compile Include="DAO\IPurchaseOrderDAO.cs" />
+    <Compile Include="DAO\IRetrievalDAO.cs" />
+    <Compile Include="DAO\IRetrievalDetailsDAO.cs" />
     <Compile Include="DAO\IStationeryCatalogueDAO.cs" />
     <Compile Include="DAO\ITenderDAO.cs" />
     <Compile Include="DAO\ITenderDetailsDAO.cs" />
