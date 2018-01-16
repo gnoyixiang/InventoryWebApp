@@ -424,6 +424,8 @@
     <Compile Include="DAO\IDisbursementDetailsDAO.cs" />
     <Compile Include="DAO\DepartmentDAO.cs" />
     <Compile Include="DAO\EmployeeDAO.cs" />
+    <Compile Include="DAO\RetrievalDAO.cs" />
+    <Compile Include="DAO\RetrievalDetailsDAO.cs" />
     <Compile Include="DAO\StationeryCatalogueDAO.cs" />
     <Compile Include="DAO\SupplierDAO.cs" />
     <Compile Include="DAO\SupplierDetailsDAO.cs" />
