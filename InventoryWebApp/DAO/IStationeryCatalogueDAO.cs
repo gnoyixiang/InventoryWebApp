@@ -6,7 +6,7 @@ namespace InventoryWebApp.DAO
     public interface IStationeryCatalogueDAO
     {
         int AddStationery(StationeryCatalogue st);
-        int DeleteStationery(string itemCode);
+        void DeleteStationery(string itemCode);
         StationeryCatalogue GetStationery(string itemcode);
         List<StationeryCatalogue> ListAllStationery();
         List<StationeryCatalogue> SearchByCategory(string keyword);
