@@ -241,5 +241,5 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 /ConsoleApplication1/Program.cs
-/ConsoleApplication1
-/ConsoleTestApp
+/ConsoleApplication1/
+/ConsoleTestApp/
