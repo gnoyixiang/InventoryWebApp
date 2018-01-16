@@ -28,47 +28,49 @@ namespace InventoryWebApp.DAO
         }
         public string GetStationery(string itemcode)
         {
-            StationeryCatalogue stationery = em.StationeryCatalogues.Where(x => x.ItemCode == itemcode).ToList<StationeryCatalogue>()[0];
-            return stationery.Description;
-        }
-        public int AddStationery(string itemCode, string categoryCode, string description,
-            int reorderLevel, int reorderQuantity, string measureUnit, decimal itemPrice, int itemStock,
-            string supplier1, string supplier2, string supplier3)
-        {
-            StationeryCatalogue stationery = new StationeryCatalogue
-            {
-                ItemCode = itemCode,
-                CategoryCode = categoryCode,
-                Description = description,
-                ReorderLevel = reorderLevel,
-                ReorderQuantity = reorderQuantity,
-                MeasureUnit = measureUnit,
-                Price = itemPrice,
-                Stock = itemStock,
-                Supplier1 = supplier1,
-                Supplier2 = supplier2,
-                Supplier3 = supplier3
-            };
-            em.StationeryCatalogues.Add(stationery);
-            return em.SaveChanges(); ;
-        }
+            StationeryCatalogue stationery = null;
+            stationery = em.StationeryCatalogues.Where(x => x.ItemCode == itemcode).FirstOrDefault();
+            return stationery;
 
-        public int UpdateStationery(string itemCode, string categoryCode, string description,
-            int reorderLevel, int reorderQuantity, string measureUnit, decimal itemPrice, int itemStock,
-            string supplier1, string supplier2, string supplier3)
+            //Tender tender = null;
+            //using (em = new EntityModel())
+            //{
+            //    tender = em.Tenders.Where(t => t.TenderCode == tenderCode).FirstOrDefault<Tender>();
+            //}
+            //return tender;
+        }
+        public int AddStationery(StationeryCatalogue st)
         {
-            StationeryCatalogue stationery = em.StationeryCatalogues.Where(x => x.ItemCode == itemCode).FirstOrDefault();
-            stationery.CategoryCode = categoryCode;
-            stationery.Description = description;
-            stationery.ReorderLevel = reorderLevel;
-            stationery.ReorderQuantity = reorderQuantity;
-            stationery.MeasureUnit = measureUnit;
-            stationery.Price = itemPrice;
-            stationery.Stock = itemStock;
-            stationery.Supplier1 = supplier1;
-            stationery.Supplier2 = supplier2;
-            stationery.Supplier3 = supplier3;
-            return em.SaveChanges();
+            try
+            {
+                em.StationeryCatalogues.Add(st);
+                return em.SaveChanges(); 
+            }
+            catch (Exception e)
+            {
+
+                return 0;
+            }
+        }
+        public int UpdateStationery(StationeryCatalogue st)
+        {
+            StationeryCatalogue stationery = em.StationeryCatalogues.Where(x => x.ItemCode == st.ItemCode).FirstOrDefault();
+            if (stationery != null)
+            {
+                stationery.CategoryCode = st.CategoryCode;
+                stationery.Description = st.Description;
+                stationery.ReorderLevel = st.ReorderLevel;
+                stationery.ReorderQuantity = st.ReorderQuantity;
+                stationery.MeasureUnit = st.MeasureUnit;
+                stationery.Price = st.Price;
+                stationery.Stock = st.Stock;
+                stationery.Supplier1 = st.Supplier1;
+                stationery.Supplier2 = st.Supplier2;
+                stationery.Supplier3 = st.Supplier3;
+                return em.SaveChanges();
+            }
+            else
+                return 0;
         }
         public int DeleteStationery(string itemCode)
         {

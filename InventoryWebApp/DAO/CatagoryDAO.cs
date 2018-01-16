@@ -16,19 +16,26 @@ namespace InventoryWebApp.DAO
         }
         public int AddCategory(Category c)
         {
-            Category category = new Category
+            try
             {
-                CategoryCode = c.CategoryCode,
-                CategoryName = c.CategoryName
-            };
-            em.Categories.Add(category);
-            return em.SaveChanges();
+                em.Categories.Add(c);
+                return em.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
         }
         public int UpdateCategory(Category c)
         {
             Category category = em.Categories.Where(x => x.CategoryCode == c.CategoryCode).FirstOrDefault();
-            category.CategoryName = c.CategoryName;
-            return em.SaveChanges();
+            if( category != null)
+            {
+                category.CategoryName = c.CategoryName;
+                return em.SaveChanges();
+            }
+            else
+                return 0;
         }
         public int DeleteCategory(string categoryCode)
         {
