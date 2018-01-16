@@ -17,7 +17,9 @@ namespace ConsoleTestApp
             //var po = IPO.GetPurchaseOrder("123");
 
             //PODetail pod = new PODetail();
-
+            //Console.WriteLine(po.UserName);
+            //Console.WriteLine(po.UserName);
+            //Console.WriteLine(po.UserName);
 
             //Console.WriteLine(po.UserName);
             //Console.WriteLine(po.UserName);
