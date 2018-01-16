@@ -16,8 +16,6 @@ namespace InventoryWebApp.Models.Entities
         {
             Util.EnsureStaticReference<System.Data.Entity.SqlServer.SqlProviderServices>();
         }
-
-
         public virtual DbSet<Adjustment> Adjustments { get; set; }
         public virtual DbSet<AssignRole> AssignRoles { get; set; }
         public virtual DbSet<Category> Categories { get; set; }

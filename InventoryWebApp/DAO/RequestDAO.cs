@@ -34,14 +34,14 @@ namespace InventoryWebApp.DAO
         }
         public int AddRequest(Request newR)
         {
-            int a=-1;
-            using (em=new EntityModel())
+            int a = -1;
+            using (em = new EntityModel())
             {
                 em.Requests.Add(newR);
-                a=em.SaveChanges();
+                a = em.SaveChanges();
             }
 
-            return a; 
+            return a;
         }
 
         public int UpdateRequestStatus(Request R, string newStatus)
@@ -52,7 +52,7 @@ namespace InventoryWebApp.DAO
             return a;
         }
 
-        public int UpdateRequestApproval(Request R,string ApprovedN)
+        public int UpdateRequestApproval(Request R, string ApprovedN)
         {
             int a = -1;
             R.ApprovedBy = ApprovedN;
