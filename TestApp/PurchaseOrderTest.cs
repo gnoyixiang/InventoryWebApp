@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using InventoryWebApp.DAO;
+using InventoryWebApp.Models.Entities;
 
-namespace InventoryWebApp.DAO
+namespace TestApp
 {
-    public class TenderDAO
+    class PurchaseOrderTest
     {
     }
 }
