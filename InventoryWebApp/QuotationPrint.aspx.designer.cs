@@ -13,30 +13,30 @@ namespace InventoryWebApp {
     public partial class QuotationPrint {
         
         /// <summary>
-        /// SupplierNameLabel control.
+        /// lblSupplierName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label SupplierNameLabel;
+        protected global::System.Web.UI.WebControls.Label lblSupplierName;
         
         /// <summary>
-        /// SupplierAddressLabel control.
+        /// lblSupplierAddress control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label SupplierAddressLabel;
+        protected global::System.Web.UI.WebControls.Label lblSupplierAddress;
         
         /// <summary>
-        /// ItemsSuppliedList control.
+        /// gvItemsSupplied control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView ItemsSuppliedList;
+        protected global::System.Web.UI.WebControls.GridView gvItemsSupplied;
     }
 }

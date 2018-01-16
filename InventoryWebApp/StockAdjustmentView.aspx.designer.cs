@@ -13,102 +13,102 @@ namespace InventoryWebApp {
     public partial class StockAdjustmentView {
         
         /// <summary>
-        /// ItemChoiceLabel control.
+        /// lblItemChoice control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ItemChoiceLabel;
+        protected global::System.Web.UI.WebControls.Label lblItemChoice;
         
         /// <summary>
-        /// ItemChoiceNameLabel control.
+        /// lblItemChoiceName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ItemChoiceNameLabel;
+        protected global::System.Web.UI.WebControls.Label lblItemChoiceName;
         
         /// <summary>
-        /// CurrentStockLabel control.
+        /// lblCurrentStock control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label CurrentStockLabel;
+        protected global::System.Web.UI.WebControls.Label lblCurrentStock;
         
         /// <summary>
-        /// CurrentStockAmountLabel control.
+        /// lblCurrentStockAmount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label CurrentStockAmountLabel;
+        protected global::System.Web.UI.WebControls.Label lblCurrentStockAmount;
         
         /// <summary>
-        /// NewQuantityLabel control.
+        /// lblNewQuantity control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label NewQuantityLabel;
+        protected global::System.Web.UI.WebControls.Label lblNewQuantity;
         
         /// <summary>
-        /// NewQuantityAmountLabel control.
+        /// lblNewQuantityAmount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label NewQuantityAmountLabel;
+        protected global::System.Web.UI.WebControls.Label lblNewQuantityAmount;
         
         /// <summary>
-        /// ReasonLabel control.
+        /// lblReason control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ReasonLabel;
+        protected global::System.Web.UI.WebControls.Label lblReason;
         
         /// <summary>
-        /// ReasonSubmittedLabel control.
+        /// lblReasonSubmitted control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ReasonSubmittedLabel;
+        protected global::System.Web.UI.WebControls.Label lblReasonSubmitted;
         
         /// <summary>
-        /// RejectionReasonLabel control.
+        /// lblRejectionReason control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label RejectionReasonLabel;
+        protected global::System.Web.UI.WebControls.Label lblRejectionReason;
         
         /// <summary>
-        /// RejectionReasonShowLabel control.
+        /// lblRejectionReasonShow control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label RejectionReasonShowLabel;
+        protected global::System.Web.UI.WebControls.Label lblRejectionReasonShow;
         
         /// <summary>
-        /// ReturnToAdjustmentList control.
+        /// btnReturn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ReturnToAdjustmentList;
+        protected global::System.Web.UI.WebControls.Button btnReturn;
     }
 }

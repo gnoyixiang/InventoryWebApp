@@ -20,23 +20,23 @@ namespace InventoryWebApp
         {
             Adjustment a = new Adjustment();
             a.AdjustmentCode = em.Adjustments.Last().AdjustmentCode;
-            a.ItemCode = ItemChoiceDropDownList.SelectedValue;
+            a.ItemCode = ddlItemChoice.SelectedValue;
             a.QuantOnHand = q;
-            a.Reason = ReasonTextBox.Text;
+            a.Reason = tbxReason.Text;
 
             return a;
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            ItemChoiceDropDownList.DataSource = em.StationeryCatalogues.Select(x => new { x.Description}).ToList();
-            ItemChoiceDropDownList.DataBind();
+            ddlItemChoice.DataSource = em.StationeryCatalogues.Select(x => new { x.Description}).ToList();
+            ddlItemChoice.DataBind();
 
-            CurrentStockAmountLabel.Text = em.StationeryCatalogues.Select(x => new { x.Stock }).First().ToString();
+            lblCurrentStockAmount.Text = em.StationeryCatalogues.Select(x => new { x.Stock }).First().ToString();
         }
 
-        protected void SubmitStockAdjustment_Click(object sender, EventArgs e)
+        protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            int QuantUpdate = CreateQuantityUpdate(NewQuantityShowLabel.Text,CurrentStockAmountLabel.Text);
+            int QuantUpdate = CreateQuantityUpdate(lblNewQuantityShow.Text,lblCurrentStockAmount.Text);
 
             Adjustment a = PrefillAdjustment(QuantUpdate);
             //Adjustment a = new Adjustment();
@@ -50,9 +50,9 @@ namespace InventoryWebApp
             em.SaveChanges();
         }
 
-        protected void SaveStockAdjustment_Click(object sender, EventArgs e)
+        protected void btnSave_Click(object sender, EventArgs e)
         {
-            int QuantUpdate = CreateQuantityUpdate(NewQuantityShowLabel.Text,CurrentStockAmountLabel.Text);
+            int QuantUpdate = CreateQuantityUpdate(lblNewQuantityShow.Text,lblCurrentStockAmount.Text);
 
             Adjustment a = PrefillAdjustment(QuantUpdate);
             //Adjustment a = new Adjustment();
@@ -68,7 +68,7 @@ namespace InventoryWebApp
             em.SaveChanges();
         }
 
-        protected void DiscardStockAdjustment_Click(object sender, EventArgs e)
+        protected void btnDiscard_Click(object sender, EventArgs e)
         {
             Response.Redirect("StockAdjustmentList.aspx");
         }

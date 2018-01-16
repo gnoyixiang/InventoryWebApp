@@ -8,7 +8,7 @@
             <div class="col-sm-10">
                 <h3>Inventory Adjustment Request Status</h3>
                 <p>&nbsp;</p>
-                <asp:GridView ID="AdjustmentStatusList" runat="server" AutoGenerateColumns="False">
+                <asp:GridView ID="gvAdjustmentStatus" runat="server" AutoGenerateColumns="False">
                     <Columns>
                         <asp:BoundField DataField="AdjustmentCode" HeaderText="Adjustment Code" />
                         <asp:BoundField DataField="ItemCode" HeaderText="Item" />
@@ -18,7 +18,7 @@
                         <asp:BoundField DataField="Reason" HeaderText="Reason" />
                     </Columns>
                 </asp:GridView>
-                <asp:Button ID="NewStockAdjustment" runat="server" Text="New" OnClick="NewStockAdjustment_Click" />
+                <asp:Button ID="btnNewStockAdjustment" runat="server" Text="New" OnClick="NewStockAdjustment_Click" />
             </div>
             <div class="col-sm-2">
                 <div class="margin:20px 0 10px 0;">

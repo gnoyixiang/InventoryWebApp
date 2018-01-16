@@ -13,39 +13,39 @@ namespace InventoryWebApp {
     public partial class StockCardView {
         
         /// <summary>
-        /// ItemChoiceLabel control.
+        /// lblItemChoice control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ItemChoiceLabel;
+        protected global::System.Web.UI.WebControls.Label lblItemChoice;
         
         /// <summary>
-        /// ItemNameDropDownList control.
+        /// ddlItemName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ItemNameDropDownList;
+        protected global::System.Web.UI.WebControls.DropDownList ddlItemName;
         
         /// <summary>
-        /// QuantityLabel control.
+        /// lblQuantity control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label QuantityLabel;
+        protected global::System.Web.UI.WebControls.Label lblQuantity;
         
         /// <summary>
-        /// QuantityShowLabel control.
+        /// lblQuantityShow control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label QuantityShowLabel;
+        protected global::System.Web.UI.WebControls.Label lblQuantityShow;
     }
 }

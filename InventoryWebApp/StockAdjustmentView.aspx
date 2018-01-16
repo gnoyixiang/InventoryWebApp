@@ -7,22 +7,22 @@
             <div class="col-sm-10">
                 <h3>View Inventory Adjustment #</h3>
                 <p>&nbsp;</p>
-                <asp:Label ID="ItemChoiceLabel" runat="server" Text="Item:"></asp:Label>
-                <asp:Label ID="ItemChoiceNameLabel" runat="server" Text="Load item name from DB"></asp:Label>
+                <asp:Label ID="lblItemChoice" runat="server" Text="Item:"></asp:Label>
+                <asp:Label ID="lblItemChoiceName" runat="server" Text="Load item name from DB"></asp:Label>
                 <br />
-                <asp:Label ID="CurrentStockLabel" runat="server" Text="Current Stock:"></asp:Label>
-                <asp:Label ID="CurrentStockAmountLabel" runat="server" Text=""></asp:Label>
+                <asp:Label ID="lblCurrentStock" runat="server" Text="Current Stock:"></asp:Label>
+                <asp:Label ID="lblCurrentStockAmount" runat="server" Text=""></asp:Label>
                 <br />
-                <asp:Label ID="NewQuantityLabel" runat="server" Text="New Quantity:"></asp:Label>
-                <asp:Label ID="NewQuantityAmountLabel" runat="server" Text=""></asp:Label>
+                <asp:Label ID="lblNewQuantity" runat="server" Text="New Quantity:"></asp:Label>
+                <asp:Label ID="lblNewQuantityAmount" runat="server" Text=""></asp:Label>
                 <br />
-                <asp:Label ID="ReasonLabel" runat="server" Text="Reason:"></asp:Label>
-                <asp:Label ID="ReasonSubmittedLabel" runat="server" Text="Load submitted reason"></asp:Label>
+                <asp:Label ID="lblReason" runat="server" Text="Reason:"></asp:Label>
+                <asp:Label ID="lblReasonSubmitted" runat="server" Text="Load submitted reason"></asp:Label>
                 <br />
-                <asp:Label ID="RejectionReasonLabel" runat="server" Text="Rejection Reason:"></asp:Label>
-                <asp:Label ID="RejectionReasonShowLabel" runat="server" Text="Load rejection reason"></asp:Label>
+                <asp:Label ID="lblRejectionReason" runat="server" Text="Rejection Reason:"></asp:Label>
+                <asp:Label ID="lblRejectionReasonShow" runat="server" Text="Load rejection reason"></asp:Label>
                 <br />
-                <asp:Button ID="ReturnToAdjustmentList" runat="server" Text="Back" OnClick="ReturnToAdjustmentList_Click" />
+                <asp:Button ID="btnReturn" runat="server" Text="Back" OnClick="ReturnToAdjustmentList_Click" />
                 
             </div>
             <div class="col-sm-2">

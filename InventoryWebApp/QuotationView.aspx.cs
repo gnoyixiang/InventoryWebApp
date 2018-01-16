@@ -13,9 +13,9 @@ namespace InventoryWebApp
         EntityModel em = new EntityModel();
         protected void Page_Load(object sender, EventArgs e)
         {
-            QuotationList.DataSource = em.Suppliers.Select
+            gvQuotation.DataSource = em.Suppliers.Select
                 (x => new { x.SupplierCode,x.SupplierName, x.Address, x.ContactName, x.PhoneNo}).ToList();
-            QuotationList.DataBind();
+            gvQuotation.DataBind();
         }
     }
 }

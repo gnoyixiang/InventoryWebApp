@@ -13,120 +13,120 @@ namespace InventoryWebApp {
     public partial class StockAdjustmentNew {
         
         /// <summary>
-        /// ItemChoiceLabel control.
+        /// lblItemChoice control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ItemChoiceLabel;
+        protected global::System.Web.UI.WebControls.Label lblItemChoice;
         
         /// <summary>
-        /// ItemChoiceDropDownList control.
+        /// ddlItemChoice control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ItemChoiceDropDownList;
+        protected global::System.Web.UI.WebControls.DropDownList ddlItemChoice;
         
         /// <summary>
-        /// QuantityAdjustLabel control.
+        /// lblQuantityAdjust control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label QuantityAdjustLabel;
+        protected global::System.Web.UI.WebControls.Label lblQuantityAdjust;
         
         /// <summary>
-        /// QuantityAdjustTextBox control.
+        /// tbxQuantityAdjust control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox QuantityAdjustTextBox;
+        protected global::System.Web.UI.WebControls.TextBox tbxQuantityAdjust;
         
         /// <summary>
-        /// CurrentStockLabel control.
+        /// lblCurrentStock control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label CurrentStockLabel;
+        protected global::System.Web.UI.WebControls.Label lblCurrentStock;
         
         /// <summary>
-        /// CurrentStockAmountLabel control.
+        /// lblCurrentStockAmount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label CurrentStockAmountLabel;
+        protected global::System.Web.UI.WebControls.Label lblCurrentStockAmount;
         
         /// <summary>
-        /// NewQuantityLabel control.
+        /// lblNewQuantity control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label NewQuantityLabel;
+        protected global::System.Web.UI.WebControls.Label lblNewQuantity;
         
         /// <summary>
-        /// NewQuantityShowLabel control.
+        /// lblNewQuantityShow control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label NewQuantityShowLabel;
+        protected global::System.Web.UI.WebControls.Label lblNewQuantityShow;
         
         /// <summary>
-        /// ReasonLabel control.
+        /// lblReason control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ReasonLabel;
+        protected global::System.Web.UI.WebControls.Label lblReason;
         
         /// <summary>
-        /// ReasonTextBox control.
+        /// tbxReason control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ReasonTextBox;
+        protected global::System.Web.UI.WebControls.TextBox tbxReason;
         
         /// <summary>
-        /// SubmitStockAdjustment control.
+        /// btnSubmit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button SubmitStockAdjustment;
+        protected global::System.Web.UI.WebControls.Button btnSubmit;
         
         /// <summary>
-        /// SaveStockAdjustment control.
+        /// btnSave control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button SaveStockAdjustment;
+        protected global::System.Web.UI.WebControls.Button btnSave;
         
         /// <summary>
-        /// DiscardStockAdjustment control.
+        /// btnDiscard control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button DiscardStockAdjustment;
+        protected global::System.Web.UI.WebControls.Button btnDiscard;
     }
 }

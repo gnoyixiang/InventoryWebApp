@@ -8,11 +8,11 @@
             <div class="col-sm-10">
                 <h3>Stationery Supply Tender Quotation Form</h3>
                 <p>&nbsp;</p>
-                <asp:Label ID="SupplierNameLabel" runat="server" Text="Load supplier name here..."></asp:Label>
-                <asp:Label ID="SupplierAddressLabel" runat="server" Text="Load supplier address here..."></asp:Label>
+                <asp:Label ID="lblSupplierName" runat="server" Text="Load supplier name here..."></asp:Label>
+                <asp:Label ID="lblSupplierAddress" runat="server" Text="Load supplier address here..."></asp:Label>
                 <br />
                 <div style="width: 100%; height: 400px; overflow: scroll">
-                    <asp:GridView ID="ItemsSuppliedList" runat="server" AutoGenerateColumns="False">
+                    <asp:GridView ID="gvItemsSupplied" runat="server" AutoGenerateColumns="False">
                         <Columns>
                             <asp:BoundField DataField="Description" HeaderText="Item Name" />
                         </Columns>

@@ -7,7 +7,7 @@
             <div class="col-sm-10">
                 <h3>Stationery Supply Quotation List</h3>
                 <p>&nbsp;</p>
-                <asp:GridView ID="QuotationList" runat="server" AutoGenerateColumns="False">
+                <asp:GridView ID="gvQuotation" runat="server" AutoGenerateColumns="False">
                     <Columns>
                         <asp:BoundField DataField="SupplierCode" HeaderText="Supplier Code" Visible="False" />
                         <asp:BoundField DataField="SupplierName" HeaderText="Supplier Name" />

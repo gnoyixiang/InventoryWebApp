@@ -7,11 +7,11 @@
             <div class="col-sm-10">
                 <h3>Stock Card</h3>
                 <p>&nbsp;</p>
-                <asp:Label ID="ItemChoiceLabel" runat="server" Text="Choose item to view: "></asp:Label>
-                <asp:DropDownList ID="ItemNameDropDownList" runat="server"></asp:DropDownList>
+                <asp:Label ID="lblItemChoice" runat="server" Text="Choose item to view: "></asp:Label>
+                <asp:DropDownList ID="ddlItemName" runat="server"></asp:DropDownList>
                 <br />
-                <asp:Label ID="QuantityLabel" runat="server" Text="Quantity: "></asp:Label>
-                <asp:Label ID="QuantityShowLabel" runat="server" Text="Get amount from DB"></asp:Label>
+                <asp:Label ID="lblQuantity" runat="server" Text="Quantity: "></asp:Label>
+                <asp:Label ID="lblQuantityShow" runat="server" Text="Get amount from DB"></asp:Label>
             </div>
             <div class="col-sm-2">
                 <div class="margin:20px 0 10px 0;">

@@ -18,8 +18,8 @@ namespace InventoryWebApp
             String s = Request.QueryString["SupplierCode"];
 
             Supplier supplierPick = em.Suppliers.First(x => x.SupplierCode == s);
-            SupplierNameLabel.Text = supplierPick.SupplierName;
-            SupplierAddressLabel.Text = supplierPick.Address;
+            lblSupplierName.Text = supplierPick.SupplierName;
+            lblSupplierAddress.Text = supplierPick.Address;
 
             List<StationeryCatalogue> stationerySupplied = em.StationeryCatalogues.Where
                 (x => x.Supplier1 == s || x.Supplier2 == s || x.Supplier3 == s).ToList();
@@ -58,8 +58,8 @@ namespace InventoryWebApp
                 intermediateDataSource.Rows.Add(rowTempDataSource);
             }
 
-            ItemsSuppliedList.DataSource = intermediateDataSource;
-            ItemsSuppliedList.DataBind();
+            gvItemsSupplied.DataSource = intermediateDataSource;
+            gvItemsSupplied.DataBind();
         }
     }
 }
