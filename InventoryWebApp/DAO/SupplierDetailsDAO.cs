@@ -5,7 +5,7 @@ using System.Web;
 using InventoryWebApp.Models.Entities;
 namespace InventoryWebApp.DAO
 {
-    public class RetrievalDAOImpl
+    public class SupplierDetailsDAO
     {
         public int AddRetrieval(Retrieval r)
         {

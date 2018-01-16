@@ -6,7 +6,7 @@ using InventoryWebApp.Models.Entities;
 
 namespace InventoryWebApp.DAO
 {
-    public class RetrievalDetailsDAOImpl
+    public class UserDAO
     {
         public int UpdateRetrivalDetails(RetrievalDetail rd)
         {
