@@ -219,7 +219,6 @@
     <Content Include="Scripts\fancy-sidebar-navigation.js" />
     <Content Include="Layout.Master" />
     <Content Include="ViewPurchaseOrders.aspx" />
-    <Content Include="WebForm2.aspx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
@@ -257,7 +256,9 @@
     <Content Include="Global.asax" />
     <Content Include="Site.Master" />
     <Content Include="ViewSwitcher.ascx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Bundle.config" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
@@ -404,10 +405,10 @@
     <Compile Include="DAO\AssignRoleDAOImpl.cs" />
     <Compile Include="DAO\CatagoryDAOImpl.cs" />
     <Compile Include="DAO\CollectionPointDAOImpl.cs" />
-    <Compile Include="DAO\DepartmentDAOImpl.cs" />
+    <Compile Include="DAO\DepartmentDAO.cs" />
     <Compile Include="DAO\DisbursementDAOImpl.cs" />
     <Compile Include="DAO\DisbursementDetailsDAOImpl.cs" />
-    <Compile Include="DAO\EmployeeDAOImpl.cs" />
+    <Compile Include="DAO\EmployeeDAO.cs" />
     <Compile Include="DAO\PurchaseOrderDAOImpl.cs" />
     <Compile Include="DAO\RequestDAOImpl.cs" />
     <Compile Include="DAO\RequestDetailsDAOImpl.cs" />
@@ -506,13 +507,6 @@
     </Compile>
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="WebForm2.aspx.cs">
-      <DependentUpon>WebForm2.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebForm2.aspx.designer.cs">
-      <DependentUpon>WebForm2.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
