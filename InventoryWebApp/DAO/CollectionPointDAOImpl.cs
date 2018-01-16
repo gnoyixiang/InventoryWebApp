@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace InventoryWebApp.DAO
 {
-    interface PurchaseOrderDAO
+    public class CollectionPointDAOImpl
     {
-        
     }
 }
