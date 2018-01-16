@@ -400,6 +400,8 @@
     <Compile Include="Controllers\StoreClerkController.cs" />
     <Compile Include="Controllers\StoreManagerController.cs" />
     <Compile Include="Controllers\StoreSupervisorController.cs" />
+    <Compile Include="DAO\CatagoryDAO.cs" />
+    <Compile Include="DAO\CollectionPointDAO.cs" />
     <Compile Include="DAO\DisbursementDAO.cs" />
     <Compile Include="DAO\DisbursementDetailsDAO.cs" />
     <Compile Include="DAO\IPODetailsDAO.cs" />
@@ -410,6 +412,7 @@
     <Compile Include="DAO\PurchaseOrderDAO.cs" />
     <Compile Include="DAO\IDisbursementDAO.cs" />
     <Compile Include="DAO\IDisbursementDetailsDAO.cs" />
+    <Compile Include="DAO\StationeryCatalogueDAO.cs" />
     <Compile Include="DAO\TenderDAO.cs" />
     <Compile Include="DAO\TenderDetailsDAO.cs" />
     <Compile Include="Default.aspx.cs">
