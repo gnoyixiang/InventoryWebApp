@@ -399,6 +399,8 @@
     <Compile Include="Controllers\PurchaseOrderController.cs" />
     <Compile Include="DAO\PurchaseOrderDAO.cs" />
     <Compile Include="DAO\PurchaseOrderDAOImpl.cs" />
+    <Compile Include="DAO\RequestDAO.cs" />
+    <Compile Include="DAO\RequestDAOImpl.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
