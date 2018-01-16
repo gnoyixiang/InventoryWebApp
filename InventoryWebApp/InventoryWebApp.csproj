@@ -394,15 +394,6 @@
     <Compile Include="EditPurchaseOrder.aspx.designer.cs">
       <DependentUpon>EditPurchaseOrder.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entities\Category.cs" />
-    <Compile Include="Models\Entities\EntityModel.cs" />
-    <Compile Include="Models\Entities\Supplier.cs" />
-    <Compile Include="Models\Entities\SupplierDetail.cs" />
-    <Compile Include="Models\Entities\PODetail.cs" />
-    <Compile Include="Models\Entities\PurchaseOrder.cs" />
-    <Compile Include="Models\Entities\StationeryCatalogue.cs" />
-    <Compile Include="Models\Entities\Tender.cs" />
-    <Compile Include="Models\Entities\TenderDetail.cs" />
     <Compile Include="NewSupplierDetail.aspx.cs">
       <DependentUpon>NewSupplierDetail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
