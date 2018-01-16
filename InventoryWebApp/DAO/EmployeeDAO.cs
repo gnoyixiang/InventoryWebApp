@@ -5,7 +5,7 @@ using System.Web;
 
 namespace InventoryWebApp.DAO
 {
-    public class UserRoleDAOImpl
+    public class EmployeeDAO
     {
     }
 }

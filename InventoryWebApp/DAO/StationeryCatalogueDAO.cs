@@ -7,31 +7,31 @@ using System.Threading.Tasks;
 
 namespace InventoryWebApp.DAO
 {
-    public class StationeryCatalogueDAOImpl
+    public class StationeryCatalogueDAO
     {
         EntityModel em = new EntityModel();
-        public List<StationeryCatalogue> searchByItemCode(string keyword)
+        public List<StationeryCatalogue> SearchByItemCode(string keyword)
         {
             return em.StationeryCatalogues.Where(x => x.ItemCode.Contains(keyword)).ToList();
         }
-        public List<StationeryCatalogue> searchByDescription(string keyword)
+        public List<StationeryCatalogue> SearchByDescription(string keyword)
         {
             return em.StationeryCatalogues.Where(x => x.Description.Contains(keyword)).ToList();
         }
-        public List<StationeryCatalogue> searchByCategory(string keyword)
+        public List<StationeryCatalogue> SearchByCategory(string keyword)
         {
             return em.StationeryCatalogues.Where(x => x.CategoryCode.Contains(keyword)).ToList();
         }
-        public List<StationeryCatalogue> listAllStationery()
+        public List<StationeryCatalogue> ListAllStationery()
         {
             return em.StationeryCatalogues.ToList();
         }
-        public string getStationery(string itemcode)
+        public string GetStationery(string itemcode)
         {
             StationeryCatalogue stationery = em.StationeryCatalogues.Where(x => x.ItemCode == itemcode).ToList<StationeryCatalogue>()[0];
-            return stationery.ItemCode;
+            return stationery.Description;
         }
-        public int addStationery(string itemCode, string categoryCode, string description,
+        public int AddStationery(string itemCode, string categoryCode, string description,
             int reorderLevel, int reorderQuantity, string measureUnit, decimal itemPrice, int itemStock,
             string supplier1, string supplier2, string supplier3)
         {
@@ -53,7 +53,7 @@ namespace InventoryWebApp.DAO
             return em.SaveChanges(); ;
         }
 
-        public int updateStationery(string itemCode, string categoryCode, string description,
+        public int UpdateStationery(string itemCode, string categoryCode, string description,
             int reorderLevel, int reorderQuantity, string measureUnit, decimal itemPrice, int itemStock,
             string supplier1, string supplier2, string supplier3)
         {
@@ -70,7 +70,7 @@ namespace InventoryWebApp.DAO
             stationery.Supplier3 = supplier3;
             return em.SaveChanges();
         }
-        public int deleteStationery(string itemCode)
+        public int DeleteStationery(string itemCode)
         {
             StationeryCatalogue stationery = em.StationeryCatalogues.Where(x => x.ItemCode == itemCode).FirstOrDefault();
             em.StationeryCatalogues.Remove(stationery);
