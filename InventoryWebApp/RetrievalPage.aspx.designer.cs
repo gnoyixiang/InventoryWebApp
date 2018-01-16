@@ -10,25 +10,7 @@
 namespace InventoryWebApp {
     
     
-    public partial class RequisitionList {
-        
-        /// <summary>
-        /// lblTotalQuant control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTotalQuant;
-        
-        /// <summary>
-        /// btnNext control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnNext;
+    public partial class RetrievalPage {
         
         /// <summary>
         /// lvRequestList control.
