@@ -75,7 +75,7 @@ namespace InventoryWebApp.DAO
 
         public List<string> ListEmpName(string dept,string role)
         {
-            return em.Employees.Where(x=>x.DepartmentCode==dept&&x.CurrentRoleCode==role).Select(x.EmployeeName).ToList();
+            return em.Employees.Where(x=>x.DepartmentCode==dept&&x.CurrentRoleCode==role).Select(x=>x.EmployeeName).ToList();
         }
     }
 }
