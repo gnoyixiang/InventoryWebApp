@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace InventoryWebApp.DAO
 {
-    public class CollectionPointDAO 
+    public class CollectionPointDAO : ICollectionPointDAO
     {
         EntityModel em = new EntityModel();
         public List<CollectionPoint> SearchByCollectionPointCode(string keyword)

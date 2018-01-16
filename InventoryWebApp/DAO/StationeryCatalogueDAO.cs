@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace InventoryWebApp.DAO
 {
-    public class StationeryCatalogueDAO
+    public class StationeryCatalogueDAO : IStationeryCatalogueDAO
     {
         EntityModel em = new EntityModel();
         public List<StationeryCatalogue> SearchByItemCode(string keyword)
@@ -26,18 +26,10 @@ namespace InventoryWebApp.DAO
         {
             return em.StationeryCatalogues.ToList();
         }
-        public string GetStationery(string itemcode)
+        public StationeryCatalogue GetStationery(string itemcode)
         {
-            StationeryCatalogue stationery = null;
-            stationery = em.StationeryCatalogues.Where(x => x.ItemCode == itemcode).FirstOrDefault();
+            StationeryCatalogue stationery = em.StationeryCatalogues.Where(x => x.ItemCode == itemcode).FirstOrDefault();
             return stationery;
-
-            //Tender tender = null;
-            //using (em = new EntityModel())
-            //{
-            //    tender = em.Tenders.Where(t => t.TenderCode == tenderCode).FirstOrDefault<Tender>();
-            //}
-            //return tender;
         }
         public int AddStationery(StationeryCatalogue st)
         {

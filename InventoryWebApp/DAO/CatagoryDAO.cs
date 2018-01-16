@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace InventoryWebApp.DAO
 {
-    public class CatagoryDAO 
+    public class CatagoryDAO : ICatagoryDAO
     {
         EntityModel em = new EntityModel();
         public List<Category> SearchByCategory(string keyword)
@@ -43,10 +43,10 @@ namespace InventoryWebApp.DAO
             em.Categories.Remove(category);
             return em.SaveChanges();
         }
-        public string GetCategory(string categoryCode)
+        public Category GetCategory(string categoryCode)
         {
             Category category = em.Categories.Where(x => x.CategoryCode == categoryCode).ToList<Category>()[0];
-            return category.CategoryCode;
+            return category;
         }
     }
 }
