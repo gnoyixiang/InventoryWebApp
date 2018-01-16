@@ -400,14 +400,7 @@
     <Compile Include="Controllers\StoreClerkController.cs" />
     <Compile Include="Controllers\StoreManagerController.cs" />
     <Compile Include="Controllers\StoreSupervisorController.cs" />
-    <Compile Include="DAO\AdjustmentDAOImpl.cs" />
-    <Compile Include="DAO\AssignRoleDAOImpl.cs" />
-    <Compile Include="DAO\CatagoryDAOImpl.cs" />
-    <Compile Include="DAO\CollectionPointDAOImpl.cs" />
-    <Compile Include="DAO\DepartmentDAOImpl.cs" />
     <Compile Include="DAO\DisbursementDAO.cs" />
-    <Compile Include="DAO\DisbursementDetailsDAO.cs" />
-    <Compile Include="DAO\EmployeeDAOImpl.cs" />
     <Compile Include="DAO\IPODetailsDAO.cs" />
     <Compile Include="DAO\IPurchaseOrderDAO.cs" />
     <Compile Include="DAO\ITenderDAO.cs" />
@@ -416,18 +409,8 @@
     <Compile Include="DAO\PurchaseOrderDAO.cs" />
     <Compile Include="DAO\IDisbursementDAO.cs" />
     <Compile Include="DAO\IDisbursementDetailsDAO.cs" />
-    <Compile Include="DAO\RequestDAOImpl.cs" />
-    <Compile Include="DAO\RequestDetailsDAOImpl.cs" />
-    <Compile Include="DAO\RetrievalDAOImpl.cs" />
-    <Compile Include="DAO\RetrievalDetailsDAOImpl.cs" />
-    <Compile Include="DAO\RoleDAOImpl.cs" />
-    <Compile Include="DAO\StationeryCatalogueDAOImpl.cs" />
-    <Compile Include="DAO\SupplierDAOImpl.cs" />
-    <Compile Include="DAO\SupplierDetailsDAOImpl.cs" />
     <Compile Include="DAO\TenderDAO.cs" />
     <Compile Include="DAO\TenderDetailsDAO.cs" />
-    <Compile Include="DAO\UserDAOImpl.cs" />
-    <Compile Include="DAO\UserRoleDAOImpl.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
