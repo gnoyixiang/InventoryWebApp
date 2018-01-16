@@ -14,8 +14,13 @@ namespace ConsoleTestApp
         {
             IPurchaseOrderDAO IPO = new PurchaseOrderDAO();
             var po = IPO.GetPurchaseOrder("123");
+
+            PODetail pod = new PODetail();
+
+
             Console.WriteLine(po.UserName);
                 
+
         }
     }
 }
