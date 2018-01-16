@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using InventoryWebApp.BusinessLogic;
+
 
 namespace InventoryWebApp
 {
@@ -14,8 +14,8 @@ namespace InventoryWebApp
         {
             if (!IsPostBack)
             {
-                GridView1.DataSource = StoreSupervisorBusinessLogic.ListPendingOrders();
-                GridView1.DataBind();
+                //GridView1.DataSource = StoreSupervisorBusinessLogic.ListPendingOrders();
+               // GridView1.DataBind();
             }
 
         }
