@@ -452,7 +452,6 @@
     </Compile>
     <Compile Include="DisbursementList.aspx.cs">
       <DependentUpon>DisbursementList.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="DisbursementList.aspx.designer.cs">
       <DependentUpon>DisbursementList.aspx</DependentUpon>
