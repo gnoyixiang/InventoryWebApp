@@ -21,15 +21,25 @@ namespace InventoryWebApp
 
         protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
         {
+            decimal? price = 0;
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 PurchaseOrder order = (PurchaseOrder)e.Row.DataItem;
                 string id = order.SupplierCode;
-                string suppliername = BusinessLogic.GetFoodName(id);
+                string suppliername = supervisorController.GetSupplier(id).SupplierName;
+                List<PODetail> poDetailList = (List<PODetail>)order.PODetails;
+                foreach (PODetail p in order.PODetails)
+                {
+                    price += p.Price;
+                }
 
-                Label foodlabel = (e.Row.FindControl("Label3A") as Label);
-                if (foodlabel != null)
-                    foodlabel.Text = foodname;
+                Label priceLabel = (e.Row.FindControl("lblPrice") as Label);
+                if (priceLabel != null)
+                    priceLabel.Text = price.ToString();
+
+                Label supplierLabel = (e.Row.FindControl("lblSupplierName") as Label);
+                if (supplierLabel != null)
+                    supplierLabel.Text = suppliername;
             }
         }
     }

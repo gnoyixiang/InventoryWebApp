@@ -19,5 +19,6 @@ namespace InventoryWebApp.Controllers
         {
             return sDAO.GetSupplier(SupplierCode);
         }
+
     }
 }

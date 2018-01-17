@@ -10,6 +10,7 @@ namespace InventoryWebApp.Models.Entities
         public EntityModel()
             : base("name=EntityModel")
         {
+            Configuration.LazyLoadingEnabled = false;
         }
 
         static EntityModel()
