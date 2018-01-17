@@ -55,11 +55,14 @@
     <Compile Include="TestCollectionPointDAO.cs" />
     <Compile Include="TestDepartmentDAO.cs" />
     <Compile Include="TestEmployeeDAO.cs" />
+    <Compile Include="TestPODetailsDAO.cs" />
     <Compile Include="TestPurchaseOrderDAO.cs" />
     <Compile Include="TestRetrievalDAO.cs" />
     <Compile Include="TestStationeryCatalogueDAO.cs" />
     <Compile Include="TestSupplierDAO.cs" />
     <Compile Include="TestUserDAO.cs" />
+    <Compile Include="TestTenderDAO.cs" />
+    <Compile Include="TestTenderDetailsDAO.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
