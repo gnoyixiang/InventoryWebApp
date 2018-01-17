@@ -20,7 +20,7 @@ namespace InventoryWebApp.Controllers
             List<StationeryCatalogue> list = Isc.SearchByDescription(keyword);
             return list;
         }
-        public List<StationeryCatalogue> searchByCategory(string keyword)
+        public List<StationeryCatalogue> searchByCategoryCode(string keyword)
         {
             List<StationeryCatalogue> list = Isc.SearchByCategory(keyword);
             return list;
@@ -29,6 +29,10 @@ namespace InventoryWebApp.Controllers
         {
             List<StationeryCatalogue> list = Isc.SearchByItemCode(keyword);
             return list;
+        }
+        public StationeryCatalogue GetStationery(string itemcode)
+        {
+            return Isc.GetStationery(itemcode);
         }
     }
 }

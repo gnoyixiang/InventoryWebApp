@@ -10,7 +10,7 @@ namespace InventoryWebApp
 {
     public partial class ViewCatalogue : System.Web.UI.Page
     {
-        CatalogueController cC = new CatalogueController();
+        //CatalogueController cC = new CatalogueController();
         EmployeeController ec = new EmployeeController();
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -30,27 +30,28 @@ namespace InventoryWebApp
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            List<StationeryCatalogue> list = new List<StationeryCatalogue>();
-            
+            //List<StationeryCatalogue> list = new List<StationeryCatalogue>();
+            var list = ec.gridview();
             string keyword = txbkeyword.Text;
             string type = ddlSearchBy.Text;
             if(type == "Description")
             {
-                list = cC.searchByDescription(keyword);
-                //ec.searchByDescription(keyword);
+                //list = cC.searchByDescription(keyword);
+                list = ec.searchByDescription(keyword);
             }
             else if(type == "ItemCode")
             {
-                //ec.searchByItemCode(keyword);
+                //list = cC.searchByItemCode(keyword);
+                list = ec.searchByItemCode(keyword);
             }
             else if (type == "Category")
             {
-                list = cC.searchByCategory(keyword);
-                ec.searchByCategory(keyword);
+                //list = cC.searchByCategory(keyword);
+                list = ec.searchByCategoryCode(keyword);
             }
             try
             {
-                this.gvCatalogue.DataSource = ec.gridview();
+                this.gvCatalogue.DataSource = list;
                 this.gvCatalogue.DataBind();
             }
             catch(Exception ex)

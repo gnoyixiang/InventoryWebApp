@@ -8,7 +8,7 @@
             </ul>
     <asp:DropDownList ID="ddlSearchBy" runat="server">
         <asp:ListItem>Description</asp:ListItem>
-        <asp:ListItem>ItemCode</asp:ListItem>
+        <asp:ListItem>Stationery Number</asp:ListItem>
         <asp:ListItem>Category</asp:ListItem>
     </asp:DropDownList>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -19,10 +19,10 @@
     <br />
     <br />
     <asp:GridView ID="gvCatalogue" runat="server" AutoGenerateColumns="False" Width="100%" AllowPaging="True"
-    OnPageIndexChanging="OnPageIndexChanging" CellPadding="4" ForeColor="#333333" GridLines="None">
+    OnPageIndexChanging="OnPageIndexChanging" CellPadding="4" ForeColor="#333333" GridLines="None" PageSize="20">
         <AlternatingRowStyle BackColor="White" />
      <Columns>
-         <asp:TemplateField HeaderText ="Item Number" ItemStyle-Width="150px">
+         <asp:TemplateField HeaderText ="Stationery Number" ItemStyle-Width="150px">
              <ItemTemplate>
                  <asp:HyperLink ID="ItemCode" runat="server" ForeColor="Blue" DataNavigateUrlFields="ItemCode" 
                      NavigateUrl='<%#"~/ItemDetails.aspx?ItemCode="+ Eval("ItemCode")%>'
@@ -30,7 +30,7 @@
                  </asp:HyperLink>
              </ItemTemplate>
          </asp:TemplateField>
-                <asp:BoundField DataField="CategoryCode" HeaderText="Category Code" >
+                <asp:BoundField DataField="CategoryCode" HeaderText="Category" >
 <ItemStyle Width="150px"></ItemStyle>
                 </asp:BoundField>
                 <asp:BoundField DataField="Description" HeaderText="Description" >

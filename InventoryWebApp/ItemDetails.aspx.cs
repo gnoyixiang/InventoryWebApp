@@ -1,4 +1,5 @@
-﻿using InventoryWebApp.Models;
+﻿using InventoryWebApp.Controllers;
+using InventoryWebApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,8 @@ namespace InventoryWebApp
 {
     public partial class ItemDetails : System.Web.UI.Page
     {
-        EntityModel SSIS = new EntityModel();
+        //EntityModel SSIS = new EntityModel();
+        EmployeeController ec = new EmployeeController();
         protected void Page_Load(object sender, EventArgs e)
         {
             
@@ -20,7 +22,8 @@ namespace InventoryWebApp
                 try
                 {
                     Session["ItemDetails"] = Session["ItemDetails"] != null?(List<StationeryDTO>)Session["ItemDetails"] : new List<StationeryDTO>();
-                    StationeryCatalogue itemInfo = SSIS.StationeryCatalogues.Where(x => x.ItemCode == itemcode).FirstOrDefault();
+                    //StationeryCatalogue itemInfo = SSIS.StationeryCatalogues.Where(x => x.ItemCode == itemcode).FirstOrDefault();
+                    var itemInfo = ec.GetStationery(itemcode);
                     if (itemInfo != null)
                     {
                         tbxItemCode.Text = Request.QueryString["ItemCode"].ToString();
