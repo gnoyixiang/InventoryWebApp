@@ -12,7 +12,7 @@ namespace InventoryWebApp.DAO
         EntityModel em = new EntityModel();
         public List<StationeryCatalogue> SearchByItemCode(string keyword)
         {
-            return em.StationeryCatalogues.Where(x => x.ItemCode.Contains(keyword)).ToList();
+            return em.StationeryCatalogues.Where(x => x.ItemCode.Contains(keyword.ToUpper())).ToList();
         }
         public List<StationeryCatalogue> SearchByDescription(string keyword)
         {
