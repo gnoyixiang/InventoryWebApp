@@ -226,7 +226,6 @@
     <Content Include="StockAdjustmentView.aspx" />
     <Content Include="StockCardView.aspx" />
     <Content Include="ViewPurchaseOrders.aspx" />
-    <Content Include="WebForm2.aspx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
@@ -403,9 +402,54 @@
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\PurchaseOrderController.cs" />
+    <Compile Include="Controllers\DepartmentHeadController.cs" />
+    <Compile Include="Controllers\DepartmentRepController.cs" />
+    <Compile Include="Controllers\EmployeeController.cs" />
+    <Compile Include="Controllers\StoreClerkController.cs" />
+    <Compile Include="Controllers\StoreManagerController.cs" />
+    <Compile Include="Controllers\StoreSupervisorController.cs" />
+    <Compile Include="DAO\AdjustmentDAO.cs" />
+    <Compile Include="DAO\AssignRoleDAO.cs" />
+    <Compile Include="DAO\CatagoryDAO.cs" />
+    <Compile Include="DAO\CollectionPointDAO.cs" />
+    <Compile Include="DAO\DisbursementDAO.cs" />
+    <Compile Include="DAO\DisbursementDetailsDAO.cs" />
+    <Compile Include="DAO\IAdjustmentDAO.cs" />
+    <Compile Include="DAO\IAssignRoleDAO.cs" />
+    <Compile Include="DAO\ICatagoryDAO.cs" />
+    <Compile Include="DAO\ICollectionPointDAO.cs" />
+    <Compile Include="DAO\IDepartmentDAO.cs" />
+    <Compile Include="DAO\IDisbursementDAO.cs" />
+    <Compile Include="DAO\IEmployeeDAO.cs" />
+    <Compile Include="DAO\IPODetailsDAO.cs" />
+    <Compile Include="DAO\IPurchaseOrderDAO.cs" />
+    <Compile Include="DAO\IRequestDAO.cs" />
+    <Compile Include="DAO\IRequestDetailsDAO.cs" />
+    <Compile Include="DAO\IRetrievalDAO.cs" />
+    <Compile Include="DAO\IRetrievalDetailsDAO.cs" />
+    <Compile Include="DAO\IRoleDAO.cs" />
+    <Compile Include="DAO\IStationeryCatalogueDAO.cs" />
+    <Compile Include="DAO\ISupplierDAO.cs" />
+    <Compile Include="DAO\ISupplierDetailsDAO.cs" />
+    <Compile Include="DAO\ITenderDAO.cs" />
+    <Compile Include="DAO\ITenderDetailsDAO.cs" />
+    <Compile Include="DAO\IUserDAO.cs" />
+    <Compile Include="DAO\PODetailsDAO.cs" />
     <Compile Include="DAO\PurchaseOrderDAO.cs" />
-    <Compile Include="DAO\PurchaseOrderDAOImpl.cs" />
+    <Compile Include="DAO\IDisbursementDetailsDAO.cs" />
+    <Compile Include="DAO\DepartmentDAO.cs" />
+    <Compile Include="DAO\EmployeeDAO.cs" />
+    <Compile Include="DAO\RequestDAO.cs" />
+    <Compile Include="DAO\RequestDetailsDAO.cs" />
+    <Compile Include="DAO\RetrievalDAO.cs" />
+    <Compile Include="DAO\RetrievalDetailsDAO.cs" />
+    <Compile Include="DAO\RoleDAO.cs" />
+    <Compile Include="DAO\StationeryCatalogueDAO.cs" />
+    <Compile Include="DAO\SupplierDAO.cs" />
+    <Compile Include="DAO\SupplierDetailsDAO.cs" />
+    <Compile Include="DAO\TenderDAO.cs" />
+    <Compile Include="DAO\TenderDetailsDAO.cs" />
+    <Compile Include="DAO\UserDAO.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -423,15 +467,32 @@
     <Compile Include="Layout.Master.designer.cs">
       <DependentUpon>Layout.Master</DependentUpon>
     </Compile>
-    <Compile Include="Models\Adjustment.cs" />
-    <Compile Include="Models\AssignRole.cs" />
-    <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\CollectionPoint.cs" />
-    <Compile Include="Models\Department.cs" />
-    <Compile Include="Models\Disbursement.cs" />
-    <Compile Include="Models\DisbursementDetail.cs" />
-    <Compile Include="Models\Employee.cs" />
-    <Compile Include="Models\EntityModel.cs" />
+    <Compile Include="Models\Entities\Adjustment.cs" />
+    <Compile Include="Models\Entities\AssignRole.cs" />
+    <Compile Include="Models\Entities\Category.cs" />
+    <Compile Include="Models\Entities\CollectionPoint.cs" />
+    <Compile Include="Models\Entities\Department.cs" />
+    <Compile Include="Models\Entities\Disbursement.cs" />
+    <Compile Include="Models\Entities\DisbursementDetail.cs" />
+    <Compile Include="Models\Entities\Employee.cs" />
+    <Compile Include="Models\Entities\EntityModel.cs" />
+    <Compile Include="Models\Entities\PODetail.cs" />
+    <Compile Include="Models\Entities\PurchaseOrder.cs" />
+    <Compile Include="Models\Entities\Request.cs" />
+    <Compile Include="Models\Entities\RequestDetail.cs" />
+    <Compile Include="Models\Entities\Retrieval.cs" />
+    <Compile Include="Models\Entities\RetrievalDetail.cs" />
+    <Compile Include="Models\Entities\Role.cs" />
+    <Compile Include="Models\Entities\StationeryCatalogue.cs" />
+    <Compile Include="Models\Entities\Supplier.cs" />
+    <Compile Include="Models\Entities\SupplierDetail.cs" />
+    <Compile Include="Models\Entities\sysdiagram.cs" />
+    <Compile Include="Models\Entities\Tender.cs" />
+    <Compile Include="Models\Entities\TenderDetail.cs" />
+    <Compile Include="Models\Entities\User.cs" />
+    <Compile Include="Models\Entities\UserClaim.cs" />
+    <Compile Include="Models\Entities\UserLogin.cs" />
+    <Compile Include="Models\Entities\Util.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\PODetail.cs" />
     <Compile Include="Models\PurchaseOrder.cs" />
@@ -537,13 +598,6 @@
     </Compile>
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="WebForm2.aspx.cs">
-      <DependentUpon>WebForm2.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebForm2.aspx.designer.cs">
-      <DependentUpon>WebForm2.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

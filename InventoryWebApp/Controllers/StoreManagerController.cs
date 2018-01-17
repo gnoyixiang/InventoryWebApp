@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace InventoryWebApp.DAO
+namespace InventoryWebApp.Controllers
 {
-    public class PurchaseOrderDAOImpl:PurchaseOrderDAO
+    public class StoreManagerController
     {
     }
 }
