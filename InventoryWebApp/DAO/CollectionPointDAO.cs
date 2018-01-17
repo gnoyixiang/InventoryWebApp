@@ -18,6 +18,10 @@ namespace InventoryWebApp.DAO
         {
             return em.CollectionPoints.Where(x => x.CollectionVenue.Contains(keyword)).ToList();
         }
+        public List<CollectionPoint> ListAllCollectionPoint()
+        {
+            return em.CollectionPoints.ToList();
+        }
         public int AddCollectionPoint(CollectionPoint c)
         {
             try
