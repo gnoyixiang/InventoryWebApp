@@ -1,11 +1,12 @@
-﻿using InventoryWebApp.Models.Entities;
+﻿using System.Collections.Generic;
+using InventoryWebApp.Models.Entities;
 
 namespace InventoryWebApp.DAO
 {
     public interface ISupplierDAO
     {
-        int AddSupplier(Supplier supplier, string itemCode, decimal price);
-        int UpdateSupplier(Supplier supplier);
+        int AddOrUpdateSupplier(Supplier supplier);
         Supplier GetSupplier(string supplierCode);
+        List<Supplier> ListOfSupplier();
     }
 }

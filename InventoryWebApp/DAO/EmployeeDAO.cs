@@ -2,28 +2,32 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using InventoryWebApp.Models;
 using InventoryWebApp.Models.Entities;
 
 namespace InventoryWebApp.DAO
 {
-    public class EmployeeDAO : IEmployeeDAO
+    public class EmployeeDAO :  IEmployeeDAO
     {
         EntityModel em = new EntityModel();
-        
-        public void AddEmployee(string reportTo, string deptCode, string role, string empName, string empTitle, string userName)
+
+
+
+        public int AddEmployee(Employee emp)
         {
 
 
-            Employee emp = new Employee();
-            emp.ReportTo = reportTo;
-            emp.DepartmentCode = deptCode;
-            emp.CurrentRoleCode = role;
-            emp.EmployeeName = empName;
-            emp.EmployeeTitle = empTitle;
-            emp.UserName = userName;
+            /* Employee emp = new Employee();
+             emp.EmployeeCode = empCode;
+             emp.ReportTo = reportTo;
+             emp.DepartmentCode = deptCode;
+             emp.CurrentRoleCode = role;
+             emp.EmployeeName = empName;
+             emp.EmployeeTitle = empTitle;
+             emp.UserName = userName;*/
 
             em.Employees.Add(emp);
-            em.SaveChanges();
+            return em.SaveChanges();
 
         }
 
@@ -36,14 +40,14 @@ namespace InventoryWebApp.DAO
         }
         public Employee GetEmployeeInfo(string username)
         {
-            return em.Employees.Where(x => x.UserName == username).FirstOrDefault();
+            return em.Employees.Where(x => x.UserName.Contains(username)).FirstOrDefault();
         }
 
-        public void UpdateRole(string username, string role)
+        public int UpdateRole(string username, string role)
         {
             Employee emp = em.Employees.Where(x => x.UserName == username).First();
             emp.CurrentRoleCode = role;
-            em.SaveChanges();
+            return em.SaveChanges();
         }
 
         public List<Employee> ListEmployee()
@@ -65,12 +69,14 @@ namespace InventoryWebApp.DAO
 
         public List<Employee> SearchByDept(string dept)
         {
-            return em.Employees.Where(x => x.Department.Equals(dept.Trim())).ToList();
+            return em.Employees.Where(x => x.DepartmentCode.Equals(dept.Trim())).ToList();
         }
 
         public List<string> ListEmpName(string dept, string role)
         {
-            return em.Employees.Where(x => x.DepartmentCode == dept && x.CurrentRoleCode == role).Select(x=>x.EmployeeName).ToList();
+            return em.Employees.Where(x => x.DepartmentCode == dept && x.CurrentRoleCode == role).Select(x => x.EmployeeName).ToList();
         }
+
+
     }
 }
