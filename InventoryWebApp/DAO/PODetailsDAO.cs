@@ -9,63 +9,51 @@ namespace InventoryWebApp.DAO
 {
     public class PODetailsDAO : IPODetailsDAO
     {
-        private EntityModel em;
-
         public List<PODetail> ListAllPODetails()
         {
-            List<PODetail> pod = null;
-            using (em = new EntityModel())
+            using (EntityModel em = new EntityModel())
             {
-                pod = em.PODetails.ToList<PODetail>();
+                return em.PODetails.ToList<PODetail>();
             }
-            return pod;
         }
 
         public List<PODetail> ListPODetailsByPOCode(string purchaseOrderCode)
         {
-            List<PODetail> pod = null;
-            using (em = new EntityModel())
+            using (EntityModel em = new EntityModel())
             {
-                pod = em.PODetails
-                    .Where(p => p.PurchaseOrderCode == purchaseOrderCode)
+                return em.PODetails
+                    .Where(p => p.PurchaseOrderCode.ToUpper().Contains(purchaseOrderCode.ToUpper()))
                     .ToList<PODetail>();
             }
-            return pod;
         }
 
         public List<PODetail> ListPODetailsByItemCode(string itemCode)
         {
-            List<PODetail> pod = null;
-            using (em = new EntityModel())
+            using (EntityModel em = new EntityModel())
             {
-                pod = em.PODetails
-                    .Where(p => p.ItemCode == itemCode)
+                return em.PODetails
+                    .Where(p => p.ItemCode.ToUpper().Contains(itemCode.ToUpper()))
                     .ToList<PODetail>();
             }
-            return pod;
         }
 
         public PODetail GetPODetail(string purchaseOrderCode, string itemCode)
         {
-            PODetail poList;
-            using (em = new EntityModel())
+            using (EntityModel em = new EntityModel())
             {
-                poList = em.PODetails
+                return em.PODetails
                     .Where(p => p.PurchaseOrderCode == purchaseOrderCode && p.ItemCode == itemCode)
                     .FirstOrDefault<PODetail>();
             }
-            return poList;
         }
 
         public int UpdatePODetail(PODetail poDetail)
         {
-            int result = -1;
-            using (em = new EntityModel())
+            using (EntityModel em = new EntityModel())
             {
                 em.Entry(poDetail).State = EntityState.Modified;
-                result = em.SaveChanges();
+                return em.SaveChanges();
             }
-            return result;
         }
         
     }

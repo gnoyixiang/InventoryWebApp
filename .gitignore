@@ -240,4 +240,4 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
-git rm --cached ConsoleApplication1/**
+git rm --cached ConsoleApplication/**
