@@ -1,4 +1,5 @@
-﻿using InventoryWebApp.Models;
+﻿using InventoryWebApp.Controllers;
+using InventoryWebApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,6 +12,7 @@ namespace InventoryWebApp
 {
     public partial class CreateRequest : System.Web.UI.Page
     {
+        EmployeeController ec = new EmployeeController();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -31,7 +33,29 @@ namespace InventoryWebApp
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-
+            var requestCode = "RQ" + DateTime.Now.ToString("yyyyMMddHHmmss") + 100;
+            if(requestCode != ec.GetRequestCode)
+            ec.AddRequest(requestCode, tbxDeptName.Text, DateTime.Now, "pending");
+            //Department dp = new Department();
+            //if(tbxDeptName.Text != null)
+            //{
+            //    dp.DepartmentName = tbxDeptName.Text;
+            //    dp.DepartmentName = dp.DepartmentCode;
+            //}
+            //Employee emp = new Employee();
+            //if (tbxEmpName.Text != null)
+            //{
+            //    emp.EmployeeName = tbxEmpName.Text;
+            //    emp.EmployeeName = emp.User.UserName;
+            //}
+            //Request request = new Request()
+            //{
+            //    RequestCode = requestCode + 1,
+            //    DepartmentCode = dp.DepartmentName,
+            //    DateCreated = DateTime.Now,
+            //    Status = "pending",
+            //    User = , 
+            //};
         }
 
         protected void btnClear_Click(object sender, EventArgs e)
