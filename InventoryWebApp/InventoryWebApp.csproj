@@ -380,6 +380,13 @@
     <Compile Include="Account\VerifyPhoneNumber.aspx.designer.cs">
       <DependentUpon>VerifyPhoneNumber.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\EmployeeController.cs" />
+    <Compile Include="DAO\CategoryDAO.cs" />
+    <Compile Include="DAO\CollectionPointDAO.cs" />
+    <Compile Include="DAO\ICategoryDAO.cs" />
+    <Compile Include="DAO\ICollectionPointDAO.cs" />
+    <Compile Include="DAO\IStationeryCatalogueDAO.cs" />
+    <Compile Include="DAO\StationeryCatalogueDAO.cs" />
     <Compile Include="Models\Adjustment.cs" />
     <Compile Include="Models\AssignRole.cs" />
     <Compile Include="Models\Category.cs" />
