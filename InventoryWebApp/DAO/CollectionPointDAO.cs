@@ -24,10 +24,12 @@ namespace InventoryWebApp.DAO
         }
         public int AddCollectionPoint(CollectionPoint c)
         {
+            int result = -1;
             try
             {
                 em.CollectionPoints.Add(c);
-                return em.SaveChanges();
+                result = em.SaveChanges();
+                return 1;
             }
             catch(Exception e)
             {
