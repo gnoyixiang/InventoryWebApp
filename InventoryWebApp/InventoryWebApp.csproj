@@ -426,6 +426,7 @@
     <Compile Include="DAO\ISupplierDetailsDAO.cs" />
     <Compile Include="DAO\ITenderDAO.cs" />
     <Compile Include="DAO\ITenderDetailsDAO.cs" />
+    <Compile Include="DAO\IUserDAO.cs" />
     <Compile Include="DAO\PODetailsDAO.cs" />
     <Compile Include="DAO\PurchaseOrderDAO.cs" />
     <Compile Include="DAO\IDisbursementDetailsDAO.cs" />
@@ -441,6 +442,7 @@
     <Compile Include="DAO\SupplierDetailsDAO.cs" />
     <Compile Include="DAO\TenderDAO.cs" />
     <Compile Include="DAO\TenderDetailsDAO.cs" />
+    <Compile Include="DAO\UserDAO.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -477,6 +479,7 @@
     <Compile Include="Models\Entities\StationeryCatalogue.cs" />
     <Compile Include="Models\Entities\Supplier.cs" />
     <Compile Include="Models\Entities\SupplierDetail.cs" />
+    <Compile Include="Models\Entities\sysdiagram.cs" />
     <Compile Include="Models\Entities\Tender.cs" />
     <Compile Include="Models\Entities\TenderDetail.cs" />
     <Compile Include="Models\Entities\User.cs" />
