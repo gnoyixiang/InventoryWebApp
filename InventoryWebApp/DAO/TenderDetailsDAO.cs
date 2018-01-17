@@ -15,7 +15,8 @@ namespace InventoryWebApp.DAO
         {
             using (EntityModel em = new EntityModel())
             {
-                return em.TenderDetails.Where(t => t.TenderCode == tenderCode && t.ItemCode == itemCode).FirstOrDefault<TenderDetail>();
+                return em.TenderDetails.Where(t => t.TenderCode.ToUpper() == tenderCode.ToUpper() 
+                && t.ItemCode.ToUpper() == itemCode.ToUpper()).FirstOrDefault<TenderDetail>();
             }
         }
 
@@ -27,7 +28,7 @@ namespace InventoryWebApp.DAO
             }
         }
 
-        public List<TenderDetail> ListTendersByTenderCode(string tenderCode)
+        public List<TenderDetail> ListTenderDetailsByTenderCode(string tenderCode)
         {
             using (EntityModel em = new EntityModel())
             {
@@ -35,7 +36,7 @@ namespace InventoryWebApp.DAO
             }
         }
 
-        public List<TenderDetail> ListTendersByItemCode(string itemCode)
+        public List<TenderDetail> ListTenderDetailsByItemCode(string itemCode)
         {
             using (EntityModel em = new EntityModel())
             {
@@ -43,7 +44,7 @@ namespace InventoryWebApp.DAO
             }
         }
 
-        public List<TenderDetail> ListTendersByPrice(decimal price)
+        public List<TenderDetail> ListTenderDetailsByPrice(decimal price)
         {
             using (EntityModel em = new EntityModel())
             {
@@ -51,7 +52,7 @@ namespace InventoryWebApp.DAO
             }
         }
 
-        public List<TenderDetail> ListTendersByPrice(decimal startPrice, decimal endPrice)
+        public List<TenderDetail> ListTenderDetailsByPrice(decimal startPrice, decimal endPrice)
         {
             using (EntityModel em = new EntityModel())
             {

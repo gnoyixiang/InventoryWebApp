@@ -9,8 +9,8 @@ namespace InventoryWebApp.DAO
         int AddTender(Tender tender);
         Tender getTender(string tenderCode);
         List<Tender> ListAllTenders();
-        List<Tender> ListPurchaseOrderByCreated(DateTime startDate, DateTime endDate);
-        List<Tender> ListPurchaseOrderByDateCreated(DateTime dateCreated);
+        List<Tender> ListTendersByDateCreated(DateTime startDate, DateTime endDate);
+        List<Tender> ListTendersByDateCreated(DateTime dateCreated);
         List<Tender> ListTendersBySupplierCode(string supplierCode);
         List<Tender> ListTendersByUsername(string username);
         int UpdateTender(Tender tender);

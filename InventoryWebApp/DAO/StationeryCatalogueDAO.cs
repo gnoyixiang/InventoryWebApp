@@ -12,7 +12,7 @@ namespace InventoryWebApp.DAO
         EntityModel em = new EntityModel();
         public List<StationeryCatalogue> SearchByItemCode(string keyword)
         {
-            return em.StationeryCatalogues.Where(x => x.ItemCode.Contains(keyword)).ToList();
+            return em.StationeryCatalogues.Where(x => x.ItemCode.Contains(keyword.ToUpper())).ToList();
         }
         public List<StationeryCatalogue> SearchByDescription(string keyword)
         {
@@ -36,11 +36,10 @@ namespace InventoryWebApp.DAO
             try
             {
                 em.StationeryCatalogues.Add(st);
-                return em.SaveChanges(); 
+                return em.SaveChanges();
             }
             catch (Exception e)
             {
-
                 return 0;
             }
         }
