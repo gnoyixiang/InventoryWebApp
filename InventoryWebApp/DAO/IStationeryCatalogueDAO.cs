@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using InventoryWebApp.Models;
+using System.Collections.Generic;
 
 namespace InventoryWebApp.DAO
 {

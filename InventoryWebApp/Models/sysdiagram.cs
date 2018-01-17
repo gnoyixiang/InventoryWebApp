@@ -1,4 +1,4 @@
-namespace InventoryWebApp
+namespace InventoryWebApp.Models
 {
     using System;
     using System.Collections.Generic;

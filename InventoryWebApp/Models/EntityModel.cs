@@ -1,4 +1,4 @@
-namespace InventoryWebApp
+namespace InventoryWebApp.Models
 {
     using System;
     using System.Data.Entity;
@@ -8,7 +8,7 @@ namespace InventoryWebApp
     public partial class EntityModel : DbContext
     {
         public EntityModel()
-            : base("name=EntityModel")
+            : base("name=EntityModel1")
         {
         }
 
@@ -25,6 +25,7 @@ namespace InventoryWebApp
         public virtual DbSet<Request> Requests { get; set; }
         public virtual DbSet<RequestDetail> RequestDetails { get; set; }
         public virtual DbSet<Retrieval> Retrievals { get; set; }
+        public virtual DbSet<RetrievalDetail> RetrievalDetails { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<StationeryCatalogue> StationeryCatalogues { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
@@ -83,6 +84,11 @@ namespace InventoryWebApp
                 .WithRequired(e => e.Request)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<Retrieval>()
+                .HasMany(e => e.RetrievalDetails)
+                .WithRequired(e => e.Retrieval)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<Role>()
                 .HasMany(e => e.AssignRoles)
                 .WithOptional(e => e.Role)
@@ -110,6 +116,11 @@ namespace InventoryWebApp
 
             modelBuilder.Entity<StationeryCatalogue>()
                 .HasMany(e => e.RequestDetails)
+                .WithRequired(e => e.StationeryCatalogue)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<StationeryCatalogue>()
+                .HasMany(e => e.RetrievalDetails)
                 .WithRequired(e => e.StationeryCatalogue)
                 .WillCascadeOnDelete(false);
 
@@ -147,46 +158,6 @@ namespace InventoryWebApp
                 .HasMany(e => e.TenderDetails)
                 .WithRequired(e => e.Tender)
                 .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<User>()
-                .HasMany(e => e.Adjustments)
-                .WithOptional(e => e.User)
-                .HasForeignKey(e => e.UserId);
-
-            modelBuilder.Entity<User>()
-                .HasMany(e => e.Adjustments1)
-                .WithOptional(e => e.User1)
-                .HasForeignKey(e => e.ApprovedBy);
-
-            modelBuilder.Entity<User>()
-                .HasMany(e => e.AssignRoles)
-                .WithOptional(e => e.User)
-                .HasForeignKey(e => e.AssignedBy);
-
-            modelBuilder.Entity<User>()
-                .HasMany(e => e.PurchaseOrders)
-                .WithOptional(e => e.User)
-                .HasForeignKey(e => e.UserId);
-
-            modelBuilder.Entity<User>()
-                .HasMany(e => e.PurchaseOrders1)
-                .WithOptional(e => e.User1)
-                .HasForeignKey(e => e.ApprovedBy);
-
-            modelBuilder.Entity<User>()
-                .HasMany(e => e.PurchaseOrders2)
-                .WithOptional(e => e.User2)
-                .HasForeignKey(e => e.ReceivedBy);
-
-            modelBuilder.Entity<User>()
-                .HasMany(e => e.Requests)
-                .WithOptional(e => e.User)
-                .HasForeignKey(e => e.UserId);
-
-            modelBuilder.Entity<User>()
-                .HasMany(e => e.Requests1)
-                .WithOptional(e => e.User1)
-                .HasForeignKey(e => e.UserId);
         }
     }
 }

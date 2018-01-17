@@ -1,4 +1,4 @@
-namespace InventoryWebApp
+namespace InventoryWebApp.Models
 {
     using System;
     using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace InventoryWebApp
             DisbursementDetails = new HashSet<DisbursementDetail>();
             PODetails = new HashSet<PODetail>();
             RequestDetails = new HashSet<RequestDetail>();
-            Retrievals = new HashSet<Retrieval>();
+            RetrievalDetails = new HashSet<RetrievalDetail>();
             SupplierDetails = new HashSet<SupplierDetail>();
             TenderDetails = new HashSet<TenderDetail>();
         }
@@ -66,7 +66,7 @@ namespace InventoryWebApp
         public virtual ICollection<RequestDetail> RequestDetails { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Retrieval> Retrievals { get; set; }
+        public virtual ICollection<RetrievalDetail> RetrievalDetails { get; set; }
 
         public virtual Supplier Supplier { get; set; }
 

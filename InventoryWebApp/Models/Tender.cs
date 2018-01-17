@@ -1,4 +1,4 @@
-namespace InventoryWebApp
+namespace InventoryWebApp.Models
 {
     using System;
     using System.Collections.Generic;
@@ -25,15 +25,13 @@ namespace InventoryWebApp
         [Column(TypeName = "date")]
         public DateTime? DateCreated { get; set; }
 
-        [StringLength(128)]
-        public string UserId { get; set; }
-
         [StringLength(200)]
         public string Notes { get; set; }
 
-        public virtual Supplier Supplier { get; set; }
+        [StringLength(256)]
+        public string UserName { get; set; }
 
-        public virtual User User { get; set; }
+        public virtual Supplier Supplier { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TenderDetail> TenderDetails { get; set; }

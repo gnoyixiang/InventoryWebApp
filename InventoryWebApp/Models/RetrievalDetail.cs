@@ -6,23 +6,25 @@ namespace InventoryWebApp.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("SupplierDetail")]
-    public partial class SupplierDetail
+    public partial class RetrievalDetail
     {
         [Key]
         [Column(Order = 0)]
         [StringLength(20)]
-        public string SupplierCode { get; set; }
+        public string ItemCode { get; set; }
+
+        public int? Quantity { get; set; }
+
+        [StringLength(200)]
+        public string Notes { get; set; }
 
         [Key]
         [Column(Order = 1)]
         [StringLength(20)]
-        public string ItemCode { get; set; }
+        public string RetrievalCode { get; set; }
 
-        public decimal? Price { get; set; }
+        public virtual Retrieval Retrieval { get; set; }
 
         public virtual StationeryCatalogue StationeryCatalogue { get; set; }
-
-        public virtual Supplier Supplier { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-namespace InventoryWebApp
+namespace InventoryWebApp.Models
 {
     using System;
     using System.Collections.Generic;
@@ -19,7 +19,7 @@ namespace InventoryWebApp
         [StringLength(20)]
         public string ItemCode { get; set; }
 
-        [StringLength(20)]
+        [StringLength(50)]
         public string Status { get; set; }
 
         public int? RemainingQuant { get; set; }

@@ -1,4 +1,4 @@
-namespace InventoryWebApp
+namespace InventoryWebApp.Models
 {
     using System;
     using System.Collections.Generic;
@@ -38,8 +38,8 @@ namespace InventoryWebApp
         [StringLength(10)]
         public string EmployeeTitle { get; set; }
 
-        [StringLength(128)]
-        public string UserId { get; set; }
+        [StringLength(256)]
+        public string UserName { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AssignRole> AssignRoles { get; set; }
@@ -61,7 +61,5 @@ namespace InventoryWebApp
         public virtual Employee Employee2 { get; set; }
 
         public virtual Role Role { get; set; }
-
-        public virtual User User { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-namespace InventoryWebApp
+namespace InventoryWebApp.Models
 {
     using System;
     using System.Collections.Generic;
@@ -29,7 +29,7 @@ namespace InventoryWebApp
         [Column(TypeName = "date")]
         public DateTime? DateApproved { get; set; }
 
-        [StringLength(20)]
+        [StringLength(50)]
         public string Status { get; set; }
 
         [StringLength(200)]
@@ -38,20 +38,16 @@ namespace InventoryWebApp
         [StringLength(200)]
         public string HeadRemarks { get; set; }
 
-        [StringLength(128)]
-        public string UserId { get; set; }
+        [StringLength(256)]
+        public string UserName { get; set; }
 
-        [StringLength(128)]
+        [StringLength(256)]
         public string ApprovedBy { get; set; }
 
         public virtual Department Department { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DisbursementDetail> DisbursementDetails { get; set; }
-
-        public virtual User User { get; set; }
-
-        public virtual User User1 { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RequestDetail> RequestDetails { get; set; }

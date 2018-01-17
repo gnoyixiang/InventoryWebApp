@@ -1,4 +1,4 @@
-namespace InventoryWebApp
+namespace InventoryWebApp.Models
 {
     using System;
     using System.Collections.Generic;
@@ -30,22 +30,18 @@ namespace InventoryWebApp
         [StringLength(200)]
         public string Notes { get; set; }
 
-        [StringLength(128)]
-        public string UserId { get; set; }
-
         [StringLength(200)]
         public string Reason { get; set; }
-
-        [StringLength(128)]
-        public string ApprovedBy { get; set; }
 
         [StringLength(200)]
         public string HeadRemarks { get; set; }
 
+        [StringLength(256)]
+        public string UserName { get; set; }
+
+        [StringLength(256)]
+        public string ApprovedBy { get; set; }
+
         public virtual StationeryCatalogue StationeryCatalogue { get; set; }
-
-        public virtual User User { get; set; }
-
-        public virtual User User1 { get; set; }
     }
 }

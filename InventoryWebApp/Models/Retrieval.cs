@@ -1,4 +1,4 @@
-namespace InventoryWebApp
+namespace InventoryWebApp.Models
 {
     using System;
     using System.Collections.Generic;
@@ -9,16 +9,17 @@ namespace InventoryWebApp
     [Table("Retrieval")]
     public partial class Retrieval
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Retrieval()
+        {
+            RetrievalDetails = new HashSet<RetrievalDetail>();
+        }
+
         [Key]
         [StringLength(20)]
         public string RetrievalCode { get; set; }
 
-        [StringLength(20)]
-        public string ItemCode { get; set; }
-
-        public int? Quantity { get; set; }
-
-        [StringLength(20)]
+        [StringLength(50)]
         public string Status { get; set; }
 
         [StringLength(200)]
@@ -27,6 +28,10 @@ namespace InventoryWebApp
         [Column(TypeName = "date")]
         public DateTime? DateRetrieved { get; set; }
 
-        public virtual StationeryCatalogue StationeryCatalogue { get; set; }
+        [StringLength(256)]
+        public string UserName { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RetrievalDetail> RetrievalDetails { get; set; }
     }
 }
