@@ -51,6 +51,7 @@
     <Compile Include="TestCategoryDAO.cs" />
     <Compile Include="TestCollectionPointDAO.cs" />
     <Compile Include="TestPurchaseOrderDAO.cs" />
+    <Compile Include="TestRetrievalDAO.cs" />
     <Compile Include="TestStationeryCatalogueDAO.cs" />
   </ItemGroup>
   <ItemGroup>
