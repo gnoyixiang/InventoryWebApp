@@ -1,7 +1,12 @@
-﻿namespace InventoryWebApp.DAO
+﻿using System.Collections.Generic;
+using InventoryWebApp.Models.Entities;
+
+namespace InventoryWebApp.DAO
 {
     public interface ISupplierDetailsDAO
     {
-        int UpdateSupplierDetails(string supplierCode, string itemCode, decimal price);
+        SupplierDetail GetSupplierDetailsById(string supplierCode);
+        List<SupplierDetail> ListOfSupplierByItemCode(string itemcode);
+        int UpdateSupplierDetails(SupplierDetail sp);
     }
 }

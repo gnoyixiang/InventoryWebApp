@@ -8,10 +8,10 @@ namespace InventoryWebApp.DAO
         int addTenderDetail(TenderDetail tenderDetail);
         TenderDetail getTenderDetail(string tenderCode, string itemCode);
         List<TenderDetail> ListAllTenderDetails();
-        List<TenderDetail> ListTendersByItemCode(string itemCode);
-        List<TenderDetail> ListTendersByPrice(decimal price);
-        List<TenderDetail> ListTendersByPrice(decimal startPrice, decimal endPrice);
-        List<TenderDetail> ListTendersByTenderCode(string tenderCode);
+        List<TenderDetail> ListTenderDetailsByItemCode(string itemCode);
+        List<TenderDetail> ListTenderDetailsByPrice(decimal price);
+        List<TenderDetail> ListTenderDetailsByPrice(decimal startPrice, decimal endPrice);
+        List<TenderDetail> ListTenderDetailsByTenderCode(string tenderCode);
         int updateTenderDetail(TenderDetail tenderDetail);
     }
 }
