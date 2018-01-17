@@ -39,6 +39,7 @@ namespace InventoryWebApp.DAO
                 em.Requests.Add(newR);
                 a = em.SaveChanges();
             }
+
             return a;
         }
 
