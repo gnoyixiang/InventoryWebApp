@@ -9,240 +9,200 @@ namespace InventoryWebApp.DAO
 {
     public class PurchaseOrderDAO : IPurchaseOrderDAO
     {
-        private EntityModel em;
         public PurchaseOrder GetPurchaseOrder(string purchaseOrderCode)
         {
-            PurchaseOrder po = null;
-            using (EntityModel em = new EntityModel()) {
-                po = em.PurchaseOrders
-                    .Where(p => p.PurchaseOrderCode == purchaseOrderCode)
+            using (EntityModel em = new EntityModel())
+            {
+                return em.PurchaseOrders
+                    .Where(p => p.PurchaseOrderCode.ToUpper() == purchaseOrderCode.ToUpper())
                     .FirstOrDefault<PurchaseOrder>();
             }
-            return po;
         }
 
         public List<PurchaseOrder> ListPurchaseOrdersByStatus(string status)
         {
-            List<PurchaseOrder> poList;
-            using (em = new EntityModel())
+            using (EntityModel em = new EntityModel())
             {
-                poList = em.PurchaseOrders
-                    .Where(p=>p.Status == status).ToList<PurchaseOrder>();
+                return em.PurchaseOrders
+                    .Where(p => p.Status.ToUpper().Contains(status.ToUpper())).ToList<PurchaseOrder>();
             }
-            return poList;
         }
 
         public List<PurchaseOrder> ListPurchaseOrdersBySupplierCode(string supplierCode)
         {
-            List<PurchaseOrder> poList;
-            using (em = new EntityModel())
+            using (EntityModel em = new EntityModel())
             {
-                poList = em.PurchaseOrders
-                    .Where(p => p.Status == supplierCode).ToList<PurchaseOrder>();
+                return em.PurchaseOrders
+                    .Where(p => p.SupplierCode.ToUpper().Contains(supplierCode.ToUpper())).ToList<PurchaseOrder>();
             }
-            return poList;
         }
 
         public List<PurchaseOrder> ListPurchaseOrdersByUsername(string username)
         {
-            List<PurchaseOrder> poList;
-            using (em = new EntityModel())
+            using (EntityModel em = new EntityModel())
             {
-                poList = em.PurchaseOrders
-                    .Where(p => p.UserName == username).ToList<PurchaseOrder>();
+                return em.PurchaseOrders
+                    .Where(p => p.UserName.ToUpper().Contains(username.ToUpper())).ToList<PurchaseOrder>();
             }
-            return poList;
         }
 
         public List<PurchaseOrder> ListPurchaseOrdersByApprovedBy(string approvedBy)
         {
-            List<PurchaseOrder> poList;
-            using (em = new EntityModel())
+            using (EntityModel em = new EntityModel())
             {
-                poList = em.PurchaseOrders
-                    .Where(p => p.ApprovedBy == approvedBy).ToList<PurchaseOrder>();
+                return em.PurchaseOrders
+                    .Where(p => p.ApprovedBy.ToUpper().Contains(approvedBy.ToUpper())).ToList<PurchaseOrder>();
             }
-            return poList;
         }
 
         public List<PurchaseOrder> ListPurchaseOrdersByReceivedBy(string receivedBy)
         {
-            List<PurchaseOrder> poList;
-            using (em = new EntityModel())
+            using (EntityModel em = new EntityModel())
             {
-                poList = em.PurchaseOrders
-                    .Where(p => p.ReceivedBy == receivedBy).ToList<PurchaseOrder>();
+                return em.PurchaseOrders
+                    .Where(p => p.ReceivedBy.ToUpper().Contains(receivedBy.ToUpper())).ToList<PurchaseOrder>();
             }
-            return poList;
         }
 
         public List<PurchaseOrder> ListPurchaseOrdersByLastUpdatedBy(string updatedBy)
         {
-            List<PurchaseOrder> poList;
-            using (em = new EntityModel())
+            using (EntityModel em = new EntityModel())
             {
-                poList = em.PurchaseOrders
-                    .Where(p => p.ReceivedBy == updatedBy).ToList<PurchaseOrder>();
+                return em.PurchaseOrders
+                    .Where(p => p.LastUpdatedBy.ToUpper().Contains(updatedBy.ToUpper())).ToList<PurchaseOrder>();
             }
-            return poList;
         }
 
-        public List<PurchaseOrder> ListPurchaseOrderByDateCreated(DateTime dateCreated)
+        public List<PurchaseOrder> ListPurchaseOrdersByDateCreated(DateTime dateCreated)
         {
-            List<PurchaseOrder> poList;
-            using (em = new EntityModel())
+            using (EntityModel em = new EntityModel())
             {
-                poList = em.PurchaseOrders
-                    .Where(p => Convert.ToDateTime(p.DateCreated).Date == dateCreated.Date)
+                return em.PurchaseOrders
+                    .Where(p => p.DateCreated == dateCreated.Date)
                     .ToList<PurchaseOrder>();
             }
-            return poList;
         }
 
-        public List<PurchaseOrder> ListPurchaseOrderByDateCreated(DateTime startDate, DateTime endDate)
+        public List<PurchaseOrder> ListPurchaseOrdersByDateCreated(DateTime startDate, DateTime endDate)
         {
-            List<PurchaseOrder> poList;
-            using (em = new EntityModel())
+            using (EntityModel em = new EntityModel())
             {
-                poList = em.PurchaseOrders
-                    .Where(p => Convert.ToDateTime(p.DateCreated).Date >= startDate.Date
-                    && Convert.ToDateTime(p.DateCreated).Date >= endDate.Date)
+                return em.PurchaseOrders
+                    .Where(p => p.DateCreated >= startDate.Date
+                    && p.DateCreated <= endDate.Date)
                     .ToList<PurchaseOrder>();
             }
-            return poList;
         }
 
-        public List<PurchaseOrder> ListPurchaseOrderByDateApproved(DateTime dateApproved)
+        public List<PurchaseOrder> ListPurchaseOrdersByDateApproved(DateTime dateApproved)
         {
-            List<PurchaseOrder> poList;
-            using (em = new EntityModel())
+            using (EntityModel em = new EntityModel())
             {
-                poList = em.PurchaseOrders
-                    .Where(p => Convert.ToDateTime(p.DateApproved).Date == dateApproved.Date)
+                return em.PurchaseOrders
+                    .Where(p => p.DateApproved == dateApproved.Date)
                     .ToList<PurchaseOrder>();
             }
-            return poList;
         }
 
-        public List<PurchaseOrder> ListPurchaseOrderByDateApproved(DateTime startDate, DateTime endDate)
+        public List<PurchaseOrder> ListPurchaseOrdersByDateApproved(DateTime startDate, DateTime endDate)
         {
-            List<PurchaseOrder> poList;
-            using (em = new EntityModel())
+            using (EntityModel em = new EntityModel())
             {
-                poList = em.PurchaseOrders
-                    .Where(p => Convert.ToDateTime(p.DateApproved).Date >= startDate.Date
-                    && Convert.ToDateTime(p.DateApproved).Date >= endDate.Date)
+                return em.PurchaseOrders
+                    .Where(p => p.DateApproved >= startDate.Date
+                    && p.DateApproved <= endDate.Date)
                     .ToList<PurchaseOrder>();
             }
-            return poList;
         }
 
-        public List<PurchaseOrder> ListPurchaseOrderByDateReceived(DateTime dateReceived)
+        public List<PurchaseOrder> ListPurchaseOrdersByDateReceived(DateTime dateReceived)
         {
-            List<PurchaseOrder> poList;
-            using (em = new EntityModel())
+            using (EntityModel em = new EntityModel())
             {
-                poList = em.PurchaseOrders
-                    .Where(p => Convert.ToDateTime(p.DateReceived).Date == dateReceived.Date)
+                return em.PurchaseOrders
+                    .Where(p => p.DateReceived == dateReceived.Date)
                     .ToList<PurchaseOrder>();
             }
-            return poList;
         }
 
-        public List<PurchaseOrder> ListPurchaseOrderByDateReceived(DateTime startDate, DateTime endDate)
+        public List<PurchaseOrder> ListPurchaseOrdersByDateReceived(DateTime startDate, DateTime endDate)
         {
-            List<PurchaseOrder> poList;
-            using (em = new EntityModel())
+            using (EntityModel em = new EntityModel())
             {
-                poList = em.PurchaseOrders
-                    .Where(p => Convert.ToDateTime(p.DateReceived).Date >= startDate.Date
-                    && Convert.ToDateTime(p.DateReceived).Date >= endDate.Date)
+                return em.PurchaseOrders
+                    .Where(p => p.DateReceived >= startDate.Date
+                    && p.DateReceived <= endDate.Date)
                     .ToList<PurchaseOrder>();
             }
-            return poList;
         }
 
-        public List<PurchaseOrder> ListPurchaseOrderByDateLastUpdated(DateTime dateLastUpdated)
+        public List<PurchaseOrder> ListPurchaseOrdersByDateLastUpdated(DateTime dateLastUpdated)
         {
-            List<PurchaseOrder> poList;
-            using (em = new EntityModel())
+            using (EntityModel em = new EntityModel())
             {
-                poList = em.PurchaseOrders
-                    .Where(p => Convert.ToDateTime(p.DateLastUpdated).Date == dateLastUpdated.Date)
+                return em.PurchaseOrders
+                    .Where(p => p.DateLastUpdated == dateLastUpdated.Date)
                     .ToList<PurchaseOrder>();
             }
-            return poList;
         }
 
-        public List<PurchaseOrder> ListPurchaseOrderByDateLastUpdated(DateTime startDate, DateTime endDate)
+        public List<PurchaseOrder> ListPurchaseOrdersByDateLastUpdated(DateTime startDate, DateTime endDate)
         {
-            List<PurchaseOrder> poList;
-            using (em = new EntityModel())
+            using (EntityModel em = new EntityModel())
             {
-                poList = em.PurchaseOrders
-                    .Where(p => Convert.ToDateTime(p.DateLastUpdated).Date >= startDate.Date
-                    && Convert.ToDateTime(p.DateLastUpdated).Date >= endDate.Date)
+                return em.PurchaseOrders
+                    .Where(p => p.DateLastUpdated >= startDate.Date
+                    && p.DateLastUpdated <= endDate.Date)
                     .ToList<PurchaseOrder>();
             }
-            return poList;
         }
 
-        public List<PurchaseOrder> ListPurchaseOrderByDateSupplyExpected(DateTime dateSupplyExpected)
+        public List<PurchaseOrder> ListPurchaseOrdersByDateSupplyExpected(DateTime dateSupplyExpected)
         {
-            List<PurchaseOrder> poList;
-            using (em = new EntityModel())
+            using (EntityModel em = new EntityModel())
             {
-                poList = em.PurchaseOrders
-                    .Where(p => Convert.ToDateTime(p.DateSupplyExpected).Date == dateSupplyExpected.Date)
+                return em.PurchaseOrders
+                    .Where(p => p.DateSupplyExpected == dateSupplyExpected.Date)
                     .ToList<PurchaseOrder>();
             }
-            return poList;
         }
 
-        public List<PurchaseOrder> ListPurchaseOrderByDateSupplyExpected(DateTime startDate, DateTime endDate)
+        public List<PurchaseOrder> ListPurchaseOrdersByDateSupplyExpected(DateTime startDate, DateTime endDate)
         {
-            List<PurchaseOrder> poList;
-            using (em = new EntityModel())
+            using (EntityModel em = new EntityModel())
             {
-                poList = em.PurchaseOrders
-                    .Where(p => Convert.ToDateTime(p.DateSupplyExpected).Date >= startDate.Date
-                    && Convert.ToDateTime(p.DateSupplyExpected).Date >= endDate.Date)
+                return em.PurchaseOrders
+                    .Where(p => p.DateSupplyExpected >= startDate.Date
+                    && p.DateSupplyExpected <= endDate.Date)
                     .ToList<PurchaseOrder>();
             }
-            return poList;
         }
 
         public List<PurchaseOrder> ListAllPurchaseOrders()
         {
-            List<PurchaseOrder> poList;
-            using (em = new EntityModel())
+            using (EntityModel em = new EntityModel())
             {
-                poList = em.PurchaseOrders.ToList<PurchaseOrder>();
+                return em.PurchaseOrders.ToList<PurchaseOrder>();
             }
-            return poList;
         }
 
         public int AddPurchaseOrder(PurchaseOrder purchaseOrder)
         {
-            int result=-1;
-            using(em = new EntityModel())
+            using (EntityModel em = new EntityModel())
             {
                 em.PurchaseOrders.Add(purchaseOrder);
-                result = em.SaveChanges();
-            }
-            return result;
+                return em.SaveChanges();
+            }            
         }
 
         public int UpdatePurchaseOrder(PurchaseOrder purchaseOrder)
         {
-            int result = -1;
-            using (em = new EntityModel())
+            using (EntityModel em = new EntityModel())
             {
                 em.Entry(purchaseOrder).State = EntityState.Modified;
-                result = em.SaveChanges();
+                return em.SaveChanges();
             }
-            return result;
         }
-        
+
     }
 }
