@@ -62,5 +62,7 @@ namespace InventoryWebApp.Models.Entities
         public virtual ICollection<PODetail> PODetails { get; set; }
 
         public virtual Supplier Supplier { get; set; }
+
+
     }
 }
