@@ -1,22 +1,16 @@
-﻿using System;
+﻿using InventoryWebApp.DAO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace InventoryWebApp
+namespace InventoryWebApp.Controllers
 {
-    public partial class EditPurchaseOrder : System.Web.UI.Page
+    public class EmployeeController
     {
-        protected void Page_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void txtQty_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+        
+        
     }
 }
