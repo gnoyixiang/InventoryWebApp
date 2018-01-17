@@ -6,7 +6,7 @@ using System.Web;
 
 namespace InventoryWebApp.DAO
 {
-    
+
     public class DisbursementDAO : IDisbursementDAO
     {
         EntityModel em;
@@ -20,11 +20,12 @@ namespace InventoryWebApp.DAO
                 em.Disbursements.Add(disbursement);
                 em.SaveChanges();
                 return 1;
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 return 0;
             }
-            
+
         }
 
         //Read
@@ -32,7 +33,12 @@ namespace InventoryWebApp.DAO
         public Disbursement GetDisbursementByCode(String disbursementCode)
         {
             em = new EntityModel();
-            return em.Disbursements.Where(d => d.DisbursementCode.Contains(disbursementCode)).FirstOrDefault();
+            return em.Disbursements.Where(d => d.DisbursementCode == (disbursementCode)).FirstOrDefault();
+        }
+        public List<Disbursement> SearchDisbursementByCode(String disbursementCode)
+        {
+            em = new EntityModel();
+            return em.Disbursements.Where(d => d.DisbursementCode.Contains(disbursementCode)).ToList();
         }
         public List<Disbursement> SearchDbmByDateDisbursed(DateTime date)
         {
@@ -69,8 +75,8 @@ namespace InventoryWebApp.DAO
         public List<Disbursement> SearchDbmByStatus(String status)
         {
             em = new EntityModel();
-            
-            return em.Disbursements.Where(d => d.Status.Contains(status)).ToList();
+
+            return em.Disbursements.Where(d => d.Status == status).ToList();
         }
 
         //Update
@@ -92,7 +98,7 @@ namespace InventoryWebApp.DAO
             }
             else
                 return 0;
-            
+
         }
 
         public int UpdateDbmStatus(Disbursement d)
@@ -125,6 +131,6 @@ namespace InventoryWebApp.DAO
             else
                 return 0;
         }
-        
+
     }
 }

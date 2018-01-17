@@ -407,21 +407,32 @@
     <Compile Include="DAO\CollectionPointDAO.cs" />
     <Compile Include="DAO\DisbursementDAO.cs" />
     <Compile Include="DAO\DisbursementDetailsDAO.cs" />
+    <Compile Include="DAO\IAdjustmentDAO.cs" />
+    <Compile Include="DAO\IAssignRoleDAO.cs" />
     <Compile Include="DAO\ICatagoryDAO.cs" />
     <Compile Include="DAO\ICollectionPointDAO.cs" />
+    <Compile Include="DAO\IDepartmentDAO.cs" />
+    <Compile Include="DAO\IDisbursementDAO.cs" />
+    <Compile Include="DAO\IEmployeeDAO.cs" />
     <Compile Include="DAO\IPODetailsDAO.cs" />
     <Compile Include="DAO\IPurchaseOrderDAO.cs" />
+    <Compile Include="DAO\IRequestDAO.cs" />
+    <Compile Include="DAO\IRequestDetailsDAO.cs" />
     <Compile Include="DAO\IRetrievalDAO.cs" />
     <Compile Include="DAO\IRetrievalDetailsDAO.cs" />
+    <Compile Include="DAO\IRoleDAO.cs" />
     <Compile Include="DAO\IStationeryCatalogueDAO.cs" />
+    <Compile Include="DAO\ISupplierDAO.cs" />
+    <Compile Include="DAO\ISupplierDetailsDAO.cs" />
     <Compile Include="DAO\ITenderDAO.cs" />
     <Compile Include="DAO\ITenderDetailsDAO.cs" />
+    <Compile Include="DAO\IUserDAO.cs" />
     <Compile Include="DAO\PODetailsDAO.cs" />
     <Compile Include="DAO\PurchaseOrderDAO.cs" />
-    <Compile Include="DAO\IDisbursementDAO.cs" />
     <Compile Include="DAO\IDisbursementDetailsDAO.cs" />
     <Compile Include="DAO\DepartmentDAO.cs" />
     <Compile Include="DAO\EmployeeDAO.cs" />
+    <Compile Include="DAO\RequestDAO.cs" />
     <Compile Include="DAO\RequestDetailsDAO.cs" />
     <Compile Include="DAO\RetrievalDAO.cs" />
     <Compile Include="DAO\RetrievalDetailsDAO.cs" />
@@ -432,7 +443,6 @@
     <Compile Include="DAO\TenderDAO.cs" />
     <Compile Include="DAO\TenderDetailsDAO.cs" />
     <Compile Include="DAO\UserDAO.cs" />
-    <Compile Include="DAO\UserRoleDAO.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -469,6 +479,7 @@
     <Compile Include="Models\Entities\StationeryCatalogue.cs" />
     <Compile Include="Models\Entities\Supplier.cs" />
     <Compile Include="Models\Entities\SupplierDetail.cs" />
+    <Compile Include="Models\Entities\sysdiagram.cs" />
     <Compile Include="Models\Entities\Tender.cs" />
     <Compile Include="Models\Entities\TenderDetail.cs" />
     <Compile Include="Models\Entities\User.cs" />
