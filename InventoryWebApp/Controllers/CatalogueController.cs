@@ -1,4 +1,5 @@
 ﻿using InventoryWebApp.Models;
+using InventoryWebApp.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

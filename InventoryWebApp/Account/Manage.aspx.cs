@@ -35,7 +35,7 @@ namespace InventoryWebApp.Account
 
         protected void Page_Load()
         {
-            var manager = Context.GetOwinContext().GetUserManager<ApplicationUser>();
+            var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
 
             HasPhoneNumber = String.IsNullOrEmpty(manager.GetPhoneNumber(User.Identity.GetUserId()));
 

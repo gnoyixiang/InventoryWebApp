@@ -1,5 +1,6 @@
 ﻿using InventoryWebApp.Controllers;
 using InventoryWebApp.Models;
+using InventoryWebApp.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -33,47 +34,17 @@ namespace InventoryWebApp
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            Request rq = new Request();
-            DateTime now = new DateTime();
-            rq.RequestCode = "RQ" + now.ToString("yyyyMMddHHmmssfff");
-            User ur = new User();
-            if(tbxEmpName != null)
+            if (Page.IsValid)
             {
-                ur.UserName = tbxEmpName.Text;
+                var stationaries = (List<StationeryDTO>)Session["ItemDetails"];
+                //Todo: change back to username and department code
+                ec.AddRequest("mehmet@ssis.edu.sg","CPSC", stationaries);
+                //clear
+                Session["ItemDetails"] = null;
+                BindGrid();
+                //show success message else user dont know wat happend
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "$('#myModal').modal('show');", true);
             }
-            Department dp = new Department();
-            if(tbxDeptName != null)
-            {
-                dp.DepartmentName = tbxDeptName.Text;
-                dp.DepartmentName = dp.DepartmentCode;
-                rq.DepartmentCode = dp.DepartmentName;
-            }
-            rq.Status = "pending";
-            rq.DateCreated = now;
-            ec.AddRequest(rq);
-
-            //if(requestCode != ec.GetRequestCode)
-            //ec.AddRequest(requestCode, tbxDeptName.Text, DateTime.Now, "pending");
-            //Department dp = new Department();
-            //if(tbxDeptName.Text != null)
-            //{
-            //    dp.DepartmentName = tbxDeptName.Text;
-            //    dp.DepartmentName = dp.DepartmentCode;
-            //}
-            //Employee emp = new Employee();
-            //if (tbxEmpName.Text != null)
-            //{
-            //    emp.EmployeeName = tbxEmpName.Text;
-            //    emp.EmployeeName = emp.User.UserName;
-            //}
-            //Request request = new Request()
-            //{
-            //    RequestCode = requestCode + 1,
-            //    DepartmentCode = dp.DepartmentName,
-            //    DateCreated = DateTime.Now,
-            //    Status = "pending",
-            //    User = , 
-            //};
         }
 
         protected void btnClear_Click(object sender, EventArgs e)

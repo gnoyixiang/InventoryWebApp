@@ -1,5 +1,6 @@
 ﻿using InventoryWebApp.DAO;
 using InventoryWebApp.Models;
+using InventoryWebApp.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,29 +34,31 @@ namespace InventoryWebApp.Controllers
             List<StationeryCatalogue> list = Isc.SearchByItemCode(keyword);
             return list;
         }
-        public StationeryCatalogue GetStationery(string itemcode)
-        {
-            return Isc.GetStationery(itemcode);
-        }
-        public Request GetRequestCode(string requestCode)
-        {
-            return Ir.GetRequest(requestCode);
-        }
-        //public void AddRequest(string requestCode, string departmentCode, DateTime dateCreate, string status)
+        //public StationeryCatalogue GetStationery(string itemcode)
         //{
-        //        Request request = new Request()
-        //        {
-        //            RequestCode = requestCode,
-        //            DepartmentCode = departmentCode,
-        //            DateCreated = dateCreate,
-        //            Status = status,
-        //        };
-        //        Ir.AddRequest(request);
+        //    return Isc.GetStationery(itemcode);
         //}
-        public int AddRequest(Request r)
+        //public Request GetRequestCode(string requestCode)
+        //{
+        //    return Ir.GetRequest(requestCode);
+        //}
+        public void AddRequest(string userName, string departmentCode, List<StationeryDTO> stationaries)
         {
-            int a = Ir.AddRequest(r);
-            return a;
+            string requestCode = "RQ" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
+            Request request = new Request()
+            {
+                RequestCode = requestCode,
+                DepartmentCode = departmentCode,
+                DateCreated = DateTime.Now,
+                Status = "pending",
+                UserName = userName
+            };
+            foreach (var stationary in stationaries)
+            {
+                request.RequestDetails.Add(new RequestDetail()
+                { ItemCode = stationary.ItemCode, Quantity = stationary.Quantity, Notes = "" });
+            }
+            Ir.AddRequest(request);
         }
     }
 }

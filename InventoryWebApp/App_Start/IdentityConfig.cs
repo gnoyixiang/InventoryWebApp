@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using InventoryWebApp.Models;
+using InventoryWebApp.Models.Entities;
 
 namespace InventoryWebApp
 {
