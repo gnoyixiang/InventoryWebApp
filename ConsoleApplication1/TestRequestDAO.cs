@@ -8,67 +8,74 @@ using InventoryWebApp.Models.Entities;
 
 namespace ConsoleTestApp
 {
-    class TestPurchaseOrderDAO
+    class TestRequestDAO
     {
-        //private static IPurchaseOrderDAO poDAO = new PurchaseOrderDAO();
-        //private static IPODetailsDAO podDAO = new PODetailDAO();
-        //public static void Main(String[] args)
-        //{
-        //    DateTime now = DateTime.Now;
-        //    PurchaseOrder po1 = new PurchaseOrder();
-        //    po1.PurchaseOrderCode = "ALPA" + now.ToString("yyMMddHHmmssfff");
-        //    po1.DateCreated = now;
-        //    po1.Status = "PENDING";
-        //    po1.Notes = "Test1";
-        //    po1.SupplierCode = "ALPA";
-        //    po1.UserName = "yixiang@ssis.edu.sg";
-
-        //    PODetail pod1 = new PODetail();
-        //    pod1.ItemCode = "C001";
-        //    pod1.PurchaseOrderCode = po1.PurchaseOrderCode;
-        //    pod1.Price = Convert.ToDecimal(0.5);
-
-        //    PODetail pod2 = new PODetail();
-        //    pod2.ItemCode = "E001";
-        //    pod2.PurchaseOrderCode = po1.PurchaseOrderCode;
-        //    pod2.Price = Convert.ToDecimal(0.3);
-
-        //    PODetail pod3 = new PODetail();
-        //    pod3.ItemCode = "F020";
-        //    pod3.PurchaseOrderCode = po1.PurchaseOrderCode;
-        //    pod3.Price = Convert.ToDecimal(2);
-
-        //    po1.PODetails.Add(pod1);
-        //    po1.PODetails.Add(pod2);
-        //    po1.PODetails.Add(pod3);
-
-        //    AddPurchaseOrder(po1);
-
-        //    ListAllPurchaseOrders();
+        private static IRequestDAO rDAO = new RequestDAO();
+        private static IRequestDetailsDAO rdDAO = new RequestDetailsDAO();
+        public static void Main(String[] args)
+        {
+            DateTime now = DateTime.Now;
+            Request r = new Request();
+            User u = new User();
             
-        //}
+            r.RequestCode = "RQ" + now.ToString("yyMMddHHmmssfff");
+            r.DateCreated = now;
+            r.Status = "PENDING";
+            r.DepartmentCode = null;
+            r.UserName = "junye@logic.edu.sg";
+            
 
-        ////add PurchaseOrder with PODetail
-        //public static void AddPurchaseOrder(PurchaseOrder po)
-        //{
-        //    Console.WriteLine("Adding purchase order " + po.PurchaseOrderCode);
-        //    poDAO.AddPurchaseOrder(po);
-        //}
+            RequestDetail rd1 = new RequestDetail();
+            rd1.RequestCode = r.RequestCode;
+            rd1.ItemCode = "C006";
+            rd1.Quantity = 50;
+            rd1.RemainingQuant = 50;
+            RequestDetail rd2 = new RequestDetail();
+            rd2.RequestCode = r.RequestCode;
+            rd2.ItemCode = "E002";
+            rd2.Quantity = 50;
+            rd2.RemainingQuant = 50;
 
-        ////get List of PurchaseOrder
-        //private static void ListAllPurchaseOrders()
-        //{
-        //    var poList = poDAO.ListAllPurchaseOrders();
-        //    foreach (PurchaseOrder po in poList)
-        //    {
-        //        Console.WriteLine(POToString(po));
-        //        var podList = podDAO.ListPODetailsByPOCode(po.PurchaseOrderCode);
-        //        foreach (PODetail pod in podList)
-        //        {
-        //            Console.WriteLine(PODToString(pod));
-        //        }
-        //    }
-        //}
+            RequestDetail rd3 = new RequestDetail();
+            rd3.RequestCode = r.RequestCode;
+            rd3.ItemCode = "F021";
+            rd3.Quantity = 50;
+            rd3.RemainingQuant = 50;
+
+            r.RequestDetails.Add(rd1);
+            r.RequestDetails.Add(rd2);
+            r.RequestDetails.Add(rd3);
+
+            AddRequest(r);
+
+            ListAllRequest();
+
+        }
+
+        //add PurchaseOrder with PODetail
+        public static int AddRequest(Request R)
+        {
+            int a = -1;
+            Console.WriteLine("Adding purchase order " + R.RequestCode);
+            a=rDAO.AddRequest(R);
+
+            return a;
+        }
+
+        //get List of Request
+        private static void ListAllRequest()
+        {
+            var rList = rDAO.ListAllRequest();
+            foreach (Request r in rList)
+            {
+                Console.WriteLine(RequestToString(r));
+                var rdList = rdDAO.ListRequestDetail(r.RequestCode);
+                foreach (RequestDetail rd in rdList)
+                {
+                    Console.WriteLine(RDToString(rd));
+                }
+            }
+        }
 
         ////update PurchaseOrder and PODetail
         //private static void UpdatePurchaseOrderAndPODetail()
@@ -159,18 +166,17 @@ namespace ConsoleTestApp
         //    }
         //}
 
-        //private static string POToString(PurchaseOrder po)
-        //{
-        //    return "POCode: " + po.PurchaseOrderCode + ", DateCreated: " + po.DateCreated + ", Status: " + po.Status
-        //        + ", ApprovedBy: " + po.ApprovedBy + ", DateApproved: " + po.DateApproved + ", Notes: " + po.Notes
-        //        + ", SupplierCode: " + po.SupplierCode + ", Username: " + po.UserName;
-        //}
+        private static string RequestToString(Request r)
+        {
+            return "Request Code: " + r.RequestCode + ", Department Code " + r.DepartmentCode + ", DateCreated: " + r.DateCreated
+                + ", DateApproved: " + r.ApprovedBy + ", Status: " + r.Status + ", Head Remarks: " + r.HeadRemarks
+                + ", User Name: " + r.UserName + ", Approved By: " + r.ApprovedBy;
+        }
 
-        //private static string PODToString(PODetail pod)
-        //{
-        //    return "POCode: " + pod.PurchaseOrderCode + ", ItemCode: " + pod.ItemCode + ", Quantity: " + pod.Quantity
-        //        + ", Price: " + pod.Price + ", Notes: " + pod.Notes;
-        //}
+        private static string RDToString(RequestDetail rd)
+        {
+            return "RecordCode: " + rd.RequestCode + ", ItemCode: " + rd.ItemCode + ", Remaining Quantity: " + rd.RemainingQuant
+                + ", Quantity: " + rd.Quantity + ", Notes: " + rd.Notes + ", Status: "+ rd.Status;
+        }
     }
 }
-
