@@ -58,6 +58,8 @@
     <Compile Include="TestPurchaseOrderDAO.cs" />
     <Compile Include="TestRetrievalDAO.cs" />
     <Compile Include="TestStationeryCatalogueDAO.cs" />
+    <Compile Include="TestSupplierDAO.cs" />
+    <Compile Include="TestUserDAO.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
