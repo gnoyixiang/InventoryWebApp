@@ -40,16 +40,21 @@ namespace InventoryWebApp.Controllers
         {
             return Ir.GetRequest(requestCode);
         }
-        public void AddRequest(string requestCode, string departmentCode, DateTime dateCreate, string status)
+        //public void AddRequest(string requestCode, string departmentCode, DateTime dateCreate, string status)
+        //{
+        //        Request request = new Request()
+        //        {
+        //            RequestCode = requestCode,
+        //            DepartmentCode = departmentCode,
+        //            DateCreated = dateCreate,
+        //            Status = status,
+        //        };
+        //        Ir.AddRequest(request);
+        //}
+        public int AddRequest(Request r)
         {
-                Request request = new Request()
-                {
-                    RequestCode = requestCode,
-                    DepartmentCode = departmentCode,
-                    DateCreated = dateCreate,
-                    Status = status,
-                };
-                Ir.AddRequest(request);
+            int a = Ir.AddRequest(r);
+            return a;
         }
     }
 }

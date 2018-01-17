@@ -33,9 +33,27 @@ namespace InventoryWebApp
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            var requestCode = "RQ" + DateTime.Now.ToString("yyyyMMddHHmmss") + 100;
-            if(requestCode != ec.GetRequestCode)
-            ec.AddRequest(requestCode, tbxDeptName.Text, DateTime.Now, "pending");
+            Request rq = new Request();
+            DateTime now = new DateTime();
+            rq.RequestCode = "RQ" + now.ToString("yyyyMMddHHmmssfff");
+            User ur = new User();
+            if(tbxEmpName != null)
+            {
+                ur.UserName = tbxEmpName.Text;
+            }
+            Department dp = new Department();
+            if(tbxDeptName != null)
+            {
+                dp.DepartmentName = tbxDeptName.Text;
+                dp.DepartmentName = dp.DepartmentCode;
+                rq.DepartmentCode = dp.DepartmentName;
+            }
+            rq.Status = "pending";
+            rq.DateCreated = now;
+            ec.AddRequest(rq);
+
+            //if(requestCode != ec.GetRequestCode)
+            //ec.AddRequest(requestCode, tbxDeptName.Text, DateTime.Now, "pending");
             //Department dp = new Department();
             //if(tbxDeptName.Text != null)
             //{

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -55,6 +56,14 @@ namespace InventoryWebApp.DAO
             R.ApprovedBy = ApprovedN;
             a = em.SaveChanges();
             return a;
+        }
+        public int UpdateRequest(Request r)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                em.Entry(r).State = EntityState.Modified;
+                return em.SaveChanges();
+            }
         }
     }
 }
