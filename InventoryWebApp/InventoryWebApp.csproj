@@ -214,6 +214,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="PendingPO.aspx" />
     <Content Include="PurchaseOrderDetail.aspx" />
     <Content Include="RequisitionList.aspx" />
     <Content Include="Scripts\fancy-sidebar-navigation.js" />
@@ -487,6 +488,13 @@
     <Compile Include="Models\Entities\UserLogin.cs" />
     <Compile Include="Models\Entities\Util.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="PendingPO.aspx.cs">
+      <DependentUpon>PendingPO.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PendingPO.aspx.designer.cs">
+      <DependentUpon>PendingPO.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PurchaseOrderDetail.aspx.cs">
       <DependentUpon>PurchaseOrderDetail.aspx</DependentUpon>
