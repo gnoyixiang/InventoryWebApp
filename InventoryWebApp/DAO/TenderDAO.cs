@@ -15,7 +15,7 @@ namespace InventoryWebApp.DAO
         {
             using (EntityModel em = new EntityModel())
             {
-                return em.Tenders.Where(t => t.TenderCode == tenderCode).FirstOrDefault<Tender>();
+                return em.Tenders.Where(t => t.TenderCode.ToUpper() == tenderCode.ToUpper()).FirstOrDefault<Tender>();
             }
           
         }
@@ -46,7 +46,7 @@ namespace InventoryWebApp.DAO
             }
         }
 
-        public List<Tender> ListPurchaseOrderByDateCreated(DateTime dateCreated)
+        public List<Tender> ListTendersByDateCreated(DateTime dateCreated)
         {
             using (EntityModel em = new EntityModel())
             {
@@ -56,7 +56,7 @@ namespace InventoryWebApp.DAO
             }
         }
 
-        public List<Tender> ListPurchaseOrderByCreated(DateTime startDate, DateTime endDate)
+        public List<Tender> ListTendersByDateCreated(DateTime startDate, DateTime endDate)
         {
             using (EntityModel em = new EntityModel())
             {
@@ -69,6 +69,7 @@ namespace InventoryWebApp.DAO
 
         public int AddTender(Tender tender)
         {
+            System.Threading.Thread.Sleep(100);
             using (EntityModel em = new EntityModel())
             {
                 em.Tenders.Add(tender);
