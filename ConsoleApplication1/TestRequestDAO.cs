@@ -52,7 +52,7 @@ namespace ConsoleTestApp
 
         }
 
-        //add PurchaseOrder with PODetail
+        //add Request with RequestDetail
         public static int AddRequest(Request R)
         {
             int a = -1;
