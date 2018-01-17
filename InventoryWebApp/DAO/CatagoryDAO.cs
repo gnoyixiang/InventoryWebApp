@@ -14,6 +14,10 @@ namespace InventoryWebApp.DAO
         {
             return em.Categories.Where(x => x.CategoryCode.Contains(keyword)).ToList();
         }
+        public List<Category> ListAllCategory()
+        {
+            return em.Categories.ToList();
+        }
         public int AddCategory(Category c)
         {
             try

@@ -11,18 +11,7 @@ namespace InventoryWebApp.DAO
         {
             using (EntityModel en = new EntityModel())
             {
-                Retrieval re = new Retrieval
-                {
-                    RetrievalCode = r.RetrievalCode,
-                    Status = r.Status,
-                    Notes = r.Notes,
-                    DateRetrieved = r.DateRetrieved,
-                    UserName = r.UserName,
-                    RetrievalDetails = r.RetrievalDetails
-
-                };
-
-                en.Retrievals.Add(re);
+                en.Retrievals.Add(r);
                 return en.SaveChanges();
             }
         }
@@ -37,6 +26,7 @@ namespace InventoryWebApp.DAO
                 re.Notes = r.Notes;
                 re.DateRetrieved = r.DateRetrieved;
                 re.UserName = r.UserName;
+                re.RetrievalDetails = r.RetrievalDetails;
                 return en.SaveChanges();
             }
         }
@@ -82,6 +72,5 @@ namespace InventoryWebApp.DAO
                 en.SaveChanges();
             }
         }
-
     }
 }

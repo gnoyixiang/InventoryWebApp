@@ -36,11 +36,10 @@ namespace InventoryWebApp.DAO
             try
             {
                 em.StationeryCatalogues.Add(st);
-                return em.SaveChanges(); 
+                return em.SaveChanges();
             }
             catch (Exception e)
             {
-
                 return 0;
             }
         }
