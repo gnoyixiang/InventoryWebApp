@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>ConsoleTestApp.TestPurchaseOrderDAO</StartupObject>
+    <StartupObject>ConsoleTestApp.TestCategoryDAO</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -48,7 +48,11 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestCategoryDAO.cs" />
+    <Compile Include="TestCollectionPointDAO.cs" />
     <Compile Include="TestPurchaseOrderDAO.cs" />
+    <Compile Include="TestRetrievalDAO.cs" />
+    <Compile Include="TestStationeryCatalogueDAO.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
