@@ -6,5 +6,6 @@ namespace InventoryWebApp.DAO
     {
         int AddSupplier(Supplier supplier, string itemCode, decimal price);
         int UpdateSupplier(Supplier supplier);
+        Supplier GetSupplier(string supplierCode);
     }
 }

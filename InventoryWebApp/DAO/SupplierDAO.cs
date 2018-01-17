@@ -61,7 +61,22 @@ namespace InventoryWebApp.DAO
 
         }
 
-        
+
+
+
+
+
+
+
+
+
+        public Supplier GetSupplier(string supplierCode)
+        {
+
+            return em.Suppliers.Where(p => p.SupplierCode.Contains(supplierCode)).FirstOrDefault<Supplier>();
+        }
+
+
 
     }
 }
