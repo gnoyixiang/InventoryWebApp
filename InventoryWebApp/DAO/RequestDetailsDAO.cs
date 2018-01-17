@@ -14,11 +14,19 @@ namespace InventoryWebApp.DAO
 
         public List<RequestDetail> ListRequestDetail(string RequestCode)
         {
-            return em.RequestDetails.Where(b => b.RequestCode.ToUpper().Contains(RequestCode.Trim().ToUpper())).ToList();
+            using (em = new EntityModel())
+            {
+                return em.RequestDetails.Where(b => b.RequestCode.ToUpper().Contains(RequestCode.Trim().ToUpper())).ToList();
+            }
+
         }
         public List<RequestDetail> SearchRequestbyStatus(string RequestDetailStatus)
         {
-            return em.RequestDetails.Where(b => b.Status.ToUpper().Contains(RequestDetailStatus.Trim().ToUpper())).ToList();
+            using (em = new EntityModel())
+            {
+                return em.RequestDetails.Where(b => b.Status.ToUpper().Contains(RequestDetailStatus.Trim().ToUpper())).ToList();
+            }
+
         }
 
 
@@ -40,7 +48,7 @@ namespace InventoryWebApp.DAO
             return a;
         }
 
-        private int CancelRequestDetail(RequestDetail rd)
+        public int CancelRequestDetail(RequestDetail rd)
         {
             rd.Status = "CANCELLED";
             int changes = 0;
@@ -48,6 +56,25 @@ namespace InventoryWebApp.DAO
             changes = em.SaveChanges();
             return changes;
 
+        }
+
+        public RequestDetail GetRequestDetail(string RequestC, string itemCode)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                return em.RequestDetails
+                    .Where(r => r.RequestCode == RequestC && r.ItemCode == itemCode)
+                    .FirstOrDefault<RequestDetail>();
+            }
+        }
+
+        public int UpdateRequestDetail(RequestDetail rDetail)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                em.Entry(rDetail).State = EntityState.Modified;
+                return em.SaveChanges();
+            }
         }
 
     }

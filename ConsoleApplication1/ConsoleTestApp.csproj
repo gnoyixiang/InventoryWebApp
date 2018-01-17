@@ -57,6 +57,7 @@
     <Compile Include="TestEmployeeDAO.cs" />
     <Compile Include="TestPODetailsDAO.cs" />
     <Compile Include="TestPurchaseOrderDAO.cs" />
+    <Compile Include="TestRequestDAO.cs" />
     <Compile Include="TestRetrievalDAO.cs" />
     <Compile Include="TestStationeryCatalogueDAO.cs" />
     <Compile Include="TestSupplierDAO.cs" />
