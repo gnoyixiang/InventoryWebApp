@@ -223,7 +223,6 @@
     <Content Include="Layout.Master" />
     <Content Include="ViewCatalogue.aspx" />
     <Content Include="ViewPurchaseOrders.aspx" />
-    <Content Include="WebForm2.aspx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
@@ -261,7 +260,9 @@
     <Content Include="Global.asax" />
     <Content Include="Site.Master" />
     <Content Include="ViewSwitcher.ascx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Bundle.config" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
@@ -458,6 +459,9 @@
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\PurchaseOrderController.cs" />
+    <Compile Include="DAO\PurchaseOrderDAO.cs" />
+    <Compile Include="DAO\PurchaseOrderDAOImpl.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -475,7 +479,7 @@
     <Compile Include="Layout.Master.designer.cs">
       <DependentUpon>Layout.Master</DependentUpon>
     </Compile>
-    <Compile Include="Models\StationeryDTO.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PurchaseOrderDetail.aspx.cs">
       <DependentUpon>PurchaseOrderDetail.aspx</DependentUpon>
@@ -526,13 +530,6 @@
     </Compile>
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="WebForm2.aspx.cs">
-      <DependentUpon>WebForm2.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebForm2.aspx.designer.cs">
-      <DependentUpon>WebForm2.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

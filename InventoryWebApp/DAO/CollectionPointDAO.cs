@@ -1,8 +1,9 @@
-﻿using InventoryWebApp.Models;
+﻿using InventoryWebApp.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace InventoryWebApp.DAO
 {
@@ -17,14 +18,20 @@ namespace InventoryWebApp.DAO
         {
             return em.CollectionPoints.Where(x => x.CollectionVenue.Contains(keyword)).ToList();
         }
+        public List<CollectionPoint> ListAllCollectionPoint()
+        {
+            return em.CollectionPoints.ToList();
+        }
         public int AddCollectionPoint(CollectionPoint c)
         {
+            int result = -1;
             try
             {
                 em.CollectionPoints.Add(c);
-                return em.SaveChanges();
+                result = em.SaveChanges();
+                return 1;
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 return 0;
             }
@@ -32,7 +39,7 @@ namespace InventoryWebApp.DAO
         public int UpdateCollectionPoint(CollectionPoint c)
         {
             CollectionPoint collectionPoint = em.CollectionPoints.Where(x => x.CollectionPointCode == c.CollectionPointCode).FirstOrDefault();
-            if (collectionPoint != null)
+            if( collectionPoint != null)
             {
                 collectionPoint.CollectionVenue = c.CollectionVenue;
                 collectionPoint.CollectionTime = c.CollectionTime;
@@ -47,6 +54,11 @@ namespace InventoryWebApp.DAO
             CollectionPoint collectionPoint = em.CollectionPoints.Where(x => x.CollectionPointCode == collectionPointCode).FirstOrDefault();
             em.CollectionPoints.Remove(collectionPoint);
             em.SaveChanges();
+        }
+        public CollectionPoint GetCollectionPoint(string collectionPointCode)
+        {
+            CollectionPoint cp = em.CollectionPoints.Where(x => x.CollectionPointCode == collectionPointCode).FirstOrDefault();
+            return cp;
         }
     }
 }

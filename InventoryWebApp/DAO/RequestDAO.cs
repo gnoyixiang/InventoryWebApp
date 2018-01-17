@@ -1,9 +1,9 @@
-﻿using InventoryWebApp.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using InventoryWebApp.Models.Entities;
+using System.Data.Entity;
 
 namespace InventoryWebApp.DAO
 {
@@ -13,7 +13,8 @@ namespace InventoryWebApp.DAO
         Request r;
         public List<Request> ListAllRequest()
         {
-            return em.Requests.ToList();
+            em = new EntityModel();
+            return em.Requests.ToList<Request>();
         }
 
         public List<Request> SearchRequestbyID(string RequestC)
@@ -44,6 +45,7 @@ namespace InventoryWebApp.DAO
             return a;
         }
 
+
         public int UpdateRequestStatus(Request R, string newStatus)
         {
             int a = -1;
@@ -59,6 +61,7 @@ namespace InventoryWebApp.DAO
             a = em.SaveChanges();
             return a;
         }
+
         public int UpdateRequest(Request r)
         {
             using (EntityModel em = new EntityModel())
@@ -67,5 +70,7 @@ namespace InventoryWebApp.DAO
                 return em.SaveChanges();
             }
         }
+
+
     }
 }
