@@ -35,7 +35,7 @@ namespace InventoryWebApp
             {
                 list = ec.SearchByDescription(keyword);
             }
-            else if(type == "ItemCode")
+            else if(type == "Stationery Number")
             {
                 list = ec.SearchByItemCode(keyword);
             }

@@ -44,7 +44,7 @@ namespace InventoryWebApp.Controllers
         {
             return Ir.GetRequest(requestCode);
         }
-        public void AddRequest(string userName, string departmentCode, List<StationeryDTO> stationaries)
+        public string AddRequest(string userName, string departmentCode, List<StationeryDTO> stationaries)
         {
             string requestCode = "RQ" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
             Request request = new Request()
@@ -61,6 +61,7 @@ namespace InventoryWebApp.Controllers
                 { ItemCode = stationary.ItemCode, Quantity = stationary.Quantity, RemainingQuant= stationary.Quantity, Notes = "" });
             }
             Ir.AddRequest(request);
+            return requestCode;
         }
         public List<CollectionPoint> DdlCollectionPoint()
         {

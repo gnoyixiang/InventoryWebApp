@@ -12,7 +12,7 @@
     <table>
         <tr>
             <td>
-                <asp:Label ID="lblDeptName" runat="server" Text="Department Name" ></asp:Label>
+                <asp:Label ID="lblDeptName" runat="server" Text="Department Name"></asp:Label>
                 <br />
                 <br />
             </td>
@@ -35,40 +35,40 @@
             </td>
         </tr>
     </table>
-    <asp:GridView ID="gvNewRequest" runat="server" AutoGenerateColumns="False" 
+    <asp:GridView ID="gvNewRequest" runat="server" AutoGenerateColumns="False"
         CellPadding="4" ForeColor="#333333"
-        GridLines="None" Width="100%" 
-        OnRowEditing="gvNewRequest_RowEditing" 
-        OnRowDeleting="gvNewRequest_RowDeleting" 
-        OnRowCancelingEdit="gvNewRequest_RowCancelingEdit" 
-        OnRowUpdating="gvNewRequest_RowUpdating" 
-        OnPageIndexChanging="gvNewRequest_PageIndexChanging" AllowPaging="True" CssClass="table table-striped table-bordered table-hover" >
+        GridLines="None" Width="100%"
+        OnRowEditing="gvNewRequest_RowEditing"
+        OnRowDeleting="gvNewRequest_RowDeleting"
+        OnRowCancelingEdit="gvNewRequest_RowCancelingEdit"
+        OnRowUpdating="gvNewRequest_RowUpdating"
+        OnPageIndexChanging="gvNewRequest_PageIndexChanging" AllowPaging="True" CssClass="table table-striped table-bordered table-hover">
         <AlternatingRowStyle BackColor="White" />
         <Columns>
             <asp:BoundField DataField="ItemCode" HeaderText="Item Number" ReadOnly="true" />
             <asp:BoundField DataField="Category" HeaderText="Category" ReadOnly="true" />
-            <asp:BoundField DataField="Description" HeaderText="Description" ReadOnly="true"/>
+            <asp:BoundField DataField="Description" HeaderText="Description" ReadOnly="true" />
             <asp:TemplateField HeaderText="Quantity" SortExpression="Quantity">
                 <EditItemTemplate>
                     <asp:TextBox ID="tbxQuantity" runat="server">
                     </asp:TextBox>
-                    <asp:CompareValidator ID="quantityCompareValidator1" runat="server" Type="Integer" 
-                        Operator="DataTypeCheck" Display="Dynamic" 
-                        ErrorMessage="Invalid Value" ControlToValidate="tbxQuantity" ForeColor="Red" ></asp:CompareValidator>
+                    <asp:CompareValidator ID="quantityCompareValidator1" runat="server" Type="Integer"
+                        Operator="DataTypeCheck" Display="Dynamic"
+                        ErrorMessage="Invalid Value" ControlToValidate="tbxQuantity" ForeColor="Red"></asp:CompareValidator>
                     <asp:CompareValidator ID="quantityCompareValidator2" runat="server" Type="Integer" Operator="GreaterThan" Display="Dynamic"
-                         ErrorMessage="Enter a value greater than Zero" ValueToCompare="0" ControlToValidate="tbxQuantity" 
+                        ErrorMessage="Enter a value greater than Zero" ValueToCompare="0" ControlToValidate="tbxQuantity"
                         ForeColor="Yellow"></asp:CompareValidator>
                     <asp:RequiredFieldValidator ID="quantityRequiredValidator" runat="server"
-                         ErrorMessage="Empty Quantity" ForeColor="Red" ControlToValidate="tbxQuantity"></asp:RequiredFieldValidator>
+                        ErrorMessage="Empty Quantity" ForeColor="Red" ControlToValidate="tbxQuantity"></asp:RequiredFieldValidator>
                 </EditItemTemplate>
                 <ItemTemplate>
                     <asp:Label ID="lblQuantity" runat="server" Text='<%# Eval("Quantity") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:CommandField ShowEditButton="True" ButtonType="Button" HeaderText="Edit" />
-                    <asp:CommandField ShowDeleteButton="True" ButtonType="Button" HeaderText="Delete" />
+            <asp:CommandField ShowDeleteButton="True" ButtonType="Button" HeaderText="Delete" />
         </Columns>
-        <EditRowStyle BackColor="#2461BF" />
+        <EditRowStyle />
         <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
         <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
         <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
@@ -87,14 +87,11 @@
                 <br />
             </td>
         </tr>
-        <tr>
-        <td>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" Class="btn btn-primary" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td>
-        <td>
-            <asp:Button ID="btnClear" runat="server" Text="Clear" OnClick="btnClear_Click" Class="btn btn-warning" /></td>
-        </tr>
     </table>
+    <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" Class="btn btn-primary" />
+<asp:Button ID="btnClear" runat="server" Text="Clear" OnClick="btnClear_Click" Class="btn btn-warning" />
+
+    
 
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
@@ -104,7 +101,7 @@
                     <h4 class="modal-title" id="myModalLabel">Message</h4>
                 </div>
                 <div class="modal-body">
-                     Your request has been placed!
+                    Your request - <label id="lblRequestCode"></label> has been placed!
                      Proceed to View Request?
                 </div>
                 <div class="modal-footer">

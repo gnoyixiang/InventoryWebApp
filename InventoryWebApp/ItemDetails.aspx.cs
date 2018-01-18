@@ -14,13 +14,13 @@ namespace InventoryWebApp
         EmployeeController ec = new EmployeeController();
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
             if (!IsPostBack)
             {
                 string itemcode = Request.QueryString["ItemCode"];
                 try
                 {
-                    Session["ItemDetails"] = Session["ItemDetails"] != null?(List<StationeryDTO>)Session["ItemDetails"] : new List<StationeryDTO>();
+                    Session["ItemDetails"] = Session["ItemDetails"] != null ? (List<StationeryDTO>)Session["ItemDetails"] : new List<StationeryDTO>();
                     var itemInfo = ec.GetStationery(itemcode);
                     if (itemInfo != null)
                     {
@@ -38,16 +38,28 @@ namespace InventoryWebApp
         }
         protected void tbxQuantity_TextChanged(object sender, EventArgs e)
         {
-                if (!String.IsNullOrEmpty(tbxQuantity.ToString()) && Convert.ToInt32(tbxQuantity.Text) > 0)
+            if (!String.IsNullOrEmpty(tbxQuantity.Text))
+            {
+                rdlQuantity.Enabled = false;
+                rdlRequiredValidator.Visible = false;
+                int quantity = -1;
+                if (!int.TryParse(tbxQuantity.Text, out quantity))
                 {
-                    rdlQuantity.Enabled = false;
-                    rdlRequiredValidator.Visible = false;
-                    lblQuantityResult.Text = "Quantity for this item is: " + Convert.ToInt32(tbxQuantity.Text);
+                    lblQuantityResult.Text = "";
                 }
+                else if(int.TryParse(tbxQuantity.Text, out quantity) && int.Parse(tbxQuantity.Text) < 0)
+                {
+                    lblQuantityResult.Text = "";
+                }
+                else 
+                {
+                    lblQuantityResult.Text = "Quantity for this item is:" + Convert.ToInt32(tbxQuantity.Text);
+                }
+            }
         }
         protected void rdlQuantity_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(rdlQuantity.SelectedItem != null)
+            if (rdlQuantity.SelectedItem != null)
             {
                 tbxQuantity.Visible = false;
                 tbxRequiredValidator.Visible = false;
@@ -66,7 +78,7 @@ namespace InventoryWebApp
                 StationeryDTO newItem = addItem.FirstOrDefault(x => x.ItemCode == tbxItemCode.Text);
                 if (newItem == null)
                 {
-                    if (!String.IsNullOrEmpty(tbxQuantity.ToString()))
+                    if (!String.IsNullOrEmpty(tbxQuantity.Text))
                     {
                         newItem = new StationeryDTO(tbxItemCode.Text, tbxCategory.Text, tbxDescription.Text, Convert.ToInt32(tbxQuantity.Text));
                         addItem.Add(newItem);
@@ -81,16 +93,16 @@ namespace InventoryWebApp
                 }
                 else
                 {
-                    if (!String.IsNullOrEmpty(tbxQuantity.ToString()))
+                    if (!String.IsNullOrEmpty(tbxQuantity.Text))
                     {
-                        newItem.Quantity += Convert.ToInt32(tbxQuantity.Text) ;
+                        newItem.Quantity += Convert.ToInt32(tbxQuantity.Text);
                         addItem.RemoveAll(x => x.ItemCode == tbxItemCode.Text);
                         addItem.Add(newItem);
                         Session["ItemDetails"] = addItem;
                     }
                     else if (rdlQuantity.SelectedItem.Selected)
                     {
-                        newItem.Quantity += Convert.ToInt32(rdlQuantity.SelectedItem.Text) ;
+                        newItem.Quantity += Convert.ToInt32(rdlQuantity.SelectedItem.Text);
                         addItem.RemoveAll(x => x.ItemCode == tbxItemCode.Text);
                         addItem.Add(newItem);
                         Session["ItemDetails"] = addItem;

@@ -36,13 +36,13 @@ namespace InventoryWebApp
             {
                 var stationaries = (List<StationeryDTO>)Session["ItemDetails"];
                 //Todo: change back to username and department code
-                ec.AddRequest("yufei@logic.edu.sg", "CPSC", stationaries);
+                string requestcode = ec.AddRequest("yufei@logic.edu.sg", "CPSC", stationaries);
                 //ec.AddRequest(tbxDeptName.Text, tbxEmpName.Text, stationaries);
                 //clear
                 Session["ItemDetails"] = null;
                 BindGrid();
                 //show success message else user dont know wat happend
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "$('#myModal').modal('show');", true);
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", $"$('#lblRequestCode').text('{requestcode}'); $('#myModal').modal('show');", true);
             }
         }
         protected void btnClear_Click(object sender, EventArgs e)

@@ -39,7 +39,7 @@
                     <h4 class="modal-title" id="myModalLabel">Message</h4>
                 </div>
                 <div class="modal-body">
-                    Successfully change Collection Point!
+                    Successfully changed Collection Point!
                 </div>
                 <div class="modal-footer">
                     <a href="/UpdateCollectionPoint.aspx" class="btn btn-default">OK</a>
