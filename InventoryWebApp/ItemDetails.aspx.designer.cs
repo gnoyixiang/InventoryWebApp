@@ -103,6 +103,24 @@ namespace InventoryWebApp {
         protected global::System.Web.UI.WebControls.TextBox tbxQuantity;
         
         /// <summary>
+        /// quantityCompareValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator quantityCompareValidator1;
+        
+        /// <summary>
+        /// quantityCompareValidator2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator quantityCompareValidator2;
+        
+        /// <summary>
         /// tbxRequiredValidator control.
         /// </summary>
         /// <remarks>
@@ -110,24 +128,6 @@ namespace InventoryWebApp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator tbxRequiredValidator;
-        
-        /// <summary>
-        /// quantityCustomValidator1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CustomValidator quantityCustomValidator1;
-        
-        /// <summary>
-        /// quantityCustomValidator2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CustomValidator quantityCustomValidator2;
         
         /// <summary>
         /// lblQuantityResult control.
@@ -139,12 +139,12 @@ namespace InventoryWebApp {
         protected global::System.Web.UI.WebControls.Label lblQuantityResult;
         
         /// <summary>
-        /// btnAddItem control.
+        /// btnAddToRequest control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddItem;
+        protected global::System.Web.UI.WebControls.Button btnAddToRequest;
     }
 }

@@ -54,7 +54,7 @@
 
                     <asp:ListItem>50</asp:ListItem>
                 </asp:RadioButtonList>
-                <asp:RequiredFieldValidator ID="rdlRequiredValidator" runat="server" ControlToValidate="rdlQuantity" ErrorMessage="Quantity is empty" ForeColor="#FF3300"></asp:RequiredFieldValidator>
+                <asp:RequiredFieldValidator ID="rdlRequiredValidator" runat="server" ControlToValidate="rdlQuantity" ErrorMessage="Quantity is required!" ForeColor="#FF3300"></asp:RequiredFieldValidator>
             </td>
         </tr>
 
@@ -62,9 +62,11 @@
             <td></td>
             <td>
                 <asp:TextBox ID="tbxQuantity" runat="server" OnTextChanged="tbxQuantity_TextChanged" AutoPostBack="true"></asp:TextBox>
-                <asp:RequiredFieldValidator ID="tbxRequiredValidator" runat="server" ControlToValidate="tbxQuantity" ErrorMessage="Empty Quantity" ForeColor="#FF3300"></asp:RequiredFieldValidator>
-                <asp:CustomValidator ID="quantityCustomValidator1" runat="server" ErrorMessage="Enter a value greater than Zero" Type="Integer" ControlToValidate="tbxQuantity" ValueToCompare="0"  ></asp:CustomValidator>
-                <asp:CustomValidator ID="quantityCustomValidator2" runat="server" ErrorMessage="Invalid Value"></asp:CustomValidator>
+                <asp:CompareValidator ID="quantityCompareValidator1" runat="server" ErrorMessage="Enter an integer value" Type="Integer" ControlToValidate="tbxQuantity" Operator="DataTypeCheck" ForeColor="Red" ></asp:CompareValidator>
+                <br />
+                <asp:CompareValidator ID="quantityCompareValidator2" runat="server" ErrorMessage="Enter a value greater than Zero" Type="Integer" Operator="GreaterThan" ValueToCompare="0" ControlToValidate="tbxQuantity" ForeColor="Red" ></asp:CompareValidator>
+                <br />
+                <asp:RequiredFieldValidator ID="tbxRequiredValidator" runat="server" ControlToValidate="tbxQuantity" ErrorMessage="Quantity is required!" ForeColor="#FF3300"></asp:RequiredFieldValidator>
                 <br />
                 <asp:Label ID="lblQuantityResult" runat="server"></asp:Label>
             </td>
@@ -72,9 +74,7 @@
     </table>
     <br />
     <br />
-
-
-    <asp:Button ID="btnAddItem" runat="server" Text="Add to Request" OnClick="btnAddItem_Click" Class="btn btn-primary" />
+    <asp:Button ID="btnAddToRequest" runat="server" Text="Add to Request" OnClick="btnAddToRequest_Click" Class="btn btn-primary" />
     <!-- Button trigger modal -->
     <%--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
   Add To Request

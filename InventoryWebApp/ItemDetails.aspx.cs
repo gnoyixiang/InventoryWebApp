@@ -38,12 +38,12 @@ namespace InventoryWebApp
         }
         protected void tbxQuantity_TextChanged(object sender, EventArgs e)
         {
-            if(!String.IsNullOrEmpty(tbxQuantity.ToString()))
-            {
-                rdlQuantity.Enabled = false;
-                rdlRequiredValidator.Visible = false;
-                lblQuantityResult.Text = "Quantity for this item is: " + Convert.ToInt32(tbxQuantity.Text);
-            }
+                if (!String.IsNullOrEmpty(tbxQuantity.ToString()) && Convert.ToInt32(tbxQuantity.Text) > 0)
+                {
+                    rdlQuantity.Enabled = false;
+                    rdlRequiredValidator.Visible = false;
+                    lblQuantityResult.Text = "Quantity for this item is: " + Convert.ToInt32(tbxQuantity.Text);
+                }
         }
         protected void rdlQuantity_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -55,7 +55,7 @@ namespace InventoryWebApp
             }
         }
 
-        protected void btnAddItem_Click(object sender, EventArgs e)
+        protected void btnAddToRequest_Click(object sender, EventArgs e)
         {
             if (Page.IsValid)
             {
@@ -66,7 +66,7 @@ namespace InventoryWebApp
                 StationeryDTO newItem = addItem.FirstOrDefault(x => x.ItemCode == tbxItemCode.Text);
                 if (newItem == null)
                 {
-                    if (!String.IsNullOrEmpty(tbxQuantity.Text))
+                    if (!String.IsNullOrEmpty(tbxQuantity.ToString()))
                     {
                         newItem = new StationeryDTO(tbxItemCode.Text, tbxCategory.Text, tbxDescription.Text, Convert.ToInt32(tbxQuantity.Text));
                         addItem.Add(newItem);
@@ -81,7 +81,7 @@ namespace InventoryWebApp
                 }
                 else
                 {
-                    if (!String.IsNullOrEmpty(tbxQuantity.Text))
+                    if (!String.IsNullOrEmpty(tbxQuantity.ToString()))
                     {
                         newItem.Quantity += Convert.ToInt32(tbxQuantity.Text) ;
                         addItem.RemoveAll(x => x.ItemCode == tbxItemCode.Text);
