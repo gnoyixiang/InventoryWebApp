@@ -26,19 +26,18 @@ namespace InventoryWebApp
             gvNewRequest.DataSource = (List<StationeryDTO>)Session["ItemDetails"];
             gvNewRequest.DataBind();
         }
-
         protected void btnAddItem_Click(object sender, EventArgs e)
         {
             Response.Redirect("/ViewCatalogue.aspx");
         }
-
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             if (Page.IsValid)
             {
                 var stationaries = (List<StationeryDTO>)Session["ItemDetails"];
                 //Todo: change back to username and department code
-                ec.AddRequest("mehmet@ssis.edu.sg","CPSC", stationaries);
+                //ec.AddRequest("mehmet@ssis.edu.sg","CPSC", stationaries);
+                ec.AddRequest(tbxDeptName.Text, tbxEmpName.Text, stationaries);
                 //clear
                 Session["ItemDetails"] = null;
                 BindGrid();
@@ -46,13 +45,11 @@ namespace InventoryWebApp
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "$('#myModal').modal('show');", true);
             }
         }
-
         protected void btnClear_Click(object sender, EventArgs e)
         {
             Session["ItemDetails"] = null;
             BindGrid();
         }
-
         protected void gvNewRequest_RowEditing(object sendr, GridViewEditEventArgs e)
         {
             gvNewRequest.EditIndex = e.NewEditIndex;
@@ -82,7 +79,6 @@ namespace InventoryWebApp
             gvNewRequest.EditIndex = -1;
             BindGrid();
         }
-
         protected void gvNewRequest_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvNewRequest.PageIndex = e.NewPageIndex;

@@ -11,7 +11,6 @@ namespace InventoryWebApp
 {
     public partial class ItemDetails : System.Web.UI.Page
     {
-        //EntityModel SSIS = new EntityModel();
         EmployeeController ec = new EmployeeController();
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -22,7 +21,6 @@ namespace InventoryWebApp
                 try
                 {
                     Session["ItemDetails"] = Session["ItemDetails"] != null?(List<StationeryDTO>)Session["ItemDetails"] : new List<StationeryDTO>();
-                    //StationeryCatalogue itemInfo = SSIS.StationeryCatalogues.Where(x => x.ItemCode == itemcode).FirstOrDefault();
                     var itemInfo = ec.GetStationery(itemcode);
                     if (itemInfo != null)
                     {
@@ -61,6 +59,7 @@ namespace InventoryWebApp
         {
             if (Page.IsValid)
             {
+                //show success message
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "$('#myModal').modal('show');", true);
 
                 List<StationeryDTO> addItem = (List<StationeryDTO>)Session["ItemDetails"];

@@ -34,14 +34,14 @@ namespace InventoryWebApp.Controllers
             List<StationeryCatalogue> list = Isc.SearchByItemCode(keyword);
             return list;
         }
-        //public StationeryCatalogue GetStationery(string itemcode)
-        //{
-        //    return Isc.GetStationery(itemcode);
-        //}
-        //public Request GetRequestCode(string requestCode)
-        //{
-        //    return Ir.GetRequest(requestCode);
-        //}
+        public StationeryCatalogue GetStationery(string itemcode)
+        {
+            return Isc.GetStationery(itemcode);
+        }
+        public Request GetRequestCode(string requestCode)
+        {
+            return Ir.GetRequest(requestCode);
+        }
         public void AddRequest(string userName, string departmentCode, List<StationeryDTO> stationaries)
         {
             string requestCode = "RQ" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
