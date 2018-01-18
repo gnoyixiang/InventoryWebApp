@@ -37,6 +37,7 @@ namespace InventoryWebApp.DAO
                 re.Notes = r.Notes;
                 re.DateRetrieved = r.DateRetrieved;
                 re.UserName = r.UserName;
+                re.RetrievalDetails = r.RetrievalDetails;
                 return en.SaveChanges();
             }
         }

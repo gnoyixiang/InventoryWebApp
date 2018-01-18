@@ -7,6 +7,7 @@ namespace InventoryWebApp.DAO
     public interface IDisbursementDAO
     {
         int AddDisbursement(Disbursement disbursement);
+        List<Disbursement> GetAllDisbursement();
         Disbursement GetDisbursementByCode(string disbursementCode);
         List<Disbursement> SearchDbmByDateCreated(DateTime date);
         List<Disbursement> SearchDbmByDateDisbursed(DateTime date);

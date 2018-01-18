@@ -1,4 +1,6 @@
-﻿using System;
+﻿using InventoryWebApp.Controllers;
+using InventoryWebApp.Models.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,47 +11,43 @@ namespace InventoryWebApp
 {
     public partial class RequisitionList : System.Web.UI.Page
     {
-        BusinessLogic bl = new BusinessLogic();
+        StoreClerkController sClerCtrl = new StoreClerkController();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            List<Request> requestList = bl.getNotDisbursedRequestList();
+            List<Request> requestList = sClerCtrl.GetNotDisbursedRequestList();
             lvRequestList.DataSource = requestList;
             lvRequestList.DataBind();
 
             int? itemCount = 0;
             foreach (Request r in requestList)
             {
-                foreach (RequestDetail rd in r.RequestDetails)
-                {
-                    itemCount += bl.getQuantOfRequestDetail(rd);
-                }
+                itemCount += GetTotalQuantOfRequest(r.RequestCode);
             }
             //lblTest.Text = getTotalQuantOfRequest("RQ123456789").ToString() + "Test";
 
             lblTotalQuant.Text = itemCount.ToString();
         }
 
-        protected int? getTotalQuantOfRequest(String requestCode)
+        protected int GetTotalQuantOfRequest(String requestCode)
         {
             List<RequestDetail> rdList;
-            int? quant = 0;
-            if (bl.getRequest(requestCode) != null)
+            int quant = 0;
+            if (sClerCtrl.GetRequest(requestCode) != null)
             {
-                rdList = bl.getRequest(requestCode).RequestDetails.ToList<RequestDetail>();
+                rdList = sClerCtrl.GetRequestDetails(requestCode).ToList();
 
-                quant = 0;
                 foreach (RequestDetail rdetail in rdList)
                 {
-                    quant += rdetail.RemainingQuant;
+                    quant += (int) rdetail.RemainingQuant;
                 }
             }
 
             return quant;
         }
-        protected Department getDeptByCode(String code)
+        protected Department GetDeptByCode(String code)
         {
-            return bl.getDeptByCode(code);
+            return sClerCtrl.GetDeptByCode(code);
         }
 
         protected void btnNext_Click(object sender, EventArgs e)
