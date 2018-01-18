@@ -40,12 +40,21 @@ namespace InventoryWebApp.DAO
             dept.HeadCode = head;
             return em.SaveChanges();
         }
-
-        public int UpdateCollectionPoint(string deptCode, string point)
+        
+        public int UpdateCollectionPoint(Department dpt)
         {
-            Department dept = em.Departments.Where(x => x.DepartmentCode == deptCode).First();
-            dept.CollectionPointCode = point;
-            return em.SaveChanges();
+            Department depart = em.Departments.Where(x => x.DepartmentCode == dpt.DepartmentCode).FirstOrDefault();
+            if (depart != null)
+            {
+                depart.CollectionPointCode = dpt.CollectionPointCode;
+                return em.SaveChanges();
+            }
+            else
+                return 0;
+            //string deptCode, string point
+            //Department dept = em.Departments.Where(x => x.DepartmentCode == deptCode).FirstOrDefault();
+            //dept.CollectionPointCode = point;
+            //return em.SaveChanges();
         }
 
         public int UpdateRep(string deptCode, string rep)

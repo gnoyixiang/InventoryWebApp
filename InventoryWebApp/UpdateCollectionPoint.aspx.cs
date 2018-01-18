@@ -1,4 +1,5 @@
-﻿using InventoryWebApp.Models;
+﻿using InventoryWebApp.Controllers;
+using InventoryWebApp.Models;
 using InventoryWebApp.Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -11,16 +12,27 @@ namespace InventoryWebApp
 {
     public partial class ChangeCollectionPoint : System.Web.UI.Page
     {
-        EntityModel SSIS = new EntityModel();
+        EmployeeController ec = new EmployeeController();
         protected void Page_Load(object sender, EventArgs e)
         {
-            CollectionPointController cpl = new CollectionPointController();
             if (!IsPostBack)
             {
-                ddlCP.DataSource = cpl.CollectionPoint();
+                ddlCP.DataSource = ec.DdlCollectionPoint();
                 ddlCP.DataTextField = "CollectionVenue";
                 ddlCP.DataValueField = "CollectionPointCode";
                 ddlCP.DataBind();
+            }
+        }
+        protected void btnUpdate_Click(object sender, EventArgs e)
+        {
+            if (Page.IsValid)
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "$('#myModal').modal('show');", true);
+                if (!String.IsNullOrEmpty(tbxCCP.ToString()) && ddlCP.SelectedItem.Selected)
+                {
+                    //TODO: change department code
+                    ec.UpdateCollectionPoint("CPSC", ddlCP.SelectedValue);
+                }
             }
         }
     }

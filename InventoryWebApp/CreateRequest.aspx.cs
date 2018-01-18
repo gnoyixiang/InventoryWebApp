@@ -36,8 +36,8 @@ namespace InventoryWebApp
             {
                 var stationaries = (List<StationeryDTO>)Session["ItemDetails"];
                 //Todo: change back to username and department code
-                //ec.AddRequest("mehmet@ssis.edu.sg","CPSC", stationaries);
-                ec.AddRequest(tbxDeptName.Text, tbxEmpName.Text, stationaries);
+                ec.AddRequest("yufei@logic.edu.sg", "CPSC", stationaries);
+                //ec.AddRequest(tbxDeptName.Text, tbxEmpName.Text, stationaries);
                 //clear
                 Session["ItemDetails"] = null;
                 BindGrid();

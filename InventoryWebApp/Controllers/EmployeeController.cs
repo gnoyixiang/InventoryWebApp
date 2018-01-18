@@ -14,22 +14,24 @@ namespace InventoryWebApp.Controllers
         IStationeryCatalogueDAO Isc = new StationeryCatalogueDAO();
         IRequestDAO Ir = new RequestDAO();
         IRequestDetailsDAO Ird = new RequestDetailsDAO();
-        public List<StationeryCatalogue> gridview()
+        ICollectionPointDAO Icp = new CollectionPointDAO();
+        IDepartmentDAO Idpt = new DepartmentDAO();
+        public List<StationeryCatalogue> Gridview()
         {
             List<StationeryCatalogue> list = Isc.ListAllStationery();
             return list;
         }
-        public List<StationeryCatalogue> searchByDescription(string keyword)
+        public List<StationeryCatalogue> SearchByDescription(string keyword)
         {
             List<StationeryCatalogue> list = Isc.SearchByDescription(keyword);
             return list;
         }
-        public List<StationeryCatalogue> searchByCategoryCode(string keyword)
+        public List<StationeryCatalogue> SearchByCategoryCode(string keyword)
         {
             List<StationeryCatalogue> list = Isc.SearchByCategory(keyword);
             return list;
         }
-        public List<StationeryCatalogue> searchByItemCode(string keyword)
+        public List<StationeryCatalogue> SearchByItemCode(string keyword)
         {
             List<StationeryCatalogue> list = Isc.SearchByItemCode(keyword);
             return list;
@@ -56,9 +58,20 @@ namespace InventoryWebApp.Controllers
             foreach (var stationary in stationaries)
             {
                 request.RequestDetails.Add(new RequestDetail()
-                { ItemCode = stationary.ItemCode, Quantity = stationary.Quantity, Notes = "" });
+                { ItemCode = stationary.ItemCode, Quantity = stationary.Quantity, RemainingQuant= stationary.Quantity, Notes = "" });
             }
             Ir.AddRequest(request);
+        }
+        public List<CollectionPoint> DdlCollectionPoint()
+        {
+            return Icp.ListAllCollectionPoint();
+        }
+        public void UpdateCollectionPoint(string deptCode, string newCCP)
+        {
+            Department dpt = new Department();
+            dpt.CollectionPointCode = newCCP;
+            dpt.DepartmentCode = deptCode;
+            Idpt.UpdateCollectionPoint(dpt);
         }
     }
 }
