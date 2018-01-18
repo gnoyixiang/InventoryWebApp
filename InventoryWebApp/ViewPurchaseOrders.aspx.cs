@@ -5,17 +5,27 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using InventoryWebApp.Controllers;
+using InventoryWebApp.Models.Classes;
 
 namespace InventoryWebApp
 {
     public partial class ViewPurchaseOrders : System.Web.UI.Page
     {
-        private static readonly string[] SEARCH_ITEMS = { "-- Search By --", "PO Number", "Supplier Name", "Order Date", "Created By", "Status" };
+        private static readonly string[] SEARCH_ITEMS = { "-- Search By --",
+            "PO Number", "Supplier Name", "Order Date", "Created By", "Status" };
+        enum sortBy
+        {
+            PONum, SupplierName, OrderDate, CreatedBy, EstimatedSupplyDate, Status
+        }
+
         List<PurchaseOrder> poList;
+        StoreClerkController scController = new StoreClerkController();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            poList = getPurchaseOrders();
+            poList = scController.GetAllPurchaseOrders();
+            poList.Sort(new ComparePurchaseOrderByPONum());
             if (!IsPostBack)
             {                
                 ddlSearch.Items.Clear();
@@ -23,16 +33,6 @@ namespace InventoryWebApp
                 ddlSearch.DataBind();
             }
         }
-        private string getSupplierName(string supplierCode)
-        {
-            return getSupplier(supplierCode).SupplierName;
-        }
-
-        private Supplier getSupplier(string supplierCode)
-        {
-            return new EntityModel().Suppliers.Where(s => s.SupplierCode.Equals(supplierCode)).FirstOrDefault<Supplier>();
-        }
-
 
         protected override void OnPreRenderComplete(EventArgs e)
         {
@@ -50,9 +50,9 @@ namespace InventoryWebApp
                         
             foreach (PurchaseOrder p in poList)
             {
-                p.SupplierCode = getSupplierName(p.SupplierCode);
+                p.SupplierCode = scController.GetSupplierName(p.SupplierCode);
             }
-            poList.Sort();
+            
             listPO.DataSource = poList;
             listPO.DataBind();
         }
@@ -91,60 +91,18 @@ namespace InventoryWebApp
             {
                 DateTime startDate = DateTime.Parse(txtStartDate.Text);
                 DateTime endDate = DateTime.Parse(txtEndDate.Text);
-                return getPurchaseOrdersByDate(startDate, endDate);    
+                return scController.GetPurchaseOrdersByDateCreated(startDate, endDate);    
             }
-            return getPurchaseOrdersBySearch(searchIndex, searchText);            
+            return scController.GetPurchaseOrdersBySearchText(searchIndex, searchText);            
 
-        }
-
-        private List<PurchaseOrder> getPurchaseOrdersByDate(DateTime startDate, DateTime endDate)
-        {
-            List<PurchaseOrder> orders = new List<PurchaseOrder>();
-            foreach (PurchaseOrder p in getPurchaseOrders())
-            {
-                DateTime pDate = Convert.ToDateTime(p.DateCreated);
-                if (pDate.Date >= startDate.Date && pDate.Date <= endDate.Date)
-                {
-                    orders.Add(p);
-                }
-            }
-            return orders;
-        }
-
-        private List<PurchaseOrder> getPurchaseOrdersBySearch(int searchIndex, string searchText)
-        {
-            using (EntityModel em = new EntityModel())
-            {
-                switch (searchIndex)
-                {
-                    case 1:
-                        return em.PurchaseOrders.Where(p => p.PurchaseOrderCode.ToUpper().Contains(searchText.ToUpper())).ToList();
-                    case 2:
-                        List<PurchaseOrder> orders = new List<PurchaseOrder>();
-                        foreach (PurchaseOrder p in getPurchaseOrders())
-                        {
-                            if (getSupplierName(p.SupplierCode).ToUpper().Contains(searchText.ToUpper()))
-                            {
-                                orders.Add(p);
-                            }
-                        }
-                        return orders;
-                    case 4:
-                        return em.PurchaseOrders.Where(p => p.Username.ToUpper().Contains(searchText.ToUpper())).ToList();
-                    case 5:
-                        return em.PurchaseOrders.Where(p => p.Status.ToUpper().Contains(searchText.ToUpper())).ToList();
-                    default:
-                        return getPurchaseOrders();
-                }
-            }
-        }
-
-        private List<PurchaseOrder> getPurchaseOrders()
-        {
-            return new EntityModel().PurchaseOrders.ToList();
-        }
-
+        }        
+        
         protected void lisPOPager_PreRender(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void sortStatusAsc_Command(object sender, CommandEventArgs e)
         {
 
         }

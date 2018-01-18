@@ -6,48 +6,24 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using InventoryWebApp.Controllers;
+using InventoryWebApp.Models.Classes;
 
 namespace InventoryWebApp
 {
     public partial class CreateNewOrder : System.Web.UI.Page
     {
+        StoreClerkController scController = new StoreClerkController();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             using (EntityModel em = new EntityModel())
             {
-                List<StationeryCatalogue> stationeries = em.StationeryCatalogues
-                       .Where(i => i.Stock <= i.ReorderLevel).ToList<StationeryCatalogue>();
+                List<StationeryCatalogue> stationeries = scController.GetStationeriesBelowReorderLevel();
                 List<PurchaseItem> purchaseItems = new List<PurchaseItem>();
                 if (Session["purchaseItems"] != null)
                 {
-                    purchaseItems = (List<PurchaseItem>)Session["purchaseItems"];
-                    var copyPurchaseItems = new List<PurchaseItem>(purchaseItems);
-                    foreach (StationeryCatalogue s in stationeries)
-                    {
-                        bool isFound = false;
-                        for (int i = 0; i < copyPurchaseItems.Count; i++)
-                        {
-                            //check if there are changes in stock for the same product
-                            if (copyPurchaseItems[i].Stationery.ItemCode == s.ItemCode)
-                            {
-                                isFound = true;
-                                if (copyPurchaseItems[i].Stationery.Stock != s.Stock)
-                                {
-                                    purchaseItems[i].Stationery = s;
-                                }
-                                break;
-                            }
-                        }
-                        //item has fallen below reorder level but not in purchaseItems list (not found)
-                        if (!isFound)
-                        {
-                            PurchaseItem p = new PurchaseItem();
-                            p.Stationery = s;
-                            p.SupplierCode = s.Supplier1;
-                            p.OrderQuantity = s.ReorderQuantity;
-                            purchaseItems.Add(p);
-                        }
-                    }
+                    purchaseItems = (List<PurchaseItem>)Session["purchaseItems"];                    
                 }
                 else
                 {
@@ -80,54 +56,14 @@ namespace InventoryWebApp
             }
 
             var purchaseItems = (List<PurchaseItem>)Session["purchaseItems"];
-            var purchaseOrders = new List<PurchaseOrder>();
-            
-            foreach (PurchaseItem pi in purchaseItems)
+            if (scController.CreatePurchaseOrders(purchaseItems) != 0)
             {
-                bool hasPurchaseOrder = false;
-                PurchaseOrder purchaseOrder = new PurchaseOrder();
-
-                DateTime now = DateTime.Now;
-
-                foreach (PurchaseOrder po in purchaseOrders)
-                {
-                    if(pi.SupplierCode == po.SupplierCode)
-                    {
-                        hasPurchaseOrder = true;
-                        purchaseOrder = po;
-                        break;
-                    }
-                }
-                if (!hasPurchaseOrder)
-                {
-                    var po = new PurchaseOrder();
-                    po.DateCreated = now;
-                    po.PurchaseOrderCode = pi.SupplierCode + now.ToString("yyyyMMddHHmmss");
-                    po.Notes = txtNotes.Value;
-                    po.Status = "PENDING";
-                    po.SupplierCode = pi.SupplierCode;
-                    po.Username = "yixiang";
-                    purchaseOrder = po;
-                    purchaseOrders.Add(po);
-                }
-                var pod = new PODetail();
-                pod.ItemCode = pi.Stationery.ItemCode;
-                pod.Price = getSupplierItemPrice(pi.SupplierCode, pi.Stationery.ItemCode);
-                pod.Quantity = pi.OrderQuantity;
-                pod.PurchaseOrderCode = purchaseOrder.PurchaseOrderCode;
-                //pod.PurchaseOrder = purchaseOrder;
-                //pod.StationeryCatalogue = pi.Stationery;
-                purchaseOrder.PODetails.Add(pod);
+                Session["CreatedPO"] = true;
             }
-            using (EntityModel em = new EntityModel())
+            else
             {
-                foreach (PurchaseOrder po in purchaseOrders)
-                {
-                    em.PurchaseOrders.Add(po);
-                    em.SaveChanges();
-                }
+                Session["CreatedPO"] = false;
             }
-
             Response.Redirect("/ViewPurchaseOrders");
         }
 
@@ -152,10 +88,10 @@ namespace InventoryWebApp
                 var hfItemCode = (HiddenField)parentItem.FindControl("hfItemCode");
                 string itemCode = hfItemCode.Value;
                 string supplierCode = ddl.SelectedValue;
-                lblPrice.Text = getSupplierItemPrice(supplierCode, itemCode).ToString();
+                lblPrice.Text = scController.GetSupplierItemPrice(supplierCode, itemCode).ToString();
                 var txtOrderQty = (TextBox)parentItem.FindControl("txtOrderQuantity");
                 var lblAmount = (Label)parentItem.FindControl("lblAmount");
-                lblAmount.Text = getAmount(txtOrderQty.Text, lblPrice.Text).ToString();
+                lblAmount.Text = GetAmount(txtOrderQty.Text, lblPrice.Text).ToString();
             }
         }
 
@@ -169,16 +105,16 @@ namespace InventoryWebApp
 
             var ddl = (DropDownList)e.Item.FindControl("ddlSuppliers");
             ddl.Items.Clear();
-            ddl.Items.Add(new ListItem(getSupplierName(item.Supplier1), item.Supplier1));
-            ddl.Items.Add(new ListItem(getSupplierName(item.Supplier2), item.Supplier2));
-            ddl.Items.Add(new ListItem(getSupplierName(item.Supplier3), item.Supplier3));
+            ddl.Items.Add(new ListItem(scController.GetSupplierName(item.Supplier1), item.Supplier1));
+            ddl.Items.Add(new ListItem(scController.GetSupplierName(item.Supplier2), item.Supplier2));
+            ddl.Items.Add(new ListItem(scController.GetSupplierName(item.Supplier3), item.Supplier3));
 
             var lblPrice = (Label)e.Item.FindControl("lblPrice");
-            lblPrice.Text = getSupplierItemPrice(purchaseItem.SupplierCode, item.ItemCode).ToString();
+            lblPrice.Text = scController.GetSupplierItemPrice(purchaseItem.SupplierCode, item.ItemCode).ToString();
 
             var lblAmount = (Label)e.Item.FindControl("lblAmount");
             var txtOrderQty = (TextBox)e.Item.FindControl("txtOrderQuantity");
-            decimal amount = getAmount(txtOrderQty.Text, lblPrice.Text);
+            decimal amount = GetAmount(txtOrderQty.Text, lblPrice.Text);
             lblAmount.Text = amount.ToString();
 
             var validOrderQuantity = (CustomValidator)e.Item.FindControl("validOrderQuantity");
@@ -187,28 +123,12 @@ namespace InventoryWebApp
             if ((e.Item.ItemType == ListViewItemType.InsertItem))
             {
                 var ddlCat = (DropDownList)e.Item.FindControl("ddlAddCategory");
-                ddlCat.DataSource = getCategories();
+                ddlCat.DataSource = scController.GetCategories();
                 ddlCat.DataBind();
             }
         }
 
-        private string getSupplierName(string supplierCode)
-        {
-            return getSupplier(supplierCode).SupplierName;
-        }
-
-        private Supplier getSupplier(string supplierCode)
-        {
-            return new EntityModel().Suppliers.Where(s => s.SupplierCode.Equals(supplierCode)).FirstOrDefault<Supplier>();
-        }
-
-        private decimal getSupplierItemPrice(string supplierCode, string itemCode)
-        {
-            return new EntityModel().SupplierDetails
-                .Where(s => s.SupplierCode.Equals(supplierCode) && s.ItemCode.Equals(itemCode)).FirstOrDefault<SupplierDetail>().Price;
-        }
-
-        private decimal getAmount(string orderQty, string price)
+        private decimal GetAmount(string orderQty, string price)
         {
             return int.Parse(orderQty) * decimal.Parse(price);
         }
@@ -246,7 +166,7 @@ namespace InventoryWebApp
                 Label lblPrice = (Label)parentItem.FindControl("lblPrice");
                 var txtOrderQty = (TextBox)parentItem.FindControl("txtOrderQuantity");
                 var lblAmount = (Label)parentItem.FindControl("lblAmount");
-                lblAmount.Text = getAmount(txtOrderQty.Text, lblPrice.Text).ToString();
+                lblAmount.Text = GetAmount(txtOrderQty.Text, lblPrice.Text).ToString();
                 //} 
             }
         }
@@ -281,9 +201,9 @@ namespace InventoryWebApp
             TextBox txtAddOrderQuantity = (TextBox)listItems.InsertItem.FindControl("txtAddOrderQuantity");
 
             Label lblPrice = (Label)listItems.InsertItem.FindControl("lblPrice");
-            lblPrice.Text = getSupplierItemPrice(ddlAddSuppliers.SelectedValue, hfItemCode.Value).ToString();
+            lblPrice.Text = scController.GetSupplierItemPrice(ddlAddSuppliers.SelectedValue, hfItemCode.Value).ToString();
             Label lblAmount = (Label)listItems.InsertItem.FindControl("lblAmount");
-            lblAmount.Text = getAmount(txtAddOrderQuantity.Text, lblPrice.Text).ToString();
+            lblAmount.Text = GetAmount(txtAddOrderQuantity.Text, lblPrice.Text).ToString();
         }
 
         protected void listItems_ItemInserting(object sender, ListViewInsertEventArgs e)
@@ -295,10 +215,10 @@ namespace InventoryWebApp
             ListViewItem item = e.Item;
             var hfItemCode = (HiddenField)item.FindControl("hfItemCode");
             string itemCode = hfItemCode.Value;
-            StationeryCatalogue stationery = getStationeryByItemCode(itemCode);
+            StationeryCatalogue stationery = scController.GetStationeryByItemCode(itemCode);
             var ddlAddSuppliers = (DropDownList)item.FindControl("ddlAddSuppliers");
             string supplierCode = ddlAddSuppliers.SelectedValue;
-            Supplier supplier = getSupplier(supplierCode);
+            Supplier supplier = scController.GetSupplier(supplierCode);
             var txtAddOrderQuantity = (TextBox)item.FindControl("txtAddOrderQuantity");
             string orderQuantity = txtAddOrderQuantity.Text;
             if (stationery == null || supplier == null || orderQuantity == "")
@@ -316,21 +236,8 @@ namespace InventoryWebApp
             listItems.DataBind();
 
         }
-
-        private Supplier getSupplierByName(string supplierName)
-        {
-            return new EntityModel().Suppliers.Where(s => s.SupplierName == supplierName).FirstOrDefault<Supplier>();
-        }
-
-        private StationeryCatalogue getStationeryByItemCode(string itemCode)
-        {
-            return new EntityModel().StationeryCatalogues.Where(s => s.ItemCode == itemCode).FirstOrDefault<StationeryCatalogue>();
-        }
-
-        private List<String> getCategories()
-        {
-            return new EntityModel().Categories.Select(c => c.CategoryCode).ToList<String>();
-        }
+        
+        
 
         protected void validAddOrderQuantity_ServerValidate(object source, ServerValidateEventArgs args)
         {
@@ -366,7 +273,7 @@ namespace InventoryWebApp
             DropDownList ddlCat = (DropDownList)listItems.InsertItem.FindControl("ddlAddCategory"); ;
             DropDownList ddlDescription = (DropDownList)listItems.InsertItem.FindControl("ddlAddDescription");
             string categoryCode = ddlCat.SelectedValue;
-            List<String> descriptionList = getProductListByCat(categoryCode);
+            List<String> descriptionList = scController.GetProductListByCat(categoryCode);
             var productList = new List<String>();
             var purchaseItems = (List<PurchaseItem>)Session["purchaseItems"];
             if (purchaseItems != null)
@@ -393,18 +300,12 @@ namespace InventoryWebApp
             ddlAddDescription_SelectedIndexChanged(sender, e);
         }
 
-        private List<String> getProductListByCat(string categoryCode)
-        {
-            return new EntityModel().StationeryCatalogues
-                .Where(s => s.CategoryCode == categoryCode)
-                .Select(s => s.Description).ToList<String>();
-        }
 
         protected void ddlAddDescription_SelectedIndexChanged(object sender, EventArgs e)
         {
             DropDownList ddlDescription = (DropDownList)listItems.InsertItem.FindControl("ddlAddDescription"); ;
             string description = ddlDescription.SelectedValue;
-            StationeryCatalogue s = getStationeryByDescription(description);
+            StationeryCatalogue s = scController.GetStationeryByDescription(description);
             HiddenField hfItemCode = (HiddenField)listItems.InsertItem.FindControl("hfItemCode");
             hfItemCode.Value = s.ItemCode;
             HiddenField hfReorderQty = (HiddenField)listItems.InsertItem.FindControl("hfReorderQty");
@@ -420,26 +321,19 @@ namespace InventoryWebApp
 
             DropDownList ddlAddSuppliers = (DropDownList)listItems.InsertItem.FindControl("ddlAddSuppliers");
             ddlAddSuppliers.Items.Clear();
-            ddlAddSuppliers.Items.Add(new ListItem(getSupplierName(s.Supplier1), s.Supplier1));
-            ddlAddSuppliers.Items.Add(new ListItem(getSupplierName(s.Supplier2), s.Supplier2));
-            ddlAddSuppliers.Items.Add(new ListItem(getSupplierName(s.Supplier3), s.Supplier3));
+            ddlAddSuppliers.Items.Add(new ListItem(scController.GetSupplierName(s.Supplier1), s.Supplier1));
+            ddlAddSuppliers.Items.Add(new ListItem(scController.GetSupplierName(s.Supplier2), s.Supplier2));
+            ddlAddSuppliers.Items.Add(new ListItem(scController.GetSupplierName(s.Supplier3), s.Supplier3));
             ddlAddSuppliers_SelectedIndexChanged(sender, e);
             
         }
 
-        class PurchaseItem
-        {
-            public StationeryCatalogue Stationery { get; set; }
-
-            public string SupplierCode { get; set; }
-
-            public int? OrderQuantity { get; set; }
-        }
+       
 
         protected void listItems_DataBound(object sender, EventArgs e)
         {
             DropDownList ddlCat = (DropDownList)listItems.InsertItem.FindControl("ddlAddCategory");
-            List<String> categories = getCategories();
+            List<String> categories = scController.GetCategories();
             string defaultCatValue = "-- Select a category --";
             categories.Insert(0, defaultCatValue);
 
@@ -450,11 +344,6 @@ namespace InventoryWebApp
             {
                 ddlCat.SelectedValue = defaultCatValue;
             }
-        }
-
-        private StationeryCatalogue getStationeryByDescription(String description)
-        {
-            return new EntityModel().StationeryCatalogues.Where(s => s.Description.Equals(description)).FirstOrDefault<StationeryCatalogue>();
         }
 
         

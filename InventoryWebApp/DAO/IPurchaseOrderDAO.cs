@@ -9,6 +9,7 @@ namespace InventoryWebApp.DAO
         int AddPurchaseOrder(PurchaseOrder purchaseOrder);
         PurchaseOrder GetPurchaseOrder(string purchaseOrderCode);
         List<PurchaseOrder> ListAllPurchaseOrders();
+        List<PurchaseOrder> ListPurchaseOrdersByPOCode(string poCode);
         List<PurchaseOrder> ListPurchaseOrdersByApprovedBy(string approvedBy);
         List<PurchaseOrder> ListPurchaseOrdersByDateApproved(DateTime dateApproved);
         List<PurchaseOrder> ListPurchaseOrdersByDateApproved(DateTime startDate, DateTime endDate);

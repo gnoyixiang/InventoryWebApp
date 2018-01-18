@@ -19,6 +19,15 @@ namespace InventoryWebApp.DAO
             }
         }
 
+        public List<PurchaseOrder> ListPurchaseOrdersByPOCode(string poCode)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                return em.PurchaseOrders
+                    .Where(p => p.PurchaseOrderCode.ToUpper().Contains(poCode.ToUpper())).ToList<PurchaseOrder>();
+            }
+        }
+
         public List<PurchaseOrder> ListPurchaseOrdersByStatus(string status)
         {
             using (EntityModel em = new EntityModel())

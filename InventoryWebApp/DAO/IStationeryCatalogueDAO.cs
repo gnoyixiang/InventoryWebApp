@@ -13,5 +13,6 @@ namespace InventoryWebApp.DAO
         List<StationeryCatalogue> SearchByDescription(string keyword);
         List<StationeryCatalogue> SearchByItemCode(string keyword);
         int UpdateStationery(StationeryCatalogue st);
+        List<StationeryCatalogue> GetStationeriesBelowReorderLevel();
     }
 }

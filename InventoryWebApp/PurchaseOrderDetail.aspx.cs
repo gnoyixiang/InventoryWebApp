@@ -1,4 +1,5 @@
 ﻿using InventoryWebApp.Models.Entities;
+using InventoryWebApp.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,93 +11,115 @@ namespace InventoryWebApp
 {
     public partial class PurchaseOrderDetail : System.Web.UI.Page
     {
+        StoreClerkController scController = new StoreClerkController();
+
         string poNum;
         PurchaseOrder po;
+        List<PODetail> poDetails;
         decimal? grandTotal;
         EntityModel em;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             em = new EntityModel();
-
             poNum = Request.QueryString["PO"];
-            
-            po = getPurchaseOrderByCode(poNum);
+            po = scController.GetPurchaseOrderByCode(poNum);
+            if (po != null)
+            {
+                poDetails = scController.GetPODetailsByPOCode(po.PurchaseOrderCode);
+            }
+
+
+            if (!IsPostBack)
+            {
+                if (poDetails != null)
+                {
+                    BindData();
+                    
+                }
+                else
+                {
+                    listDetails.Visible = false;
+                    panelDetails.Visible = true;
+                }
+            }
         }
 
-        protected string getItemDescription(string itemCode)
+        protected bool IsEditable()
         {
-            
-            return em.StationeryCatalogues.Where(s => s.ItemCode == itemCode).Select(s => s.Description).FirstOrDefault<String>();
+            return scController.IsPurchaseOrderEditable(po);
         }
 
-        protected string getAmount(string quantity, string price)
+        protected string GetAmount(object quantity, object price)
         {
-            double amount = double.Parse(quantity) * double.Parse(price);
+            double amount = 0;
+            if (quantity != null && price != null)
+            {
+                amount = double.Parse(quantity.ToString()) * double.Parse(price.ToString());
+            }
             return String.Format("{0:0.00}", amount);
         }
 
-        protected string getGrandTotal()
-        {
+        protected string GetGrandTotal()
+        { 
             grandTotal = 0;
-            foreach(PODetail pod in po.PODetails)
+            foreach(PODetail pod in scController.GetPODetailsByPOCode(po.PurchaseOrderCode))
             {
-                grandTotal += pod.Quantity * pod.Price;
+                if (pod.Quantity != null && pod.Price != null)
+                {
+                    grandTotal += pod.Quantity * pod.Price;
+                }
             }
             return String.Format("{0:0.00}", grandTotal);
         }
 
-        private PurchaseOrder getPurchaseOrderByCode(string poNum)
+        protected string GetItemDescription(object itemCode)
         {
-            return em.PurchaseOrders.Where(p=>p.PurchaseOrderCode==poNum).FirstOrDefault<PurchaseOrder>();
+            if (itemCode == null) return "";
+            return scController.GetItemDescription(itemCode.ToString());
         }
 
-        private string getSupplierName(string supplierCode)
-        {
-            return getSupplier(supplierCode).SupplierName;
-        }
-
-        private Supplier getSupplier(string supplierCode)
-        {
-            return em.Suppliers.Where(s => s.SupplierCode.Equals(supplierCode)).FirstOrDefault<Supplier>();
-        }
 
         protected override void OnPreRenderComplete(EventArgs e)
-        {
+        {            
             base.OnPreRenderComplete(e);
+
             if (po == null)
             {
-                panelDetails.Visible = false;
                 panelError.Visible = true;
+                panelDetails.Visible = false;
                 return;
             }
+            
             lblOrderID.Text = po.PurchaseOrderCode;
             lblStatus.Text = "Status: " + po.Status;
-            lblSupplierName.Text = getSupplierName(po.SupplierCode);
+            lblSupplierName.Text = scController.GetSupplierName(po.SupplierCode);
             lblDeliverAddress.Text = "";
-            lblAttnTo.Text = po.Username;
+            lblAttnTo.Text = po.UserName;
             lblEstDeliverDate.Text = po.DateSupplyExpected == null ? "Not Approved" : String.Format("{0:dd MMM yyyy}", po.DateSupplyExpected);
             lblOrderDate.Text = String.Format("{0:dd MMM yyyy}", po.DateCreated);
             lblApprovedDate.Text = po.DateApproved == null ? "Not Approved" : String.Format("{0:dd MMM yyyy}", po.DateApproved);
             lblReceivedDate.Text = po.DateReceived == null ? "Not Recieved" : String.Format("{0:dd MMM yyyy}", po.DateReceived);
-            lblOrderBy.Text = po.Username;
+            lblOrderBy.Text = po.UserName;
             lblApprovedBy.Text = po.ApprovedBy;
             lblReceivedBy.Text = po.ReceivedBy;
             lblNotes.Value = po.Notes;
 
-            listDetails.DataSource = po.PODetails;
-            listDetails.DataBind();
             Label lblGrandTotal = (Label)listDetails.FindControl("lblGrandTotal");
-            lblGrandTotal.Text = getGrandTotal();
+            lblGrandTotal.Text = GetGrandTotal();
 
             switch (po.Status)
             {
                 case "PENDING":
                     lblStatus.ForeColor = System.Drawing.Color.Gray;
                     btnAckReceipt.Visible = false;
+                    btnCancelOrder.Visible = true;
+                    linkEdit.Visible = true;
                     break;
                 case "APPROVED":
                     lblStatus.ForeColor = System.Drawing.Color.Blue;
+                    btnAckReceipt.Visible = true;
+                    btnCancelOrder.Visible = true;
                     linkEdit.Visible = false;
                     break;
                 case "RECEIVED":
@@ -119,107 +142,100 @@ namespace InventoryWebApp
                     break;
             }
 
+
+
         }
 
         protected void btnAckReceipt_Click(object sender, EventArgs e)
         {
-            if (AckPurchaseOrder(po) != 1)
+            int isAck = scController.AckPurchaseOrder(po, poDetails);
+            if (isAck == -1)
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Error acknowledging order!')", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", 
+                    "alert('Error acknowledging order!')", true);
+            }
+            else if (isAck == 0)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                    "alertMessage", "alert('No order was acknowledged!')", true);
             }
             else
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Order has been acknowledged!')", true);
-
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                    "alertMessage", "alert('Order has been acknowledged!')", true);
             }
         }
 
         protected void btnCancelOrder_Click(object sender, EventArgs e)
         {
-            if (CancelPurchaseOrder(po) != 1)
+            if (scController.CancelPurchaseOrder(po) != 1)
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Error cancelling order!')", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                    "alertMessage", "alert('Error cancelling order!')", true);
             }
             else
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Order has been cancelled!')", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                    "alertMessage", "alert('Order has been cancelled!')", true);
 
             }
         }
         
-        private int CancelPurchaseOrder(PurchaseOrder po)
-        {
-            po.Status = "CANCELLED";
-            int changes = 0;
-            em.Entry(po).State = System.Data.Entity.EntityState.Modified;
-            changes = em.SaveChanges();
-            return changes;
-
-        }
-
-        private int AckPurchaseOrder(PurchaseOrder po)
-        {
-            po.Status = "RECEIVED";
-            int changes = 0;
-            em.Entry(po).State = System.Data.Entity.EntityState.Modified;
-            changes = em.SaveChanges();
-            return changes;
-        }
+       
 
         protected void linkEdit_Command(object sender, CommandEventArgs e)
         {
-            Response.Redirect("/EditPurchaseOrder?PO=" + poNum);
+            //Response.Redirect("/EditPurchaseOrder?PO=" + poNum);
+            scController.ApprovePurchaseOrder(po);
         }
-
-
+        
 
         protected void listDetails_ItemEditing(object sender, ListViewEditEventArgs e)
         {
-        }
-
-        private StationeryCatalogue getStationeryByItemCode(string itemCode)
-        {
-            return em.StationeryCatalogues
-                .Where(s => s.ItemCode == itemCode)
-                .FirstOrDefault<StationeryCatalogue>();
+            if (!IsPurchaseOrderingEditing(po))
+            {
+                //scController.EditingPurchaseOrder(po);
+                listDetails.EditIndex = e.NewEditIndex;
+                BindData();
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this, 
+                    this.GetType(), "alertMessage", 
+                    "alert('Invalid request! Purchase Order is being edited by another user!')", true);
+            }
         }
 
         protected void listDetails_PagePropertiesChanging(object sender, PagePropertiesChangingEventArgs e)
         {
             listDetails.EditIndex = -1;
+            BindData();
         }
 
         protected void listDetails_ItemUpdating(object sender, ListViewUpdateEventArgs e)
         {
+            if (!Page.IsValid)
+            {
+                return;
+            }
+            
+            PODetail poDetail = poDetails[e.ItemIndex];
+            poDetail.Quantity = Convert.ToInt32(e.NewValues["Quantity"]);
+            scController.UpdatePODetail(poDetail);
+            scController.FinishEditingPurchaseOrder(po);
             listDetails.EditIndex = -1;
+            BindData();
         }
 
-        protected void txtOrderQuantity_TextChanged(object sender, EventArgs e)
-        {
-            TextBox txtOrderQuantity = (TextBox)sender;
-            ListViewItem item = (ListViewItem)txtOrderQuantity.Parent;
-            int qty = int.Parse(txtOrderQuantity.Text);
-            var hfItemCode = (HiddenField)listDetails.EditItem.FindControl("hfItemCode");
-            string itemCode = hfItemCode.Value;
-            foreach (PODetail pod in po.PODetails)
-            {
-                if (pod.ItemCode == itemCode)
-                {
-                    pod.Quantity = qty;
-                    break;
-                }
-            }
-        }
 
         protected void validOrderQuantity_ServerValidate(object source, ServerValidateEventArgs args)
         {
-            if (source is CustomValidator)
+            if (source is CustomValidator && IsPostBack)
             {
                 CustomValidator validator = (CustomValidator)source;
                 ListViewItem parentItem = (ListViewItem)validator.Parent;
-                var hfItemCode = (HiddenField)parentItem.FindControl("hfItemCode");
-                string itemCode = hfItemCode.Value;
-                int? minReorderQty = em.StationeryCatalogues.Where(s => s.ItemCode == itemCode).Select(s => s.ReorderQuantity).FirstOrDefault<int?>();
+                string itemCode = listDetails.DataKeys[listDetails.EditIndex].Value.ToString();
+                int? minReorderQty = scController.GetStationeryReorderQty(itemCode);
                 int num = int.Parse(args.Value);
                 args.IsValid = num >= minReorderQty;
                 var txtOrderQuantity = (TextBox)parentItem.FindControl("txtOrderQuantity");
@@ -238,7 +254,37 @@ namespace InventoryWebApp
 
         protected void listDetails_ItemCanceling(object sender, ListViewCancelEventArgs e)
         {
+            scController.FinishEditingPurchaseOrder(po);
             listDetails.EditIndex = -1;
+            BindData();
         }
+
+        protected void listDetails_PreRender(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BindData()
+        {
+            if (poDetails != null)
+            {
+                listDetails.DataSource = poDetails;
+                listDetails.DataBind();
+            }
+        }
+
+        private bool IsPurchaseOrderingEditing(PurchaseOrder po)
+        {
+            if (po.Status == "EDITING") return true;
+            return false;
+        }
+
+        private bool IsPurchaseOrderUpdater()
+        {
+            if (Session["USER"].ToString() == po.LastUpdatedBy)
+                return true;
+            return false;
+        }
+
     }
 }

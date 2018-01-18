@@ -388,13 +388,16 @@
     <Compile Include="AcknowledgeReceipt.aspx.designer.cs">
       <DependentUpon>AcknowledgeReceipt.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\StoreClerkController.cs" />
     <Compile Include="EditPurchaseOrder.aspx.cs">
       <DependentUpon>EditPurchaseOrder.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="EditPurchaseOrder.aspx.designer.cs">
       <DependentUpon>EditPurchaseOrder.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Classes\ComparePurchaseOrderByPONum.cs" />
+    <Compile Include="Models\Classes\ComparePurchaseOrderByStatus.cs" />
+    <Compile Include="Models\Classes\PurchaseItem.cs" />
     <Compile Include="NewSupplierDetail.aspx.cs">
       <DependentUpon>NewSupplierDetail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -421,12 +424,6 @@
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\DepartmentHeadController.cs" />
-    <Compile Include="Controllers\DepartmentRepController.cs" />
-    <Compile Include="Controllers\EmployeeController.cs" />
-    <Compile Include="Controllers\StoreClerkController.cs" />
-    <Compile Include="Controllers\StoreManagerController.cs" />
-    <Compile Include="Controllers\StoreSupervisorController.cs" />
     <Compile Include="DAO\AdjustmentDAO.cs" />
     <Compile Include="DAO\AssignRoleDAO.cs" />
     <Compile Include="DAO\CatagoryDAO.cs" />
@@ -468,7 +465,6 @@
     <Compile Include="DAO\SupplierDetailsDAO.cs" />
     <Compile Include="DAO\TenderDAO.cs" />
     <Compile Include="DAO\TenderDetailsDAO.cs" />
-    <Compile Include="DAO\UserDAO.cs" />
     <Compile Include="CreateNewOrder.aspx.cs">
       <DependentUpon>CreateNewOrder.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

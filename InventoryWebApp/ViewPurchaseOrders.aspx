@@ -76,7 +76,7 @@
             </asp:ListView>
             <ul class="pagination">
                 <asp:DataPager runat="server" ID="lisPOPager" OnPreRender="lisPOPager_PreRender"
-                    PagedControlID="listPO" PageSize="2">
+                    PagedControlID="listPO" PageSize="10">
                     <Fields>
                         <asp:NextPreviousPagerField ButtonType="Link"
                             ShowFirstPageButton="false"

@@ -137,7 +137,7 @@
                             <td>$<asp:Label ID="lblPrice" runat="server" Text=""></asp:Label>
                             </td>
                             <td>
-                                <asp:TextBox ID="txtAddOrderQuantity" runat="server" AutoPostBack="true"
+                                <asp:TextBox ID="txtAddOrderQuantity" runat="server"
                                     OnTextChanged="txtAddOrderQuantity_TextChanged" CssClass="control"
                                     Text='<%# Eval("ReorderQuantity") %>' TextMode="Number" Width="80px" CausesValidation="true" />
                                 <br />

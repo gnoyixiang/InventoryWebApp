@@ -31,6 +31,7 @@ namespace InventoryWebApp.DAO
             StationeryCatalogue stationery = em.StationeryCatalogues.Where(x => x.ItemCode == itemcode).FirstOrDefault();
             return stationery;
         }
+
         public int AddStationery(StationeryCatalogue st)
         {
             try
@@ -68,6 +69,11 @@ namespace InventoryWebApp.DAO
             StationeryCatalogue stationery = em.StationeryCatalogues.Where(x => x.ItemCode == itemCode).FirstOrDefault();
             em.StationeryCatalogues.Remove(stationery);
             em.SaveChanges();
+        }
+
+        public List<StationeryCatalogue> GetStationeriesBelowReorderLevel()
+        {
+            return em.StationeryCatalogues.Where(s => s.Stock <= s.ReorderLevel).ToList<StationeryCatalogue>();
         }
     }
 }
