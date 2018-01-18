@@ -19,7 +19,7 @@
     <br />
     <br />
     <asp:GridView ID="gvCatalogue" runat="server" AutoGenerateColumns="False" Width="100%" AllowPaging="True"
-    OnPageIndexChanging="OnPageIndexChanging" CellPadding="4" ForeColor="#333333" GridLines="None" PageSize="20"
+    OnPageIndexChanging="OnPageIndexChanging" CellPadding="4" ForeColor="#333333" GridLines="None"
         CssClass="table table-striped table-bordered table-hover" >
         <AlternatingRowStyle BackColor="White" />
      <Columns>

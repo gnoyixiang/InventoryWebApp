@@ -12,12 +12,12 @@
     <table>
         <tr>
             <td>
-                <asp:Label ID="lblDeptName" runat="server" Text="Department Name"></asp:Label>
+                <asp:Label ID="lblDeptName" runat="server" Text="Department Name" ></asp:Label>
                 <br />
                 <br />
             </td>
             <td>
-                <asp:TextBox ID="tbxDeptName" runat="server"></asp:TextBox>
+                <asp:TextBox ID="tbxDeptName" runat="server" Height="29px" Width="170px"></asp:TextBox>
                 <br />
                 <br />
             </td>
@@ -29,7 +29,7 @@
                 <br />
             </td>
             <td>
-                <asp:TextBox ID="tbxEmpName" runat="server"></asp:TextBox>
+                <asp:TextBox ID="tbxEmpName" runat="server" Height="29px" Width="170px"></asp:TextBox>
                 <br />
                 <br />
             </td>
@@ -42,9 +42,8 @@
         OnRowDeleting="gvNewRequest_RowDeleting" 
         OnRowCancelingEdit="gvNewRequest_RowCancelingEdit" 
         OnRowUpdating="gvNewRequest_RowUpdating" 
-        OnPageIndexChanging="gvNewRequest_PageIndexChanging"
-        PageSize="10" AllowPaging="True">
-        <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+        OnPageIndexChanging="gvNewRequest_PageIndexChanging" AllowPaging="True" CssClass="table table-striped table-bordered table-hover" >
+        <AlternatingRowStyle BackColor="White" />
         <Columns>
             <asp:BoundField DataField="ItemCode" HeaderText="Item Number" ReadOnly="true" />
             <asp:BoundField DataField="Category" HeaderText="Category" ReadOnly="true" />
@@ -55,7 +54,7 @@
                     </asp:TextBox>
                     <asp:CompareValidator ID="quantityCompareValidator1" runat="server" Type="Integer" 
                         Operator="DataTypeCheck" Display="Dynamic" 
-                        ErrorMessage="Enter an integer value" ControlToValidate="tbxQuantity" ForeColor="Red" ></asp:CompareValidator>
+                        ErrorMessage="Invalid Value" ControlToValidate="tbxQuantity" ForeColor="Red" ></asp:CompareValidator>
                     <asp:CompareValidator ID="quantityCompareValidator2" runat="server" Type="Integer" Operator="GreaterThan" Display="Dynamic"
                          ErrorMessage="Enter a value greater than Zero" ValueToCompare="0" ControlToValidate="tbxQuantity" 
                         ForeColor="Yellow"></asp:CompareValidator>
@@ -69,17 +68,16 @@
             <asp:CommandField ShowEditButton="True" ButtonType="Button" HeaderText="Edit" />
                     <asp:CommandField ShowDeleteButton="True" ButtonType="Button" HeaderText="Delete" />
         </Columns>
-        <EditRowStyle BackColor="#999999" />
-        <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-        <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-        <PagerSettings Mode="NumericFirstLast" />
-        <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
-        <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
-        <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-        <SortedAscendingCellStyle BackColor="#E9E7E2" />
-        <SortedAscendingHeaderStyle BackColor="#506C8C" />
-        <SortedDescendingCellStyle BackColor="#FFFDF8" />
-        <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
+        <EditRowStyle BackColor="#2461BF" />
+        <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+        <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+        <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+        <RowStyle BackColor="#EFF3FB" />
+        <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+        <SortedAscendingCellStyle BackColor="#F5F7FB" />
+        <SortedAscendingHeaderStyle BackColor="#6D95E1" />
+        <SortedDescendingCellStyle BackColor="#E9EBEF" />
+        <SortedDescendingHeaderStyle BackColor="#4870BE" />
     </asp:GridView>
     <table>
         <tr>

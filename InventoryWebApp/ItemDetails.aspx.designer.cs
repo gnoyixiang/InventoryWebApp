@@ -112,6 +112,24 @@ namespace InventoryWebApp {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator tbxRequiredValidator;
         
         /// <summary>
+        /// quantityCustomValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator quantityCustomValidator1;
+        
+        /// <summary>
+        /// quantityCustomValidator2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator quantityCustomValidator2;
+        
+        /// <summary>
         /// lblQuantityResult control.
         /// </summary>
         /// <remarks>

@@ -15,7 +15,7 @@
                 <asp:Label ID="lblItemCode" runat="server" Text="Item Number"></asp:Label>&nbsp;<br />
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td>
             <td>
-                <asp:TextBox ID="tbxItemCode" runat="server" ReadOnly="true"></asp:TextBox>
+                <asp:TextBox ID="tbxItemCode" runat="server" ReadOnly="true" Height="29px" Width="77px"></asp:TextBox>
                 <br />
                 <br />
             </td>
@@ -27,7 +27,7 @@
                 <br />
             </td>
             <td>
-                <asp:TextBox ID="tbxCategory" runat="server" ReadOnly="true"></asp:TextBox>
+                <asp:TextBox ID="tbxCategory" runat="server" ReadOnly="true" Height="29px" Width="227px"></asp:TextBox>
                 <br />
                 <br />
             </td>
@@ -39,7 +39,7 @@
                 <br />
             </td>
             <td>
-                <asp:TextBox ID="tbxDescription" runat="server" ReadOnly="true"></asp:TextBox>
+                <asp:TextBox ID="tbxDescription" runat="server" ReadOnly="true" Height="29px" Width="227px"></asp:TextBox>
                 <br />
             </td>
         </tr>
@@ -62,7 +62,9 @@
             <td></td>
             <td>
                 <asp:TextBox ID="tbxQuantity" runat="server" OnTextChanged="tbxQuantity_TextChanged" AutoPostBack="true"></asp:TextBox>
-                <asp:RequiredFieldValidator ID="tbxRequiredValidator" runat="server" ControlToValidate="tbxQuantity" ErrorMessage="Quantity is Empty" ForeColor="#FF3300"></asp:RequiredFieldValidator>
+                <asp:RequiredFieldValidator ID="tbxRequiredValidator" runat="server" ControlToValidate="tbxQuantity" ErrorMessage="Empty Quantity" ForeColor="#FF3300"></asp:RequiredFieldValidator>
+                <asp:CustomValidator ID="quantityCustomValidator1" runat="server" ErrorMessage="Enter a value greater than Zero" Type="Integer" ControlToValidate="tbxQuantity" ValueToCompare="0"  ></asp:CustomValidator>
+                <asp:CustomValidator ID="quantityCustomValidator2" runat="server" ErrorMessage="Invalid Value"></asp:CustomValidator>
                 <br />
                 <asp:Label ID="lblQuantityResult" runat="server"></asp:Label>
             </td>
@@ -72,7 +74,7 @@
     <br />
 
 
-    <asp:Button ID="btnAddItem" runat="server" Text="Add to Request" OnClick="btnAddItem_Click" />
+    <asp:Button ID="btnAddItem" runat="server" Text="Add to Request" OnClick="btnAddItem_Click" Class="btn btn-primary" />
     <!-- Button trigger modal -->
     <%--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
   Add To Request
