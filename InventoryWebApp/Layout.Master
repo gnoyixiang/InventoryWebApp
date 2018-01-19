@@ -69,7 +69,7 @@
                 <li id="menu-RequestEmployee" class="active">
                     <a href="#RequestEmployeeSubmenu" data-toggle="collapse" aria-expanded="false">Manage Requests</a>
                     <ul class="collapse list-unstyled submenu" id="RequestEmployeeSubmenu">
-                        <li><a href="#">View Requests</a></li>
+                        <li><a href="/RequisitionList.aspx">View Requests</a></li>
                         <li><a href="#">Create Request</a></li>
                         <% if ((string)Session["ChangeRole"] == "actingDepartmentHead")
                             {%>

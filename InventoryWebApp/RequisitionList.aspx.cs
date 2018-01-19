@@ -8,14 +8,16 @@ using System.Web.UI.WebControls;
 using System.Data.Entity;
 using InventoryWebApp.Models.Entities;
 using InventoryWebApp.DAO;
-
+using InventoryWebApp.Controllers;
 namespace InventoryWebApp
 {
     public partial class RequisitionList : System.Web.UI.Page
     {
-        IRequestDAO request=new RequestDAO();
-        
-        static private readonly string[] SEARCH_ITEMS = { "--Select Category--", "RequestCode", "DateCreated", "Status" };
+        public static EmployeeController ec = new EmployeeController();
+        static private string searchParam;
+        static private string searchString;
+
+        static private readonly string[] SEARCH_ITEMS = { "--Select Category--", "RequestCode",  "Status" };
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -30,39 +32,17 @@ namespace InventoryWebApp
         }
         private void LoadGridData()
         {
-            ListView1.DataSource = request.ListAllRequest();
+            ListView1.DataSource = ec.ListAllRequest();
             ListView1.DataBind();
+            
         }
-
-
-
-
-        //private List<Request> SearchRequest(string SearchParam, string SearchString)
-        //{
-
-        //    using (em)
-        //    {
-        //        if (SearchParam == "RequestCode")
-        //        {
-        //            return em.Requests.Where(b => b.RequestCode.ToUpper().Contains(SearchString.Trim().ToUpper())).ToList();
-        //        }
-        //        if (SearchParam == "Status")
-        //        {
-        //            return em.Requests.Where(b => b.Status.ToUpper().Contains(SearchString.Trim().ToUpper())).ToList();
-        //        }
-        //        if (SearchParam == "DateCreated")
-        //        {
-        //            return em.Requests.Where(b => b.DateCreated==Convert.ToDateTime(SearchString)).ToList();
-        //        }
-        //        return em.Requests.ToList();
-        //    }
-        //}
+   
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-
-            //ListView1.DataSource = DropDownList1.SelectedItem.ToString(), txtBxSearchRequisition.Text
-            //ListView1.DataBind();
+            List<Request> RList = ec.SearchRequest(DropDownList1.SelectedItem.ToString(), txtBxSearchRequisition.Text);
+            ListView1.DataSource = RList;            
+            ListView1.DataBind();
         }
 
         protected void btnRefresh_Click(object sender, EventArgs e)
@@ -70,6 +50,12 @@ namespace InventoryWebApp
             Response.Redirect("RequisitionList.aspx");
             txtBxSearchRequisition.Text = null;
         }
+
+        //protected void dpList_PreRender(object sender, EventArgs e)
+        //{
+        //    ListView1.DataSource = ec.ListAllRequest();
+        //    ListView1.DataBind();
+        //}
     }
 
 

@@ -40,9 +40,9 @@ namespace ConsoleTestApp
         //    pod3.PurchaseOrderCode = po1.PurchaseOrderCode;
         //    pod3.Price = Convert.ToDecimal(2);
 
-            po1.PODetails.Add(pod1);
-            po1.PODetails.Add(pod2);
-            po1.PODetails.Add(pod3);
+            //po1.PODetails.Add(pod1);
+            //po1.PODetails.Add(pod2);
+            //po1.PODetails.Add(pod3);
             
             Console.WriteLine("/nAdding purchase order");
             testDAO.AddPurchaseOrder(po1);

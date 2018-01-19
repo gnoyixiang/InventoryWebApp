@@ -5,7 +5,7 @@ using System.Web;
 
 namespace InventoryWebApp.Controllers
 {
-    public class DepartmentRepController
+    public class DepartmentRepController: EmployeeController
     {
     }
 }

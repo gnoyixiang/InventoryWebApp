@@ -293,6 +293,7 @@
     <Content Include="RequisitionList.aspx" />
     <Content Include="Scripts\fancy-sidebar-navigation.js" />
     <Content Include="Layout.Master" />
+    <Content Include="ViewDisbursement.aspx" />
     <Content Include="ViewPurchaseOrders.aspx" />
     <Content Include="bin\ApplicationInsights.config" />
     <Content Include="bin\InventoryWebApp.dll.config" />
@@ -608,6 +609,13 @@
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewDisbursement.aspx.cs">
+      <DependentUpon>ViewDisbursement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewDisbursement.aspx.designer.cs">
+      <DependentUpon>ViewDisbursement.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewPurchaseOrders.aspx.cs">
       <DependentUpon>ViewPurchaseOrders.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
