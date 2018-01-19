@@ -5,7 +5,7 @@
             <div class="container-fluid">
         <div class="row">
             <div class="col-sm-10">
-                <h3>View Inventory Adjustment #</h3>
+                <h3>View Inventory Adjustment <%=Request.QueryString["AdjustmentCode"].ToString()%></h3>
                 <p>&nbsp;</p>
                 <asp:Label ID="lblItemChoice" runat="server" Text="Item:"></asp:Label>
                 <asp:Label ID="lblItemChoiceName" runat="server" Text="Load item name from DB"></asp:Label>
