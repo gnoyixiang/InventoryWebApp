@@ -16,6 +16,7 @@
     <%--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">--%>
     <!-- FontsAwesome -->
     <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
+    
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -119,10 +120,10 @@
                 <% if ((string)Session["UserRole"] == "departmentHead")
                     {%>
                 <li id="menu-RequestDepartmentHead">
-                    <a href="#RequestEmployeeSubmenu" data-toggle="collapse" aria-expanded="false">Manage Requests</a>
+                    <a href="#RequestDepartmentHead" data-toggle="collapse" aria-expanded="false">Manage Requests</a>
                     <ul class="collapse list-unstyled submenu" id="RequestDepartmentHead">
                         <li><a href="#">View Requests</a></li>
-                        <li><a href="#">Approve Requests</a></li>
+                        <li><a href="ApproveRequest.aspx">Approve Requests</a></li>
                     </ul>
                 </li>
                 <li>

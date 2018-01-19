@@ -9,8 +9,7 @@ namespace InventoryWebApp.DAO
 {
     public class RequestDAO : IRequestDAO
     {
-        EntityModel em;
-        Request r;
+        EntityModel em=new EntityModel();
         public List<Request> ListAllRequest()
         {
             return em.Requests.ToList();
@@ -44,21 +43,38 @@ namespace InventoryWebApp.DAO
             return a;
         }
 
-        public int UpdateRequestStatus(Request R, string newStatus)
+        public int UpdateRequestStatus(Request r)
         {
-            int a = -1;
-            R.Status = newStatus;
-            a = em.SaveChanges();
-            return a;
+            Request req = em.Requests.Where(x => x.RequestCode == r.RequestCode).FirstOrDefault();
+
+            req.Status = r.Status;
+            req.DateApproved = r.DateApproved;
+            req.HeadRemarks = r.HeadRemarks;
+            return em.SaveChanges();
+            
         }
 
-        public int UpdateRequestApproval(Request R, string ApprovedN)
+        public int UpdateRequestApproval(Request r)
         {
-            int a = -1;
-            R.ApprovedBy = ApprovedN;
-            a = em.SaveChanges();
-            return a;
+            Request req = em.Requests.Where(x => x.RequestCode == r.RequestCode).FirstOrDefault();
+            req.ApprovedBy = r.ApprovedBy;
+
+
+            return em.SaveChanges();
+            
         }
+
+        public List<Request> SearchPendingRequestByName(string username)
+        {
+            return em.Requests.Where(x => x.UserName.Contains(username)&&x.Status=="pending").ToList();
+        }
+
+        public List<Request> SearchPendingRequestByDate(DateTime d)
+        {
+            return em.Requests.Where(x => x.DateCreated==d && x.Status == "pending").ToList();
+        }
+
+
 
 
     }

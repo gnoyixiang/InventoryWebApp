@@ -13,11 +13,11 @@ namespace InventoryWebApp
         {
             //Session["UserRole"] = "storeClerk";
             //Session["UserRole"] = "storeSupervisor";
-            Session["UserRole"] = "employee";
-            //Session["UserRole"] = "departmentHead";
+            //Session["UserRole"] = "employee";
+            Session["UserRole"] = "departmentHead";
 
             //Session["ChangeRole"] = "actingStoreSupervisor";
-            Session["ChangeRole"] = "actingDepartmentHead";
+            //Session["ChangeRole"] = "actingDepartmentHead";
             //Session["ChangeRole"] = "departmentRep";
         }
     }

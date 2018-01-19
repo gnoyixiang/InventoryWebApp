@@ -9,8 +9,7 @@ namespace InventoryWebApp.DAO
 {
     public class RequestDetailsDAO : IRequestDetailsDAO
     {
-        EntityModel em;
-        RequestDetail rd;
+        EntityModel em=new EntityModel();
 
         public List<RequestDetail> ListRequestDetail(string RequestCode)
         {
