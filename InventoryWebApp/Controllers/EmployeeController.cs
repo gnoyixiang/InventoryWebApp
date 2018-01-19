@@ -82,7 +82,7 @@ namespace InventoryWebApp.Controllers
 
         public bool CheckStatusToEdit(Request R)
         {
-            if (R.ApprovedBy != null)
+            if (R.Status.ToLower()=="pending")
             {
                 return true;
             }
@@ -104,6 +104,20 @@ namespace InventoryWebApp.Controllers
             }
 
             return dlist;
+        }
+
+        public List<Disbursement> ListDisbursementList()
+        {
+            return dDAO.GetAllDisbursement();
+        }
+
+        public void UpdateRequestDetail(RequestDetail rd)
+        {
+            rdDAO.UpdateRequestDetail(rd);
+        }
+        public void DeleteRequestDetail(RequestDetail rd)
+        {
+            rdDAO.DeleteRequestDetail(rd);
         }
 
 

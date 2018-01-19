@@ -85,5 +85,16 @@ namespace InventoryWebApp.DAO
             }
         }
 
+        public int DeleteRequestDetail(RequestDetail rDetail)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                em.Entry(rDetail).State = EntityState.Deleted;
+                return em.SaveChanges();
+            }
+        }
+
+        
+
     }
 }

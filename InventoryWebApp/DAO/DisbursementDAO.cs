@@ -132,5 +132,11 @@ namespace InventoryWebApp.DAO
                 return 0;
         }
 
+        public List<Disbursement> GetAllDisbursement()
+        {
+            em = new EntityModel();
+            return em.Disbursements.ToList();
+        }
+
     }
 }
