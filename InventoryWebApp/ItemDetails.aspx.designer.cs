@@ -13,6 +13,15 @@ namespace InventoryWebApp {
     public partial class ItemDetails {
         
         /// <summary>
+        /// lbl1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl1;
+        
+        /// <summary>
         /// lblItemCode control.
         /// </summary>
         /// <remarks>
@@ -22,13 +31,13 @@ namespace InventoryWebApp {
         protected global::System.Web.UI.WebControls.Label lblItemCode;
         
         /// <summary>
-        /// tbxItemCode control.
+        /// lbl2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbxItemCode;
+        protected global::System.Web.UI.WebControls.Label lbl2;
         
         /// <summary>
         /// lblCategory control.
@@ -40,13 +49,13 @@ namespace InventoryWebApp {
         protected global::System.Web.UI.WebControls.Label lblCategory;
         
         /// <summary>
-        /// tbxCategory control.
+        /// lbl3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbxCategory;
+        protected global::System.Web.UI.WebControls.Label lbl3;
         
         /// <summary>
         /// lblDescription control.
@@ -56,15 +65,6 @@ namespace InventoryWebApp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDescription;
-        
-        /// <summary>
-        /// tbxDescription control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbxDescription;
         
         /// <summary>
         /// lblQuantity control.

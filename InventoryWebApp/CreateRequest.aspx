@@ -1,6 +1,22 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="CreateRequest.aspx.cs" Inherits="InventoryWebApp.CreateRequest" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style>
+        .pager-style{
+
+        }
+        .pager-style span, .pager-style a{
+            padding: 0 5px;
+            font-size: 16px;
+        }
+        .pager-style span{
+            font-weight: 600;
+            text-decoration:underline;
+        }
+        .pager-style a{
+
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <ul class="breadcrumb">
@@ -12,24 +28,24 @@
     <table>
         <tr>
             <td>
-                <asp:Label ID="lblDeptName" runat="server" Text="Department Name"></asp:Label>
+                <asp:Label ID="lblDept" runat="server" Text="Department Name"></asp:Label>
                 <br />
                 <br />
             </td>
             <td>
-                <asp:TextBox ID="tbxDeptName" runat="server" Height="29px" Width="170px"></asp:TextBox>
+                <asp:Label ID="lblDeptName" runat="server"></asp:Label>
                 <br />
                 <br />
             </td>
         </tr>
         <tr>
             <td>
-                <asp:Label ID="lblEmpName" runat="server" Text="Employee Name"></asp:Label>
+                <asp:Label ID="lblEmp" runat="server" Text="Employee Name"></asp:Label>
                 <br />
                 <br />
             </td>
             <td>
-                <asp:TextBox ID="tbxEmpName" runat="server" Height="29px" Width="170px"></asp:TextBox>
+                <asp:Label ID="lblEmpName" runat="server"></asp:Label>
                 <br />
                 <br />
             </td>
@@ -65,14 +81,15 @@
                     <asp:Label ID="lblQuantity" runat="server" Text='<%# Eval("Quantity") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
+           
             <asp:CommandField ShowEditButton="True" ButtonType="Button" HeaderText="Edit" />
             <asp:CommandField ShowDeleteButton="True" ButtonType="Button" HeaderText="Delete" />
         </Columns>
         <EditRowStyle />
         <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
         <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-        <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-        <RowStyle BackColor="#EFF3FB" />
+        <PagerStyle ForeColor="Black" HorizontalAlign="Center" CssClass="pager-style" />
+        <RowStyle  BackColor="#EFF3FB"  />
         <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
         <SortedAscendingCellStyle BackColor="#F5F7FB" />
         <SortedAscendingHeaderStyle BackColor="#6D95E1" />

@@ -39,7 +39,6 @@
         </div>
         <div class="col-xs-12 col-md-3">
         <asp:Button ID="btnSearch" runat="server" Text="Search By" OnClick="btnSearch_Click" Class="btn btn-primary" Height="31px" Width="103px" />
-
         </div>
     </div>
     <br />

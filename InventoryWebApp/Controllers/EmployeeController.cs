@@ -1,6 +1,8 @@
 ﻿using InventoryWebApp.DAO;
 using InventoryWebApp.Models;
 using InventoryWebApp.Models.Entities;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,6 +75,12 @@ namespace InventoryWebApp.Controllers
             dpt.CollectionPointCode = newCCP;
             dpt.DepartmentCode = deptCode;
             Idpt.UpdateCollectionPoint(dpt);
+        }
+        public void GetUserInfo()
+        {
+            //var user = HttpContext.Current.GetOwinContext().Get<ApplicationUserManager>().FindById(User.Identity.GetUserId());
+
+            //var userDepartment = HttpContext.Current.GetOwinContext().Get<ApplicationUserManager>().FindById(User.Identity.GetUserName());
         }
     }
 }

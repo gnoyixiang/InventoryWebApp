@@ -13,6 +13,15 @@ namespace InventoryWebApp {
     public partial class CreateRequest {
         
         /// <summary>
+        /// lblDept control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDept;
+        
+        /// <summary>
         /// lblDeptName control.
         /// </summary>
         /// <remarks>
@@ -22,13 +31,13 @@ namespace InventoryWebApp {
         protected global::System.Web.UI.WebControls.Label lblDeptName;
         
         /// <summary>
-        /// tbxDeptName control.
+        /// lblEmp control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbxDeptName;
+        protected global::System.Web.UI.WebControls.Label lblEmp;
         
         /// <summary>
         /// lblEmpName control.
@@ -38,15 +47,6 @@ namespace InventoryWebApp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblEmpName;
-        
-        /// <summary>
-        /// tbxEmpName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbxEmpName;
         
         /// <summary>
         /// gvNewRequest control.

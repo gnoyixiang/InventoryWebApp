@@ -79,5 +79,9 @@ namespace InventoryWebApp.DAO
         {
             return em.Departments.Where(x => x.CollectionPointCode == point).ToList<Department>();
         }
+        public string GetDepartCode(string userName)
+        {
+            return em.Departments.Where(x => x.Employee.UserName.Equals(userName)).Select(p=> p.DepartmentCode).FirstOrDefault();
+        }
     }
 }

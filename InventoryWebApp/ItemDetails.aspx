@@ -12,40 +12,41 @@
     <table>
         <tr>
             <td>
-                <asp:Label ID="lblItemCode" runat="server" Text="Item Number"></asp:Label>&nbsp;<br />
+                <asp:Label ID="lbl1" runat="server" Text="Item Number: "></asp:Label>&nbsp;<br />
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td>
             <td>
-                <asp:TextBox ID="tbxItemCode" runat="server" ReadOnly="true" Height="29px" Width="77px"></asp:TextBox>
+                <asp:Label ID="lblItemCode" runat="server"></asp:Label>
                 <br />
                 <br />
             </td>
         </tr>
         <tr>
             <td>
-                <asp:Label ID="lblCategory" runat="server" Text="Category"></asp:Label>
+                <asp:Label ID="lbl2" runat="server" Text="Category: "></asp:Label>
                 <br />
                 <br />
             </td>
             <td>
-                <asp:TextBox ID="tbxCategory" runat="server" ReadOnly="true" Height="29px" Width="227px"></asp:TextBox>
+                <asp:Label ID="lblCategory" runat="server"></asp:Label>
+                <br />
+                <br />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <asp:Label ID="lbl3" runat="server" Text="Description: "></asp:Label>
+                <br />
+                <br />
+            </td>
+            <td>
+                <asp:Label ID="lblDescription" runat="server"></asp:Label>
                 <br />
                 <br />
             </td>
         </tr>
         <tr>
             <td>
-                <asp:Label ID="lblDescription" runat="server" Text="Description"></asp:Label>
-                <br />
-                <br />
-            </td>
-            <td>
-                <asp:TextBox ID="tbxDescription" runat="server" ReadOnly="true" Height="29px" Width="227px"></asp:TextBox>
-                <br />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <asp:Label ID="lblQuantity" runat="server" Text="Quantity"></asp:Label></td>
+                <asp:Label ID="lblQuantity" runat="server" Text="Quantity: "></asp:Label></td>
             <td>
                 <asp:RadioButtonList ID="rdlQuantity" runat="server" OnSelectedIndexChanged="rdlQuantity_SelectedIndexChanged" AutoPostBack="true" Font-Size="Medium" RepeatDirection="Horizontal">
                     <asp:ListItem>10</asp:ListItem>
@@ -57,7 +58,6 @@
                 <asp:RequiredFieldValidator ID="rdlRequiredValidator" runat="server" ControlToValidate="rdlQuantity" ErrorMessage="Quantity is required!" ForeColor="#FF3300"></asp:RequiredFieldValidator>
             </td>
         </tr>
-
         <tr>
             <td></td>
             <td>
@@ -72,7 +72,6 @@
             </td>
         </tr>
     </table>
-    <br />
     <br />
     <asp:Button ID="btnAddToRequest" runat="server" Text="Add to Request" OnClick="btnAddToRequest_Click" Class="btn btn-primary" />
     <!-- Button trigger modal -->

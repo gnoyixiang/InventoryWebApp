@@ -24,9 +24,9 @@ namespace InventoryWebApp
                     var itemInfo = ec.GetStationery(itemcode);
                     if (itemInfo != null)
                     {
-                        tbxItemCode.Text = Request.QueryString["ItemCode"].ToString();
-                        tbxCategory.Text = itemInfo.CategoryCode;
-                        tbxDescription.Text = itemInfo.Description;
+                        lblItemCode.Text = Request.QueryString["ItemCode"].ToString();
+                        lblCategory.Text = itemInfo.CategoryCode;
+                        lblDescription.Text = itemInfo.Description;
                     }
                 }
                 catch (Exception ex)
@@ -75,18 +75,18 @@ namespace InventoryWebApp
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "$('#myModal').modal('show');", true);
 
                 List<RequestDTO> addItem = (List<RequestDTO>)Session["ItemDetails"];
-                RequestDTO newItem = addItem.FirstOrDefault(x => x.ItemCode == tbxItemCode.Text);
+                RequestDTO newItem = addItem.FirstOrDefault(x => x.ItemCode == lblItemCode.Text);
                 if (newItem == null)
                 {
                     if (!String.IsNullOrEmpty(tbxQuantity.Text))
                     {
-                        newItem = new RequestDTO(tbxItemCode.Text, tbxCategory.Text, tbxDescription.Text, Convert.ToInt32(tbxQuantity.Text));
+                        newItem = new RequestDTO(lblItemCode.Text, lblCategory.Text, lblDescription.Text, Convert.ToInt32(tbxQuantity.Text));
                         addItem.Add(newItem);
                         Session["ItemDetails"] = addItem;
                     }
                     else if (rdlQuantity.SelectedItem.Selected)
                     {
-                        newItem = new RequestDTO(tbxItemCode.Text, tbxCategory.Text, tbxDescription.Text, Convert.ToInt32(rdlQuantity.SelectedItem.Text));
+                        newItem = new RequestDTO(lblItemCode.Text, lblCategory.Text, lblCategory.Text, Convert.ToInt32(rdlQuantity.SelectedItem.Text));
                         addItem.Add(newItem);
                         Session["ItemDetails"] = addItem;
                     }
@@ -96,14 +96,14 @@ namespace InventoryWebApp
                     if (!String.IsNullOrEmpty(tbxQuantity.Text))
                     {
                         newItem.Quantity += Convert.ToInt32(tbxQuantity.Text);
-                        addItem.RemoveAll(x => x.ItemCode == tbxItemCode.Text);
+                        addItem.RemoveAll(x => x.ItemCode == lblItemCode.Text);
                         addItem.Add(newItem);
                         Session["ItemDetails"] = addItem;
                     }
                     else if (rdlQuantity.SelectedItem.Selected)
                     {
                         newItem.Quantity += Convert.ToInt32(rdlQuantity.SelectedItem.Text);
-                        addItem.RemoveAll(x => x.ItemCode == tbxItemCode.Text);
+                        addItem.RemoveAll(x => x.ItemCode == lblItemCode.Text);
                         addItem.Add(newItem);
                         Session["ItemDetails"] = addItem;
                     }

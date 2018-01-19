@@ -1,6 +1,8 @@
 ﻿using InventoryWebApp.Controllers;
 using InventoryWebApp.Models;
 using InventoryWebApp.Models.Entities;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -36,8 +38,10 @@ namespace InventoryWebApp
             {
                 var stationaries = (List<RequestDTO>)Session["ItemDetails"];
                 //Todo: change back to username and department code
+
+                //Session["userName"] = lblEmpName.Text;
                 string requestcode = ec.AddRequest("yufei@logic.edu.sg", "CPSC", stationaries);
-                //string requestcode = ec.AddRequest(tbxDeptName.Text, tbxEmpName.Text, stationaries);
+                //string requestcode = ec.AddRequest(lblDeptName.Text, lblEmpName.Text, stationaries);
                 //clear
                 Session["ItemDetails"] = null;
                 BindGrid();
