@@ -12,20 +12,20 @@
                 <asp:DropDownList ID="ddlItemChoice" runat="server"></asp:DropDownList>
                 <br />
                 <asp:Label ID="lblQuantityAdjust" runat="server" Text="Quantity to Adjust:"></asp:Label>
-                <asp:TextBox ID="tbxQuantityAdjust" runat="server" Text="Enter amount to adjust"></asp:TextBox>
+                <asp:TextBox ID="tbxQuantityAdjust" runat="server" Text=""></asp:TextBox>
                 <br />
                 <asp:Label ID="lblCurrentStock" runat="server" Text="Current Stock:"></asp:Label>
                 <asp:Label ID="lblCurrentStockAmount" runat="server" Text="Load amount from DB"></asp:Label>
                 <br />
                 <asp:Label ID="lblNewQuantity" runat="server" Text="New Quantity:"></asp:Label>
-                <asp:Label ID="lblNewQuantityShow" runat="server" Text="Load amount by calculation"></asp:Label>
+                <asp:Label ID="lblNewQuantityShow" runat="server" Text="Enter a quantity to adjust"></asp:Label>
                 <br />
                 <asp:Label ID="lblReason" runat="server" Text="Reason:"></asp:Label>
-                <asp:TextBox ID="tbxReason" runat="server" Text="enter new reason..."></asp:TextBox>
+                <asp:TextBox ID="tbxReason" runat="server" Text=""></asp:TextBox>
                 <br />
-                <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="SubmitStockAdjustment_Click" />
-                <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="SaveStockAdjustment_Click" />
-                <asp:Button ID="btnDiscard" runat="server" Text="Cancel" OnClick="DiscardStockAdjustment_Click" />
+                <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" />
+                <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" />
+                <asp:Button ID="btnDiscard" runat="server" Text="Cancel" OnClick="btnDiscard_Click" />
                 
             </div>
             <div class="col-sm-2">

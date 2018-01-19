@@ -4,12 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using InventoryWebApp.Models;
+using InventoryWebApp.DAO;
+using InventoryWebApp.Models.Entities;
 
 namespace InventoryWebApp
 {
     public partial class StockAdjustmentNew : System.Web.UI.Page
     {
+        private static IStationeryCatalogueDAO stDAO = new StationeryCatalogueDAO();
         EntityModel em = new EntityModel();
         protected int CreateQuantityUpdate(String a, String b)
         {
@@ -21,17 +23,32 @@ namespace InventoryWebApp
             Adjustment a = new Adjustment();
             a.AdjustmentCode = em.Adjustments.Last().AdjustmentCode;
             a.ItemCode = ddlItemChoice.SelectedValue;
-            a.QuantOnHand = q;
+            //a.DateCreated = new Date();
+            a.AdjustmentQuant = q;
             a.Reason = tbxReason.Text;
 
             return a;
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            ddlItemChoice.DataSource = em.StationeryCatalogues.Select(x => new { x.Description}).ToList();
+            //ddlItemChoice.DataSource = stDAO.ListAllStationery().ToString();
+            //ddlItemChoice.DataBind();
+
+            ddlItemChoice.DataSource = em.StationeryCatalogues.Select(x => x.Description).ToList();
             ddlItemChoice.DataBind();
 
-            lblCurrentStockAmount.Text = em.StationeryCatalogues.Select(x => new { x.Stock }).First().ToString();
+            //ddlItemChoice.SelectedValue = "0";
+            //ddlItemChoice.SelectedItem = 0;
+            //ddlItemChoice.SelectedItem.ToString() = 0;
+            //lblCurrentStockAmount.Text = stDAO.GetStationery(ddlItemChoice.SelectedItem.Value.ToString()).ItemCode;
+            
+            //lblCurrentStockAmount.Text = stDAO.GetStationery(ddlItemChoice.SelectedValue).ItemCode;
+
+            //using EntityModel
+            //ddlItemChoice.DataSource = em.StationeryCatalogues.Select(x => x.Description).ToList();
+            //ddlItemChoice.DataBind();
+
+            //lblCurrentStockAmount.Text = em.StationeryCatalogues.Select(x => x.Stock).First().ToString();
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
@@ -40,11 +57,8 @@ namespace InventoryWebApp
 
             Adjustment a = PrefillAdjustment(QuantUpdate);
             //Adjustment a = new Adjustment();
-            //a.AdjustmentCode = em.Adjustments.Last().AdjustmentCode;
-            //a.ItemCode = ItemChoiceDropDownList.SelectedValue;
-            //a.QuantOnHand = QuantUpdate;
-            //a.Reason = ReasonTextBox.Text;
-            //a.Status = "submitted";
+            //...handled by PrefillAdjustment
+            //a.Reason = tbxReason.Text;
 
             em.Adjustments.Add(a);
             em.SaveChanges();
@@ -56,10 +70,8 @@ namespace InventoryWebApp
 
             Adjustment a = PrefillAdjustment(QuantUpdate);
             //Adjustment a = new Adjustment();
-            //a.AdjustmentCode = em.Adjustments.Last().AdjustmentCode;
-            //a.ItemCode = ItemChoiceDropDownList.SelectedValue;
-            //a.QuantOnHand = QuantUpdate;
-            //a.Reason = ReasonTextBox.Text;
+            //...handled by PrefillAdjustment
+            //a.Reason = tbxReason.Text;
 
             //"Default Value or Binding" in MSSQL sets status to 'pending'
             //a.Status = "pending";

@@ -494,18 +494,6 @@
     <Compile Include="Models\Entities\UserLogin.cs" />
     <Compile Include="Models\Entities\Util.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\PODetail.cs" />
-    <Compile Include="Models\PurchaseOrder.cs" />
-    <Compile Include="Models\Request.cs" />
-    <Compile Include="Models\RequestDetail.cs" />
-    <Compile Include="Models\Retrieval.cs" />
-    <Compile Include="Models\Role.cs" />
-    <Compile Include="Models\StationeryCatalogue.cs" />
-    <Compile Include="Models\Supplier.cs" />
-    <Compile Include="Models\sysdiagram.cs" />
-    <Compile Include="Models\Tender.cs" />
-    <Compile Include="Models\TenderDetail.cs" />
-    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PurchaseOrderDetail.aspx.cs">
       <DependentUpon>PurchaseOrderDetail.aspx</DependentUpon>

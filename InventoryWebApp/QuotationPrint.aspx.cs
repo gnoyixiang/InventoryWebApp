@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using InventoryWebApp.Models;
+using InventoryWebApp.Models.Entities;
 using System.Data;
 
 namespace InventoryWebApp
@@ -45,15 +45,18 @@ namespace InventoryWebApp
 
             Tender tenderTemp;
             tenderTemp = em.Tenders.Where
-                    (x => x.SupplierCode == supplierPick.SupplierCode).OrderByDescending(x => x.DateCreated).First();
+                    (x => x.SupplierCode == supplierPick.SupplierCode).OrderByDescending(x => x.DateCreated).FirstOrDefault();
             foreach (StationeryCatalogue a in stationerySupplied)
             {
                 rowTempDataSource = intermediateDataSource.NewRow();
                 rowTempDataSource["Description"] = a.Description;
 
-                rowTempDataSource["Price"] = em.TenderDetails.Where
-                    (x => x.ItemCode == a.ItemCode &&
-                    x.TenderCode == tenderTemp.TenderCode).First().Price;
+                if (tenderTemp !=null)
+                {
+                    rowTempDataSource["Price"] = em.TenderDetails.Where
+                        (x => x.ItemCode == a.ItemCode &&
+                        x.TenderCode == tenderTemp.TenderCode).FirstOrDefault().Price;
+                }
 
                 intermediateDataSource.Rows.Add(rowTempDataSource);
             }

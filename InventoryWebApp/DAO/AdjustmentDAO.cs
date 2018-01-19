@@ -1,18 +1,18 @@
-﻿using InventoryWebApp.Models.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using InventoryWebApp.Models.Entities;
 
 namespace InventoryWebApp.DAO
 {
     public class AdjustmentDAO : IAdjustmentDAO
     {
-        EntityModel em = new EntityModel();
         public List<Adjustment> ListAllAdjustments()
         {
-            using (em)
+            using (EntityModel em = new EntityModel())
             {
                 List<Adjustment> a = new List<Adjustment>();
                 a = em.Adjustments.ToList();
@@ -21,7 +21,7 @@ namespace InventoryWebApp.DAO
         }
         public List<Adjustment> SearchAdjustmentByStatus(String b)
         {
-            using (em)
+            using (EntityModel em = new EntityModel())
             {
                 List<Adjustment> c = new List<Adjustment>();
                 c = em.Adjustments.Where(x => x.Status == b).ToList();
@@ -30,25 +30,56 @@ namespace InventoryWebApp.DAO
         }
         public int AddAdjustment(Adjustment b)
         {
-            using (em)
+            using (EntityModel em = new EntityModel())
             {
                 em.Adjustments.Add(b);
                 int a = em.SaveChanges();
                 return a;
             }
         }
-        public int UpdateAdjustment(string b, int d, string e)
+        public int UpdateAdjustment(Adjustment c)
         {
-            using (em)
+            using (EntityModel em = new EntityModel())
+            {
+
+                em.Entry(c).State = EntityState.Modified;
+                return em.SaveChanges();
+            }
+        }
+        public int UpdateAdjustment(string adjustmentCode, int adjustmentQuant, string reason)
+        {
+            using (EntityModel em = new EntityModel())
             {
                 Adjustment c = new Adjustment();
-                c = em.Adjustments.Where(x => x.AdjustmentCode == b).FirstOrDefault();
-                c.AdjustmentQuant = d;
-                c.Reason = e;
+                c = em.Adjustments.Where(x => x.AdjustmentCode == adjustmentCode).FirstOrDefault();
+                c.AdjustmentQuant = adjustmentQuant;
+                c.Reason = reason;
                 int a = em.SaveChanges();
                 return a;
             }
         }
-
+        public int ApproveAdjustment(string adjustmentCode)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                Adjustment c = new Adjustment();
+                c = em.Adjustments.Where(x => x.AdjustmentCode == adjustmentCode).FirstOrDefault();
+                c.Status = "approved";
+                int a = em.SaveChanges();
+                return a;
+            }
+        }
+        public int RejectAdjustment(string adjustmentCode, string headRemarks)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                Adjustment c = new Adjustment();
+                c = em.Adjustments.Where(x => x.AdjustmentCode == adjustmentCode).FirstOrDefault();
+                c.Status = "rejected";
+                c.HeadRemarks = headRemarks;
+                int a = em.SaveChanges();
+                return a;
+            }
+        }
     }
 }
