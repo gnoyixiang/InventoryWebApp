@@ -17,17 +17,31 @@ namespace InventoryWebApp
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            using (EntityModel em = new EntityModel())
+            List<StationeryCatalogue> stationeries = scController.GetStationeriesBelowReorderLevel();
+            List<PurchaseItem> purchaseItems = new List<PurchaseItem>();
+            if (Session["purchaseItems"] != null)
             {
-                List<StationeryCatalogue> stationeries = scController.GetStationeriesBelowReorderLevel();
-                List<PurchaseItem> purchaseItems = new List<PurchaseItem>();
-                if (Session["purchaseItems"] != null)
+                purchaseItems = (List<PurchaseItem>)Session["purchaseItems"];
+
+                var copyPurchaseItems = new List<PurchaseItem>(purchaseItems);
+                foreach (StationeryCatalogue s in stationeries)
                 {
-                    purchaseItems = (List<PurchaseItem>)Session["purchaseItems"];                    
-                }
-                else
-                {
-                    foreach (StationeryCatalogue s in stationeries)
+                    bool isFound = false;
+                    for (int i = 0; i < copyPurchaseItems.Count; i++)
+                    {
+                        //check if there are changes in stock for the same product
+                        if (copyPurchaseItems[i].Stationery.ItemCode == s.ItemCode)
+                        {
+                            isFound = true;
+                            if (copyPurchaseItems[i].Stationery.Stock != s.Stock)
+                            {
+                                purchaseItems[i].Stationery = s;
+                            }
+                            break;
+                        }
+                    }
+                    //item has fallen below reorder level but not in purchaseItems list (not found)
+                    if (!isFound)
                     {
                         PurchaseItem p = new PurchaseItem();
                         p.Stationery = s;
@@ -36,16 +50,26 @@ namespace InventoryWebApp
                         purchaseItems.Add(p);
                     }
                 }
-
-                Session["purchaseItems"] = purchaseItems;
-
-                if (!IsPostBack)
+            }
+            else
+            {
+                foreach (StationeryCatalogue s in stationeries)
                 {
-                    listItems.DataSource = purchaseItems;
-                    listItems.DataBind();
+                    PurchaseItem p = new PurchaseItem();
+                    p.Stationery = s;
+                    p.SupplierCode = s.Supplier1;
+                    p.OrderQuantity = s.ReorderQuantity;
+                    purchaseItems.Add(p);
                 }
             }
 
+            Session["purchaseItems"] = purchaseItems;
+
+            if (!IsPostBack)
+            {
+                listItems.DataSource = purchaseItems;
+                listItems.DataBind();
+            }
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
@@ -59,6 +83,7 @@ namespace InventoryWebApp
             if (scController.CreatePurchaseOrders(purchaseItems) != 0)
             {
                 Session["CreatedPO"] = true;
+                Session["purchaseItems"] = null;
             }
             else
             {
@@ -150,7 +175,7 @@ namespace InventoryWebApp
             }
             //var lblInsertAmount = (Label)listItems.InsertItem.FindControl("lblAmount");
             //total+= decimal.Parse(lblInsertAmount.Text);
-            lblGrandTotal.Text = total.ToString();
+            //lblGrandTotal.Text = total.ToString();
             
         }
 
@@ -346,7 +371,48 @@ namespace InventoryWebApp
             }
         }
 
-        
+        protected void linkViewRequest_Command(object sender, CommandEventArgs e)
+        {
+            LinkButton linkViewRequest = (LinkButton)sender;
+            ListViewDataItem listItem = (ListViewDataItem)linkViewRequest.Parent;
+            ListView listRequests = (ListView)listItem.FindControl("listRequests");
+            LinkButton linkHideRequest = (LinkButton)listItem.FindControl("linkHideRequest");
+            HiddenField hfItemCode = (HiddenField)listItem.FindControl("hfItemCode");
+            string itemCode = hfItemCode.Value;
+
+            listRequests.Visible = true;
+            listRequests.DataSource = scController.GetRequestDetailsByItemCode(itemCode);
+            listRequests.DataBind();
+            linkViewRequest.Visible = false;
+            linkHideRequest.Visible = true;
+        }
+
+        protected void linkHideRequest_Command(object sender, CommandEventArgs e)
+        {
+            LinkButton linkHideRequest = (LinkButton)sender;
+            ListViewDataItem listItem = (ListViewDataItem)linkHideRequest.Parent;            
+            ListView listRequests = (ListView)listItem.FindControl("listRequests");
+            LinkButton linkViewRequest = (LinkButton)listItem.FindControl("linkViewRequest");
+            listRequests.Visible = false;
+            linkViewRequest.Visible = true;
+            linkHideRequest.Visible = false;
+        }
+
+        protected void linkHidePO_Command(object sender, CommandEventArgs e)
+        {
+
+        }
+
+        protected void linkPageDetail_Command(object sender, CommandEventArgs e)
+        {
+            string strUrl = "/PurchaseOrderDetail?PO=" + e.CommandArgument;
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "popup", "window.open('" + strUrl + "','_blank')", true);
+        }
+
+        protected void linkViewPO_Command(object sender, CommandEventArgs e)
+        {
+
+        }
     }
 
 

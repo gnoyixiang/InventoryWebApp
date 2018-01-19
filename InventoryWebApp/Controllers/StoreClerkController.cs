@@ -17,8 +17,35 @@ namespace InventoryWebApp.Controllers
         IEmployeeDAO employeeDAO = new EmployeeDAO();
         IStationeryCatalogueDAO stationeryDAO = new StationeryCatalogueDAO();
         ICatagoryDAO catagoryDAO = new CatagoryDAO();
+        IRequestDetailsDAO requestDetailsDAO = new RequestDetailsDAO();
+        IRequestDAO requestDAO = new RequestDAO();
 
-        //
+        internal List<RequestDetail> GetAllRequestDetails()
+        {
+            List<RequestDetail> rdList = new List<RequestDetail>();
+            foreach (Request r in requestDAO.ListAllRequest())
+            {
+                rdList.AddRange(requestDetailsDAO.ListRequestDetail(r.RequestCode));
+            }
+            return rdList;
+        }
+
+        internal List<RequestDetail> GetRequestDetailsByItemCode(string itemCode)
+        {
+            List<RequestDetail> rdList = new List<RequestDetail>();
+            foreach (Request r in requestDAO.ListAllRequest())
+            {
+                foreach (RequestDetail rd in requestDetailsDAO.ListRequestDetail(r.RequestCode))
+                {
+                    if (rd.ItemCode.ToUpper().Equals(itemCode.ToUpper()))
+                    {
+                        rdList.Add(rd);
+                    }
+                }
+            }
+            return rdList;
+        }
+
         internal PurchaseOrder GetPurchaseOrderByCode(string poNum)
         {
             return purchaseOrderDAO.GetPurchaseOrder(poNum);

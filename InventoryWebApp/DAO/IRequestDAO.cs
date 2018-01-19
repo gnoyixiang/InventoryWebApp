@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using InventoryWebApp.Models.Entities;
 
 namespace InventoryWebApp.DAO
@@ -8,9 +9,10 @@ namespace InventoryWebApp.DAO
         int AddRequest(Request newR);
         Request GetRequest(string ROCode);
         List<Request> ListAllRequest();
-        List<Request> SearchRequestbyDate(string RequestDate);
+        List<Request> SearchRequestbyDate(DateTime RequestDate);
         List<Request> SearchRequestbyID(string RequestC);
         List<Request> SearchRequestbyStatus(string RequestStatus);
+        int UpdateRequest(Request r);
         int UpdateRequestApproval(Request R, string ApprovedN);
         int UpdateRequestStatus(Request R, string newStatus);
     }

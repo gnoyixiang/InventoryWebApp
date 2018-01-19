@@ -5,10 +5,7 @@
 <html>
 <head runat="server">
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
-    <!-- Bootstrap CSS CDN -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="/Content/custom2.css">
@@ -16,6 +13,9 @@
     <%--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">--%>
     <!-- FontsAwesome -->
     <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -45,8 +45,8 @@
                 <li class="active" id="menu-Reorder">
                     <a href="#ReorderSubmenu" data-toggle="collapse" aria-expanded="false">Manage Re-order</a>
                     <ul class="collapse list-unstyled submenu" id="ReorderSubmenu">
-                        <li class="active"><a href="/ViewPurchaseOrders">View All Orders</a></li>
-                        <li><a href="/CreateNewOrder">Create New Order</a></li>
+                        <li><a href="/ViewPurchaseOrders">View All Orders</a></li>
+                        <li class="active"><a href="/CreateNewOrder">Create New Order</a></li>
                     </ul>
                 </li>
                 <li>
@@ -180,11 +180,11 @@
     <!-- Bootstrap Js CDN -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <script>
+   <%-- <script>
         $(document).ready(function () {
             $('li[id^="menu-"].active .collapse').collapse('show');
             $('li[id^="menu-"].active a[aria-expanded=false]').attr('aria-expanded', 'true');
         });
-    </script>
+    </script>--%>
 </body>
 </html>
