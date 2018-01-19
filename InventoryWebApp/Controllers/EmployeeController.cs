@@ -76,8 +76,10 @@ namespace InventoryWebApp.Controllers
             dpt.DepartmentCode = deptCode;
             Idpt.UpdateCollectionPoint(dpt);
         }
-        public void GetUserInfo()
+        public void GetUserInfo(string userName)
         {
+            userName = HttpContext.Current.Session.SessionID;
+           string deptName = Idpt.GetDepartCode(userName);
 
             //var user = HttpContext.Current.GetOwinContext().Get<ApplicationUserManager>().FindById(User.Identity.GetUserId());
 
