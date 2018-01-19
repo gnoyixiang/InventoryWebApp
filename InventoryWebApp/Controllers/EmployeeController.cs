@@ -78,6 +78,7 @@ namespace InventoryWebApp.Controllers
         }
         public void GetUserInfo()
         {
+
             //var user = HttpContext.Current.GetOwinContext().Get<ApplicationUserManager>().FindById(User.Identity.GetUserId());
 
             //var userDepartment = HttpContext.Current.GetOwinContext().Get<ApplicationUserManager>().FindById(User.Identity.GetUserName());

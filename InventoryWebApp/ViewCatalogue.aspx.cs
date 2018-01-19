@@ -13,7 +13,7 @@ namespace InventoryWebApp
         EmployeeController ec = new EmployeeController();
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack)
+            if (!IsPostBack)
             {
                 try
                 {
@@ -31,11 +31,11 @@ namespace InventoryWebApp
             var list = ec.Gridview();
             string keyword = txbkeyword.Text;
             string type = ddlSearchBy.Text;
-            if(type == "Description")
+            if (type == "Description")
             {
                 list = ec.SearchByDescription(keyword);
             }
-            else if(type == "Stationery Number")
+            else if (type == "Stationery Number")
             {
                 list = ec.SearchByItemCode(keyword);
             }
@@ -43,12 +43,13 @@ namespace InventoryWebApp
             {
                 list = ec.SearchByCategoryCode(keyword);
             }
+            //lblSearch.Text = "Search Not Found";
             try
             {
                 this.gvCatalogue.DataSource = list;
                 this.gvCatalogue.DataBind();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 string errormsg = string.Format("<script>Error:{0}</script>", ex.Message);
                 Response.Write(errormsg);

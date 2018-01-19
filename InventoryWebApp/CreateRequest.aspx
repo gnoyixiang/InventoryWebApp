@@ -73,7 +73,7 @@
                         ErrorMessage="Invalid Value" ControlToValidate="tbxQuantity" ForeColor="Red"></asp:CompareValidator>
                     <asp:CompareValidator ID="quantityCompareValidator2" runat="server" Type="Integer" Operator="GreaterThan" Display="Dynamic"
                         ErrorMessage="Enter a value greater than Zero" ValueToCompare="0" ControlToValidate="tbxQuantity"
-                        ForeColor="Yellow"></asp:CompareValidator>
+                        ForeColor="Red"></asp:CompareValidator>
                     <asp:RequiredFieldValidator ID="quantityRequiredValidator" runat="server"
                         ErrorMessage="Empty Quantity" ForeColor="Red" ControlToValidate="tbxQuantity"></asp:RequiredFieldValidator>
                 </EditItemTemplate>
@@ -81,9 +81,7 @@
                     <asp:Label ID="lblQuantity" runat="server" Text='<%# Eval("Quantity") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
-           
-            <asp:CommandField ShowEditButton="True" ButtonType="Button" HeaderText="Edit" />
-            <asp:CommandField ShowDeleteButton="True" ButtonType="Button" HeaderText="Delete" />
+            <asp:CommandField ShowEditButton="True" ButtonType="Button" HeaderText="Manage Requests" ShowDeleteButton="True" SelectImageUrl="" />
         </Columns>
         <EditRowStyle />
         <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
