@@ -5,9 +5,9 @@ using System.Web;
 
 namespace InventoryWebApp.Models
 {
-    public class StationeryDTO
+    public class RequestDTO
     {
-        public StationeryDTO(string _itemcode, string _category, string _description, int _quantity)
+        public RequestDTO(string _itemcode, string _category, string _description, int _quantity)
         {
             this.ItemCode = _itemcode;
             this.Category = _category;

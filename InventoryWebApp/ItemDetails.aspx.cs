@@ -20,7 +20,7 @@ namespace InventoryWebApp
                 string itemcode = Request.QueryString["ItemCode"];
                 try
                 {
-                    Session["ItemDetails"] = Session["ItemDetails"] != null ? (List<StationeryDTO>)Session["ItemDetails"] : new List<StationeryDTO>();
+                    Session["ItemDetails"] = Session["ItemDetails"] != null ? (List<RequestDTO>)Session["ItemDetails"] : new List<RequestDTO>();
                     var itemInfo = ec.GetStationery(itemcode);
                     if (itemInfo != null)
                     {
@@ -74,19 +74,19 @@ namespace InventoryWebApp
                 //show success message
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "$('#myModal').modal('show');", true);
 
-                List<StationeryDTO> addItem = (List<StationeryDTO>)Session["ItemDetails"];
-                StationeryDTO newItem = addItem.FirstOrDefault(x => x.ItemCode == tbxItemCode.Text);
+                List<RequestDTO> addItem = (List<RequestDTO>)Session["ItemDetails"];
+                RequestDTO newItem = addItem.FirstOrDefault(x => x.ItemCode == tbxItemCode.Text);
                 if (newItem == null)
                 {
                     if (!String.IsNullOrEmpty(tbxQuantity.Text))
                     {
-                        newItem = new StationeryDTO(tbxItemCode.Text, tbxCategory.Text, tbxDescription.Text, Convert.ToInt32(tbxQuantity.Text));
+                        newItem = new RequestDTO(tbxItemCode.Text, tbxCategory.Text, tbxDescription.Text, Convert.ToInt32(tbxQuantity.Text));
                         addItem.Add(newItem);
                         Session["ItemDetails"] = addItem;
                     }
                     else if (rdlQuantity.SelectedItem.Selected)
                     {
-                        newItem = new StationeryDTO(tbxItemCode.Text, tbxCategory.Text, tbxDescription.Text, Convert.ToInt32(rdlQuantity.SelectedItem.Text));
+                        newItem = new RequestDTO(tbxItemCode.Text, tbxCategory.Text, tbxDescription.Text, Convert.ToInt32(rdlQuantity.SelectedItem.Text));
                         addItem.Add(newItem);
                         Session["ItemDetails"] = addItem;
                     }

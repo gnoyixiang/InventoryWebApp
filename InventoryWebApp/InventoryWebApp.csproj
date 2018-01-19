@@ -407,6 +407,7 @@
       <DependentUpon>VerifyPhoneNumber.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DepartmentHeadController.cs" />
     <Compile Include="Controllers\DepartmentRepController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\StoreClerkController.cs" />
@@ -482,7 +483,7 @@
     <Compile Include="Models\Entities\UserLogin.cs" />
     <Compile Include="Models\Entities\Util.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\StationeryDTO.cs" />
+    <Compile Include="Models\RequestDTO.cs" />
     <Compile Include="Site.Mobile.Master.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -497,8 +498,6 @@
     <Compile Include="UpdateCollectionPoint.aspx.designer.cs">
       <DependentUpon>UpdateCollectionPoint.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\CatalogueController.cs" />
-    <Compile Include="Controllers\CollectionPointController.cs" />
     <Compile Include="CreateRequest.aspx.cs">
       <DependentUpon>CreateRequest.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

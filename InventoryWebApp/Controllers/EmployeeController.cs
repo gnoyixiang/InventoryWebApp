@@ -44,7 +44,7 @@ namespace InventoryWebApp.Controllers
         {
             return Ir.GetRequest(requestCode);
         }
-        public string AddRequest(string userName, string departmentCode, List<StationeryDTO> stationaries)
+        public string AddRequest(string userName, string departmentCode, List<RequestDTO> stationaries)
         {
             string requestCode = "RQ" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
             Request request = new Request()

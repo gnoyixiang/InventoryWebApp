@@ -23,7 +23,7 @@ namespace InventoryWebApp
         }
         private void BindGrid()
         {
-            gvNewRequest.DataSource = (List<StationeryDTO>)Session["ItemDetails"];
+            gvNewRequest.DataSource = (List<RequestDTO>)Session["ItemDetails"];
             gvNewRequest.DataBind();
         }
         protected void btnAddItem_Click(object sender, EventArgs e)
@@ -34,14 +34,14 @@ namespace InventoryWebApp
         {
             if (Page.IsValid)
             {
-                var stationaries = (List<StationeryDTO>)Session["ItemDetails"];
+                var stationaries = (List<RequestDTO>)Session["ItemDetails"];
                 //Todo: change back to username and department code
                 string requestcode = ec.AddRequest("yufei@logic.edu.sg", "CPSC", stationaries);
-                //ec.AddRequest(tbxDeptName.Text, tbxEmpName.Text, stationaries);
+                //string requestcode = ec.AddRequest(tbxDeptName.Text, tbxEmpName.Text, stationaries);
                 //clear
                 Session["ItemDetails"] = null;
                 BindGrid();
-                //show success message else user dont know wat happend
+                //show success message and Request Code
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", $"$('#lblRequestCode').text('{requestcode}'); $('#myModal').modal('show');", true);
             }
         }
@@ -58,7 +58,7 @@ namespace InventoryWebApp
 
         protected void gvNewRequest_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            List<StationeryDTO> st = (List<StationeryDTO>)Session["ItemDetails"];
+            List<RequestDTO> st = (List<RequestDTO>)Session["ItemDetails"];
             st.Remove(st[e.RowIndex]);
             BindGrid();
         }
@@ -73,7 +73,7 @@ namespace InventoryWebApp
         {
             GridViewRow row = gvNewRequest.Rows[e.RowIndex];
             string quantity = (row.FindControl("tbxQuantity") as TextBox).Text;
-            List<StationeryDTO> st = (List<StationeryDTO>)Session["ItemDetails"];
+            List<RequestDTO> st = (List<RequestDTO>)Session["ItemDetails"];
             st[e.RowIndex].Quantity = Convert.ToInt32(quantity);
             Session["ItemDetails"] = st;
             gvNewRequest.EditIndex = -1;
