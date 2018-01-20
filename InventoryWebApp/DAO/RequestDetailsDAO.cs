@@ -10,6 +10,13 @@ namespace InventoryWebApp.DAO
     public class RequestDetailsDAO : IRequestDetailsDAO
     {
         RequestDetail rd;
+       public List<RequestDetail> SearchOutstandingRequestDetails()
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                return em.RequestDetails.Where(rd =>rd.RemainingQuant!=0).ToList();
+            }
+        }
 
         public List<RequestDetail> ListRequestDetail(string RequestCode)
         {

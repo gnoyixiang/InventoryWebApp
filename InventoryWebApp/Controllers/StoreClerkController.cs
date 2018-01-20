@@ -10,22 +10,179 @@ namespace InventoryWebApp.Controllers
     public class StoreClerkController
     {
         IDepartmentDAO departmentDAO = new DepartmentDAO();
-        IDisbursementDetailsDAO disburseDetailsDAO = new DisbursementDetailsDAO();
-        IDisbursementDAO disburseDAO = new DisbursementDAO();
+        IDisbursementDetailsDAO disbursementDetailsDAO = new DisbursementDetailsDAO();
+        IDisbursementDAO disbursementDAO = new DisbursementDAO();
         IRequestDAO requestDAO = new RequestDAO();
         IRequestDetailsDAO requestDetailsDAO = new RequestDetailsDAO();
         IRetrievalDAO retrievalDAO = new RetrievalDAO();
         IRetrievalDetailsDAO retrievalDetailsDAO = new RetrievalDetailsDAO();
         IStationeryCatalogueDAO stationeryDAO = new StationeryCatalogueDAO();
         IEmployeeDAO employeeDAO = new EmployeeDAO();
+        public List<DisbursementDetail> GenerateDisbursementDetail()
+        {
+            List<RequestDetail> requestDetailList = this.GetNotDisbursedRequestDetailList();
+            List<DisbursementDetail> ddList = new List<DisbursementDetail>();
+            Dictionary<String, int> quantRetrievedRemained = new Dictionary<string, int>();
+
+            foreach (var item in this.GetCurrentRetrieval().RetrievalDetails)
+            {
+                quantRetrievedRemained.Add(item.ItemCode, (int)item.QuantityRetrieved);
+            }
+
+            requestDetailList.Sort();
+
+            foreach (var item in requestDetailList)
+            {
+                if (quantRetrievedRemained[item.ItemCode] > 0)
+                {
+                    DisbursementDetail dd = new DisbursementDetail();
+                    dd.RequestCode = item.RequestCode;
+                    dd.ItemCode = item.ItemCode;
+                    //requestDAO.GetRequest(item.RequestCode).DepartmentCode;
+                    if (quantRetrievedRemained[item.ItemCode] > item.RemainingQuant)
+                    {
+                        dd.Quantity = item.RemainingQuant;
+                        quantRetrievedRemained[item.ItemCode] -= (int)item.RemainingQuant;
+                    }
+                    else
+                    {
+                        dd.Quantity = quantRetrievedRemained[item.ItemCode];
+                        quantRetrievedRemained[item.ItemCode] = 0;
+                    }
+                    ddList.Add(dd);
+                }
+            }
+            return ddList;
+        }
+
+        public Dictionary<String, List<DisbursementDetail>> GenerateDisbursementDetailPerItem()
+        {
+            Retrieval retrieval = this.GetCurrentRetrieval();
+            List<DisbursementDetail> ddList = new List<DisbursementDetail>();
+
+            Dictionary<String, List<DisbursementDetail>> ddDict = new Dictionary<string, List<DisbursementDetail>>();
+
+            foreach (var item in retrieval.RetrievalDetails)
+            {
+                ddDict.Add(item.ItemCode, new List<DisbursementDetail>());
+            }
+
+            foreach (var item in disbursementDAO.SearchDbmByStatus("allocating"))
+            {
+                ddList.AddRange(disbursementDetailsDAO.SearchDDByDCode(item.DisbursementCode));
+            }
+
+            foreach (var item in ddList)
+            {
+                ddDict[item.ItemCode].Add(item);
+            }
+            return ddDict;
+        }
+
+        public Dictionary<String, List<DisbursementDetail>> GenerateDisbursementDetail2()
+        {
+            Retrieval retrieval = this.GetCurrentRetrieval();
+            List<RequestDetail> requestDetailList = this.GetNotDisbursedRequestDetailList();
+            Dictionary<String, List<DisbursementDetail>> ddList = new Dictionary<string, List<DisbursementDetail>>();
+            Dictionary<String, int> quantRetrievedRemained = new Dictionary<string, int>();
+            //Dictionary<String, List<DisbursementDetail>>
+            //GenerateDisbursementDetail
+
+            foreach (var item in retrieval.RetrievalDetails)
+            {
+                quantRetrievedRemained.Add(item.ItemCode, (int)item.QuantityRetrieved);
+            }
+
+            requestDetailList.Sort();
+
+            foreach (var item in retrieval.RetrievalDetails)
+            {
+                ddList.Add(item.ItemCode, null);
+            }
+
+            foreach (var item in requestDetailList)
+            {
+                if (quantRetrievedRemained[item.ItemCode] > 0)
+                {
+                    DisbursementDetail dd = new DisbursementDetail();
+                    dd.RequestCode = item.RequestCode;
+                    dd.ItemCode = item.ItemCode;
+                    if (quantRetrievedRemained[item.ItemCode] > item.RemainingQuant)
+                    {
+                        dd.Quantity = item.RemainingQuant;
+                        quantRetrievedRemained[item.ItemCode] -= (int)item.RemainingQuant;
+                    }
+                    else
+                    {
+                        dd.Quantity = quantRetrievedRemained[item.ItemCode];
+                        quantRetrievedRemained[item.ItemCode] = 0;
+                    }
+                    ddList[item.ItemCode].Add(dd);
+                }
+            }
+            return ddList;
+        }
+
+        public HashSet<String> GetListOfDeptFromDisbursementDetails(List<DisbursementDetail> ddList)
+        {
+            HashSet<String> departmentList = new HashSet<string>();
+            foreach (var item in ddList)
+            {
+
+                departmentList.Add(requestDAO.GetRequest(item.RequestCode).DepartmentCode);
+            }
+            return departmentList;
+        }
+
+        public List<Disbursement> GetAllocatingDisbursementList()
+        {
+
+            List<Disbursement> dbmList = disbursementDAO.SearchDbmByStatus("allocating").ToList();
+            if (dbmList.Count == 0)
+            {
+                //dbm = new List<Disbursement>();
+                List<DisbursementDetail> ddList = GenerateDisbursementDetail();
+                HashSet<String> departmentList = GetListOfDeptFromDisbursementDetails(ddList);
+                Dictionary<String, Disbursement> disbursementDictionary = new Dictionary<string, Disbursement>();
+
+                foreach(var item in departmentList)
+                {
+                    Disbursement disbursement = new Disbursement();
+                    disbursement.DisbursementCode = "DBM" + DateTime.Now.ToString("yyMMddhhmmssfff");
+                    disbursement.DepartmentCode = item;
+                    disbursement.Status = "allocating";
+                    //disbursement.Username = Session["User"]; Need to write with user
+                    //dbm.Add(disbursement);
+                    disbursementDictionary.Add(item, disbursement);
+                }
+                //Add disbursement Details to disbursement
+                foreach (var item in ddList)
+                {
+                    item.DisbursementCode = disbursementDictionary[requestDAO.GetRequest(item.RequestCode).DepartmentCode].DisbursementCode;
+                    disbursementDictionary[requestDAO.GetRequest(item.RequestCode).DepartmentCode].DisbursementDetails.Add(item);
+                }
+
+                foreach (var item in disbursementDictionary.Values)
+                {
+                    disbursementDAO.AddDisbursement(item);
+                }
+                return disbursementDictionary.Values.ToList();
+            }
+            else
+            {
+                return dbmList;
+            }
+        }
+
 
         public List<RequestDetail> GetNotDisbursedRequestDetailList()
         {
-            List<RequestDetail> rdList = new List<RequestDetail>();
-            rdList.AddRange(requestDetailsDAO.SearchRequestbyStatus("outstanding"));
-            rdList.AddRange(requestDetailsDAO.SearchRequestbyStatus("not collected"));
-            rdList.AddRange(requestDetailsDAO.SearchRequestbyStatus("processing"));
-
+            List<RequestDetail> rdList = requestDetailsDAO.SearchOutstandingRequestDetails();
+            
+            foreach (var item in rdList)
+            {
+                item.Request = requestDAO.GetRequest(item.RequestCode);
+            }
             return rdList;
         }
 
@@ -36,23 +193,23 @@ namespace InventoryWebApp.Controllers
 
         public Retrieval GetCurrentRetrieval()
         {
-            List<Retrieval> retrievalList = retrievalDAO.ListRetrievalByStatus("processing");
+            Retrieval retrieval = retrievalDAO.ListRetrievalByStatus("processing").FirstOrDefault();
             //Retrieval rTest = retrievalList.First();
-            if (retrievalList.Count == 0)
+            if (retrieval == null)
             {
-                Retrieval retrieval = new Retrieval();
+                retrieval = new Retrieval();
                 retrieval.RetrievalCode = "RT" + DateTime.Now.ToString("yyMMddHHmmssfff");
                 retrieval.Status = "processing";
                 //retrieval.UserName = Identity.User;
                 retrieval.DateRetrieved = DateTime.Now;
-                retrieval = GetRetrievalDetail(retrieval);
+                retrieval = CreateRetrievalDetails(retrieval);
                 retrievalDAO.AddRetrieval(retrieval);
                 return retrieval;
             }
             else
             {
-                String retrievalCode = retrievalList.First().RetrievalCode;
-                Retrieval retrieval = retrievalDAO.GetRetrieval(retrievalCode);
+                String retrievalCode = retrieval.RetrievalCode;
+                retrieval = retrievalDAO.GetRetrieval(retrievalCode);
                 List<RetrievalDetail> rdList = retrievalDetailsDAO.ListRetrievalDetailsByRetrievalCode(retrievalCode);
                 retrieval.RetrievalDetails = rdList;
                 return retrieval;
@@ -65,7 +222,7 @@ namespace InventoryWebApp.Controllers
                 item.QuantityRetrieved = GetMaxRetrieved(item);
                 retrievalDetailsDAO.UpdateRetrivalDetails(item);
             }
-            
+
             return retrieval;
         }
 
@@ -74,14 +231,14 @@ namespace InventoryWebApp.Controllers
             int stock = (int)stationeryDAO.GetStationery(rd.ItemCode).Stock;
             if (stock > rd.QuantityNeeded)
             {
-                return (int) rd.QuantityNeeded;
+                return (int)rd.QuantityNeeded;
             }
             else
             {
                 return stock;
             }
         }
-        public Retrieval GetRetrievalDetail(Retrieval retrieval)
+        public Retrieval CreateRetrievalDetails(Retrieval retrieval)
         {
             List<RequestDetail> rdList = this.GetNotDisbursedRequestDetailList();
             Dictionary<String, RetrievalDetail> retrievalList = new Dictionary<string, RetrievalDetail>();
@@ -103,12 +260,12 @@ namespace InventoryWebApp.Controllers
             {
                 foreach (var item in retrievalList)
                 {
-                    int stock = (int) stationeryDAO.GetStationery(item.Value.ItemCode).Stock;
+                    int stock = (int)stationeryDAO.GetStationery(item.Value.ItemCode).Stock;
                     item.Value.QuantityRetrieved = GetMaxRetrieved(item.Value);
                     retrieval.RetrievalDetails.Add(item.Value);
                 }
             }
-           
+
             return retrieval;
         }
         public List<Request> GetNotDisbursedRequestList()
@@ -153,5 +310,7 @@ namespace InventoryWebApp.Controllers
         {
             return requestDetailsDAO.ListRequestDetail(requestCode);
         }
+
+
     }
 }

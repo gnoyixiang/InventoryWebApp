@@ -48,11 +48,6 @@ namespace InventoryWebApp
             return sClerkCtrl.GetStationeryByCode(itemCode);
         }
 
-        protected void lvRetrievalList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         protected void lvRetrievalList_ItemEditing(object sender, ListViewEditEventArgs e)
         {
             ListViewItem item = lvRetrievalList.Items[e.NewEditIndex];
@@ -104,24 +99,10 @@ namespace InventoryWebApp
                 sClerkCtrl.UpdateRetrievalDetail(rdList[i]);
             }
 
-            Response.Redirect("/AllocationPage.aspx");
+            Response.Redirect("/2AllocationPage.aspx");
 
         }
 
-        protected void lvRetrievalList_ItemUpdating(object sender, ListViewUpdateEventArgs e)
-        {
-            ListViewDataItem item = lvRetrievalList.Items[e.ItemIndex];
-
-        }
-
-        protected void tbxQuantityRetrieved_TextChanged(object sender, EventArgs e)
-        {
-        }
-
-        protected void TextBox1_TextChanged(object sender, EventArgs e)
-        {
-            lblTotalItem.Text = "Run 2";
-        }
 
         protected void btnBack_Click(object sender, EventArgs e)
         {

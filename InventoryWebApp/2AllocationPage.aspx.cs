@@ -9,31 +9,35 @@ using System.Web.UI.WebControls;
 
 namespace InventoryWebApp
 {
-    public partial class AllocationPage : System.Web.UI.Page
+    public partial class _2AllocationPage : System.Web.UI.Page
     {
         StoreClerkController sClerkCtrl = new StoreClerkController();
         Retrieval retrieval;
-        
+
         Disbursement disbursement;
         protected void Page_Load(object sender, EventArgs e)
         {
             retrieval = sClerkCtrl.GetCurrentRetrieval();
-            if (!IsPostBack){
+            if (!IsPostBack)
+            {
                 BindGrid();
             }
-            //ListView lvTest = 
-            TextBox tbxTest = rpt1.FindControl("tbxTest") as TextBox;
-
-
         }
 
         protected void BindGrid()
         {
-            rpt1.DataSource = retrieval.RetrievalDetails;
-            ListView lv = (ListView)rpt1.FindControl("lvView");
-            rpt1.DataBind();
+            lvAllocation.DataSource = retrieval.RetrievalDetails;
+            lvAllocation.DataBind();
             
         }
+        //Ban vai noi
+        protected List<DisbursementDetail> GetDisbursementDetailsPerItem(String itemCode)
+        {
+            sClerkCtrl.GetAllocatingDisbursementList();
+           return sClerkCtrl.GenerateDisbursementDetailPerItem()[itemCode];
+        }
+
+
 
         protected void btnBack_Click(object sender, EventArgs e)
         {
@@ -56,7 +60,7 @@ namespace InventoryWebApp
 
         protected RetrievalDetail GetRetrievalDetail(String itemCode)
         {
-            foreach(var item in retrieval.RetrievalDetails)
+            foreach (var item in retrieval.RetrievalDetails)
             {
                 if (item.ItemCode == itemCode)
                 {
@@ -64,11 +68,6 @@ namespace InventoryWebApp
                 }
             }
             return null;
-        }
-
-        protected void rpt1_ItemCommand(object source, RepeaterCommandEventArgs e)
-        {
-            
         }
     }
 }
