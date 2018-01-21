@@ -5,43 +5,101 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using InventoryWebApp.Models.Entities;
+using InventoryWebApp.Controllers;
 
 namespace InventoryWebApp
 {
     public partial class StockAdjustmentEdit : System.Web.UI.Page
     {
-        String s;
-        EntityModel em;
+        StoreClerkController sClerkCtrl = new StoreClerkController();
+        string s;
+        Adjustment adjRetrieved;
+        protected int CreateQuantityUpdate(String a, String b)
+        {
+            int c = Int32.Parse(a) - Int32.Parse(b);
+            return c;
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
-            s = Request.QueryString["AdjustmentCode"];
+            if (!IsPostBack)
+            {
+                s = Request.QueryString["AdjustmentCode"];
 
-            em = new EntityModel();
-            Adjustment adjRetrieved = em.Adjustments.Where(x => x.AdjustmentCode == s).FirstOrDefault();
+                adjRetrieved = sClerkCtrl.GetAdjustment(s);
 
-            lblItemChoiceName.Text = em.StationeryCatalogues.Where
-                (x => x.ItemCode == adjRetrieved.ItemCode).FirstOrDefault().Description.ToString();
-            lblCurrentStockAmount.Text = em.StationeryCatalogues.Where
-                (x => x.ItemCode == adjRetrieved.ItemCode).FirstOrDefault().Stock.ToString();
+                lblItemChoiceName.Text = sClerkCtrl.DisplayItemChoiceName(adjRetrieved);
+                lblCurrentStockAmount.Text = sClerkCtrl.DisplayCurrentStock(adjRetrieved);
+                lblQuantityAdjustShow.Text = adjRetrieved.AdjustmentQuant.ToString();
+                tbxReason.Text = adjRetrieved.Reason;
+
+                int displayNewQuantity = (Convert.ToInt32(lblCurrentStockAmount.Text)) + (Convert.ToInt32(lblQuantityAdjustShow.Text));
+                tbxNewQuantity.Text = displayNewQuantity.ToString();
+            }
 
         }
 
         protected void tbxQuantityAdjust_TextChanged(object sender, EventArgs e)
         {
-
+            if (!String.IsNullOrEmpty(tbxNewQuantity.Text))
+            {
                 s = Request.QueryString["AdjustmentCode"];
 
-                em = new EntityModel();
-                Adjustment adjRetrieved = em.Adjustments.Where(x => x.AdjustmentCode == s).FirstOrDefault();
+                //em = new EntityModel();
+                Adjustment adjRetrieved = sClerkCtrl.GetAdjustment(s);
 
-                lblCurrentStockAmount.Text = em.StationeryCatalogues.Where
-                    (x => x.ItemCode == adjRetrieved.ItemCode).FirstOrDefault().Stock.ToString();
+                lblCurrentStockAmount.Text = sClerkCtrl.DisplayCurrentStock(adjRetrieved);
 
-                int updateQuantityShow = (Convert.ToInt32(lblCurrentStockAmount.Text) + Convert.ToInt32(tbxQuantityAdjust.Text));
-                lblNewQuantityShow.Text = updateQuantityShow.ToString();
-
+                int updateQuantityShow = (Convert.ToInt32(tbxNewQuantity.Text)) - (Convert.ToInt32(lblCurrentStockAmount.Text));
+                lblQuantityAdjustShow.Text = updateQuantityShow.ToString();
+            }
         }
+        protected void tbxReason_TextChanged(object sender, EventArgs e)
+        {
+            if (!String.IsNullOrEmpty(tbxNewQuantity.Text))
+            {
+                s = Request.QueryString["AdjustmentCode"];
 
+                //em = new EntityModel();
+                Adjustment adjRetrieved = sClerkCtrl.GetAdjustment(s);
+
+                lblCurrentStockAmount.Text = sClerkCtrl.DisplayCurrentStock(adjRetrieved);
+
+                int updateQuantityShow = (Convert.ToInt32(tbxNewQuantity.Text)) - (Convert.ToInt32(lblCurrentStockAmount.Text));
+                lblQuantityAdjustShow.Text = updateQuantityShow.ToString();
+            }
+        }
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            s = Request.QueryString["AdjustmentCode"];
+            adjRetrieved = sClerkCtrl.GetAdjustment(s);
+
+            lblCurrentStockAmount.Text = sClerkCtrl.DisplayCurrentStock(adjRetrieved);
+            int QuantUpdate = CreateQuantityUpdate(tbxNewQuantity.Text, lblCurrentStockAmount.Text);
+
+            //...handled by PrefillAdjustment:ItemCode,AdjustmentQuant,Reason
+            //Adjustment a = sClerkCtrl.PrefillAdjustment(adjRetrieved, QuantUpdate, tbxReason.Text);
+
+            adjRetrieved.Status = "pending";
+            int submitResult = sClerkCtrl.UpdateAdjustment(adjRetrieved, QuantUpdate, tbxReason.Text);
+
+            Response.Redirect("StockAdjustmentList.aspx");
+        }
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            s = Request.QueryString["AdjustmentCode"];
+            adjRetrieved = sClerkCtrl.GetAdjustment(s);
+
+            lblCurrentStockAmount.Text = sClerkCtrl.DisplayCurrentStock(adjRetrieved);
+            int QuantUpdate = CreateQuantityUpdate(tbxNewQuantity.Text, lblCurrentStockAmount.Text);
+
+            //...handled by PrefillAdjustment:ItemCode,AdjustmentQuant,Reason
+            //Adjustment a = sClerkCtrl.PrefillAdjustment(adjRetrieved, QuantUpdate, tbxReason.Text);
+
+            //a.Status = "unsubmitted";
+            int submitResult = sClerkCtrl.UpdateAdjustment(adjRetrieved, QuantUpdate, tbxReason.Text);
+
+            Response.Redirect("StockAdjustmentList.aspx");
+        }
         protected void btnDiscard_Click(object sender, EventArgs e)
         {
             Response.Redirect("StockAdjustmentList.aspx");

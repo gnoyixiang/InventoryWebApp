@@ -11,24 +11,27 @@ namespace ConsoleTestApp
     class TestAdjustmentDAO
     {
         private static IAdjustmentDAO adjDAO = new AdjustmentDAO();
+        private static IStationeryCatalogueDAO stationeryDAO = new StationeryCatalogueDAO();
         public static void Main(String[] args)
         {
-            DateTime now = DateTime.Now;
-            Adjustment adj1 = new Adjustment();
-            adj1.AdjustmentCode = "ALPA" + now.ToString("yyMMddHHmmssfff");
-            adj1.ItemCode = "C001";
-            adj1.AdjustmentQuant = 25;
-            adj1.DateCreated = now;
-            //adj1.DateApproved = now;
-            adj1.Status = "PENDING";
-            adj1.Notes = "Test1";
-            adj1.Reason = "broken";
-            //adj1.HeadRemarks = "ALPA";
-            adj1.UserName = "yixiang@ssis.edu.sg";
-            //adj1.ApprovedBy = now;
+            string itemCodeRetrieved = stationeryDAO.GetStationery("C001").ItemCode;
+            Console.Write(itemCodeRetrieved);
+            //DateTime now = DateTime.Now;
+            //Adjustment adj1 = new Adjustment();
+            //adj1.AdjustmentCode = "ALPA" + now.ToString("yyMMddHHmmssfff");
+            //adj1.ItemCode = "C001";
+            //adj1.AdjustmentQuant = 25;
+            //adj1.DateCreated = now;
+            ////adj1.DateApproved = now;
+            //adj1.Status = "PENDING";
+            //adj1.Notes = "Test1";
+            //adj1.Reason = "broken";
+            ////adj1.HeadRemarks = "ALPA";
+            //adj1.UserName = "yixiang@ssis.edu.sg";
+            ////adj1.ApprovedBy = now;
 
-            AddAdjustment(adj1);
-            ListAllAdjustments();
+            //AddAdjustment(adj1);
+            //ListAllAdjustments();
         }
         private static List<Adjustment> ListAllAdjustments()
         {

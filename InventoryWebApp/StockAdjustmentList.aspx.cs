@@ -4,25 +4,32 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using InventoryWebApp.DAO;
 using InventoryWebApp.Models.Entities;
+using InventoryWebApp.Controllers;
 
 namespace InventoryWebApp
 {
     public partial class StockAdjustmentList : System.Web.UI.Page
     {
+        StoreClerkController sClerkCtrl = new StoreClerkController();
         //EntityModel em = new EntityModel();
-        private static IAdjustmentDAO adjDAO = new AdjustmentDAO();
+        //private static IAdjustmentDAO adjDAO = new AdjustmentDAO();
         protected void Page_Load(object sender, EventArgs e)
         {
-            gvAdjustmentStatus.DataSource = adjDAO.ListAllAdjustments();
+            gvAdjustmentStatus.DataSource = sClerkCtrl.ListAllAdjustments();
+            gvAdjustmentStatus.DataBind();
+
+            //programmatically add hyperlinks dependent on status
+            //handled in method gvAdjustmentStatus_RowDataBound
+
+            //dao to get AdjustmentList
+            //gvAdjustmentStatus.DataSource = adjDAO.ListAllAdjustments();
+            //gvAdjustmentStatus.DataBind();
+
+            //em to get AdjustmentList
             //gvAdjustmentStatus.DataSource = em.Adjustments.Select
             //    (x => new { x.AdjustmentCode, x.ItemCode, x.AdjustmentQuant, x.DateCreated, x.Status, x.Reason }).ToList();
 
-            //programmatically add hyperlinks dependent on status
-            //gvAdjustmentStatus.Columns.Add("");
-            //HyperLinkField actionColumn = new HyperLinkField();
-            gvAdjustmentStatus.DataBind();
         }
 
         protected void btnNewStockAdjustment_Click(object sender, EventArgs e)

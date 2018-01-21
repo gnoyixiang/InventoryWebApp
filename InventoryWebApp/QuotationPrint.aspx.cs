@@ -46,20 +46,22 @@ namespace InventoryWebApp
             Tender tenderTemp;
             tenderTemp = em.Tenders.Where
                     (x => x.SupplierCode == supplierPick.SupplierCode).OrderByDescending(x => x.DateCreated).FirstOrDefault();
+
             foreach (StationeryCatalogue a in stationerySupplied)
             {
                 rowTempDataSource = intermediateDataSource.NewRow();
                 rowTempDataSource["Description"] = a.Description;
 
-                if (tenderTemp !=null)
+                if (tenderTemp != null)
                 {
                     rowTempDataSource["Price"] = em.TenderDetails.Where
-                        (x => x.ItemCode == a.ItemCode &&
-                        x.TenderCode == tenderTemp.TenderCode).FirstOrDefault().Price;
+                            (x => x.ItemCode == a.ItemCode &&
+                            x.TenderCode == tenderTemp.TenderCode).FirstOrDefault().Price;
                 }
 
                 intermediateDataSource.Rows.Add(rowTempDataSource);
             }
+
 
             gvItemsSupplied.DataSource = intermediateDataSource;
             gvItemsSupplied.DataBind();

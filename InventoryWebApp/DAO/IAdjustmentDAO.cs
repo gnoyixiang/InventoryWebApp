@@ -12,5 +12,7 @@ namespace InventoryWebApp.DAO
         int UpdateAdjustment(Adjustment c);
         int ApproveAdjustment(string adjustmentCode);
         int RejectAdjustment(string adjustmentCode, string headRemarks);
+        Adjustment GetAdjustment(string adjustmentCode);
+        string GetLastAdjustment();
     }
 }

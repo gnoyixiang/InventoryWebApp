@@ -31,24 +31,6 @@ namespace InventoryWebApp {
         protected global::System.Web.UI.WebControls.DropDownList ddlItemChoice;
         
         /// <summary>
-        /// lblQuantityAdjust control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblQuantityAdjust;
-        
-        /// <summary>
-        /// tbxQuantityAdjust control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbxQuantityAdjust;
-        
-        /// <summary>
         /// lblCurrentStock control.
         /// </summary>
         /// <remarks>
@@ -76,13 +58,31 @@ namespace InventoryWebApp {
         protected global::System.Web.UI.WebControls.Label lblNewQuantity;
         
         /// <summary>
-        /// lblNewQuantityShow control.
+        /// tbxNewQuantity control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNewQuantityShow;
+        protected global::System.Web.UI.WebControls.TextBox tbxNewQuantity;
+        
+        /// <summary>
+        /// lblQuantityAdjust control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblQuantityAdjust;
+        
+        /// <summary>
+        /// lblQuantityAdjustShow control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblQuantityAdjustShow;
         
         /// <summary>
         /// lblReason control.

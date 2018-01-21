@@ -28,6 +28,23 @@ namespace InventoryWebApp.DAO
                 return c;
             }
         }
+        public Adjustment GetAdjustment(string adjustmentCode)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                Adjustment adjResult = em.Adjustments.Where
+                    (x => x.AdjustmentCode == adjustmentCode).FirstOrDefault();
+                return adjResult;
+            }
+        }
+        public string GetLastAdjustment()
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                Adjustment adjResult = em.Adjustments.ToList().LastOrDefault();
+                return adjResult.AdjustmentCode;
+            }
+        }
         public int AddAdjustment(Adjustment b)
         {
             using (EntityModel em = new EntityModel())
@@ -41,8 +58,10 @@ namespace InventoryWebApp.DAO
         {
             using (EntityModel em = new EntityModel())
             {
-
-                em.Entry(c).State = EntityState.Modified;
+                em.Entry(c).State = c.AdjustmentCode == null ?
+                                   EntityState.Added :
+                                   EntityState.Modified;
+                //em.Entry(c).State = EntityState.Modified;
                 return em.SaveChanges();
             }
         }

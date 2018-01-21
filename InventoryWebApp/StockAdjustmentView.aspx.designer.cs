@@ -31,40 +31,22 @@ namespace InventoryWebApp {
         protected global::System.Web.UI.WebControls.Label lblItemChoiceName;
         
         /// <summary>
-        /// lblCurrentStock control.
+        /// lblQuantityAdjusted control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCurrentStock;
+        protected global::System.Web.UI.WebControls.Label lblQuantityAdjusted;
         
         /// <summary>
-        /// lblCurrentStockAmount control.
+        /// lblQuantityAdjustedShow control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCurrentStockAmount;
-        
-        /// <summary>
-        /// lblNewQuantity control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNewQuantity;
-        
-        /// <summary>
-        /// lblNewQuantityAmount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNewQuantityAmount;
+        protected global::System.Web.UI.WebControls.Label lblQuantityAdjustedShow;
         
         /// <summary>
         /// lblReason control.

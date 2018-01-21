@@ -9,6 +9,7 @@
                 <h3>Stationery Supply Tender Quotation Form</h3>
                 <p>&nbsp;</p>
                 <asp:Label ID="lblSupplierName" runat="server" Text="Load supplier name here..."></asp:Label>
+                <br />
                 <asp:Label ID="lblSupplierAddress" runat="server" Text="Load supplier address here..."></asp:Label>
                 <br />
                 <div style="width: 100%; height: 400px; overflow: scroll">

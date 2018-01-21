@@ -4,21 +4,23 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using InventoryWebApp.DAO;
-using InventoryWebApp.Models.Entities;
+using InventoryWebApp.Controllers;
 
 namespace InventoryWebApp
 {
     public partial class QuotationView : System.Web.UI.Page
     {
-        private static ISupplierDAO suppDAO = new SupplierDAO();
-        EntityModel em = new EntityModel();
+        StoreClerkController sClerkCtrl = new StoreClerkController();
+        //private static ISupplierDAO suppDAO = new SupplierDAO();
+        //EntityModel em = new EntityModel();
         protected void Page_Load(object sender, EventArgs e)
         {
-            gvQuotation.DataSource = suppDAO.ListOfSupplier();
+            gvQuotation.DataSource = sClerkCtrl.ListOfSupplier();
+            gvQuotation.DataBind();
+
+
             //gvQuotation.DataSource = em.Suppliers.Select
             //    (x => new { x.SupplierCode,x.SupplierName, x.Address, x.ContactName, x.PhoneNo}).ToList();
-            gvQuotation.DataBind();
         }
     }
 }

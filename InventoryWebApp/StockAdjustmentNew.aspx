@@ -9,19 +9,21 @@
                 <h3>New Inventory Adjustment</h3>
                 <p>&nbsp;</p>
                 <asp:Label ID="lblItemChoice" runat="server" Text="Item:"></asp:Label>
-                <asp:DropDownList ID="ddlItemChoice" runat="server"></asp:DropDownList>
-                <br />
-                <asp:Label ID="lblQuantityAdjust" runat="server" Text="Quantity to Adjust:"></asp:Label>
-                <asp:TextBox ID="tbxQuantityAdjust" runat="server" Text=""></asp:TextBox>
+                <asp:DropDownList ID="ddlItemChoice" runat="server"  AutoPostBack="True" OnSelectedIndexChanged="ddlItemChoice_SelectedIndexChanged" OnLoad="ddlItemChoice_Load"></asp:DropDownList>
                 <br />
                 <asp:Label ID="lblCurrentStock" runat="server" Text="Current Stock:"></asp:Label>
                 <asp:Label ID="lblCurrentStockAmount" runat="server" Text="Load amount from DB"></asp:Label>
                 <br />
                 <asp:Label ID="lblNewQuantity" runat="server" Text="New Quantity:"></asp:Label>
-                <asp:Label ID="lblNewQuantityShow" runat="server" Text="Enter a quantity to adjust"></asp:Label>
+                <asp:TextBox ID="tbxNewQuantity" runat="server" OnTextChanged="tbxQuantityAdjust_TextChanged" AutoPostBack="True"></asp:TextBox>
+                <%--<asp:Label ID="lblNewQuantityShow" runat="server" Text="Enter a quantity to adjust"></asp:Label>--%>
+                <br />
+                <asp:Label ID="lblQuantityAdjust" runat="server" Text="Quantity to Adjust:"></asp:Label>
+                <asp:Label ID="lblQuantityAdjustShow" runat="server" Text=""></asp:Label>
+                <%--<asp:TextBox ID="tbxQuantityAdjust" runat="server" Text="" OnTextChanged="tbxQuantityAdjust_TextChanged"></asp:TextBox>--%>
                 <br />
                 <asp:Label ID="lblReason" runat="server" Text="Reason:"></asp:Label>
-                <asp:TextBox ID="tbxReason" runat="server" Text=""></asp:TextBox>
+                <asp:TextBox ID="tbxReason" runat="server" Text="" AutoPostBack="True" OnTextChanged="tbxReason_TextChanged"></asp:TextBox>
                 <br />
                 <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" />
                 <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" />
