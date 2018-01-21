@@ -11,7 +11,7 @@ namespace InventoryWebApp.DAO
 
         EntityModel em = new EntityModel();
         
-        public int AddAssignRole(string assignrolecode, string temporaryrolecode, string employeecode,
+        public int AddAssignRole(int assignrolecode, string temporaryrolecode, string employeecode,
             DateTime startdate, DateTime enddate, string assignedby)
         {
             AssignRole asrl = new AssignRole();

@@ -212,6 +212,7 @@
     <Content Include="Content\custom.css" />
     <Content Include="Content\custom2.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="DisbursementGenerationPage.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -226,6 +227,9 @@
     <Content Include="Scripts\fancy-sidebar-navigation.js" />
     <Content Include="Layout.Master" />
     <Content Include="ViewPurchaseOrders.aspx" />
+    <Content Include="WebForm1.aspx" />
+    <Content Include="WebForm2.aspx" />
+    <Content Include="WebForm3.aspx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
@@ -423,13 +427,11 @@
     <Compile Include="Controllers\StoreManagerController.cs" />
     <Compile Include="Controllers\StoreSupervisorController.cs" />
     <Compile Include="DAO\AdjustmentDAO.cs" />
-    <Compile Include="DAO\AssignRoleDAO.cs" />
     <Compile Include="DAO\CatagoryDAO.cs" />
     <Compile Include="DAO\CollectionPointDAO.cs" />
     <Compile Include="DAO\DisbursementDAO.cs" />
     <Compile Include="DAO\DisbursementDetailsDAO.cs" />
     <Compile Include="DAO\IAdjustmentDAO.cs" />
-    <Compile Include="DAO\IAssignRoleDAO.cs" />
     <Compile Include="DAO\ICatagoryDAO.cs" />
     <Compile Include="DAO\ICollectionPointDAO.cs" />
     <Compile Include="DAO\IDepartmentDAO.cs" />
@@ -470,6 +472,13 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DisbursementGenerationPage.aspx.cs">
+      <DependentUpon>DisbursementGenerationPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DisbursementGenerationPage.aspx.designer.cs">
+      <DependentUpon>DisbursementGenerationPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -557,6 +566,27 @@
     </Compile>
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForm2.aspx.cs">
+      <DependentUpon>WebForm2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm2.aspx.designer.cs">
+      <DependentUpon>WebForm2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForm3.aspx.cs">
+      <DependentUpon>WebForm3.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm3.aspx.designer.cs">
+      <DependentUpon>WebForm3.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

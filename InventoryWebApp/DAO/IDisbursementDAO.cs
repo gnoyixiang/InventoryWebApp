@@ -9,6 +9,7 @@ namespace InventoryWebApp.DAO
         int AddDisbursement(Disbursement disbursement);
         List<Disbursement> GetAllDisbursement();
         Disbursement GetDisbursementByCode(string disbursementCode);
+        Disbursement GetDisbursingDisburmentByDeptCode(String deptCode);
         List<Disbursement> SearchDbmByDateCreated(DateTime date);
         List<Disbursement> SearchDbmByDateDisbursed(DateTime date);
         List<Disbursement> SearchDbmByDepartment(string departmentCode);

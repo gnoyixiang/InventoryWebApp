@@ -1,6 +1,7 @@
 ﻿using InventoryWebApp.Models.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -39,6 +40,11 @@ namespace InventoryWebApp.DAO
         {
             em = new EntityModel();
             return em.Disbursements.Where(d => d.DisbursementCode == (disbursementCode)).FirstOrDefault();
+        }
+        public Disbursement GetDisbursingDisburmentByDeptCode(String deptCode)
+        {
+            em = new EntityModel();
+            return em.Disbursements.Where(d => d.Status == "disbursing" && d.DepartmentCode == deptCode).First();
         }
         public List<Disbursement> SearchDisbursementByCode(String disbursementCode)
         {
@@ -88,21 +94,8 @@ namespace InventoryWebApp.DAO
         public int UpdateDisbursement(Disbursement d)
         {
             em = new EntityModel();
-            Disbursement disbursement = em.Disbursements.Where(db => db.DisbursementCode == d.DisbursementCode).FirstOrDefault();
-            if (disbursement != null)
-            {
-                disbursement.DateDisbursed = d.DateDisbursed;
-                disbursement.DateCreated = d.DateCreated;
-                disbursement.Notes = d.Notes;
-                disbursement.ReceivedBy = d.ReceivedBy;
-                disbursement.Status = d.Status;
-                disbursement.UserName = d.UserName;
-                disbursement.DisbursementDetails = d.DisbursementDetails;
-                em.SaveChanges();
-                return 1;
-            }
-            else
-                return 0;
+            em.Entry(d).State = EntityState.Modified;
+            return em.SaveChanges();
 
         }
 
@@ -117,6 +110,8 @@ namespace InventoryWebApp.DAO
                 disbursement.DateDisbursed = d.DateDisbursed;
                 disbursement.DisbursementDetails = d.DisbursementDetails;
                 disbursement.Notes = d.Notes;
+                disbursement.DateCreated = d.DateCreated;
+                disbursement.CollectionPointCode = d.DisbursementCode;
                 em.SaveChanges();
                 return 1;
             }

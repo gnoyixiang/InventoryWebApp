@@ -7,7 +7,7 @@ namespace InventoryWebApp.Models.Entities
     using System.Data.Entity.Spatial;
 
     [Table("RequestDetail")]
-    public partial class RequestDetail:IComparable<RequestDetail>
+    public partial class RequestDetail
     {
         [Key]
         [Column(Order = 0)]
@@ -32,18 +32,5 @@ namespace InventoryWebApp.Models.Entities
         public virtual Request Request { get; set; }
 
         public virtual StationeryCatalogue StationeryCatalogue { get; set; }
-
-        public int CompareTo(RequestDetail other)
-        {
-            if (this.Request.DateApproved > other.Request.DateApproved)
-            {
-                return 1;
-            }
-            else if (this.Request.DateApproved < other.Request.DateApproved)
-            {
-                return -1;
-            }
-            else return 0;
-        }
     }
 }

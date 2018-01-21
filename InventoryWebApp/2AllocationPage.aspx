@@ -5,10 +5,10 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
     <asp:ScriptManager ID="ScriptManager1" runat="server" />
-    <asp:Label ID="lblTest" runat="server" Text="Label"></asp:Label>
-    <asp:Button ID="btnBack" runat="server" Text="<Back" Style="float: left" OnClick="btnBack_Click" />
-    <asp:Button ID="btnNext" runat="server" Text="Proceed to Allocation>" Style="float: right"/>
-    <asp:Button ID="btnReset" runat="server" Text="Reset" Style="float: right" />
+    
+    <asp:Button ID="btnBack" runat="server" Text="<Back to Retrieval" Style="float: left" OnClick="btnBack_Click" CssClass="btn btn-success"/>
+    <asp:Button ID="btnNext" runat="server" Text="Proceed to Disbursement>" Style="float: right" OnClick="btnNext_Click" CssClass="btn btn-success"/>
+    
     
     <br />
     <br />

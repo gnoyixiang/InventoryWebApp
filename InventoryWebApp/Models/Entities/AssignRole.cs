@@ -10,8 +10,7 @@ namespace InventoryWebApp.Models.Entities
     public partial class AssignRole
     {
         [Key]
-        [StringLength(20)]
-        public string AssignRoleCode { get; set; }
+        public int AssignRoleCode { get; set; }
 
         [StringLength(128)]
         public string TemporaryRoleCode { get; set; }

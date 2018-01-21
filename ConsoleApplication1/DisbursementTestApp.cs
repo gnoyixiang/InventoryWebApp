@@ -14,11 +14,13 @@ namespace ConsoleTestApp
         static IRetrievalDAO retrievalDAO = new RetrievalDAO();
         static IRequestDetailsDAO requestDetailsDAO = new RequestDetailsDAO();
         static IRequestDAO requestDAO = new RequestDAO();
+        static ICollectionPointDAO collectionPointDAO = new CollectionPointDAO();
+
 
 
         static void Main(string[] args)
         {
-            Console.WriteLine(requestDetailsDAO.SearchRequestbyStatus("proce").ToList().Count);
+            //Console.WriteLine(requestDetailsDAO.SearchRequestbyStatus("proce").ToList().Count);
             Disbursement d = new Disbursement();
             d.DisbursementCode = "DBM180101162312124";
             d.DateCreated = DateTime.ParseExact("2018-01-02", "yyyy-MM-dd", null);
@@ -71,6 +73,7 @@ namespace ConsoleTestApp
             Console.WriteLine("11. UpdateDisbursement");
             Console.WriteLine("12. UpdateDbmDisbursementDetail");
             Console.WriteLine("13. AddDisbursement");
+            Console.WriteLine("14. Collection Point");
 
             Console.WriteLine();
 
@@ -117,16 +120,24 @@ namespace ConsoleTestApp
                 case "13":
                     Console.WriteLine(AddDisbursement(d));
                     break;
+                case "14":
+                    Console.WriteLine(CheckCollectionPointDAO());
+                    break;
                 default:
                     Console.WriteLine(UpdateDbmDisbursementDetail(dUpdateDbmDetail));
                     break;
             }
         }
 
+        static String CheckCollectionPointDAO()
+        {
+            return collectionPointDAO.SearchByCollectionPointCode("ISS").First().CollectionPointCode;
+        }
+
         static void PrintDisbursement(Disbursement d)
         {
             Console.WriteLine(d.DisbursementCode);
-            Console.WriteLine("Number of Disbursement details: "+ d.DisbursementDetails.Count);
+            //Console.WriteLine("Number of Disbursement details: "+ d.DisbursementDetails.Count);
             Console.WriteLine(d.DepartmentCode);
             Console.WriteLine(d.UserName);
             Console.WriteLine(d.DateCreated);

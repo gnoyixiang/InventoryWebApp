@@ -39,6 +39,12 @@ namespace InventoryWebApp.DAO
             return em.Employees.Where(x => x.UserName == username).FirstOrDefault();
         }
 
+        public Employee GetEmployeeByCode(String employeeCode)
+        {
+            em = new EntityModel();
+            return em.Employees.Where(e => e.EmployeeCode == employeeCode).First();
+        }
+
         public void UpdateRole(string username, string role)
         {
             Employee emp = em.Employees.Where(x => x.UserName == username).First();

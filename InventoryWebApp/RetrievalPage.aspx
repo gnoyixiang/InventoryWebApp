@@ -28,9 +28,9 @@
 
 
 
-    <asp:Button ID="btnBack" runat="server" Text="<Back" Style="float: left" OnClick="btnBack_Click" />
-    <asp:Button ID="btnNext" runat="server" Text="Proceed to Allocation>" Style="float: right" OnClick="btnNext_Click" />
-    <asp:Button ID="btnReset" runat="server" Text="Reset" Style="float: right" OnClick="btnReset_Click" />
+    <asp:Button ID="btnBack" runat="server" Text="<Back to Requests" Style="float: left" OnClick="btnBack_Click" CssClass="btn btn-success"/>
+    <asp:Button ID="btnNext" runat="server" Text="Proceed to Allocation>" Style="float: right" OnClick="btnNext_Click" CssClass="btn btn-success" />
+    <asp:Button ID="btnReset" runat="server" Text="Reset" Style="float: right" OnClick="btnReset_Click" CssClass="btn btn-danger"/>
     
 
     <br/>
