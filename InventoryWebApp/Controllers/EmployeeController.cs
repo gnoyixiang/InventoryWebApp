@@ -18,6 +18,7 @@ namespace InventoryWebApp.Controllers
         IRequestDetailsDAO Ird = new RequestDetailsDAO();
         ICollectionPointDAO Icp = new CollectionPointDAO();
         IDepartmentDAO Idpt = new DepartmentDAO();
+        IDisbursementDAO Idbm = new DisbursementDAO();
         public List<StationeryCatalogue> Gridview()
         {
             List<StationeryCatalogue> list = Isc.ListAllStationery();
@@ -48,7 +49,7 @@ namespace InventoryWebApp.Controllers
         }
         public string AddRequest(string userName, string departmentCode, List<RequestDTO> stationaries)
         {
-            string requestCode = "RQ" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
+            string requestCode = "RQ" + DateTime.Now.ToString("yyMMddHHmmssfff");
             Request request = new Request()
             {
                 RequestCode = requestCode,
@@ -71,16 +72,20 @@ namespace InventoryWebApp.Controllers
         }
         public void UpdateCollectionPoint(string deptCode, string newCCP)
         {
+            
             Department dpt = new Department();
             dpt.CollectionPointCode = newCCP;
             dpt.DepartmentCode = deptCode;
             Idpt.UpdateCollectionPoint(dpt);
+            Disbursement dbm = new Disbursement();
+            dbm.DepartmentCode = deptCode;
+            Idbm.UpdateDbmCollectionPoint(deptCode, newCCP);
         }
         public void GetUserInfo(string userName)
         {
             userName = HttpContext.Current.Session.SessionID;
-           string deptName = Idpt.GetDepartCode(userName);
-
+            string deptName = Idpt.GetDepartCode(userName);
+            
             //var user = HttpContext.Current.GetOwinContext().Get<ApplicationUserManager>().FindById(User.Identity.GetUserId());
 
             //var userDepartment = HttpContext.Current.GetOwinContext().Get<ApplicationUserManager>().FindById(User.Identity.GetUserName());

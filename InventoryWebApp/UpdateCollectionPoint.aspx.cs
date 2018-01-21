@@ -28,7 +28,7 @@ namespace InventoryWebApp
             if (Page.IsValid)
             {
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "$('#myModal').modal('show');", true);
-                if (!String.IsNullOrEmpty(tbxCCP.ToString()) && ddlCP.SelectedItem.Selected)
+                if (!String.IsNullOrEmpty(tbxCCP.Text) && ddlCP.SelectedItem.Selected)
                 {
                     //TODO: change department code
                     ec.UpdateCollectionPoint("CPSC", ddlCP.SelectedValue);

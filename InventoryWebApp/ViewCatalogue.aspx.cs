@@ -43,10 +43,6 @@ namespace InventoryWebApp
             {
                 list = ec.SearchByCategoryCode(keyword);
             }
-            else if (list == null)
-            {
-               lblSearch.Text = "No result found";
-            }
             try
             {
                 this.gvCatalogue.DataSource = list;

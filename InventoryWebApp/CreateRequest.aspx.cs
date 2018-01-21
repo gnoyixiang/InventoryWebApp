@@ -42,6 +42,7 @@ namespace InventoryWebApp
                 //Session["userName"] = lblEmpName.Text;
                 string requestcode = ec.AddRequest("yufei@logic.edu.sg", "CPSC", stationaries);
                 //string requestcode = ec.AddRequest(lblDeptName.Text, lblEmpName.Text, stationaries);
+               
                 //clear
                 Session["ItemDetails"] = null;
                 BindGrid();
