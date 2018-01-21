@@ -1,0 +1,83 @@
+﻿using InventoryWebApp.Controllers;
+using InventoryWebApp.Models.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace InventoryWebApp
+{
+    public partial class DisbursementFormPage : System.Web.UI.Page
+    {
+        StoreClerkController sClerkCtrl = new StoreClerkController();
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                CollectionPoint all = new CollectionPoint();
+                all.CollectionVenue = "ALL";
+                all.CollectionPointCode = "ALL";
+
+                HashSet<CollectionPoint> collectionPointList = sClerkCtrl.GetListOfCollectionPoint();
+                collectionPointList.Add(all);
+                List<CollectionPoint> sortedCPList = collectionPointList.ToList();
+                sortedCPList.Sort();
+
+                ddlCollectionPoint.DataSource = sortedCPList;
+                ddlCollectionPoint.DataTextField = "CollectionVenue";
+                ddlCollectionPoint.DataValueField = "CollectionPointCode";
+                ddlCollectionPoint.DataBind();
+
+                ddlDepartment.DataSource = sClerkCtrl.GetDisbursingDepartmentList(sClerkCtrl.GetDisbursingDisbursements());
+                ddlDepartment.DataTextField = "DepartmentName";
+                ddlDepartment.DataValueField = "DepartmentCode";
+                ddlDepartment.DataBind();
+            }
+            lvDisbursementDetails.DataSource = sClerkCtrl.GetDisbursingDisbDetailsByDeptCode(ddlDepartment.SelectedValue);
+            lvDisbursementDetails.DataBind();
+            tbxRep.Text = GetDepartment().RepresentativeCode;
+            tbxDisbursementDate.Text = GetPlanToCollectDate().ToString("dd MMM yyyy");
+            
+           
+        }
+
+        protected void ddlCollectionPoint_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ddlDepartment.DataSource = ddlCollectionPoint.SelectedValue == "ALL" ? sClerkCtrl.GetDisbursingDepartmentList(sClerkCtrl.GetDisbursingDisbursements()) : sClerkCtrl.GetDisbursingDepartmentList(sClerkCtrl.GetDisbursementListByCollectionPoint(ddlCollectionPoint.SelectedValue));
+            ddlDepartment.DataTextField = "DepartmentName";
+            ddlDepartment.DataValueField = "DepartmentCode";
+            ddlDepartment.DataBind();
+
+        }
+
+        //NEED TO RE-CODE
+        protected Department GetDepartment()
+        {
+            return sClerkCtrl.GetDeptByCode(ddlDepartment.SelectedValue);
+        }
+
+        protected DateTime GetPlanToCollectDate()
+        {
+            return (DateTime)sClerkCtrl.GetDisbursingDisbursements().First().DatePlanToCollect;
+        }
+
+        protected CollectionPoint GetCollectionPoint()
+        {
+            return sClerkCtrl.GetCollectionPointByCode(ddlCollectionPoint.SelectedValue);
+        }
+
+        protected StationeryCatalogue GetStationeryByCode(String itemCode)
+        {
+            return sClerkCtrl.GetStationeryByCode(itemCode);
+        }
+        
+        protected RequestDetail GetRequestDetail (String requestCode, String itemCode)
+        {
+            return sClerkCtrl.GetRequestDetail(requestCode, itemCode);
+        }
+
+    }
+}

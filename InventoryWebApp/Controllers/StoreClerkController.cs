@@ -20,6 +20,22 @@ namespace InventoryWebApp.Controllers
         IStationeryCatalogueDAO stationeryDAO = new StationeryCatalogueDAO();
         ICollectionPointDAO collectionPointDAO = new CollectionPointDAO();
 
+        public RequestDetail GetRequestDetail(string RequestC, string itemCode)
+        {
+            return requestDetailsDAO.GetRequestDetail(RequestC, itemCode);
+        }
+
+        public List<DisbursementDetail> GetDisbursingDisbDetailsByDeptCode(String deptCode)
+        {
+            List<Disbursement> dList = GetDisbursingDisbursements();
+            foreach (var item in dList)
+            {
+                if(item.DepartmentCode == deptCode)
+                    return disbursementDetailsDAO.SearchDDByDCode(item.DisbursementCode);
+            }
+            return null;
+        }
+
         public List<Disbursement> GetDisbursementListBySClerkInCharge(String collectionPointCode)
         {
             List<Disbursement> disbursingList = GetDisbursingDisbursements();
@@ -60,13 +76,29 @@ namespace InventoryWebApp.Controllers
         {
             return employeeDAO.GetEmployeeByCode(collectionPointDAO.SearchByCollectionPointCode(collectionPointCode).First().SClerkInCharge).EmployeeName;
         }
-
+        public void SetCollectionDateToDisbursement(DateTime dt)
+        {
+            List<Disbursement> dList = GetDisbursingDisbursements();
+            foreach(var item in dList)
+            {
+                item.DatePlanToCollect = dt;
+                disbursementDAO.UpdateDbmStatus(item);
+            }
+        }
         public CollectionPoint GetCollectionPointByCode (String collectionPointCode)
         {
-            return collectionPointDAO.SearchByCollectionPointCode(collectionPointCode).First();
+            return collectionPointDAO.SearchByCollectionPointCode(collectionPointCode).FirstOrDefault();
         }
         
-
+        public List<Department> GetDisbursingDepartmentList(List<Disbursement> dList)
+        {
+            List<Department> deptList = new List<Department>();
+            foreach(var item in dList)
+            {
+                deptList.Add(departmentDAO.GetDepartmentInfo(item.DepartmentCode));
+            }
+            return deptList;
+        }
         public HashSet<CollectionPoint> GetListOfCollectionPoint()
         {
             List<Disbursement> dList = disbursementDAO.SearchDbmByStatus("disbursing");
@@ -94,7 +126,8 @@ namespace InventoryWebApp.Controllers
             {
                 item.Status = "allocating";
                 item.DateCreated = null;
-                disbursementDAO.UpdateDisbursement(item);
+                item.DatePlanToCollect = null;
+                disbursementDAO.UpdateDbmStatus(item);
             }
         }
         public void ChangeDisbursementAllocatingToDisbursing()
@@ -236,10 +269,12 @@ namespace InventoryWebApp.Controllers
                 HashSet<String> departmentList = GetListOfDeptFromDisbursementDetails(ddList);
                 Dictionary<String, Disbursement> disbursementDictionary = new Dictionary<string, Disbursement>();
 
+                int count = 0;
+
                 foreach(var item in departmentList)
                 {
                     Disbursement disbursement = new Disbursement();
-                    disbursement.DisbursementCode = "DBM" + DateTime.Now.ToString("yyMMddhhmmssfff");
+                    disbursement.DisbursementCode = "DBM" + DateTime.Now.ToString("yyMMddhhmmssfff")+count++;
                     disbursement.DepartmentCode = item;
                     disbursement.Status = "allocating";
                     //disbursement.Username = Session["User"]; Need to write with user
@@ -289,6 +324,7 @@ namespace InventoryWebApp.Controllers
             if (retrieval == null)
             {
                 retrieval = new Retrieval();
+                retrieval.RetrievalDetails = new List<RetrievalDetail>();
                 retrieval.RetrievalCode = "RT" + DateTime.Now.ToString("yyMMddHHmmssfff");
                 retrieval.Status = "processing";
                 //retrieval.UserName = Identity.User;
@@ -299,11 +335,13 @@ namespace InventoryWebApp.Controllers
             }
             else
             {
-                String retrievalCode = retrieval.RetrievalCode;
-                retrieval = retrievalDAO.GetRetrieval(retrievalCode);
-                List<RetrievalDetail> rdList = retrievalDetailsDAO.ListRetrievalDetailsByRetrievalCode(retrievalCode);
-                retrieval.RetrievalDetails = rdList;
-                return retrieval;
+                Retrieval newRetrieval = new Retrieval();
+                newRetrieval.RetrievalCode = retrieval.RetrievalCode;
+                newRetrieval.Status = retrieval.Status;
+                newRetrieval.DateRetrieved = retrieval.DateRetrieved;
+                newRetrieval.RetrievalDetails = new List<RetrievalDetail>();
+                newRetrieval.RetrievalDetails = retrievalDetailsDAO.ListRetrievalDetailsByRetrievalCode(newRetrieval.RetrievalCode);
+                return newRetrieval;
             }
         }
         public Retrieval ResetRetrieval(Retrieval retrieval)

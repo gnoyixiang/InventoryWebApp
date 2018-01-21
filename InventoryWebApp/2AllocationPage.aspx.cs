@@ -13,8 +13,8 @@ namespace InventoryWebApp
     {
         StoreClerkController sClerkCtrl = new StoreClerkController();
         Retrieval retrieval;
-
         Disbursement disbursement;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             retrieval = sClerkCtrl.GetCurrentRetrieval();

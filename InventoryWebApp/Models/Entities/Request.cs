@@ -7,7 +7,7 @@ namespace InventoryWebApp.Models.Entities
     using System.Data.Entity.Spatial;
 
     [Table("Request")]
-    public partial class Request
+    public partial class Request:IComparable<Request>
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Request()
@@ -51,5 +51,10 @@ namespace InventoryWebApp.Models.Entities
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RequestDetail> RequestDetails { get; set; }
+
+        public int CompareTo(Request other)
+        {
+            return ((DateTime) this.DateApproved).CompareTo(other.DateApproved);
+        }
     }
 }

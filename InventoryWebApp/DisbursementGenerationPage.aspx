@@ -70,32 +70,31 @@
 
     <h3>Disbursement Overview</h3>
     <asp:Button ID="btnBack" runat="server" Text="<Back to Allocation" Style="float: left" CssClass="btn btn-success" OnClick="btnBack_Click" />
-    <asp:Button ID="btnNext" runat="server" Text="Confirm Collection Date>" Style="float: right" CssClass="btn btn-success"/>
+    <asp:Button ID="btnNext" runat="server" Text="Proceed to Disbursement Form>" Enabled="false" Style="float: right" CssClass="btn btn-success" OnClick="btnNext_Click"/>
     <br />
     <br />
     <br />
-    <div class="alert alert-danger" role="alert" style ="text-align: center; vertical-align: middle; line-height: 20px; padding-left:200px ">
-        <table>
+    <div class="alert alert-success" role="alert" style ="text-align: center; vertical-align: middle; line-height: 20px; padding-left:20px ">
+        <table border="0" >
+            <tr>
+                <td style="padding:0px 20px 0px 20px">Disbursement date: </td>
+            </tr>
             <tr >
-                <td >Disbursement date: &nbsp</td>
-                <td style="font-weight:bold">
+                <td style="font-weight:bold; padding:0px 20px 0px 20px">
                     <asp:Label ID="lblCollectionDate" runat="server" />
-                    &nbsp</td>
-                <td >
-                    <asp:Button ID="btnPopUp" runat="server" Text="Click here to change Collection Date" CssClass="btn btn-danger" />
+                    </td>
+                <td rowspan="3" style="padding:0px 40px 0px 40px">
+                    <asp:Button ID="btnConfirm" runat="server" Text="Confirm Collection Date" CssClass="btn btn-danger" OnClick="btnConfirm_Click" />
                     <br />
-                    <br />
-
-                </td>
+                    <asp:Label ID="lblConfirmDate" runat="server" ForeColor="#990000">Please click Confirm for sending the disbursement to respective Department Representatives</asp:Label >
+                    </td>
 
             </tr>
             <tr>
-                <td colspan="3" style="font-style:italic">
-                    <asp:Label ID="lblConfirmDate" runat="server" Text="Label"></asp:Label ></td>
-            </tr>
-            <tr >
-                
-                <td colspan="3" style="font-style:italic">Notes: Disbursement date cannot be changed after confirmation</td>
+                <td style="padding:10px 20px 0px 20px">
+                    <asp:Button ID="btnPopUp" runat="server" Text="Change Collection Date" CssClass="btn btn-primary" OnClick="btnPopUp_Click" />
+                </td>
+                <td></td>
             </tr>
         </table>
     </div>

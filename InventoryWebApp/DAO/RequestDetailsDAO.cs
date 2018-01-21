@@ -73,12 +73,12 @@ namespace InventoryWebApp.DAO
 
         }
 
-        public RequestDetail GetRequestDetail(string RequestC, string itemCode)
+        public RequestDetail GetRequestDetail(string requestCode, string itemCode)
         {
             using (EntityModel em = new EntityModel())
             {
                 return em.RequestDetails
-                    .Where(r => r.RequestCode == RequestC && r.ItemCode == itemCode)
+                    .Where(r => r.RequestCode == requestCode && r.ItemCode == itemCode)
                     .FirstOrDefault<RequestDetail>();
             }
         }

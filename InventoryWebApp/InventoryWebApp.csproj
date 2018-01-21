@@ -212,6 +212,7 @@
     <Content Include="Content\custom.css" />
     <Content Include="Content\custom2.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="DisbursementFormPage.aspx" />
     <Content Include="DisbursementGenerationPage.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -472,6 +473,13 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DisbursementFormPage.aspx.cs">
+      <DependentUpon>DisbursementFormPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DisbursementFormPage.aspx.designer.cs">
+      <DependentUpon>DisbursementFormPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="DisbursementGenerationPage.aspx.cs">
       <DependentUpon>DisbursementGenerationPage.aspx</DependentUpon>

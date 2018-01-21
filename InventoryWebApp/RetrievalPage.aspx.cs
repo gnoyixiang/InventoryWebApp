@@ -24,7 +24,7 @@ namespace InventoryWebApp
                 //lblCreatedBy.Text = sClerkCtrl.GetEmployeeNameByUserName(retrieval.UserName) ;
                 lblRetrievalCode.Text = retrieval.RetrievalCode;
                 lblRetrievalDate.Text = ((DateTime)retrieval.DateRetrieved).ToString("dd MMM yyyy");
-                rdList = sClerkCtrl.GetCurrentRetrieval().RetrievalDetails.ToList<RetrievalDetail>();
+                rdList = retrieval.RetrievalDetails.ToList<RetrievalDetail>();
 
                 BindGrid();
             }

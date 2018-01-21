@@ -94,8 +94,24 @@ namespace InventoryWebApp.DAO
         public int UpdateDisbursement(Disbursement d)
         {
             em = new EntityModel();
-            em.Entry(d).State = EntityState.Modified;
-            return em.SaveChanges();
+            Disbursement disbursement = em.Disbursements.Where(db => db.DisbursementCode == d.DisbursementCode).FirstOrDefault();
+            if (disbursement != null)
+            {
+                disbursement.DateCreated = d.DateCreated;
+                disbursement.Status = d.Status;
+                disbursement.DepartmentCode = d.DepartmentCode;
+                disbursement.DateDisbursed = d.DateDisbursed;
+                disbursement.Notes = d.Notes;
+                disbursement.UserName = d.UserName;
+                disbursement.ReceivedBy = d.ReceivedBy;
+                disbursement.CollectionPointCode = d.CollectionPointCode;
+                disbursement.DatePlanToCollect = d.DatePlanToCollect;
+                disbursement.DisbursementDetails = d.DisbursementDetails;
+                em.SaveChanges();
+                return 1;
+            }
+            else
+                return 0;
 
         }
 
@@ -108,10 +124,10 @@ namespace InventoryWebApp.DAO
                 disbursement.Status = d.Status;
                 disbursement.ReceivedBy = d.ReceivedBy;
                 disbursement.DateDisbursed = d.DateDisbursed;
-                disbursement.DisbursementDetails = d.DisbursementDetails;
                 disbursement.Notes = d.Notes;
                 disbursement.DateCreated = d.DateCreated;
-                disbursement.CollectionPointCode = d.DisbursementCode;
+                disbursement.CollectionPointCode = d.CollectionPointCode;
+                disbursement.DatePlanToCollect = d.DatePlanToCollect;
                 em.SaveChanges();
                 return 1;
             }
