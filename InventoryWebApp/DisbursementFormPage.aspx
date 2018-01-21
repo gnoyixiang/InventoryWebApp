@@ -8,8 +8,8 @@
     <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="true">
         <ContentTemplate>
             <table class="table-condensed">
-                <tr style="padding-right: 30px">
-                    <td>Collection Point</td>
+                <tr style="padding-right: 0px">
+                    <td>Select A Collection Point</td>
                     <td>
                         <asp:DropDownList ID="ddlCollectionPoint" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlCollectionPoint_SelectedIndexChanged"></asp:DropDownList></td>
                     <td>Planned Disbursement Date</td>

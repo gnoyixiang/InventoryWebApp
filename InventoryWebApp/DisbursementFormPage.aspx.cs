@@ -38,10 +38,22 @@ namespace InventoryWebApp
             }
             lvDisbursementDetails.DataSource = sClerkCtrl.GetDisbursingDisbDetailsByDeptCode(ddlDepartment.SelectedValue);
             lvDisbursementDetails.DataBind();
-            tbxRep.Text = GetDepartment().RepresentativeCode;
+            tbxRep.Text = GetEmployee(GetDepartment().RepresentativeCode).EmployeeTitle+ " " + GetEmployee(GetDepartment().RepresentativeCode).EmployeeName;
             tbxDisbursementDate.Text = GetPlanToCollectDate().ToString("dd MMM yyyy");
-            
+            tbxStatus.Text = GetDisbursingDisbursementByDeptCode(ddlDepartment.SelectedValue).Status;
+            tbxDisbursementTime.Text = GetCollectionTime();
            
+        }
+
+        protected String GetCollectionTime()
+        {
+            DateTime time = DateTime.Today.Add((TimeSpan)sClerkCtrl.GetCollectionPointByCode(GetDepartment().CollectionPointCode).CollectionTime);
+            return time.ToString("hh:mm tt");
+        }
+
+        protected Disbursement GetDisbursingDisbursementByDeptCode(String deptCode)
+        {
+            return sClerkCtrl.GetDisbursingDisbursementByDeptCode(deptCode);
         }
 
         protected void ddlCollectionPoint_SelectedIndexChanged(object sender, EventArgs e)
@@ -51,6 +63,11 @@ namespace InventoryWebApp
             ddlDepartment.DataValueField = "DepartmentCode";
             ddlDepartment.DataBind();
 
+        }
+
+        protected Employee GetEmployee(String emplCode)
+        {
+            return sClerkCtrl.GetEmployee(emplCode);
         }
 
         protected Request GetRequest(String requestCode)
@@ -70,7 +87,7 @@ namespace InventoryWebApp
 
         protected CollectionPoint GetCollectionPoint()
         {
-            return sClerkCtrl.GetCollectionPointByCode(ddlCollectionPoint.SelectedValue);
+            return sClerkCtrl.GetCollectionPointByCode(GetDepartment().CollectionPointCode);
         }
 
         protected StationeryCatalogue GetStationeryByCode(String itemCode)

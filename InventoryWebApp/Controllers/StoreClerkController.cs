@@ -25,15 +25,20 @@ namespace InventoryWebApp.Controllers
             return requestDetailsDAO.GetRequestDetail(RequestC, itemCode);
         }
 
-        public List<DisbursementDetail> GetDisbursingDisbDetailsByDeptCode(String deptCode)
+        public Disbursement GetDisbursingDisbursementByDeptCode(String deptCode)
         {
             List<Disbursement> dList = GetDisbursingDisbursements();
             foreach (var item in dList)
             {
-                if(item.DepartmentCode == deptCode)
-                    return disbursementDetailsDAO.SearchDDByDCode(item.DisbursementCode);
+                if (item.DepartmentCode == deptCode)
+                    return item;
             }
             return null;
+        }
+        public List<DisbursementDetail> GetDisbursingDisbDetailsByDeptCode(String deptCode)
+        {
+            return disbursementDetailsDAO.SearchDDByDCode(GetDisbursingDisbursementByDeptCode(deptCode).DisbursementCode);
+            
         }
 
         public List<Disbursement> GetDisbursementListBySClerkInCharge(String collectionPointCode)
@@ -312,9 +317,9 @@ namespace InventoryWebApp.Controllers
             return rdList;
         }
 
-        public String GetEmployeeNameByUserName(String userName)
+        public Employee GetEmployee(String emplCode)
         {
-            return employeeDAO.GetEmployeeName(userName);
+            return employeeDAO.GetEmployeeByCode(emplCode);
         }
 
         public Retrieval GetCurrentRetrieval()
