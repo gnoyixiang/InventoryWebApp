@@ -55,10 +55,10 @@ namespace InventoryWebApp.DAO
             em = new EntityModel();
             return em.Disbursements.Where(d => d.DateCreated == date).ToList();
         }
-        public List<Disbursement> SearchDbmByDatePlanToCollect(DateTime date)
+        public List<Disbursement> SearchDbmByDatePlanToCollect(DateTime date, string deptcode)
         {
             em = new EntityModel();
-            return em.Disbursements.Where(d => d.DatePlanToCollect > date).ToList();
+            return em.Disbursements.Where(d => d.DatePlanToCollect > date && d.DepartmentCode == deptcode).ToList();
         }
         public List<Disbursement> SearchDbmByPeriodCreated(DateTime date1, DateTime date2)
         {
@@ -142,7 +142,7 @@ namespace InventoryWebApp.DAO
             Disbursement disbursement = em.Disbursements.Where(d => d.DepartmentCode == depcode).FirstOrDefault();
             if (disbursement != null)
             {
-                var collectionDateGreaterthanToday = SearchDbmByDatePlanToCollect(DateTime.Now.Date);
+                var collectionDateGreaterthanToday = SearchDbmByDatePlanToCollect(DateTime.Now.Date, depcode);
                 if (collectionDateGreaterthanToday != null)
                 {
                     foreach (Disbursement dbm in collectionDateGreaterthanToday)

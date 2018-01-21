@@ -77,8 +77,6 @@ namespace InventoryWebApp.Controllers
             dpt.CollectionPointCode = newCCP;
             dpt.DepartmentCode = deptCode;
             Idpt.UpdateCollectionPoint(dpt);
-            Disbursement dbm = new Disbursement();
-            dbm.DepartmentCode = deptCode;
             Idbm.UpdateDbmCollectionPoint(deptCode, newCCP);
         }
         public void GetUserInfo(string userName)
