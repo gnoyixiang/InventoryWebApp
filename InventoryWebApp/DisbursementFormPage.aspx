@@ -7,7 +7,7 @@
     <h3>Disbursement Form</h3>
     <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="true">
         <ContentTemplate>
-            <table class="table">
+            <table class="table-condensed">
                 <tr style="padding-right: 30px">
                     <td>Collection Point</td>
                     <td>
@@ -28,11 +28,13 @@
                     <td>Representative</td>
                     <td>
                         <asp:TextBox ID="tbxRep" runat="server" Enabled="false"></asp:TextBox></td>
-                    <td>Request Status</td>
+                    <td>Disbursement Status</td>
                     <td>
                         <asp:TextBox ID="tbxStatus" runat="server" Enabled="false"></asp:TextBox></td>
                 </tr>
             </table>
+            <br />
+            <br />
             <asp:ListView ID="lvDisbursementDetails" runat="server">
                 <LayoutTemplate>
                     <table class="table">
@@ -41,7 +43,7 @@
                             <th>Stationery Description</th>
                             <th style="text-align: right; padding-right: 20px">Quantity Needed</th>
                             <th style="text-align: right; padding-right: 20px">Quantity Disbursed</th>
-                            <th>Status</th>
+                            <th>Request Status</th>
                         </thead>
                         <tbody id="itemPlaceholder" runat="server">
                         </tbody>
@@ -54,7 +56,7 @@
                             <td><%#GetStationeryByCode(Eval("ItemCode").ToString()).Description%></td>
                             <td style="text-align: right; padding-right: 20px"><%# GetRequestDetail(Eval("RequestCode").ToString(), Eval("ItemCode").ToString()).RemainingQuant %></td>
                             <td style="text-align: right; padding-right: 20px"><%# Eval("Quantity") %></td>
-                            <td></td>
+                            <td><%# GetRequest(Eval("RequestCode").ToString()).Status %></td>
                         </tr>
                         
                     </tbody>

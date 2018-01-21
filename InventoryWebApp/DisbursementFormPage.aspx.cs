@@ -53,6 +53,10 @@ namespace InventoryWebApp
 
         }
 
+        protected Request GetRequest(String requestCode)
+        {
+            return sClerkCtrl.GetRequest(requestCode);
+        }
         //NEED TO RE-CODE
         protected Department GetDepartment()
         {
