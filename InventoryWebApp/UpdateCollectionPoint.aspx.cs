@@ -19,7 +19,8 @@ namespace InventoryWebApp
             {
                 //TODO: display Department Name
                 lblInfoDeptName.Text = "Institute of Systems Science";
-                tbxCCP.Text = ec.GetCollectionPoint(lblInfoDeptName.Text);
+                var collectionCode = ec.GetCollectionPoint(lblInfoDeptName.Text);
+                tbxCCP.Text = ec.GetCollectionPointnameByCode(collectionCode);
                 ddlCP.DataSource = ec.DdlCollectionPoint();
                 ddlCP.DataTextField = "CollectionVenue";
                 ddlCP.DataValueField = "CollectionPointCode";

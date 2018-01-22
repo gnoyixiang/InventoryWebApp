@@ -22,6 +22,10 @@ namespace InventoryWebApp.DAO
         {
             return em.CollectionPoints.ToList();
         }
+        public string GetCollectionPointNameByCode(string collectionPointCode)
+        {
+            return em.CollectionPoints.Where(x => x.CollectionPointCode.Equals(collectionPointCode)).Select(p => p.CollectionVenue).FirstOrDefault();
+        }
         public int AddCollectionPoint(CollectionPoint c)
         {
             int result = -1;

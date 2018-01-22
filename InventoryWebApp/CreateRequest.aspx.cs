@@ -16,10 +16,17 @@ namespace InventoryWebApp
     public partial class CreateRequest : System.Web.UI.Page
     {
         EmployeeController ec = new EmployeeController();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                //TODO: change back to usernames to session["userName"]
+                string userName = "suriya@logic.edu.sg";
+                lblEmpName.Text = ec.GetEmployeeNameByUserName(userName);
+                string deptCode = ec.GetDeptCodeByUserName(userName);
+                string deptName = ec.GetDeptNameByCode(deptCode);
+                lblDeptName.Text = deptName;
                 BindGrid();
             }
         }
@@ -37,11 +44,9 @@ namespace InventoryWebApp
             if (Page.IsValid)
             {
                 var stationaries = (List<RequestDTO>)Session["ItemDetails"];
-                //TODO: change back to username and department code
-
-                //Session["userName"] = lblEmpName.Text;
-               // Session["departmentName"] = lblDeptName.Text;
-                string requestcode = ec.AddRequest("yufei@logic.edu.sg", "CPSC", stationaries);
+                string userName = "suriya@logic.edu.sg";
+                string deptCode = ec.GetDeptCodeByUserName(userName);
+                string requestcode = ec.AddRequest(userName, deptCode, stationaries);
                 //string requestcode = ec.AddRequest(lblDeptName.Text, lblEmpName.Text, stationaries);
                
                 //clear

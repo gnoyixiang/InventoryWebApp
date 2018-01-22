@@ -15,5 +15,6 @@ namespace InventoryWebApp.DAO
         string GetDepartCode(string userName);
         string GetCollectionPoint(string deptCode);
         string GetDepartCodeByName(string deptName);
+        string GetDeptNameByCode(string deptCode);
     }
 }

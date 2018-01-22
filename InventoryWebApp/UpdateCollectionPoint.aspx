@@ -19,7 +19,7 @@
     <div class="row">
         <div class="col-xs-12 col-md-6">
             <asp:Label ID="lblCCP" runat="server" Text="Current Collection Point: "></asp:Label>
-            <asp:TextBox ID="tbxCCP" runat="server" Width="129px" margin="5px"></asp:TextBox>
+            <asp:TextBox ID="tbxCCP" runat="server" Width="267px" margin="5px"></asp:TextBox>
         </div>
     </div>
     <br />

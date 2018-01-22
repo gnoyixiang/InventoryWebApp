@@ -76,6 +76,9 @@ namespace InventoryWebApp.DAO
         {
             return em.Employees.Where(x => x.DepartmentCode == dept && x.CurrentRoleCode == role).Select(x => x.EmployeeName).ToList();
         }
-        
+        public string GetDeptCodeByUserName(string userName)
+        {
+            return em.Employees.Where(x => x.UserName.Equals(userName)).Select(p => p.DepartmentCode).FirstOrDefault();
+        }
     }
 }

@@ -19,6 +19,7 @@ namespace InventoryWebApp.Controllers
         ICollectionPointDAO Icp = new CollectionPointDAO();
         IDepartmentDAO Idpt = new DepartmentDAO();
         IDisbursementDAO Idbm = new DisbursementDAO();
+        IEmployeeDAO Iempl = new EmployeeDAO();
         public List<StationeryCatalogue> Gridview()
         {
             List<StationeryCatalogue> list = Isc.ListAllStationery();
@@ -83,18 +84,25 @@ namespace InventoryWebApp.Controllers
         {
             return Idpt.GetCollectionPoint(deptName);
         }
-        public string GetDeptCodeByName( string deptName)
+        public string GetDeptCodeByName(string deptName)
         {
             return Idpt.GetDepartCodeByName(deptName);
         }
-        public void GetUserInfo(string userName)
+        public string GetDeptCodeByUserName (string userName)
         {
-            userName = HttpContext.Current.Session.SessionID;
-            string deptName = Idpt.GetDepartCode(userName);
-            
-            //var user = HttpContext.Current.GetOwinContext().Get<ApplicationUserManager>().FindById(User.Identity.GetUserId());
-
-            //var userDepartment = HttpContext.Current.GetOwinContext().Get<ApplicationUserManager>().FindById(User.Identity.GetUserName());
+            return Iempl.GetDeptCodeByUserName(userName);
+        }
+        public string GetEmployeeNameByUserName(string userName)
+        {
+            return Iempl.GetEmployeeName(userName);
+        }
+        public string GetCollectionPointnameByCode(string collectionCode)
+        {
+            return Icp.GetCollectionPointNameByCode(collectionCode);
+        }
+        public string GetDeptNameByCode(string deptCode)
+        {
+            return Idpt.GetDeptNameByCode(deptCode);
         }
     }
 }

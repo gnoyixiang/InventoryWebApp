@@ -14,5 +14,6 @@ namespace InventoryWebApp.DAO
         List<Employee> SearchByDept(string dept);
         List<Employee> SearchByRole(string role);
         int UpdateRole(string username, string role);
+        string GetDeptCodeByUserName(string userName);
     }
 }
