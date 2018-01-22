@@ -7,22 +7,46 @@
         <div class="row">
             <div class="col-sm-10">
                 <h3>Edit Inventory Adjustment <%=Request.QueryString["AdjustmentCode"].ToString()%></h3>
-                <p>&nbsp;</p>
-                <asp:Label ID="lblItemChoice" runat="server" Text="Item:"></asp:Label>
-                <asp:Label ID="lblItemChoiceName" runat="server" Text="Load item name from DB"></asp:Label>
                 <br />
-                <asp:Label ID="lblCurrentStock" runat="server" Text="Current Stock:"></asp:Label>
-                <asp:Label ID="lblCurrentStockAmount" runat="server" Text="Load amount from DB"></asp:Label>
-                <br />
-                <asp:Label ID="lblNewQuantity" runat="server" Text="New Quantity:"></asp:Label>
-                <asp:TextBox ID="tbxNewQuantity" runat="server" Text="" AutoPostBack="True" OnTextChanged="tbxQuantityAdjust_TextChanged"></asp:TextBox>
-                <br />
-                <asp:Label ID="lblQuantityAdjust" runat="server" Text="Quantity to Adjust:"></asp:Label>
-                <asp:Label ID="lblQuantityAdjustShow" runat="server" Text="Load amount from DB"></asp:Label>
-                <br />
-                <asp:Label ID="lblReason" runat="server" Text="Reason:"></asp:Label>
-                <asp:TextBox ID="tbxReason" runat="server" Text="" AutoPostBack="True" OnTextChanged="tbxReason_TextChanged"></asp:TextBox>
-                <br />
+                <table border="0" style="width: 600px; height: 100px">
+                    <tr>
+                        <td>
+                            <asp:Label ID="lblItemChoice" runat="server" Text="Item:"></asp:Label></td>
+                        <td>
+                            <asp:Label ID="lblItemChoiceName" runat="server" Text="Load item name from DB"></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <asp:Label ID="lblCurrentStock" runat="server" Text="Current Stock:"></asp:Label></td>
+                        <td>
+                            <asp:Label ID="lblCurrentStockAmount" runat="server" Text="Load amount from DB"></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <asp:Label ID="lblNewQuantity" runat="server" Text="New Quantity:"></asp:Label></td>
+                        <td>
+                            <asp:TextBox ID="tbxNewQuantity" runat="server" Text="" AutoPostBack="True" OnTextChanged="tbxQuantityAdjust_TextChanged" TextMode="Number"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <asp:Label ID="lblQuantityAdjust" runat="server" Text="Quantity to Adjust:"></asp:Label>
+                        </td>
+                        <td>
+                            <asp:Label ID="lblQuantityAdjustShow" runat="server" Text="Load amount from DB"></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <asp:Label ID="lblReason" runat="server" Text="Reason:"></asp:Label>
+                        </td>
+                        <td>
+                            <asp:TextBox ID="tbxReason" runat="server" Text="" AutoPostBack="True" OnTextChanged="tbxReason_TextChanged"></asp:TextBox>
+                        </td>
+                    </tr>
+                </table>
                 <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" />
                 <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" />
                 <asp:Button ID="btnDiscard" runat="server" Text="Cancel" OnClick="btnDiscard_Click" />

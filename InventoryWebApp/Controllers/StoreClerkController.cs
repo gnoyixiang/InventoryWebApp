@@ -5,6 +5,7 @@ using System.Web;
 using InventoryWebApp.Models.Entities;
 using InventoryWebApp.DAO;
 using System.Text;
+using System.Data;
 
 namespace InventoryWebApp.Controllers
 {
@@ -62,21 +63,29 @@ namespace InventoryWebApp.Controllers
 
             Adjustment a = new Adjustment();
             //a.AdjustmentCode = em.Adjustments.Last().AdjustmentCode;
+            StringBuilder adjustmentCodeTemp;
 
-            //create new adjustment code
-            string fmt = "00000000";
-            StringBuilder adjustmentCodeTemp = new StringBuilder(adjustmentDAO.GetLastAdjustment());
-            int adjustmentCodeTemp2 = Convert.ToInt32(adjustmentCodeTemp.Replace("A", "").ToString());
-            adjustmentCodeTemp2++;
-            adjustmentCodeTemp = new StringBuilder(adjustmentCodeTemp2.ToString(fmt));
-            adjustmentCodeTemp.Insert(0, "A", 1);
+            if (adjustmentDAO.GetLastAdjustment() == null)
+            {
+                adjustmentCodeTemp = new StringBuilder("A000000001");
+            }
+            else
+            {
+                //create new adjustment code
+                string fmt = "00000000";
+                adjustmentCodeTemp = new StringBuilder(adjustmentDAO.GetLastAdjustment());
+                int adjustmentCodeTemp2 = Convert.ToInt32(adjustmentCodeTemp.Replace("A", "").ToString());
+                adjustmentCodeTemp2++;
+                adjustmentCodeTemp = new StringBuilder(adjustmentCodeTemp2.ToString(fmt));
+                adjustmentCodeTemp.Insert(0, "A", 1);
+            }
 
             a.AdjustmentCode = adjustmentCodeTemp.ToString();
             a.DateCreated = dateCreated;
             a.ItemCode = stationeryDAO.SearchByDescription(selectedItem).FirstOrDefault().ItemCode;
             a.AdjustmentQuant = quantityUpdate;
             a.Reason = reason;
-
+            
             return a;
         }
         //StockAdjustmentEdit.aspx.cs
@@ -108,10 +117,68 @@ namespace InventoryWebApp.Controllers
         {
             return supplierDAO.ListOfSupplier();
         }
+        //QuotationPrint.aspx.cs
+        public Supplier GetSupplier(string supplierCode)
+        {
+            return supplierDAO.GetSupplier(supplierCode);
+        }
+        //QuotationPrint.aspx.cs
+        public DataTable LoadQuotationPriceList(string s, Supplier supplierPick)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                List<StationeryCatalogue> stationerySupplied = em.StationeryCatalogues.Where
+                    (x => x.Supplier1 == s || x.Supplier2 == s || x.Supplier3 == s).ToList();
+
+                DataTable intermediateDataSource = new DataTable();
+                DataColumn[] keys = new DataColumn[1];
+                DataColumn column;
+                DataRow rowTempDataSource;
+
+                column = new DataColumn();
+                column.DataType = System.Type.GetType("System.String");
+                column.ColumnName = "Description";
+
+                intermediateDataSource.Columns.Add(column);
+
+                keys[0] = column;
+                intermediateDataSource.PrimaryKey = keys;
+
+                column = new DataColumn();
+                column.DataType = System.Type.GetType("System.Decimal");
+                column.ColumnName = "Price";
+                intermediateDataSource.Columns.Add(column);
+
+                Tender tenderTemp;
+                tenderTemp = em.Tenders.Where
+                        (x => x.SupplierCode == supplierPick.SupplierCode).OrderByDescending(x => x.DateCreated).FirstOrDefault();
+
+                foreach (StationeryCatalogue a in stationerySupplied)
+                {
+                    rowTempDataSource = intermediateDataSource.NewRow();
+                    rowTempDataSource["Description"] = a.Description;
+
+                    if (tenderTemp != null)
+                    {
+                        rowTempDataSource["Price"] = em.TenderDetails.Where
+                                (x => x.ItemCode == a.ItemCode &&
+                                x.TenderCode == tenderTemp.TenderCode).FirstOrDefault().Price;
+                    }
+
+                    intermediateDataSource.Rows.Add(rowTempDataSource);
+                }
+                return intermediateDataSource;
+            }
+        }
         //StockAdjustmentList.aspx.cs
         public List<Adjustment> ListAllAdjustments()
         {
-            return adjustmentDAO.ListAllAdjustments();
+            List<Adjustment> listAdjustment= adjustmentDAO.ListAllAdjustments();
+            foreach (Adjustment a in listAdjustment)
+            {
+                a.ItemCode = stationeryDAO.GetStationery(a.ItemCode).Description;
+            }
+            return listAdjustment;
         }
     }
 }

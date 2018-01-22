@@ -45,7 +45,7 @@ namespace InventoryWebApp
 
                 Adjustment a = (Adjustment)e.Row.DataItem;
 
-                if (a.Status == "pending" || a.Status == "unsubmitted")
+                if (a.Status == "unsubmitted")
                 {
                     HyperLink hl = e.Row.FindControl("HyperLink1") as HyperLink;
                     //hl.NavigateUrl = "~/StockAdjustmentEdit.aspx?AdjustmentCode=" + ParameterId.ToString();
