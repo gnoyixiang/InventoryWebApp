@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using InventoryWebApp.Models.Entities;
 using System.Web.SessionState;
+using InventoryWebApp.Models;
 
 namespace InventoryWebApp.Controllers
 {
@@ -15,24 +16,27 @@ namespace InventoryWebApp.Controllers
         private static IRequestDetailsDAO rdDAO = new RequestDetailsDAO();
         private static IDisbursementDAO dDAO = new DisbursementDAO();
         private static IDisbursementDetailsDAO ddDAO = new DisbursementDetailsDAO();
+        private static IDepartmentDAO Idpt = new DepartmentDAO();
         static DateTime now = DateTime.Now;
+        private static IRequestDAO Ir = new RequestDAO();
+        private static ICollectionPointDAO Icp = new CollectionPointDAO();
         //list catalogue to gridview
-        public List<StationeryCatalogue> gridview()
+        public List<StationeryCatalogue> Gridview()
         {
             List<StationeryCatalogue> list = Isc.ListAllStationery();
             return list;
         }
-        public List<StationeryCatalogue> searchByDescription(string keyword)
+        public List<StationeryCatalogue> SearchByDescription(string keyword)
         {
             List<StationeryCatalogue> list = Isc.SearchByDescription(keyword);
             return list;
         }
-        public List<StationeryCatalogue> searchByCategoryCode(string keyword)
+        public List<StationeryCatalogue> SearchByCategoryCode(string keyword)
         {
             List<StationeryCatalogue> list = Isc.SearchByCategory(keyword);
             return list;
         }
-        public List<StationeryCatalogue> searchByItemCode(string keyword)
+        public List<StationeryCatalogue> SearchByItemCode(string keyword)
         {
             List<StationeryCatalogue> list = Isc.SearchByItemCode(keyword);
             return list;
@@ -46,11 +50,24 @@ namespace InventoryWebApp.Controllers
             return rDAO.GetRequest(requestCode);
         }
         //add Request with requestDetail
-        public static int AddRequest(Request R)
+        public string AddRequest(string userName, string departmentCode, List<RequestDTO> stationaries)
         {
-            int a = -1;
-            a = rDAO.AddRequest(R);
-            return a;
+            string requestCode = "RQ" + DateTime.Now.ToString("yyMMddHHmmssfff");
+            Request request = new Request()
+            {
+                RequestCode = requestCode,
+                DepartmentCode = departmentCode,
+                DateCreated = DateTime.Now,
+                Status = "pending",
+                UserName = userName
+            };
+            foreach (var stationary in stationaries)
+            {
+                request.RequestDetails.Add(new RequestDetail()
+                { ItemCode = stationary.ItemCode, Quantity = stationary.Quantity, RemainingQuant = stationary.Quantity, Notes = "" });
+            }
+            Ir.AddRequest(request);
+            return requestCode;
         }
         public List<Request> ListAllRequest()
         {
@@ -118,6 +135,17 @@ namespace InventoryWebApp.Controllers
         public void DeleteRequestDetail(RequestDetail rd)
         {
             rdDAO.DeleteRequestDetail(rd);
+        }
+        public void UpdateCollectionPoint(string deptCode, string newCCP)
+        {
+            Department dpt = new Department();
+            dpt.CollectionPointCode = newCCP;
+            dpt.DepartmentCode = deptCode;
+            Idpt.UpdateCollectionPoint(dpt);
+        }
+        public List<CollectionPoint> DdlCollectionPoint()
+        {
+            return Icp.ListAllCollectionPoint();
         }
 
 

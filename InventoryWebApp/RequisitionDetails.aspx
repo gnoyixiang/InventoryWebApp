@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="container-fluid">
+    <div class="container-fluid" id="printableArea">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/RequisitionList">View Requisition</a></li>
@@ -37,7 +37,7 @@
                 </div>
                 <br />
                 <asp:ListView ID="ListView1" runat="server" OnItemEditing="listDetails_ItemEditing"
-                     OnItemCanceling="ListView1_ItemCanceling" OnItemUpdating="ListView1_ItemUpdating" OnItemDeleting="ListView1_ItemDeleting">
+                    OnItemCanceling="ListView1_ItemCanceling" OnItemUpdating="ListView1_ItemUpdating" OnItemDeleting="ListView1_ItemDeleting">
                     <LayoutTemplate>
                         <table class="table">
                             <tr>
@@ -47,8 +47,7 @@
                                 <th>Remaining Quantity</th>
                                 <th>Quantity</th>
                                 <th>Notes</th>
-                                <th>Edit</th>
-                                <th>Delete</th>
+
                             </tr>
                             <tr id="itemPlaceholder" runat="server">
                             </tr>
@@ -65,12 +64,12 @@
                             <% if (IsEditable())
                                 { %>
                             <td align="center" style="width: 3%">
-                                <asp:LinkButton ID="lbEdit" runat="server" CommandName="Edit">
+                                <asp:LinkButton ID="lbEdit" runat="server" CommandName="Edit" Title="Edit">
                                     <i class="fa fa-pencil-square" style="font-size:1.5em;color:darkorange" aria-hidden="true"></i>
                                 </asp:LinkButton>
                             </td>
                             <td align="center" style="width: 3%">
-                                <asp:LinkButton ID="lbDelete" runat="server" CommandName="Delete">
+                                <asp:LinkButton ID="lbDelete" runat="server" CommandName="Delete" Title="Delete" data-toggle="modal" data-target="#exampleModalCenter">
                         <i class="fa fa-trash-o" style="font-size:1.5em;color:hotpink" aria-hidden="true"></i></asp:LinkButton>
                             </td>
                             <% } %>
@@ -94,10 +93,10 @@
                                 <asp:Label ID="lblEditNotes" runat="server"><%# Eval("Notes") %></asp:Label></td>
 
                             <td align="center">
-                                <asp:LinkButton ID="UpdateButton" runat="server" CommandName="Update" CausesValidation="true">
+                                <asp:LinkButton ID="UpdateButton" runat="server" CommandName="Update">
                                             <i class="fa fa-check-square" style="font-size:1.5em;color:forestgreen" aria-hidden="true"></i>
                                 </asp:LinkButton>
-                                <asp:LinkButton ID="CancelButton" runat="server" CommandName="Cancel" CausesValidation="false">
+                                <asp:LinkButton ID="CancelButton" runat="server" CommandName="Cancel">
                                             <i class="fa fa-minus-square " style="font-size:1.5em;color:red" aria-hidden="true"></i>
                                 </asp:LinkButton>
                             </td>
@@ -138,7 +137,43 @@
                 </asp:ListView>
             </asp:Panel>
         </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Delete Confirmation</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you Sure You Want To Remove Enty
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <asp:Button ID="PrintButton" runat="server" Text="Print" OnClientClick='printDiv("printableArea")' />
     </div>
+    <script language="javascript">
+        function printDiv(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            var originalContents = document.body.innerHTML;
+
+            document.body.innerHTML = printContents;
+
+            window.print();
+
+            document.body.innerHTML = originalContents;
+        }
+
+    </script>
+
 
 
 </asp:Content>

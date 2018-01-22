@@ -37,9 +37,11 @@ namespace InventoryWebApp
             {
                 FillFields();
                 ListView1.DataSource = ec.ListAllRequestDetails(RO);
+
                 ListView1.DataBind();
                 ListView2.DataSource = ec.ListDisbursementbyRequest(RO);
                 ListView2.DataBind();
+
             }
 
 
@@ -59,7 +61,6 @@ namespace InventoryWebApp
 
         protected void listDetails_ItemEditing(object sender, ListViewEditEventArgs e)
         {
-                //scController.EditingPurchaseOrder(po);
                 ListView1.EditIndex = e.NewEditIndex;
                 BindData();
         }
