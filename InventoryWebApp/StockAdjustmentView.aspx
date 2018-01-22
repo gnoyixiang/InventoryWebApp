@@ -8,7 +8,7 @@
             <div class="col-sm-10">
                 <h3>View Inventory Adjustment <%=Request.QueryString["AdjustmentCode"].ToString()%></h3>
                 <br />
-                <table border="0" style="width: 600px; height: 100px">
+                <table border="0" style="width: 300px; height: 100px">
                     <tr>
                         <td>
                             <asp:Label ID="lblItemChoice" runat="server" Text="Item:"></asp:Label>

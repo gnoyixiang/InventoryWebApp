@@ -22,7 +22,9 @@ namespace InventoryWebApp
             //Supplier supplierPick = em.Suppliers.First(x => x.SupplierCode == s);
             lblSupplierName.Text = supplierPick.SupplierName;
             lblSupplierAddress.Text = supplierPick.Address;
-            
+            lblTenderDate.Text = sClerkCtrl.GetTender(supplierPick.SupplierCode).DateCreated.ToString();
+
+
             gvItemsSupplied.DataSource = sClerkCtrl.LoadQuotationPriceList(s, supplierPick);
             gvItemsSupplied.DataBind();
 

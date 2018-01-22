@@ -22,6 +22,7 @@ namespace InventoryWebApp.Controllers
         IEmployeeDAO employeeDAO = new EmployeeDAO();
         IAdjustmentDAO adjustmentDAO = new AdjustmentDAO();
         ISupplierDAO supplierDAO = new SupplierDAO();
+        ITenderDAO tenderDAO = new TenderDAO();
 
         //StockAdjustmentNew.aspx.cs
         public List<string> LoadDDLStockAdjustmentNew()
@@ -85,7 +86,7 @@ namespace InventoryWebApp.Controllers
             a.ItemCode = stationeryDAO.SearchByDescription(selectedItem).FirstOrDefault().ItemCode;
             a.AdjustmentQuant = quantityUpdate;
             a.Reason = reason;
-            
+
             return a;
         }
         //StockAdjustmentEdit.aspx.cs
@@ -170,10 +171,25 @@ namespace InventoryWebApp.Controllers
                 return intermediateDataSource;
             }
         }
+        //QuotationPrint.aspx.cs
+        public Tender GetTender(string supplierCode)
+        {
+            Tender returnTender = new Tender();
+            List<Tender> tenderResults = tenderDAO.ListTendersBySupplierCode(supplierCode);
+            if (tenderResults.Count == 0)
+            {
+                returnTender.DateCreated = new DateTime(2000, 1, 1);
+                return returnTender;
+            }
+            else
+            {
+                return tenderResults.OrderByDescending(x => x.DateCreated).FirstOrDefault();
+            }
+        }
         //StockAdjustmentList.aspx.cs
         public List<Adjustment> ListAllAdjustments()
         {
-            List<Adjustment> listAdjustment= adjustmentDAO.ListAllAdjustments();
+            List<Adjustment> listAdjustment = adjustmentDAO.ListAllAdjustments();
             foreach (Adjustment a in listAdjustment)
             {
                 a.ItemCode = stationeryDAO.GetStationery(a.ItemCode).Description;
