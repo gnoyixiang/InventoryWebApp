@@ -25,12 +25,7 @@ namespace InventoryWebApp
         }
         private void BindGrid()
         {
-            var listRequest = (List<RequestDTO>)Session["ItemDetails"];
-            //foreach( var request in listRequest)
-            //{
-                
-            //}
-            gvNewRequest.DataSource = listRequest;
+            gvNewRequest.DataSource = (List<RequestDTO>)Session["ItemDetails"];
             gvNewRequest.DataBind();
         }
         protected void btnAddItem_Click(object sender, EventArgs e)
@@ -93,6 +88,26 @@ namespace InventoryWebApp
         {
             gvNewRequest.PageIndex = e.NewPageIndex;
             this.BindGrid();
+        }
+
+        protected void gvNewRequest_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if(e.Row.RowType == DataControlRowType.DataRow)
+            {
+                RequestDTO request = (RequestDTO)e.Row.DataItem;
+
+                TextBox quantity = (e.Row.FindControl("tbxQuantity") as TextBox);
+                if(quantity != null)
+                {
+                    try
+                    {
+                        quantity.Text = request.Quantity.ToString();
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                }
+            }
         }
     }
 }

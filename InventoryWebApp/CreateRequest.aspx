@@ -58,7 +58,7 @@
         OnRowDeleting="gvNewRequest_RowDeleting"
         OnRowCancelingEdit="gvNewRequest_RowCancelingEdit"
         OnRowUpdating="gvNewRequest_RowUpdating"
-        OnPageIndexChanging="gvNewRequest_PageIndexChanging" AllowPaging="True" CssClass="table table-striped table-bordered table-hover">
+        OnPageIndexChanging="gvNewRequest_PageIndexChanging" AllowPaging="True" CssClass="table table-striped table-bordered table-hover" OnRowDataBound="gvNewRequest_RowDataBound">
         <AlternatingRowStyle BackColor="White" />
         <Columns>
             <asp:BoundField DataField="ItemCode" HeaderText="Item Number" ReadOnly="true" />
@@ -68,9 +68,6 @@
                 <EditItemTemplate>
                     <asp:TextBox ID="tbxQuantity" runat="server" type="number">
                     </asp:TextBox>
-                    <asp:CompareValidator ID="quantityCompareValidator1" runat="server" Type="Integer"
-                        Operator="DataTypeCheck" Display="Dynamic"
-                        ErrorMessage="Invalid Value" ControlToValidate="tbxQuantity" ForeColor="Red"></asp:CompareValidator>
                     <asp:CompareValidator ID="quantityCompareValidator2" runat="server" Type="Integer" Operator="GreaterThan" Display="Dynamic"
                         ErrorMessage="Enter a value greater than Zero" ValueToCompare="0" ControlToValidate="tbxQuantity"
                         ForeColor="Red"></asp:CompareValidator>
