@@ -8,7 +8,7 @@ namespace InventoryWebApp.Models.Entities
     using System.Data.Entity.Spatial;
 
     [Table("RequestDetail")]
-    public partial class RequestDetail:IComparable<RequestDetail>
+    public partial class RequestDetail : IComparable<RequestDetail>
     {
         RequestDAO requestDAO = new RequestDAO();
         [Key]
@@ -34,10 +34,9 @@ namespace InventoryWebApp.Models.Entities
         public virtual Request Request { get; set; }
 
         public virtual StationeryCatalogue StationeryCatalogue { get; set; }
-
         public int CompareTo(RequestDetail other)
         {
-            return ((DateTime) requestDAO.GetRequest(this.RequestCode).DateApproved).CompareTo(requestDAO.GetRequest(other.RequestCode).DateApproved);
+            return ((DateTime)requestDAO.GetRequest(this.RequestCode).DateApproved).CompareTo(requestDAO.GetRequest(other.RequestCode).DateApproved);
         }
     }
 }

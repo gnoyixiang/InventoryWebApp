@@ -52,11 +52,10 @@ namespace InventoryWebApp.Models.Entities
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DisbursementDetail> DisbursementDetails { get; set; }
-
         public int CompareTo(Disbursement other)
         {
             return this.CollectionPointCode.CompareTo(other.CollectionPointCode);
-            
+
         }
     }
 }

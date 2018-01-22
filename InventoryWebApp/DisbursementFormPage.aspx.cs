@@ -100,5 +100,9 @@ namespace InventoryWebApp
             return sClerkCtrl.GetRequestDetail(requestCode, itemCode);
         }
 
+        protected void lvDisbursementDetails_ItemEditing(object sender, ListViewEditEventArgs e)
+        {
+
+        }
     }
 }

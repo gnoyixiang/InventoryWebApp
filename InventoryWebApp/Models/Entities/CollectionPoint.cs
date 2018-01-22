@@ -7,7 +7,7 @@ namespace InventoryWebApp.Models.Entities
     using System.Data.Entity.Spatial;
 
     [Table("CollectionPoint")]
-    public partial class CollectionPoint: IComparable<CollectionPoint>
+    public partial class CollectionPoint : IComparable<CollectionPoint>
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CollectionPoint()
@@ -35,7 +35,6 @@ namespace InventoryWebApp.Models.Entities
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Disbursement> Disbursements { get; set; }
-
         public int CompareTo(CollectionPoint other)
         {
             return this.CollectionVenue.CompareTo(other.CollectionVenue);

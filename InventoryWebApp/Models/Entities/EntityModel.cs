@@ -11,6 +11,7 @@ namespace InventoryWebApp.Models.Entities
             : base("name=EntityModel")
         {
         }
+
         static EntityModel()
         {
             Util.EnsureStaticReference<System.Data.Entity.SqlServer.SqlProviderServices>();

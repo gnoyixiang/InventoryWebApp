@@ -35,15 +35,17 @@
             </table>
             <br />
             <br />
-            <asp:ListView ID="lvDisbursementDetails" runat="server">
+            <asp:ListView ID="lvDisbursementDetails" runat="server" OnItemEditing="lvDisbursementDetails_ItemEditing">
                 <LayoutTemplate>
                     <table class="table">
                         <thead>
                             <th>Request Code</th>
                             <th>Stationery Description</th>
                             <th style="text-align: right; padding-right: 20px">Quantity Needed</th>
-                            <th style="text-align: right; padding-right: 20px">Quantity Disbursed</th>
+                            <th style="text-align: right; padding-right: 20px">Quantity Disbursing</th>
+                            <th style="text-align: right; padding-right: 20px">Quantity Received</th>
                             <th>Request Status</th>
+                            <th>Edit</th>
                         </thead>
                         <tbody id="itemPlaceholder" runat="server">
                         </tbody>
@@ -56,11 +58,33 @@
                             <td><%#GetStationeryByCode(Eval("ItemCode").ToString()).Description%></td>
                             <td style="text-align: right; padding-right: 20px"><%# GetRequestDetail(Eval("RequestCode").ToString(), Eval("ItemCode").ToString()).RemainingQuant %></td>
                             <td style="text-align: right; padding-right: 20px"><%# Eval("Quantity") %></td>
+                            <td style="text-align: right; padding-right: 20px"><%# Eval("Quantity") %></td>
                             <td><%# GetRequest(Eval("RequestCode").ToString()).Status %></td>
+                            <td>
+                                <asp:LinkButton ID="LinkButton1" runat="server">LinkButton</asp:LinkButton>
+                            </td>
                         </tr>
-                        
                     </tbody>
                 </ItemTemplate>
+                <EditItemTemplate>
+                    <tbody>
+                        <tr>
+                            <td><%# Eval("RequestCode") %></td>
+                            <td><%#GetStationeryByCode(Eval("ItemCode").ToString()).Description%></td>
+                            <td style="text-align: right; padding-right: 20px"><%# GetRequestDetail(Eval("RequestCode").ToString(), Eval("ItemCode").ToString()).RemainingQuant %></td>
+                            <td style="text-align: right; padding-right: 20px"><%# Eval("Quantity") %></td>
+                            <td style="text-align: right; padding-right: 20px">
+                                <asp:TextBox ID="tbxActualQuantity" runat="server" Text=<%# Eval("Quantity") %>></asp:TextBox>
+                            </td>
+                            <td><%# GetRequest(Eval("RequestCode").ToString()).Status %></td>
+                            <td>
+                                <button type="button" class="btn btn-default" aria-label="Left Align" onclick="lvDisbursementDetails_ItemEditing">
+                                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </EditItemTemplate>
             </asp:ListView>
         </ContentTemplate>
     </asp:UpdatePanel>
