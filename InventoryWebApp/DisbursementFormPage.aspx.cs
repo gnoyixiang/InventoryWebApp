@@ -36,13 +36,20 @@ namespace InventoryWebApp
                 ddlDepartment.DataValueField = "DepartmentCode";
                 ddlDepartment.DataBind();
             }
-            lvDisbursementDetails.DataSource = sClerkCtrl.GetDisbursingDisbDetailsByDeptCode(ddlDepartment.SelectedValue);
-            lvDisbursementDetails.DataBind();
+            
             tbxRep.Text = GetEmployee(GetDepartment().RepresentativeCode).EmployeeTitle+ " " + GetEmployee(GetDepartment().RepresentativeCode).EmployeeName;
             tbxDisbursementDate.Text = GetPlanToCollectDate().ToString("dd MMM yyyy");
             tbxStatus.Text = GetDisbursingDisbursementByDeptCode(ddlDepartment.SelectedValue).Status;
             tbxDisbursementTime.Text = GetCollectionTime();
+
+            BindLvDisbursementDetails();
            
+        }
+
+        protected void BindLvDisbursementDetails()
+        {
+            lvDisbursementDetails.DataSource = sClerkCtrl.GetDisbursingDisbDetailsByDeptCode(ddlDepartment.SelectedValue);
+            lvDisbursementDetails.DataBind();
         }
 
         protected String GetCollectionTime()
@@ -102,7 +109,26 @@ namespace InventoryWebApp
 
         protected void lvDisbursementDetails_ItemEditing(object sender, ListViewEditEventArgs e)
         {
+            lvDisbursementDetails.EditIndex = e.NewEditIndex;
+            BindLvDisbursementDetails();
+        }
 
+        protected void lvDisbursementDetails_ItemUpdating(object sender, ListViewUpdateEventArgs e)
+        {
+            //TextBox tbxActualQuantity = lvDisbursementDetails.Items[e.ItemIndex].FindControl("tbxActualQuantity") as TextBox;
+
+            //lblTest.Text = e.NewValues["Quantity"].ToString();
+            
+
+
+            lvDisbursementDetails.EditIndex = -1;
+            BindLvDisbursementDetails();
+        }
+
+        protected void lvDisbursementDetails_ItemCanceling(object sender, ListViewCancelEventArgs e)
+        {
+            lvDisbursementDetails.EditIndex = -1;
+            BindLvDisbursementDetails();
         }
     }
 }

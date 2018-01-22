@@ -20,11 +20,23 @@ namespace InventoryWebApp.Controllers
         IStationeryCatalogueDAO stationeryDAO = new StationeryCatalogueDAO();
         ICollectionPointDAO collectionPointDAO = new CollectionPointDAO();
 
+        public void UpdateActualQuantity(String deptCode, String itemCode, String notes)
+        {
+            
+        }
         public RequestDetail GetRequestDetail(string RequestC, string itemCode)
         {
             return requestDetailsDAO.GetRequestDetail(RequestC, itemCode);
         }
-
+        public List<DisbursementDetail> GetDisbursingDisbursementDetail()
+        {
+            List<DisbursementDetail> ddList = new List<DisbursementDetail>();
+            foreach (var item in GetDisbursingDisbursements())
+            {
+                ddList.AddRange(GetDisbursingDisbDetailsByDeptCode(item.DepartmentCode));
+            }
+            return ddList;
+        }
         public Disbursement GetDisbursingDisbursementByDeptCode(String deptCode)
         {
             List<Disbursement> dList = GetDisbursingDisbursements();
@@ -79,7 +91,7 @@ namespace InventoryWebApp.Controllers
         }
         public String GetCollectionSClerkInCharge(String collectionPointCode)
         {
-            return employeeDAO.GetEmployeeByCode(collectionPointDAO.SearchByCollectionPointCode(collectionPointCode).First().SClerkInCharge).EmployeeName;
+            return employeeDAO.GetEmployeeByCode(collectionPointDAO.SearchByCollectionPointCode(collectionPointCode).FirstOrDefault().SClerkInCharge).EmployeeName;
         }
         public void SetCollectionDateToDisbursement(DateTime dt)
         {
@@ -88,6 +100,11 @@ namespace InventoryWebApp.Controllers
             {
                 item.DatePlanToCollect = dt;
                 disbursementDAO.UpdateDbmStatus(item);
+                foreach (var detail in disbursementDetailsDAO.SearchDDByDCode(item.DisbursementCode))
+                {
+                    detail.ActualQuantity = detail.Quantity;
+                    disbursementDetailsDAO.UpdateDisbursementDetail(detail);
+                }
             }
         }
         public CollectionPoint GetCollectionPointByCode (String collectionPointCode)
@@ -111,7 +128,7 @@ namespace InventoryWebApp.Controllers
             HashSet<String> collectionList = new HashSet<string>();
             foreach (var item in dList)
             {
-                cpList.Add(collectionPointDAO.SearchByCollectionPointCode(disbursementDAO.GetDisbursingDisburmentByDeptCode(item.DepartmentCode).CollectionPointCode).First());
+                cpList.Add(collectionPointDAO.SearchByCollectionPointCode(disbursementDAO.GetDisbursingDisburmentByDeptCode(item.DepartmentCode).CollectionPointCode).FirstOrDefault());
             }
 
             return cpList; 
@@ -325,7 +342,7 @@ namespace InventoryWebApp.Controllers
         public Retrieval GetCurrentRetrieval()
         {
             Retrieval retrieval = retrievalDAO.ListRetrievalByStatus("processing").FirstOrDefault();
-            //Retrieval rTest = retrievalList.First();
+            //Retrieval rTest = retrievalList.FirstOrDefault();
             if (retrieval == null)
             {
                 retrieval = new Retrieval();

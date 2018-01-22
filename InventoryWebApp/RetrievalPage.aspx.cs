@@ -98,9 +98,7 @@ namespace InventoryWebApp
                 rdList[i].Notes = tbxNotes.Text;
                 sClerkCtrl.UpdateRetrievalDetail(rdList[i]);
             }
-
             Response.Redirect("/2AllocationPage.aspx");
-
         }
 
 

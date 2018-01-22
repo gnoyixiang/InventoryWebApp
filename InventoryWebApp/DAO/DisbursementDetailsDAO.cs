@@ -28,5 +28,16 @@ namespace InventoryWebApp.DAO
             em = new EntityModel();
             return em.DisbursementDetails.Where(dd => dd.DisbursementCode == disbursementCode).ToList();
         }
+
+        public int UpdateDisbursementDetail (DisbursementDetail ddUpdate)
+        {
+            em = new EntityModel();
+            DisbursementDetail dd = em.DisbursementDetails.Where(d => d.Disbursement.Status == "disbursing" && d.DisbursementCode == ddUpdate.DisbursementCode && d.ItemCode == ddUpdate.ItemCode && d.RequestCode == ddUpdate.RequestCode).FirstOrDefault();
+            dd.Price = ddUpdate.Price;
+            dd.Quantity = ddUpdate.Quantity;
+            dd.ActualQuantity = ddUpdate.ActualQuantity;
+            dd.Notes = ddUpdate.Notes;
+            return em.SaveChanges();
+        }
     }
 }

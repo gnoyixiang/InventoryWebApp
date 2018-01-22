@@ -8,6 +8,7 @@ namespace InventoryWebApp.DAO
         List<DisbursementDetail> SearchDDByItem(StationeryCatalogue item);
         List<DisbursementDetail> SearchDDByRequest(Request request);
         List<DisbursementDetail> SearchDDByDCode(string disbursementCode);
+        int UpdateDisbursementDetail(DisbursementDetail ddUpdate);
 
     }
 }
