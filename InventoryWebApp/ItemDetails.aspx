@@ -56,11 +56,14 @@
                     <asp:ListItem>50</asp:ListItem>
                 </asp:RadioButtonList>
                 <asp:RequiredFieldValidator ID="rdlRequiredValidator" runat="server" ControlToValidate="rdlQuantity" ErrorMessage="Quantity is required!" ForeColor="#FF3300"></asp:RequiredFieldValidator>
+                <br />
             </td>
         </tr>
         <tr>
             <td></td>
             <td>
+                <asp:Label ID="lblAnotherQuantity" runat="server" Text="Enter another quantity here!"></asp:Label>
+                <br />
                 <asp:TextBox ID="tbxQuantity" runat="server" OnTextChanged="tbxQuantity_TextChanged" AutoPostBack="true"></asp:TextBox>
                 <asp:CompareValidator ID="quantityCompareValidator1" runat="server" ErrorMessage="Enter an integer value" Type="Integer" ControlToValidate="tbxQuantity" Operator="DataTypeCheck" ForeColor="Red" ></asp:CompareValidator>
                 <br />

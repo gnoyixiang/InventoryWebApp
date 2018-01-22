@@ -61,9 +61,9 @@ namespace InventoryWebApp
         {
             if (rdlQuantity.SelectedItem != null)
             {
-                tbxQuantity.Visible = false;
+                tbxQuantity.Text = rdlQuantity.SelectedItem.Text;
                 tbxRequiredValidator.Visible = false;
-                lblQuantityResult.Text = "Quantity for this item is: " + rdlQuantity.SelectedItem.Text;
+                lblAnotherQuantity.Visible = false;
             }
         }
 

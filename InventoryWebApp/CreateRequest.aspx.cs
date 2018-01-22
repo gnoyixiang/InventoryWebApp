@@ -25,7 +25,12 @@ namespace InventoryWebApp
         }
         private void BindGrid()
         {
-            gvNewRequest.DataSource = (List<RequestDTO>)Session["ItemDetails"];
+            var listRequest = (List<RequestDTO>)Session["ItemDetails"];
+            //foreach( var request in listRequest)
+            //{
+                
+            //}
+            gvNewRequest.DataSource = listRequest;
             gvNewRequest.DataBind();
         }
         protected void btnAddItem_Click(object sender, EventArgs e)
