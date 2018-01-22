@@ -8,6 +8,12 @@
         <li class="active">Update Collection Point</li>
     </ul>
     <h3>Update Collection Point</h3>
+    <div class="row">
+        <div class="col-xs-12 col-md-6">
+    <asp:Label ID="lblDeptName" runat="server" Text="Department Name: "></asp:Label>
+    <asp:Label ID="lblInfoDeptName" runat="server" Text=""></asp:Label>
+             </div>
+    </div>
     <br />
     <br />
     <div class="row">

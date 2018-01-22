@@ -79,6 +79,14 @@ namespace InventoryWebApp.Controllers
             Idpt.UpdateCollectionPoint(dpt);
             Idbm.UpdateDbmCollectionPoint(deptCode, newCCP);
         }
+        public string GetCollectionPoint(string deptName)
+        {
+            return Idpt.GetCollectionPoint(deptName);
+        }
+        public string GetDeptCodeByName( string deptName)
+        {
+            return Idpt.GetDepartCodeByName(deptName);
+        }
         public void GetUserInfo(string userName)
         {
             userName = HttpContext.Current.Session.SessionID;

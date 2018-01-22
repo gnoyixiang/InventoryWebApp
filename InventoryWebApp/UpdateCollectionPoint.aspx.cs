@@ -17,6 +17,9 @@ namespace InventoryWebApp
         {
             if (!IsPostBack)
             {
+                //TODO: display Department Name
+                lblInfoDeptName.Text = "Institute of Systems Science";
+                tbxCCP.Text = ec.GetCollectionPoint(lblInfoDeptName.Text);
                 ddlCP.DataSource = ec.DdlCollectionPoint();
                 ddlCP.DataTextField = "CollectionVenue";
                 ddlCP.DataValueField = "CollectionPointCode";
@@ -30,8 +33,9 @@ namespace InventoryWebApp
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "$('#myModal').modal('show');", true);
                 if (!String.IsNullOrEmpty(tbxCCP.Text) && ddlCP.SelectedItem.Selected)
                 {
+                    string deptCode = ec.GetDeptCodeByName(lblInfoDeptName.Text);
                     //TODO: change department code
-                    ec.UpdateCollectionPoint("CPSC", ddlCP.SelectedValue);
+                    ec.UpdateCollectionPoint(deptCode, ddlCP.SelectedValue);
                 }
             }
         }

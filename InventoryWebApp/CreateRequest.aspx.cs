@@ -37,9 +37,10 @@ namespace InventoryWebApp
             if (Page.IsValid)
             {
                 var stationaries = (List<RequestDTO>)Session["ItemDetails"];
-                //Todo: change back to username and department code
+                //TODO: change back to username and department code
 
                 //Session["userName"] = lblEmpName.Text;
+               // Session["departmentName"] = lblDeptName.Text;
                 string requestcode = ec.AddRequest("yufei@logic.edu.sg", "CPSC", stationaries);
                 //string requestcode = ec.AddRequest(lblDeptName.Text, lblEmpName.Text, stationaries);
                
@@ -105,6 +106,7 @@ namespace InventoryWebApp
                     }
                     catch (Exception ex)
                     {
+
                     }
                 }
             }

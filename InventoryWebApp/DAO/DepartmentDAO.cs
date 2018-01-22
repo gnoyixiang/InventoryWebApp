@@ -83,5 +83,13 @@ namespace InventoryWebApp.DAO
         {
             return em.Departments.Where(x => x.Employee.UserName.Equals(userName)).Select(p=> p.DepartmentCode).FirstOrDefault();
         }
+        public string GetCollectionPoint(string deptName)
+        {
+            return em.Departments.Where(x => x.DepartmentName.Equals(deptName)).Select(p => p.CollectionPointCode).FirstOrDefault();
+        }
+        public string GetDepartCodeByName(string deptName)
+        {
+            return em.Departments.Where(x => x.DepartmentName.Equals(deptName)).Select(p => p.DepartmentCode).FirstOrDefault();
+        }
     }
 }
