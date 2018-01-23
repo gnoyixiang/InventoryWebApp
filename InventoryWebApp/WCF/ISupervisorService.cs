@@ -13,110 +13,131 @@ namespace InventoryWebApp.WCF
     public interface ISupervisorService
     {
         [OperationContract]
-        void DoWork();
+        [WebGet(UriTemplate = "/Pending", ResponseFormat = WebMessageFormat.Json)]
+        List<WCFPurchaseOrder> GetAllPendingPO();
 
-        [OperationContract]
-        [WebGet(UriTemplate = "/PendingRequestForSupervisor", ResponseFormat = WebMessageFormat.Json)]
-
-        List<WCFAdjustment> ListOfPendingRequestForSupervisor();
-
-        [OperationContract]
-        [WebGet(UriTemplate = "/PendingRequestForManager", ResponseFormat = WebMessageFormat.Json)]
-
-        List<WCFAdjustment> ListOfPendingRequestForManager();
-
+        //[OperationContract]
+        //[WebGet(UriTemplate = "/Adjustment", ResponseFormat = WebMessageFormat.Json)]
+        //List<WCFPurchaseOrder> GetAllAdjustment();
 
     }
     [DataContract]
-    public class WCFAdjustment
+    public class WCFPurchaseOrder
     {
+        [DataMember]
+        private String purchaseOrderCode;
+        [DataMember]
+        private string dateCreated;
+        [DataMember]
+        private String dateApproved;
+        [DataMember]
+        private String note;
+        [DataMember]
+        private String status;
+        [DataMember]
+        private String supplierCode;
+        [DataMember]
+        private String dateReceived;
+        [DataMember]
+        private String dateSupplyExpected;
+        [DataMember]
+        private String headRemark;
 
-        string adjustmentCode;
+        public WCFPurchaseOrder(String purchaseOrderCode, String dateCreated, String dateApproved, String note, String status, String supplierCode, String dateReceived,
+            String dateSupplyExpected, String headRemark)
+        {
 
+            this.purchaseOrderCode = PurchaseOrderCode;
+            this.dateCreated = dateCreated;
+            this.dateApproved = dateApproved;
+            this.note = note;
+            this.status = status;
+            this.supplierCode = supplierCode;
+            this.dateReceived = dateReceived;
+            this.dateSupplyExpected = dateSupplyExpected;
+            this.headRemark = headRemark;
+        }
+        //public WCFPurchaseOrder(String PurchaseOrderCode, String Note, String SupplierName,
+        //     String HeadRemark)
+        //{
 
-        string itemCode;
+        //    this.PurchaseOrderCode = PurchaseOrderCode;
+        //    // this.DateCreated = DateCreated;
 
+        //    this.Note = Note;
+        //    //this.Status = Status;
+        //    this.SupplierName = SupplierName;
 
-        decimal price;
+        //    this.HeadRemark = HeadRemark;
+        //}
+        //public WCFPurchaseOrder(String PurchaseOrderCode, String Note, String Status, String SupplierName, String HeadRemark)
+        //{
+        //    this.PurchaseOrderCode = PurchaseOrderCode;
 
+        //    this.Note = Note;
+        //    this.Status = Status;
+        //    this.SupplierName = SupplierName;
 
-        int adjustmentQuant;
-
-
-        int stock;
-
-
-        string reason;
-
-
-        string remark;
-
+        //    this.HeadRemark = HeadRemark;
+        //}
+        [DataMember]
+        public string PurchaseOrderCode
+        {
+            get { return purchaseOrderCode; }
+            set { purchaseOrderCode = value; }
+        }
 
         [DataMember]
-        public string AdjustmentCode
+        public string DateCreated
         {
-            get { return adjustmentCode; }
-            set { adjustmentCode = value; }
+            get { return dateCreated; }
+            set { dateCreated = value; }
         }
 
         [DataMember]
-        public string ItemCode
+        public string DateApproved
         {
-            get { return itemCode; }
-            set { itemCode = value; }
-        }
-        [DataMember]
-        public decimal Price
-        {
-            get { return price; }
-            set { price = value; }
+            get { return dateApproved; }
+            set { dateApproved = value; }
         }
 
         [DataMember]
-        public int AdjustmentQuant
+        public string Note
         {
-            get { return adjustmentQuant; }
-            set { adjustmentQuant = value; }
+            get { return note; }
+            set { note = value; }
+        }
+        [DataMember]
+        public string Status
+        {
+            get { return status; }
+            set { status = value; }
         }
 
         [DataMember]
-        public int Stock
+        public string SupplierCode
         {
-            get { return stock; }
-            set { stock = value; }
-        }
-
-        [DataMember]
-        public string Reason
-        {
-            get { return reason; }
-            set { reason = value; }
+            get { return supplierCode; }
+            set { supplierCode = value; }
         }
         [DataMember]
-        public string Remark
+        public string DateReceived
         {
-            get { return remark; }
-            set { remark = value; }
+            get { return dateReceived; }
+            set { dateReceived = value; }
         }
-
-
-        public WCFAdjustment(string adjustmentCode, string itemCode, decimal price, int adjustmentQuant, int stock, string reason, string remark)
+        [DataMember]
+        public string DateSupplyExpected
         {
-            this.adjustmentCode = adjustmentCode;
-
-            this.itemCode = itemCode;
-            this.price = price;
-            this.adjustmentQuant = adjustmentQuant;
-
-            this.stock = stock;
-            this.reason = reason;
-            this.remark = remark;
+            get { return dateSupplyExpected; }
+            set { dateSupplyExpected = value; }
         }
-
-        public WCFAdjustment()
+        [DataMember]
+        public string HeadRemark
         {
-
+            get { return headRemark; }
+            set { headRemark = value; }
         }
     }
-}
 
+}

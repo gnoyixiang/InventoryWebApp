@@ -9,6 +9,7 @@ namespace InventoryWebApp.DAO
         List<Adjustment> ListAllAdjustments();
         List<Adjustment> SearchAdjustmentByStatus(string b);
         int UpdateAdjustment(string b, int d, string e);
+        List<Adjustment> ListAllAdjustmentsByItemCode(string itemCode);
         int UpdateAdjustmentByStoreSupervisor(Adjustment adjustment);
 
         Adjustment GetAdjustmentByAdjustmentCode(string adjustmentCode);

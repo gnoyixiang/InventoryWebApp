@@ -1,5 +1,6 @@
 ﻿using InventoryWebApp.Controllers;
 using InventoryWebApp.Models.Entities;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,33 +14,22 @@ namespace InventoryWebApp.WCF
     // NOTE: In order to launch WCF Test Client for testing this service, please select SupervisorService.svc or SupervisorService.svc.cs at the Solution Explorer and start debugging.
     public class SupervisorService : ISupervisorService
     {
-        StoreSupervisorController stSupController = new StoreSupervisorController();
-        public void DoWork()
+        StoreSupervisorController controller = new StoreSupervisorController();
+
+        public List<WCFPurchaseOrder> GetAllPendingPO()
         {
-
-        }
-
-        public List<WCFAdjustment> ListOfPendingRequestForManager()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<WCFAdjustment> ListOfPendingRequestForSupervisor()
-        {
-            List<WCFAdjustment> listOfWcfAdjustmwnt = new List<WCFAdjustment>();
-            WCFAdjustment wcfAdjustment = new WCFAdjustment();
-            List<Adjustment> adList = stSupController.ListOfPendingAdjustmentBySupervisor();
-
-            foreach (Adjustment a in adList)
+            List<WCFPurchaseOrder> wcfPoList = new List<WCFPurchaseOrder>();
+            List<PurchaseOrder> plist = controller.ListAllPendingPO();
+            foreach (PurchaseOrder p in plist)
             {
-                wcfAdjustment.AdjustmentCode = a.AdjustmentCode;
-                wcfAdjustment.ItemCode = a.ItemCode;
-               // wcfAdjustment.AdjustmentQuant = (int)a.AdjustmentQuant;
-                wcfAdjustment.Reason = a.Reason;
-                wcfAdjustment.Remark = a.HeadRemarks;
-                listOfWcfAdjustmwnt.Add(wcfAdjustment);
+                wcfPoList.Add(new WCFPurchaseOrder(p.PurchaseOrderCode, string.Format("{0:dd/MM/yyyy}", p.DateCreated)
+                    , string.Format("{0:dd/MM/yyyy}", p.DateApproved), p.Notes, p.Status, p.SupplierCode,
+                    string.Format("{0:dd/MM/yyyy}", p.DateReceived), string.Format("{0:dd/MM/yyyy}", p.DateSupplyExpected), p.HeadRemarks));
             }
-            return listOfWcfAdjustmwnt;
+            return wcfPoList;
         }
+     
+
+       
     }
 }

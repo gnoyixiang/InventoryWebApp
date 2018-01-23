@@ -1,4 +1,4 @@
-namespace InventoryWebApp.Models.Entities
+namespace InventoryWebApp.Models
 {
     using System;
     using System.Collections.Generic;
@@ -6,27 +6,22 @@ namespace InventoryWebApp.Models.Entities
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class RetrievalDetail
+    public partial class TenderDetail
     {
         [Key]
         [Column(Order = 0)]
         [StringLength(20)]
-        public string ItemCode { get; set; }
-
-        public int? QuantityRetrieved { get; set; }
-
-        [StringLength(200)]
-        public string Notes { get; set; }
+        public string TenderCode { get; set; }
 
         [Key]
         [Column(Order = 1)]
         [StringLength(20)]
-        public string RetrievalCode { get; set; }
+        public string ItemCode { get; set; }
 
-        public int? QuantityNeeded { get; set; }
-
-        public virtual Retrieval Retrieval { get; set; }
+        public decimal? Price { get; set; }
 
         public virtual StationeryCatalogue StationeryCatalogue { get; set; }
+
+        public virtual Tender Tender { get; set; }
     }
 }
