@@ -21,12 +21,23 @@ namespace InventoryWebApp
             if (!IsPostBack)
             {
                 retrieval = sClerkCtrl.GetCurrentRetrieval();
-                //lblCreatedBy.Text = sClerkCtrl.GetEmployeeNameByUserName(retrieval.UserName) ;
-                lblRetrievalCode.Text = retrieval.RetrievalCode;
-                lblRetrievalDate.Text = ((DateTime)retrieval.DateRetrieved).ToString("dd MMM yyyy");
-                rdList = retrieval.RetrievalDetails.ToList<RetrievalDetail>();
+                if (retrieval == null)
+                {
+                    btnReset.Visible = false;
+                    btnNext.Visible = false;
+                    btnTickAll.Visible = false;
+                    lblNoData.Text = "There is no retrieval at the moment";
 
-                BindGrid();
+                }else
+                {
+                    lblRetrievalCode.Text = retrieval.RetrievalCode;
+                    lblRetrievalDate.Text = ((DateTime)retrieval.DateRetrieved).ToString("dd MMM yyyy");
+                    rdList = retrieval.RetrievalDetails.ToList<RetrievalDetail>();
+
+                    BindGrid();
+                }
+                //lblCreatedBy.Text = sClerkCtrl.GetEmployeeNameByUserName(retrieval.UserName) ;
+                
             }
 
 
@@ -106,5 +117,39 @@ namespace InventoryWebApp
         {
             Response.Redirect("/RequisitionList.aspx");
         }
+
+        protected void btnTickAll_Click(object sender, EventArgs e)
+        {
+            rdList = sClerkCtrl.GetCurrentRetrieval().RetrievalDetails.ToList<RetrievalDetail>();
+            for (int i = 0; i < rdList.Count; i++)
+            {
+                CheckBox cbxRetrieved = (CheckBox)lvRetrievalList.Items[i].FindControl("cbxRetrieved");
+                cbxRetrieved.Checked = true;
+            }
+        }
+
+        //protected void cbxRetrievedAll_CheckedChanged(object sender, EventArgs e)
+        //{
+
+        //    CheckBox cbxRetrievedAll = lvRetrievalList.FindControl("cbxRetrievedAll") as CheckBox;
+        //    if (cbxRetrievedAll.Checked ==true)
+        //    {
+        //        rdList = sClerkCtrl.GetCurrentRetrieval().RetrievalDetails.ToList<RetrievalDetail>();
+        //        for (int i = 0; i < rdList.Count; i++)
+        //        {
+        //            CheckBox cbxRetrieved = (CheckBox)lvRetrievalList.Items[i].FindControl("cbxRetrieved");
+        //            cbxRetrieved.Checked = true;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        rdList = sClerkCtrl.GetCurrentRetrieval().RetrievalDetails.ToList<RetrievalDetail>();
+        //        for (int i = 0; i < rdList.Count; i++)
+        //        {
+        //            CheckBox cbxRetrieved = (CheckBox)lvRetrievalList.Items[i].FindControl("cbxRetrieved");
+        //            cbxRetrieved.Checked = false;
+        //        }
+        //    }
+        //}
     }
 }

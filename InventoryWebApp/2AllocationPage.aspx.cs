@@ -19,10 +19,10 @@ namespace InventoryWebApp
         protected void Page_Load(object sender, EventArgs e)
         {
             retrieval = sClerkCtrl.GetCurrentRetrieval();
+
             if (!IsPostBack)
             {
                 sClerkCtrl.GetAllocatingDisbursementList();
-                innerList = sClerkCtrl.GenerateDisbursementDetailPerItem();
                 outerList = (List<RetrievalDetail>) retrieval.RetrievalDetails;
                 BindGrid();
             }
@@ -32,12 +32,12 @@ namespace InventoryWebApp
         {
             lvAllocation.DataSource = outerList;
             lvAllocation.DataBind();
-            
         }
         
         protected List<DisbursementDetail> GetDisbursementDetailsPerItem(String itemCode)
         {
-           return innerList[itemCode];
+            innerList = sClerkCtrl.GenerateDisbursementDetailPerItem();
+            return innerList[itemCode];
         }
 
 
@@ -73,10 +73,52 @@ namespace InventoryWebApp
             return null;
         }
 
+        protected RequestDetail GetRequestDetail(String requestCode, String itemCode)
+        {
+            return sClerkCtrl.GetRequestDetail(requestCode, itemCode);
+        }
+        
+        protected Request GetRequest(String requestCode)
+        {
+            return sClerkCtrl.GetRequest(requestCode);
+        }
+
+        protected Department GetDepartment (String departmentCode)
+        {
+            return sClerkCtrl.GetDeptByCode(departmentCode);
+        }
+
+        protected Disbursement GetDisbursement(String disbursementCode)
+        {
+            return sClerkCtrl.GetDisbursement(disbursementCode);
+        }
         protected void btnNext_Click(object sender, EventArgs e)
         {
             sClerkCtrl.ChangeDisbursementAllocatingToDisbursing();
             Response.Redirect("DisbursementGenerationPage.aspx");
+        }
+
+        protected void Display_InnerList(object sender, CommandEventArgs e)
+        {
+            LinkButton linkViewRequest = (LinkButton)sender;
+            ListViewDataItem listItem = (ListViewDataItem)linkViewRequest.Parent;
+            ListView listDetails = (ListView)listItem.FindControl("lvDetails");
+            HiddenField hfItemCode = (HiddenField)listItem.FindControl("hfItemCode");
+
+            listDetails.DataSource = null;
+            listDetails.DataSource = GetDisbursementDetailsPerItem(hfItemCode.Value);
+            listDetails.DataBind();
+
+        }
+        protected void Hide_InnerList(object sender, CommandEventArgs e)
+        {
+            LinkButton linkViewRequest = (LinkButton)sender;
+            ListViewDataItem listItem = (ListViewDataItem)linkViewRequest.Parent;
+            ListView listDetails = (ListView)listItem.FindControl("lvDetails");
+
+            listDetails.DataSource = null;
+            listDetails.DataBind();
+
         }
     }
 }

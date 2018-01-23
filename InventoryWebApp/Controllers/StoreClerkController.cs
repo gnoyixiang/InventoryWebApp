@@ -19,7 +19,29 @@ namespace InventoryWebApp.Controllers
         IRetrievalDetailsDAO retrievalDetailsDAO = new RetrievalDetailsDAO();
         IStationeryCatalogueDAO stationeryDAO = new StationeryCatalogueDAO();
         ICollectionPointDAO collectionPointDAO = new CollectionPointDAO();
+        
+        public Disbursement GetDisbursement(string disbursementCode)
+        {
+            return disbursementDAO.GetDisbursementByCode(disbursementCode);
+        }
+        public int UpdateRequestDetail(RequestDetail rd)
+        {
+            return requestDetailsDAO.UpdateRequestDetail(rd);
+        }
+        public int UpdateStationeryCatalogue(StationeryCatalogue sc)
+        {
+            return stationeryDAO.UpdateStationery(sc);
+        }
 
+        public List<DisbursementDetail> GetDisbursementDetails(String disbursementCode)
+        {
+            return disbursementDetailsDAO.SearchDDByDCode(disbursementCode);
+        }
+
+        public int UpdateDisbursement (Disbursement d)
+        {
+            return disbursementDAO.UpdateDbmStatus(d);
+        }
         public void UpdateDisbursementDetail(DisbursementDetail dd)
         {
             disbursementDetailsDAO.UpdateDisbursementDetail(dd);
@@ -49,7 +71,14 @@ namespace InventoryWebApp.Controllers
         }
         public List<DisbursementDetail> GetDisbursingDisbDetailsByDeptCode(String deptCode)
         {
-            return disbursementDetailsDAO.SearchDDByDCode(GetDisbursingDisbursementByDeptCode(deptCode).DisbursementCode);
+            try
+            {
+                return disbursementDetailsDAO.SearchDDByDCode(GetDisbursingDisbursementByDeptCode(deptCode).DisbursementCode);
+            } catch(Exception e)
+            {
+                return null;
+            }
+            
             
         }
 

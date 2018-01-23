@@ -77,7 +77,8 @@
     <div class="alert alert-success" role="alert" style ="text-align: center; vertical-align: middle; line-height: 20px; padding-left:20px ">
         <table border="0" >
             <tr>
-                <td style="padding:0px 20px 0px 20px">Disbursement date: </td>
+                <td style="padding:0px 20px 0px 20px">
+                    <asp:Label ID="lblFixedDisbursementDate" runat="server" Text="Disbursement Date"></asp:Label> </td>
             </tr>
             <tr >
                 <td style="font-weight:bold; padding:0px 20px 0px 20px">
@@ -100,7 +101,8 @@
     </div>
     <table>
         <tr>
-            <td class="col-lg-4" style="padding-left: 0px">Collection point</td>
+            <td class="col-lg-4" style="padding-left: 0px">
+                <asp:Label ID="lblFixedCollectionPoint" runat="server" Text="Collection point"></asp:Label></td>
             <td>
                 <asp:DropDownList ID="ddlCollectionPoint" runat="server" class="dropdown" AutoPostBack="True" OnSelectedIndexChanged="ddlCollectionPoint_SelectedIndexChanged"></asp:DropDownList>
 

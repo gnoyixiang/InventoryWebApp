@@ -5,6 +5,13 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server" />
     <h3>Disbursement Form</h3>
+    <asp:Button ID="btnBack" runat="server" Text="<Back to Requests" Style="float: left" CssClass="btn btn-success" OnClick="btnBack_Click" />
+
+    <asp:Button ID="btnNext" runat="server" Text="Proceed to Charge Back>" Style="float: right" CssClass="btn btn-success" OnClick="btnNext_Click1" />
+    <asp:Label ID="lblSpace" runat="server" Style="float: right" Text=" ">&nbsp &nbsp &nbsp</asp:Label>
+    <asp:Button ID="btnNotCollected" runat="server" Text="Mark as Not Collected" Style="float: right" CssClass="btn btn-danger" OnClick="btnNotCollected_Click" />
+
+
     <%--<asp:Label ID="lblTest" runat="server" Text="Label"></asp:Label>--%>
     <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="true">
         <ContentTemplate>
@@ -36,7 +43,9 @@
             </table>
             <br />
             <br />
-
+            <div class="alert alert-warning" role="alert">
+                <asp:Label ID="lblAlert" runat="server" Text=""></asp:Label>
+            </div>
             <asp:ListView ID="lvDisbursementDetails" runat="server" OnItemEditing="lvDisbursementDetails_ItemEditing" OnItemCanceling="lvDisbursementDetails_ItemCanceling" OnItemUpdating="lvDisbursementDetails_ItemUpdating">
                 <LayoutTemplate>
                     <table class="table">
@@ -72,7 +81,7 @@
                 </ItemTemplate>
                 <EditItemTemplate>
                     <tbody>
-                        <tr style="background-color:#ffedef">
+                        <tr style="background-color: #ffedef">
                             <td><%# Eval("RequestCode") %></td>
                             <td><%#GetStationeryByCode(Eval("ItemCode").ToString()).Description%></td>
                             <td style="text-align: right; padding-right: 20px"><%# GetRequestDetail(Eval("RequestCode").ToString(), Eval("ItemCode").ToString()).RemainingQuant %></td>
@@ -86,13 +95,13 @@
                                 <asp:LinkButton ID="lbtCancel" runat="server" CommandName="Cancel"><span class="glyphicon glyphicon-remove" aria-hidden="true" style="font-size:1.5em;color:red"></span></asp:LinkButton>
                             </td>
                         </tr>
-                        <tr style="background-color:#ffedef">
+                        <tr style="background-color: #ffedef">
                             <td></td>
                             <td></td>
                             <td></td>
                             <td style="text-align: right; padding-right: 20px">
                                 <asp:Label ID="lblNotes" runat="server" Text="Notes"></asp:Label>
-                            </td >
+                            </td>
                             <td style="text-align: right; padding-right: 20px">
                                 <asp:TextBox ID="tbxNotes" runat="server" Text='<%# Bind("Notes") %>'></asp:TextBox>
                             </td>

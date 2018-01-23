@@ -16,37 +16,55 @@ namespace InventoryWebApp
         {
             if (!IsPostBack)
             {
-                tbxDate.Text = GetPlanToCollectDate();
+                if (sClerkCtrl.GetDisbursingDisbursements().FirstOrDefault() != null)
+                {
+                    tbxDate.Text = GetPlanToCollectDate();
 
-                CollectionPoint all = new CollectionPoint();
-                all.CollectionVenue = "ALL";
-                all.CollectionPointCode = "ALL";
+                    CollectionPoint all = new CollectionPoint();
+                    all.CollectionVenue = "ALL";
+                    all.CollectionPointCode = "ALL";
 
-                HashSet<CollectionPoint> collectionPointList = sClerkCtrl.GetListOfCollectionPoint();
-                collectionPointList.Add(all);
-                List<CollectionPoint> sortedCPList = collectionPointList.ToList();
-                sortedCPList.Sort();
+                    HashSet<CollectionPoint> collectionPointList = sClerkCtrl.GetListOfCollectionPoint();
+                    collectionPointList.Add(all);
+                    List<CollectionPoint> sortedCPList = collectionPointList.ToList();
+                    sortedCPList.Sort();
 
 
-                ddlCollectionPoint.DataSource = sortedCPList;
-                ddlCollectionPoint.DataTextField = "CollectionVenue";
-                ddlCollectionPoint.DataValueField = "CollectionPointCode";
-                ddlCollectionPoint.DataBind();
+                    ddlCollectionPoint.DataSource = sortedCPList;
+                    ddlCollectionPoint.DataTextField = "CollectionVenue";
+                    ddlCollectionPoint.DataValueField = "CollectionPointCode";
+                    ddlCollectionPoint.DataBind();
 
-                lblCollectionDate.Text = DisplayDate(DateTime.Parse(tbxDate.Text));
+                    lblCollectionDate.Text = DisplayDate(DateTime.Parse(tbxDate.Text));
 
-                lvCollectionPointList.DataSource = sClerkCtrl.GetDisbursingDisbursements();
-                lvCollectionPointList.DataBind();
+                    lvCollectionPointList.DataSource = sClerkCtrl.GetDisbursingDisbursements();
+                    lvCollectionPointList.DataBind();
+                }
+                else
+                {
+                    lblConfirmDate.Text = "There is no outstanding disbursement at the moment.";
+                    btnConfirm.Visible = false;
+                    btnPopUp.Visible = false;
+                    btnNext.Enabled = false;
+                    lblFixedCollectionPoint.Visible = false;
+                    lblFixedDisbursementDate.Visible = false;
+                    ddlCollectionPoint.Visible = false;
+                }
             }
-            else
+        }
+
+        protected override void OnPreRenderComplete(EventArgs e)
+        {
+            if (IsPostBack)
             {
                 lblCollectionDate.Text = DisplayDate(DateTime.Parse(tbxDate.Text));
+                base.OnPreRenderComplete(e);
             }
         }
 
         protected String GetPlanToCollectDate()
         {
-            Disbursement disbursement = sClerkCtrl.GetDisbursingDisbursements().First();
+            Disbursement disbursement = sClerkCtrl.GetDisbursingDisbursements().FirstOrDefault();
             if (disbursement.DatePlanToCollect == null)
             {
                 return sClerkCtrl.GetDefaultCollectionDate().ToString("yyyy-MM-dd");

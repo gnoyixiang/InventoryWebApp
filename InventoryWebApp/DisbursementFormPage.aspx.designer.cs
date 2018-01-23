@@ -22,6 +22,42 @@ namespace InventoryWebApp {
         protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
+        /// btnBack control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnBack;
+        
+        /// <summary>
+        /// btnNext control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnNext;
+        
+        /// <summary>
+        /// lblSpace control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSpace;
+        
+        /// <summary>
+        /// btnNotCollected control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnNotCollected;
+        
+        /// <summary>
         /// UpdatePanel1 control.
         /// </summary>
         /// <remarks>
@@ -83,6 +119,15 @@ namespace InventoryWebApp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbxStatus;
+        
+        /// <summary>
+        /// lblAlert control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAlert;
         
         /// <summary>
         /// lvDisbursementDetails control.

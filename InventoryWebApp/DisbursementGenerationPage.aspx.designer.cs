@@ -85,6 +85,15 @@ namespace InventoryWebApp {
         protected global::System.Web.UI.WebControls.Button btnNext;
         
         /// <summary>
+        /// lblFixedDisbursementDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFixedDisbursementDate;
+        
+        /// <summary>
         /// lblCollectionDate control.
         /// </summary>
         /// <remarks>
@@ -119,6 +128,15 @@ namespace InventoryWebApp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnPopUp;
+        
+        /// <summary>
+        /// lblFixedCollectionPoint control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFixedCollectionPoint;
         
         /// <summary>
         /// ddlCollectionPoint control.

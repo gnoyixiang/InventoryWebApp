@@ -12,43 +12,46 @@ namespace InventoryWebApp
     public partial class DisbursementFormPage : System.Web.UI.Page
     {
         StoreClerkController sClerkCtrl = new StoreClerkController();
+        List<DisbursementDetail> ddList;
+        List<Department> deptList;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                CollectionPoint all = new CollectionPoint();
-                all.CollectionVenue = "ALL";
-                all.CollectionPointCode = "ALL";
-
-                HashSet<CollectionPoint> collectionPointList = sClerkCtrl.GetListOfCollectionPoint();
-                collectionPointList.Add(all);
-                List<CollectionPoint> sortedCPList = collectionPointList.ToList();
-                sortedCPList.Sort();
-
-                ddlCollectionPoint.DataSource = sortedCPList;
-                ddlCollectionPoint.DataTextField = "CollectionVenue";
-                ddlCollectionPoint.DataValueField = "CollectionPointCode";
-                ddlCollectionPoint.DataBind();
-
-                ddlDepartment.DataSource = sClerkCtrl.GetDisbursingDepartmentList(sClerkCtrl.GetDisbursingDisbursements());
-                ddlDepartment.DataTextField = "DepartmentName";
-                ddlDepartment.DataValueField = "DepartmentCode";
-                ddlDepartment.DataBind();BindLvDisbursementDetails();
+                BindDropDownList();
             }
             
-            tbxRep.Text = GetEmployee(GetDepartment().RepresentativeCode).EmployeeTitle+ " " + GetEmployee(GetDepartment().RepresentativeCode).EmployeeName;
-            tbxDisbursementDate.Text = GetPlanToCollectDate().ToString("dd MMM yyyy");
-            tbxStatus.Text = GetDisbursingDisbursementByDeptCode(ddlDepartment.SelectedValue).Status;
-            tbxDisbursementTime.Text = GetCollectionTime();
-
             
-           
+        }
+
+        protected void BindDropDownList()
+        {
+            CollectionPoint all = new CollectionPoint();
+            all.CollectionVenue = "ALL";
+            all.CollectionPointCode = "ALL";
+
+            HashSet<CollectionPoint> collectionPointList = sClerkCtrl.GetListOfCollectionPoint();
+            collectionPointList.Add(all);
+            List<CollectionPoint> sortedCPList = collectionPointList.ToList();
+            sortedCPList.Sort();
+
+            ddlCollectionPoint.DataSource = sortedCPList;
+            ddlCollectionPoint.DataTextField = "CollectionVenue";
+            ddlCollectionPoint.DataValueField = "CollectionPointCode";
+            ddlCollectionPoint.DataBind();
+
+            deptList = sClerkCtrl.GetDisbursingDepartmentList(sClerkCtrl.GetDisbursingDisbursements());
+            ddlDepartment.DataSource = deptList;
+            ddlDepartment.DataTextField = "DepartmentName";
+            ddlDepartment.DataValueField = "DepartmentCode";
+            ddlDepartment.DataBind(); BindLvDisbursementDetails();
         }
 
         protected void BindLvDisbursementDetails()
         {
-            lvDisbursementDetails.DataSource = sClerkCtrl.GetDisbursingDisbDetailsByDeptCode(ddlDepartment.SelectedValue);
+            ddList = sClerkCtrl.GetDisbursingDisbDetailsByDeptCode(ddlDepartment.SelectedValue);
+            lvDisbursementDetails.DataSource = ddList;
             lvDisbursementDetails.DataBind();
         }
 
@@ -117,16 +120,12 @@ namespace InventoryWebApp
         {
             TextBox tbxNotes = lvDisbursementDetails.Items[e.ItemIndex].FindControl("tbxNotes") as TextBox;
 
-            //lblTest.Text = e.NewValues["Quantity"].ToString();
-            //lblTest.Text = lvDisbursementDetails.DataKeys[e.ItemIndex].Values[0].ToString();
             List<DisbursementDetail> ddList = sClerkCtrl.GetDisbursingDisbDetailsByDeptCode(ddlDepartment.SelectedValue);
             DisbursementDetail dd = ddList[e.ItemIndex];
             dd.ActualQuantity = Int32.Parse(e.NewValues["ActualQuantity"].ToString());
             dd.Notes = tbxNotes.Text;
             sClerkCtrl.UpdateDisbursementDetail(dd);
 
-            //lblTest.Text = dd.ActualQuantity.ToString();
-            //lblTest.Text = dd.ItemCode + dd.RequestCode;
             lvDisbursementDetails.EditIndex = -1;
             BindLvDisbursementDetails();
         }
@@ -140,9 +139,47 @@ namespace InventoryWebApp
         protected override void OnPreRenderComplete(EventArgs e)
         {
             BindLvDisbursementDetails();
+            if (deptList.Count != 0 && deptList != null)
+            {
+                tbxRep.Text = GetEmployee(GetDepartment().RepresentativeCode).EmployeeTitle + " " + GetEmployee(GetDepartment().RepresentativeCode).EmployeeName;
+                tbxDisbursementDate.Text = GetPlanToCollectDate().ToString("dd MMM yyyy");
+                tbxStatus.Text = GetDisbursingDisbursementByDeptCode(ddlDepartment.SelectedValue).Status;
+                tbxDisbursementTime.Text = GetCollectionTime();
+            }
+            else
+            {
+                lblAlert.Text = "There is no disbursement at the moment.";
+            }
             base.OnPreRenderComplete(e);
         }
 
+        protected void btnBack_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("DisbursementGenerationPage.aspx");
+        }
+
+        protected void btnNotCollected_Click(object sender, EventArgs e)
+        {
+            Disbursement d = GetDisbursingDisbursementByDeptCode(ddlDepartment.SelectedValue);
+            d.Status = "not collected";
+            List<DisbursementDetail> ddList = sClerkCtrl.GetDisbursementDetails(d.DisbursementCode);
+            foreach (var item in ddList)
+            {
+                StationeryCatalogue sc = sClerkCtrl.GetStationeryByCode(item.ItemCode);
+                sc.Stock += item.ActualQuantity;
+                item.ActualQuantity = 0;
+                sClerkCtrl.UpdateDisbursementDetail(item);
+                sClerkCtrl.UpdateStationeryCatalogue(sc);
+                RequestDetail rd = sClerkCtrl.GetRequestDetail(item.RequestCode, item.ItemCode);
+            }
+            sClerkCtrl.UpdateDisbursement(d);
+            BindDropDownList();
+        }
+
+        protected void btnNext_Click1(object sender, EventArgs e)
+        {
+
+        }
     }
 
 
