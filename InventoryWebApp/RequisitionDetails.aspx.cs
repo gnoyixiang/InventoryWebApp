@@ -96,6 +96,7 @@ namespace InventoryWebApp
             int a = Convert.ToInt32(e.NewValues["Quantity"]);
             RequestDetail rd = ec.ListAllRequestDetails(RO)[ListView1.EditIndex];
             rd.Quantity = a;
+            rd.RemainingQuant = a;
             ec.UpdateRequestDetail(rd);
             ListView1.EditIndex = -1;
             BindData();

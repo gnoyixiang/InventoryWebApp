@@ -17,7 +17,8 @@
                 <asp:DropDownList ID="DropDownList1" class="form-control" runat="server"></asp:DropDownList>
             </div>
             <div class="col-md-7">
-                <asp:TextBox ID="txtBxSearchRequisition" class="form-control" runat="server" placeholder="Please key in keyword"></asp:TextBox>
+                <asp:TextBox ID="txtBxSearchRequisition" class="form-control" runat="server" placeholder="Please key in keyword" ></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="The field is empty!" ForeColor="DarkRed" ControlToValidate="txtBxSearchRequisition"></asp:RequiredFieldValidator>
             </div>
         </div>
         <p>

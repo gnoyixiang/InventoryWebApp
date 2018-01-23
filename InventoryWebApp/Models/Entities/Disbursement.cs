@@ -42,15 +42,11 @@ namespace InventoryWebApp.Models.Entities
         [Column(TypeName = "date")]
         public DateTime? DatePlanToCollect { get; set; }
 
-        [StringLength(256)]
+        [StringLength(20)]
         public string CollectionPointCode { get; set; }
         public virtual CollectionPoint CollectionPoint { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateTime? DatePlanToCollect { get; set; }
-
-        [StringLength(256)]
-        public string CollectionPointCode { get; set; }
+       
 
         public virtual Department Department { get; set; }
 

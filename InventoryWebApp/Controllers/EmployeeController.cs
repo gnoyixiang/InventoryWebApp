@@ -25,6 +25,7 @@ namespace InventoryWebApp.Controllers
         static DateTime now = DateTime.Now;
         private static IRequestDAO Ir = new RequestDAO();
         private static ICollectionPointDAO Icp = new CollectionPointDAO();
+        private static IEmployeeDAO Iempl = new EmployeeDAO();
         //list catalogue to gridview
         public List<StationeryCatalogue> Gridview()
         {
@@ -53,6 +54,10 @@ namespace InventoryWebApp.Controllers
         public Request GetRequestbyRequestCode(string requestCode)
         {
             return rDAO.GetRequest(requestCode);
+        }
+        public Request GetRequestCode(string requestCode)
+        {
+            return Ir.GetRequest(requestCode);
         }
         //add Request with requestDetail
         public string AddRequest(string userName, string departmentCode, List<RequestDTO> stationaries)
@@ -178,6 +183,7 @@ namespace InventoryWebApp.Controllers
             dpt.CollectionPointCode = newCCP;
             dpt.DepartmentCode = deptCode;
             Idpt.UpdateCollectionPoint(dpt);
+            dDAO.UpdateDbmCollectionPoint(deptCode, newCCP);
         }
         public List<CollectionPoint> DdlCollectionPoint()
         {
@@ -188,80 +194,6 @@ namespace InventoryWebApp.Controllers
         {
             return rdDAO.AddRequestDetail(rd);
         }
-
-
-
-    }
-
-
-}
-        IStationeryCatalogueDAO Isc = new StationeryCatalogueDAO();
-        IRequestDAO Ir = new RequestDAO();
-        IRequestDetailsDAO Ird = new RequestDetailsDAO();
-        ICollectionPointDAO Icp = new CollectionPointDAO();
-        IDepartmentDAO Idpt = new DepartmentDAO();
-        IDisbursementDAO Idbm = new DisbursementDAO();
-        IEmployeeDAO Iempl = new EmployeeDAO();
-        public List<StationeryCatalogue> Gridview()
-        {
-            List<StationeryCatalogue> list = Isc.ListAllStationery();
-            return list;
-        }
-        public List<StationeryCatalogue> SearchByDescription(string keyword)
-        {
-            List<StationeryCatalogue> list = Isc.SearchByDescription(keyword);
-            return list;
-        }
-        public List<StationeryCatalogue> SearchByCategoryCode(string keyword)
-        {
-            List<StationeryCatalogue> list = Isc.SearchByCategory(keyword);
-            return list;
-        }
-        public List<StationeryCatalogue> SearchByItemCode(string keyword)
-        {
-            List<StationeryCatalogue> list = Isc.SearchByItemCode(keyword);
-            return list;
-        }
-        public StationeryCatalogue GetStationery(string itemcode)
-        {
-            return Isc.GetStationery(itemcode);
-        }
-        public Request GetRequestCode(string requestCode)
-        {
-            return Ir.GetRequest(requestCode);
-        }
-        public string AddRequest(string userName, string departmentCode, List<RequestDTO> stationaries)
-        {
-            string requestCode = "RQ" + DateTime.Now.ToString("yyMMddHHmmssfff");
-            Request request = new Request()
-            {
-                RequestCode = requestCode,
-                DepartmentCode = departmentCode,
-                DateCreated = DateTime.Now,
-                Status = "pending",
-                UserName = userName
-            };
-            foreach (var stationary in stationaries)
-            {
-                request.RequestDetails.Add(new RequestDetail()
-                { ItemCode = stationary.ItemCode, Quantity = stationary.Quantity, RemainingQuant= stationary.Quantity, Notes = "" });
-            }
-            Ir.AddRequest(request);
-            return requestCode;
-        }
-        public List<CollectionPoint> DdlCollectionPoint()
-        {
-            return Icp.ListAllCollectionPoint();
-        }
-        public void UpdateCollectionPoint(string deptCode, string newCCP)
-        {
-            
-            Department dpt = new Department();
-            dpt.CollectionPointCode = newCCP;
-            dpt.DepartmentCode = deptCode;
-            Idpt.UpdateCollectionPoint(dpt);
-            Idbm.UpdateDbmCollectionPoint(deptCode, newCCP);
-        }
         public string GetCollectionPoint(string deptName)
         {
             return Idpt.GetCollectionPoint(deptName);
@@ -270,7 +202,7 @@ namespace InventoryWebApp.Controllers
         {
             return Idpt.GetDepartCodeByName(deptName);
         }
-        public string GetDeptCodeByUserName (string userName)
+        public string GetDeptCodeByUserName(string userName)
         {
             return Iempl.GetDeptCodeByUserName(userName);
         }
@@ -286,5 +218,17 @@ namespace InventoryWebApp.Controllers
         {
             return Idpt.GetDeptNameByCode(deptCode);
         }
+
     }
+
+
 }
+        
+       
+       
+
+
+
+  
+        
+ 

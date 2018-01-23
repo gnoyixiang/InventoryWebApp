@@ -88,7 +88,7 @@
                                 <asp:Label ID="lblEditRemainingQuantity" runat="server"><%# Eval("RemainingQuant") %></asp:Label></td>
                             <td align="left">
                                 <asp:TextBox ID="txtOrderQuantity" runat="server" CssClass="control"
-                                    TextMode="Number" Width="80px" Text='<%# Bind("Quantity") %>' /></td>
+                                    TextMode="Number" Width="80px" Text='<%# Bind("Quantity") %>' /></td>                            
                             <td>
                                 <asp:Label ID="lblEditNotes" runat="server"><%# Eval("Notes") %></asp:Label></td>
 
@@ -100,7 +100,13 @@
                                             <i class="fa fa-minus-square " style="font-size:1.5em;color:red" aria-hidden="true"></i>
                                 </asp:LinkButton>
                             </td>
+                            <td><asp:CompareValidator ID="quantityCompareValidator2" runat="server" Type="Integer" Operator="GreaterThan" Display="Dynamic"
+                                ErrorMessage="Enter a value greater than Zero" ValueToCompare="0" ControlToValidate="txtOrderQuantity"
+                                ForeColor="Red"></asp:CompareValidator>
+                            <asp:RequiredFieldValidator ID="quantityRequiredValidator" runat="server"
+                                ErrorMessage="Empty Quantity" ForeColor="Red" ControlToValidate="txtOrderQuantity"></asp:RequiredFieldValidator></td>
                         </tr>
+                        
                         <%--                        <tr>
                             <td colspan="12" style="border-top: none;">
                                 <asp:CustomValidator ID="validOrderQuantity" runat="server"
@@ -109,12 +115,12 @@
                                 </asp:CustomValidator>
                             </td>
                         </tr>--%>
-                    </EditItemTemplate>              
+                    </EditItemTemplate>
                 </asp:ListView>
-                 <% if (IsEditable())
-                                { %><asp:Button ID="btnAddItem" runat="server" Text="Add Item" OnClick="btnAddItem_Click"/>
+                <% if (IsEditable())
+                    { %><asp:Button ID="btnAddItem" runat="server" Text="Add Item" OnClick="btnAddItem_Click" />
                 <br />
-                 <% } %>
+                <% } %>
                 <asp:ListView ID="ListView2" runat="server">
                     <LayoutTemplate>
                         <table class="table">
@@ -162,7 +168,7 @@
             </div>
             <asp:Button ID="PrintButton" runat="server" Text="Print" OnClientClick='printDiv("printableArea")' />
         </div>
-        
+
     </div>
     <script language="javascript">
         function printDiv(divName) {

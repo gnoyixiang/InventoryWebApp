@@ -29,6 +29,14 @@ namespace InventoryWebApp.DAO
         }
 
         //Read
+        public List<Disbursement> GetAllDisbursement()
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                return em.Disbursements.ToList();
+            }
+        }
+
 
         public Disbursement GetDisbursementByCode(String disbursementCode)
         {
@@ -163,6 +171,13 @@ namespace InventoryWebApp.DAO
             }
             else
                 return 0;
+        }
+        public Disbursement GetDisbursingDisburmentByDeptCode(String deptCode)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                return em.Disbursements.Where(d => d.Status == "disbursing" && d.DepartmentCode == deptCode).First();
+            }
         }
     }
 }
