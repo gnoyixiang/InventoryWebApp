@@ -9,10 +9,16 @@ using System.Web.UI.WebControls;
 
 namespace InventoryWebApp
 {
-    public partial class WebForm1 : System.Web.UI.Page
+    public partial class WebForm3 : System.Web.UI.Page
     {
-        
         DepartmentHeadController dCon = new DepartmentHeadController();
+        private void BindGrid()
+        {
+            gvRequest.DataSource = dCon.ListAllRequest();
+            gvRequest.DataBind();
+        }
+
+        
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -22,39 +28,41 @@ namespace InventoryWebApp
 
                 ddlEmpName.DataBind();
                 ddlEmpName.Visible = true;
-                List<Request> rlist = dCon.ListPendingRequest();
-                if (rlist.Count == 0)
-                {
-                    lblNull.Text = "No pending request currently.";
-                    lblNull.Visible = true;
-                }else
-                {
-                    BindGrid();
+                BindGrid();
 
-                }
-                
             }
-           
+
         }
 
         protected void ddlSelect_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlSelect.SelectedIndex==0)
+            if (ddlSelect.SelectedIndex == 0)
             {
-                
+                ddlEmpName.DataSource = dCon.ListEmpName("ISS1", "Empl");
+
+                ddlEmpName.DataBind();
                 ddlEmpName.Visible = true;
                 calSearch.Visible = false;
-            }else if (ddlSelect.SelectedIndex==1)
+            }
+            else if (ddlSelect.SelectedIndex == 1)
             {
                 calSearch.Visible = true;
                 ddlEmpName.Visible = false;
+            }
+            else
+            {
+                List<string> slist = new List<string> { "pending", "processing", "rejected", "cancelled", "incomplete","complete"};
+                calSearch.Visible = false;
+                ddlEmpName.Visible = true;
+                ddlEmpName.DataSource = slist;
+                ddlEmpName.DataBind();
             }
 
 
         }
 
-       
-        
+
+
         protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
@@ -66,24 +74,30 @@ namespace InventoryWebApp
                 Label lblName = (e.Row.FindControl("lblName") as Label);
                 if (lblName != null)
                     lblName.Text = name;
+                LinkButton btnReq = (e.Row.FindControl("btnReq") as LinkButton);
+                if (btnReq != null)
+                    btnReq.Text = request.RequestCode;
+
             }
 
 
-       }
+        }
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             if (ddlSelect.SelectedIndex == 0)
             {
+               
                 string emp = ddlEmpName.SelectedItem.ToString();
-                
-                List<Request> rlist= dCon.SearchRequestByName(emp);
-                if (rlist.Count==0)
+
+                List<Request> rlist = dCon.SearchRequestByName(emp);
+                if (rlist.Count == 0)
                 {
                     lblNull.Visible = true;
-                    lblNull.Text = "No pending requisition of " + ddlEmpName.SelectedItem.ToString() + "!";
+                    lblNull.Text = "No requisition record of " + ddlEmpName.SelectedItem.ToString() + "!";
                     gvRequest.Visible = false;
-                }else
+                }
+                else
                 {
                     gvRequest.DataSource = rlist;
                     gvRequest.DataBind();
@@ -91,77 +105,93 @@ namespace InventoryWebApp
                     gvRequest.Visible = true;
 
                 }
-                
-                
-            }else if (ddlSelect.SelectedIndex == 1)
+
+
+            }
+            else if (ddlSelect.SelectedIndex == 1)
             {
-                
+
                 DateTime d = calSearch.SelectedDate;
-                if (calSearch.SelectedDate==DateTime.MinValue)
+                if (calSearch.SelectedDate == DateTime.MinValue)
                 {
                     lblNull.Text = "Please select A date!";
                     lblNull.Visible = true;
                     gvRequest.Visible = false;
 
-                }else
+                }
+                else
                 {
 
-                    List<Request> rlist= dCon.SearchRequestByDate(d);
+                    List<Request> rlist = dCon.SearchRequestByDate(d);
+                    if (rlist.Count == 0)
+                    {
+                        lblNull.Text = "No requisition record on " + d.ToShortDateString() + "!";
+                        lblNull.Visible = true;
+                        gvRequest.Visible = false;
+                    }
+                    else
+                    {
+                        gvRequest.DataSource = rlist;
+                        gvRequest.DataBind();
+                        gvRequest.Visible = true;
+                        lblNull.Visible = false;
+
+                    }
+
+                }
+
+
+
+            }
+            else
+            {
+                string status = ddlEmpName.SelectedItem.ToString();
+
+                List<Request> rlist = dCon.SearchRequestByStatus(status);
                 if (rlist.Count == 0)
                 {
-                    lblNull.Text = "No pending requisition on " + d.ToShortDateString() + "!";
                     lblNull.Visible = true;
+                    lblNull.Text = "No " + ddlEmpName.SelectedItem.ToString() + " requisition!";
                     gvRequest.Visible = false;
-                }else
+                }
+                else
                 {
                     gvRequest.DataSource = rlist;
                     gvRequest.DataBind();
-                    gvRequest.Visible = true;
                     lblNull.Visible = false;
+                    gvRequest.Visible = true;
 
                 }
-
-                }
-                
-                
 
             }
 
         }
 
-        
+
 
         protected void gvRequest_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName == "Detail")
-                
+
             {
-                
+
                 string code = e.CommandArgument.ToString();
 
-                Request r=dCon.GetRequest(code);
+                Request r = dCon.GetRequest(code);
                 Session["request"] = r;
-                     
-                               
-               Response.Redirect("HeadApproveDetail.aspx");
+
+
+                Response.Redirect("HeadRequestDetail.aspx");
             }
         }
 
         protected void btnAll_Click(object sender, EventArgs e)
         {
-            List<Request> rlist = dCon.ListPendingRequest();
-            if (rlist.Count == 0)
-            {
-                lblNull.Text = "No pending request currently.";
-                lblNull.Visible = true;
-            }else
-            {
-                BindGrid();
-                gvRequest.Visible = true;
-                lblNull.Visible = false;
 
-            }
-                
+            BindGrid();
+            lblNull.Visible = false;
+            gvRequest.Visible = true;
+            
         }
 
         protected void gvRequest_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -172,10 +202,10 @@ namespace InventoryWebApp
             BindGrid();
         }
 
-        private void BindGrid()
-        {
-            gvRequest.DataSource = dCon.ListPendingRequest();
-            gvRequest.DataBind();
-        }
     }
+
+
+
 }
+
+

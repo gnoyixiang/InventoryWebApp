@@ -59,7 +59,7 @@ namespace InventoryWebApp.DAO
         public string GetEmployeeName(string username)
         {
             Employee emp = em.Employees.Where(x => x.UserName == username).FirstOrDefault();
-            return emp.EmployeeName.ToString();
+            return emp.EmployeeName;
 
         }
 

@@ -122,8 +122,8 @@
                 <li id="menu-RequestDepartmentHead">
                     <a href="#RequestDepartmentHead" data-toggle="collapse" aria-expanded="false">Manage Requests</a>
                     <ul class="collapse list-unstyled submenu" id="RequestDepartmentHead">
-                        <li><a href="#">View Requests</a></li>
                         <li><a href="ApproveRequest.aspx">Approve Requests</a></li>
+                        <li><a href="HeadViewRequest.aspx">View Requests</a></li>                        
                     </ul>
                 </li>
                 <li>

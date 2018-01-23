@@ -11,10 +11,12 @@ namespace InventoryWebApp.DAO
         List<Request> ListAllRequest();
         List<Request> SearchRequestbyDate(string RequestDate);
         List<Request> SearchRequestbyID(string RequestC);
-        List<Request> SearchRequestbyStatus(string RequestStatus);
+        
         int UpdateRequestApproval(Request r);
         int UpdateRequestStatus(Request r);
-        List<Request> SearchPendingRequestByName(string username);
-        List<Request> SearchPendingRequestByDate(DateTime d);
+        List<Request> SearchPendingRequestByName(string username,string deptcode);
+        List<Request> SearchPendingRequestByDate(DateTime d,string deptcode);
+        List<Request> SearchRequestbyStatus(string RequestStatus,string deptcode);
+        List<Request> SearchRequestbyDept(string dept);
     }
 }

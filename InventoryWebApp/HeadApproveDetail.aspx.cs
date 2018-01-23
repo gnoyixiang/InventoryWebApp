@@ -52,8 +52,16 @@ namespace InventoryWebApp
         protected void btnApprove_Click(object sender, EventArgs e)
         {
             Request r = (Request)Session["request"];
+            r.Status = "processing";
+            if (tbxCom.Text.Length != 0)
+            {
+                r.HeadRemarks = tbxCom.Text;
+            }
 
-            int i=dCon.ApproveRequest(r, "liong@logic.edu.sg");
+            r.DateApproved = DateTime.Now;
+            r.ApprovedBy = "liong@logic.edu.sg";
+
+            int i = dCon.UpdateRequest(r, "processing");
 
             if (i == 1)
             {
@@ -80,9 +88,14 @@ namespace InventoryWebApp
         protected void btnReject_Click(object sender, EventArgs e)
         {
             Request r = (Request)Session["request"];
+            r.Status = "rejected";
             string remark = tbxCom.Text;
+            if (tbxCom.Text.Length!=0)
+            {
+                r.HeadRemarks = tbxCom.Text;
+            }
 
-            int i = dCon.RejectRequest(r, remark);
+            int i = dCon.UpdateRequest(r, "rejected");
 
             if (i == 1)
             {
