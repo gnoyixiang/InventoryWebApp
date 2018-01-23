@@ -1,103 +1,150 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
+using InventoryWebApp.Controllers;
+using InventoryWebApp.DAO;
+using InventoryWebApp.Models.Entities;
 namespace InventoryWebApp
 {
     public partial class AuthoriseStaff : System.Web.UI.Page
     {
+        EntityModel em = new EntityModel();
+        DepartmentHeadController dCon = new DepartmentHeadController();
+        String assignrolecode;
 
-        string assignrolecode;
+        protected void gv_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gv.PageIndex = e.NewPageIndex;
+            this.BindGrid();
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
-            assignrolecode = Request.QueryString["AssignRoleName"];
+            assignrolecode = Request.QueryString["AssignRoleCode"];
             if (!IsPostBack)
             {
+                Page.DataBind();              
                 BindGrid();
             }
         }
-
         private void BindGrid()
         {
-            gv.DataSource = BusinessLogic.ListAssignRolesBy(assignrolecode);
+            gv.DataSource = dCon.ListOfAssignRoleInDepartment("CPSC");
             gv.DataBind();
         }
 
-        protected void OnRowEditing(object sender, GridViewEditEventArgs e)
+        protected void gv_SelectedIndexChanged(object sender, EventArgs e)
         {
-            gv.EditIndex = e.NewEditIndex;
-            BindGrid();
+            string assignrolecode = (string)gv.SelectedDataKey.Value;
+            AssignRole a = dCon.GetAssignRoleInfo(assignrolecode);
+            lblEmpName.Text = dCon.GetEmployeeName(a.EmployeeCode);
+            lblEmpCode.Text = a.EmployeeCode;
+            //string rolename=dCon.GetRoleName(a.TemporaryRoleCode);
+            tbxStartDate.Text = a.StartDate.ToString();
+            tbxEndDate.Text = a.EndDate.ToString();
         }
-
-        protected void OnRowUpdating(object sender, GridViewUpdateEventArgs e)
-        {
-            GridViewRow row = gv.Rows[e.RowIndex];
-            string assignrolecode = gv.DataKeys[e.RowIndex].Values[0].ToString();
-            String 
-            string foodId = (row.FindControl("foodlist") as DropDownList).SelectedValue;
-            string size = (row.FindControl("radio1") as RadioButtonList).SelectedValue;
-            string chilli = (row.FindControl("radio2") as RadioButtonList).SelectedValue;
-            string salt = (row.FindControl("radio3") as RadioButtonList).SelectedValue;
-            string pepper = ((row.FindControl("CheckBox1") as CheckBox).Checked
-                             ? "Y" : "N");
-
-            BusinessLogic.UpdateAssignRole(orderId, foodId, size, chilli, salt, pepper);
-            gv.EditIndex = -1;
-            BindGrid();
-        }
-
-        protected void OnRowCancelingEdit(object sender, EventArgs e)
-        {
-            GridView1.EditIndex = -1;
-            BindGrid();
-        }
-
-        protected void OnRowDeleting(object sender, GridViewDeleteEventArgs e)
-        {
-            int orderId = Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Values[0]);
-            BusinessLogic.DeleteOrder(orderId);
-            BindGrid();
-        }
-
         protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                Order order = (Order)e.Row.DataItem;
-                int id = order.FoodID.Value;
-                string foodname = BusinessLogic.GetFoodName(id);
+                AssignRole assignrole = (AssignRole)e.Row.DataItem;
+                string assignrolecode = assignrole.AssignRoleCode.ToString();
 
-                Label foodlabel = (e.Row.FindControl("Label3A") as Label);
-                if (foodlabel != null)
-                    foodlabel.Text = foodname;
-
-                DropDownList ddl = (e.Row.FindControl("foodlist") as DropDownList);
-                if (ddl != null)
+                string employeecode = assignrole.EmployeeCode.ToString();
+                string employeename = dCon.GetEmployeeName(employeecode);
+                Label employeelabel = (e.Row.FindControl("lblEmployeeName") as Label);
+                if (employeelabel != null)
                 {
-                    ddl.DataSource = BusinessLogic.FoodChoice();
-                    ddl.DataTextField = "FoodName";
-                    ddl.DataValueField = "FoodID";
-                    ddl.DataBind();
-                    ddl.Items.FindByText(foodname).Selected = true;
+                    employeelabel.Text = employeename;
                 }
+                string rolecode = assignrole.TemporaryRoleCode.ToString();
+                string rolename = dCon.GetRoleName(rolecode);
+                Label rolelabel = (e.Row.FindControl("lblRoleName") as Label);
+                if (rolelabel != null)
+                {
+                    rolelabel.Text = rolename;
+                }
+                if (rolecode == "ActHead")
+                {
+                    Label startdate = (e.Row.FindControl("lblStartDate") as Label);
+                    DateTime d1 = (DateTime)assignrole.StartDate;
+                    startdate.Text = d1.ToShortDateString();
 
-                RadioButtonList radio1 = (e.Row.FindControl("radio1") as RadioButtonList);
-                if (radio1 != null)
-                    radio1.Items.FindByValue(order.Size).Selected = true;
-                RadioButtonList radio2 = (e.Row.FindControl("radio2") as RadioButtonList);
-                if (radio2 != null)
-                    radio2.Items.FindByValue(order.Chilli).Selected = true;
-                RadioButtonList radio3 = (e.Row.FindControl("radio3") as RadioButtonList);
-                if (radio3 != null)
-                    radio3.Items.FindByValue(order.MoreSalt).Selected = true;
-                CheckBox checkbox1 = (e.Row.FindControl("CheckBox1") as CheckBox);
-                if (checkbox1 != null)
-                    checkbox1.Checked = order.Pepper.Equals("Y");
+                    Label enddate = (e.Row.FindControl("lblEndDate") as Label);
+                    DateTime d2 = (DateTime)assignrole.EndDate;
+                    enddate.Text = d2.ToShortDateString();
+                }
+                
             }
+        }
 
+
+
+        protected void btnAssign_Click(object sender, EventArgs e)
+        {
+           
+            string employeecode = lblEmpCode.Text;
+            string assignrolecode = (string)gv.SelectedDataKey.Value;
+            AssignRole assignRole = dCon.GetAssignRoleInfo(assignrolecode);
+            string rolecodeselected = assignRole.TemporaryRoleCode;
+            if (rolecodeselected == "ActHead")
+            {
+                DateTime startdateselected = Convert.ToDateTime(tbxStartDate.Text);
+                DateTime enddateselected = Convert.ToDateTime(tbxEndDate.Text);
+                bool checkvalue = dCon.CheckTemporaryRoleAndDates(rolecodeselected, startdateselected, enddateselected);
+                if (assignrolecode != null)
+                {
+                    if (checkvalue)
+                    {
+                        dCon.UpdateAssignRole(assignrolecode, rolecodeselected, startdateselected, enddateselected);
+                        
+                        lblSuccessMsg.Text = "AssignRole update";
+                        lblErrorMsg.Text = "";
+                    }
+                    else
+                    {
+                        lblSuccessMsg.Text = "";
+                        lblErrorMsg.Text = "Already present for this period";
+                    }
+
+                }
+                else
+                {
+                    lblSuccessMsg.Text = "";
+                    lblErrorMsg.Text = "Can't update,there's no temporaryrole";
+                }
+            }
+            else
+            {
+                lblErrorMsg.Text = "Can't update";
+            }         
+            BindGrid();
+        }
+        protected void OnRowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            string assignrolecode = (string)gv.DataKeys[e.RowIndex].Values[0];
+                      
+            AssignRole ass = dCon.GetAssignRoleInfo(assignrolecode);
+            //if (ass.TemporaryRoleCode == "ActHead")
+           // {
+                dCon.DeleteAssignRole(assignrolecode);
+            //}
+           /* else
+            {
+                Employee emp = dCon.GetEmployeeInfo(ass.EmployeeCode);
+                Role role = dCon.getRoleNameByUsername(emp.UserName);
+                em.Users.Where(x => x.UserName == emp.UserName).FirstOrDefault<User>().Roles.Remove(role);
+                em.SaveChanges();
+                dCon.DeleteAssignRole(assignrolecode);
+            }*/
+            BindGrid();
+        }
+
+        protected void btnAdd_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AddAuthorise.aspx");
         }
     }
+}

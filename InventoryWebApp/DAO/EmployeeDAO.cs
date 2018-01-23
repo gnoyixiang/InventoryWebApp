@@ -7,7 +7,7 @@ using InventoryWebApp.Models.Entities;
 
 namespace InventoryWebApp.DAO
 {
-    public class EmployeeDAO :  IEmployeeDAO
+    public class EmployeeDAO : IEmployeeDAO
     {
         EntityModel em = new EntityModel();
 
@@ -41,11 +41,10 @@ namespace InventoryWebApp.DAO
         public Employee GetEmployeeInfo(string username)
         {
             return em.Employees.Where(x => x.UserName.Contains(username)).FirstOrDefault();
-        }
-
-        public int UpdateRole(string username, string role)
+        }       
+        public int UpdateEmployeeRole(string employeecode, string role)
         {
-            Employee emp = em.Employees.Where(x => x.UserName == username).First();
+            Employee emp = em.Employees.Where(x => x.EmployeeCode == employeecode).First();
             emp.CurrentRoleCode = role;
             return em.SaveChanges();
         }
@@ -56,14 +55,15 @@ namespace InventoryWebApp.DAO
             return em.Employees.ToList();
         }
 
-        public string GetEmployeeName(string username)
+        public string GetEmployeeName(string a)
         {
-            Employee emp = em.Employees.Where(x => x.UserName == username).FirstOrDefault();
+            Employee emp = em.Employees.Where(x => x.UserName ==a || 
+            x.EmployeeCode==a).FirstOrDefault();
             return emp.EmployeeName;
         }
-
+       
         public List<Employee> SearchByRole(string role)
-        {
+        { 
             return em.Employees.Where(x => x.CurrentRoleCode.Equals(role.Trim())).ToList();
         }
 
@@ -71,12 +71,20 @@ namespace InventoryWebApp.DAO
         {
             return em.Employees.Where(x => x.DepartmentCode.Equals(dept.Trim())).ToList();
         }
-
+        public List<Employee> SearchByEmployeeName(string employeename)
+        {
+            return em.Employees.Where(x => x.EmployeeName.Contains(employeename.Trim())).ToList();
+        }
+        public List<Employee> SearchByEmployeeCode(string employeecode)
+        {
+            return em.Employees.Where(x => x.EmployeeCode.Contains(employeecode.Trim())).ToList();
+        }
         public List<string> ListEmpName(string dept, string role)
         {
             return em.Employees.Where(x => x.DepartmentCode == dept && x.CurrentRoleCode == role).Select(x => x.EmployeeName).ToList();
         }
 
+        
 
     }
 }

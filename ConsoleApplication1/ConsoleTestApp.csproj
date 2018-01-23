@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>ConsoleTestApp.TestCategoryDAO</StartupObject>
+    <StartupObject>ConsoleTestApp.TestUserRole</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -63,6 +63,7 @@
     <Compile Include="TestUserDAO.cs" />
     <Compile Include="TestTenderDAO.cs" />
     <Compile Include="TestTenderDetailsDAO.cs" />
+    <Compile Include="TestUserRole.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

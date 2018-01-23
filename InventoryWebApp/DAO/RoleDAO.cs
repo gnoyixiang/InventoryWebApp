@@ -6,7 +6,7 @@ using InventoryWebApp.Models.Entities;
 
 namespace InventoryWebApp.DAO
 {
-    public class RoleDAO : IRoleDAO
+    public class RoleDAO :  IRoleDAO
     {
         EntityModel em = new EntityModel();
 
@@ -37,7 +37,22 @@ namespace InventoryWebApp.DAO
 
             return em.Roles.ToList<Role>();
         }
-
-
+        public string GetRoleName(string id)
+        {
+            Role rl = em.Roles.Where(x => x.Id == id).FirstOrDefault();
+            return rl.Name;
+        }
+        public Role GetRoleInfo(string roleid)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                return em.Roles.Where(p => p.Id ==
+                roleid).FirstOrDefault<Role>();
+            }
+        }
+        public List<Role> ListAllDepartmentRole()
+        {
+            return em.Roles.Where(x=>x.Name.Contains("Department")).ToList<Role>();
+        }
     }
 }
