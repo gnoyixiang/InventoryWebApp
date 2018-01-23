@@ -1,4 +1,4 @@
-namespace InventoryWebApp.Models.Entities
+namespace InventoryWebApp.Models
 {
     using System;
     using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace InventoryWebApp.Models.Entities
             DisbursementDetails = new HashSet<DisbursementDetail>();
             PODetails = new HashSet<PODetail>();
             RequestDetails = new HashSet<RequestDetail>();
-            RetrievalDetails = new HashSet<RetrievalDetail>();
+            Retrievals = new HashSet<Retrieval>();
             SupplierDetails = new HashSet<SupplierDetail>();
             TenderDetails = new HashSet<TenderDetail>();
         }
@@ -51,9 +51,6 @@ namespace InventoryWebApp.Models.Entities
         [StringLength(20)]
         public string Supplier3 { get; set; }
 
-        [StringLength(50)]
-        public string Location { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Adjustment> Adjustments { get; set; }
 
@@ -69,7 +66,7 @@ namespace InventoryWebApp.Models.Entities
         public virtual ICollection<RequestDetail> RequestDetails { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RetrievalDetail> RetrievalDetails { get; set; }
+        public virtual ICollection<Retrieval> Retrievals { get; set; }
 
         public virtual Supplier Supplier { get; set; }
 
