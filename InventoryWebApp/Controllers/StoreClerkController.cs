@@ -20,9 +20,9 @@ namespace InventoryWebApp.Controllers
         IStationeryCatalogueDAO stationeryDAO = new StationeryCatalogueDAO();
         ICollectionPointDAO collectionPointDAO = new CollectionPointDAO();
 
-        public void UpdateActualQuantity(String deptCode, String itemCode, String notes)
+        public void UpdateDisbursementDetail(DisbursementDetail dd)
         {
-            
+            disbursementDetailsDAO.UpdateDisbursementDetail(dd);
         }
         public RequestDetail GetRequestDetail(string RequestC, string itemCode)
         {
@@ -212,10 +212,19 @@ namespace InventoryWebApp.Controllers
             {
                 ddDict.Add(item.ItemCode, new List<DisbursementDetail>());
             }
-
-            foreach (var item in disbursementDAO.SearchDbmByStatus("allocating"))
+            
+            if (disbursementDAO.SearchDbmByStatus("allocating").Count == 0)
             {
-                ddList.AddRange(disbursementDetailsDAO.SearchDDByDCode(item.DisbursementCode));
+                foreach (var item in disbursementDAO.SearchDbmByStatus("disbursing"))
+                {
+                    ddList.AddRange(disbursementDetailsDAO.SearchDDByDCode(item.DisbursementCode));
+                }
+            }else
+            {
+                foreach (var item in disbursementDAO.SearchDbmByStatus("allocating"))
+                {
+                    ddList.AddRange(disbursementDetailsDAO.SearchDDByDCode(item.DisbursementCode));
+                }
             }
 
             foreach (var item in ddList)
@@ -286,6 +295,10 @@ namespace InventoryWebApp.Controllers
             List<Disbursement> dbmList = disbursementDAO.SearchDbmByStatus("allocating").ToList();
             if (dbmList.Count == 0)
             {
+                //if (disbursementDAO.SearchDbmByStatus("disbursing").ToList().Count != 0)
+                //{
+                //    return disbursementDAO.SearchDbmByStatus("disbursing").ToList();
+                //}
                 //dbm = new List<Disbursement>();
                 List<DisbursementDetail> ddList = GenerateDisbursementDetail();
                 HashSet<String> departmentList = GetListOfDeptFromDisbursementDetails(ddList);

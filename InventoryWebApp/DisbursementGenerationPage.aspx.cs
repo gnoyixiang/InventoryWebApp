@@ -56,6 +56,7 @@ namespace InventoryWebApp
                 lblConfirmDate.Text = "The collection date has been confirmed and sent to respective Department Representatives.";
                 btnConfirm.Visible = false;
                 btnPopUp.Visible = false;
+                btnNext.Enabled = true;
                 return ((DateTime)disbursement.DatePlanToCollect).ToString("yyyy-MM-dd");
             }
         }

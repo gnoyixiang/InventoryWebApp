@@ -12,29 +12,32 @@ namespace InventoryWebApp
     public partial class _2AllocationPage : System.Web.UI.Page
     {
         StoreClerkController sClerkCtrl = new StoreClerkController();
+        Dictionary<String, List<DisbursementDetail>> innerList;
+        List<RetrievalDetail> outerList;
         Retrieval retrieval;
-        Disbursement disbursement;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             retrieval = sClerkCtrl.GetCurrentRetrieval();
             if (!IsPostBack)
             {
+                sClerkCtrl.GetAllocatingDisbursementList();
+                innerList = sClerkCtrl.GenerateDisbursementDetailPerItem();
+                outerList = (List<RetrievalDetail>) retrieval.RetrievalDetails;
                 BindGrid();
             }
         }
 
         protected void BindGrid()
         {
-            lvAllocation.DataSource = retrieval.RetrievalDetails;
+            lvAllocation.DataSource = outerList;
             lvAllocation.DataBind();
             
         }
-        //Ban vai noi
+        
         protected List<DisbursementDetail> GetDisbursementDetailsPerItem(String itemCode)
         {
-            sClerkCtrl.GetAllocatingDisbursementList();
-           return sClerkCtrl.GenerateDisbursementDetailPerItem()[itemCode];
+           return innerList[itemCode];
         }
 
 

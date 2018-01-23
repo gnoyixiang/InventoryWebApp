@@ -5,7 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server" />
     <h3>Disbursement Form</h3>
-    <asp:Label ID="lblTest" runat="server" Text="Label"></asp:Label>
+    <%--<asp:Label ID="lblTest" runat="server" Text="Label"></asp:Label>--%>
     <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="true">
         <ContentTemplate>
             <table class="table-condensed">

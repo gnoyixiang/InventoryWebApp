@@ -34,7 +34,7 @@ namespace InventoryWebApp
                 ddlDepartment.DataSource = sClerkCtrl.GetDisbursingDepartmentList(sClerkCtrl.GetDisbursingDisbursements());
                 ddlDepartment.DataTextField = "DepartmentName";
                 ddlDepartment.DataValueField = "DepartmentCode";
-                ddlDepartment.DataBind();
+                ddlDepartment.DataBind();BindLvDisbursementDetails();
             }
             
             tbxRep.Text = GetEmployee(GetDepartment().RepresentativeCode).EmployeeTitle+ " " + GetEmployee(GetDepartment().RepresentativeCode).EmployeeName;
@@ -42,7 +42,7 @@ namespace InventoryWebApp
             tbxStatus.Text = GetDisbursingDisbursementByDeptCode(ddlDepartment.SelectedValue).Status;
             tbxDisbursementTime.Text = GetCollectionTime();
 
-            BindLvDisbursementDetails();
+            
            
         }
 
@@ -115,12 +115,18 @@ namespace InventoryWebApp
 
         protected void lvDisbursementDetails_ItemUpdating(object sender, ListViewUpdateEventArgs e)
         {
-            //TextBox tbxActualQuantity = lvDisbursementDetails.Items[e.ItemIndex].FindControl("tbxActualQuantity") as TextBox;
+            TextBox tbxNotes = lvDisbursementDetails.Items[e.ItemIndex].FindControl("tbxNotes") as TextBox;
 
             //lblTest.Text = e.NewValues["Quantity"].ToString();
-            
+            //lblTest.Text = lvDisbursementDetails.DataKeys[e.ItemIndex].Values[0].ToString();
+            List<DisbursementDetail> ddList = sClerkCtrl.GetDisbursingDisbDetailsByDeptCode(ddlDepartment.SelectedValue);
+            DisbursementDetail dd = ddList[e.ItemIndex];
+            dd.ActualQuantity = Int32.Parse(e.NewValues["ActualQuantity"].ToString());
+            dd.Notes = tbxNotes.Text;
+            sClerkCtrl.UpdateDisbursementDetail(dd);
 
-
+            //lblTest.Text = dd.ActualQuantity.ToString();
+            //lblTest.Text = dd.ItemCode + dd.RequestCode;
             lvDisbursementDetails.EditIndex = -1;
             BindLvDisbursementDetails();
         }
@@ -130,5 +136,14 @@ namespace InventoryWebApp
             lvDisbursementDetails.EditIndex = -1;
             BindLvDisbursementDetails();
         }
+
+        protected override void OnPreRenderComplete(EventArgs e)
+        {
+            BindLvDisbursementDetails();
+            base.OnPreRenderComplete(e);
+        }
+
     }
+
+
 }
