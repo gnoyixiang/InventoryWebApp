@@ -28,10 +28,13 @@ namespace InventoryWebApp.Models
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<StationeryCatalogue> StationeryCatalogues { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
+        public virtual DbSet<SupplierDetail> SupplierDetails { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Tender> Tenders { get; set; }
         public virtual DbSet<TenderDetail> TenderDetails { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<UserClaim> UserClaims { get; set; }
+        public virtual DbSet<UserLogin> UserLogins { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -111,6 +114,11 @@ namespace InventoryWebApp.Models
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<StationeryCatalogue>()
+                .HasMany(e => e.SupplierDetails)
+                .WithRequired(e => e.StationeryCatalogue)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<StationeryCatalogue>()
                 .HasMany(e => e.TenderDetails)
                 .WithRequired(e => e.StationeryCatalogue)
                 .WillCascadeOnDelete(false);
@@ -129,6 +137,11 @@ namespace InventoryWebApp.Models
                 .HasMany(e => e.StationeryCatalogues2)
                 .WithOptional(e => e.Supplier5)
                 .HasForeignKey(e => e.Supplier3);
+
+            modelBuilder.Entity<Supplier>()
+                .HasMany(e => e.SupplierDetails)
+                .WithRequired(e => e.Supplier)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Tender>()
                 .HasMany(e => e.TenderDetails)

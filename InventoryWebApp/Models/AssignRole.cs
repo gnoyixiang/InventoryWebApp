@@ -13,7 +13,7 @@ namespace InventoryWebApp.Models
         [StringLength(20)]
         public string AssignRoleCode { get; set; }
 
-        [StringLength(20)]
+        [StringLength(128)]
         public string TemporaryRoleCode { get; set; }
 
         [StringLength(20)]
@@ -25,7 +25,7 @@ namespace InventoryWebApp.Models
         [Column(TypeName = "date")]
         public DateTime? EndDate { get; set; }
 
-        [StringLength(50)]
+        [StringLength(128)]
         public string AssignedBy { get; set; }
 
         public virtual Employee Employee { get; set; }

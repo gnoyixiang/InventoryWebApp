@@ -16,7 +16,7 @@ namespace InventoryWebApp.Models
         [StringLength(20)]
         public string ItemCode { get; set; }
 
-        public int? QuantOnHand { get; set; }
+        public int? AdjustmentQuant { get; set; }
 
         [Column(TypeName = "date")]
         public DateTime? DateCreated { get; set; }
@@ -30,13 +30,13 @@ namespace InventoryWebApp.Models
         [StringLength(200)]
         public string Notes { get; set; }
 
-        [StringLength(50)]
-        public string Username { get; set; }
+        [StringLength(128)]
+        public string UserName { get; set; }
 
         [StringLength(200)]
         public string Reason { get; set; }
 
-        [StringLength(50)]
+        [StringLength(128)]
         public string ApprovedBy { get; set; }
 
         [StringLength(200)]

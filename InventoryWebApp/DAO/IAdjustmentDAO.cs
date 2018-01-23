@@ -14,5 +14,6 @@ namespace InventoryWebApp.DAO
         int RejectAdjustment(string adjustmentCode, string headRemarks);
         Adjustment GetAdjustment(string adjustmentCode);
         string GetLastAdjustment();
+        List<Adjustment> ListAllAdjustmentsByItemCode(string itemCode);
     }
 }
