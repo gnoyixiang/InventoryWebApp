@@ -85,6 +85,7 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
@@ -224,6 +225,7 @@
     <Content Include="Layout.Master" />
     <Content Include="StockCardSearch.aspx" />
     <Content Include="ViewPurchaseOrders.aspx" />
+    <None Include="Properties\PublishProfiles\InventoryWebApp.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
@@ -262,6 +264,10 @@
     <Content Include="Site.Master" />
     <Content Include="ViewStockCard.aspx" />
     <Content Include="ViewSwitcher.ascx" />
+    <Content Include="WCF\ClerkService.svc" />
+    <Content Include="WCF\DepartmentService.svc" />
+    <Content Include="WCF\EmployeeService.svc" />
+    <Content Include="WCF\SupervisorService.svc" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -565,6 +571,22 @@
     </Compile>
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="WCF\ClerkService.svc.cs">
+      <DependentUpon>ClerkService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="WCF\DepartmentService.svc.cs">
+      <DependentUpon>DepartmentService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="WCF\EmployeeService.svc.cs">
+      <DependentUpon>EmployeeService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="WCF\IClerkService.cs" />
+    <Compile Include="WCF\IDepartmentService.cs" />
+    <Compile Include="WCF\IEmployeeService.cs" />
+    <Compile Include="WCF\ISupervisorService.cs" />
+    <Compile Include="WCF\SupervisorService.svc.cs">
+      <DependentUpon>SupervisorService.svc</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

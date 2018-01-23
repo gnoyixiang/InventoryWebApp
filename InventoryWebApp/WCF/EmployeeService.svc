@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="InventoryWebApp.WCF.EmployeeService" CodeBehind="EmployeeService.svc.cs" %>
