@@ -206,14 +206,9 @@ namespace InventoryWebApp
             }
         }
 
-        protected void listDetails_PagePropertiesChanging(object sender, PagePropertiesChangingEventArgs e)
-        {
-            listDetails.EditIndex = -1;
-            BindData();
-        }
-
         protected void listDetails_ItemUpdating(object sender, ListViewUpdateEventArgs e)
         {
+            Validate();
             if (!Page.IsValid)
             {
                 return;
@@ -221,6 +216,7 @@ namespace InventoryWebApp
             
             PODetail poDetail = poDetails[e.ItemIndex];
             poDetail.Quantity = Convert.ToInt32(e.NewValues["Quantity"]);
+            poDetail.Notes = Convert.ToString(e.NewValues["Notes"]);
             scController.UpdatePODetail(poDetail);
             scController.FinishEditingPurchaseOrder(po);
             listDetails.EditIndex = -1;
@@ -258,11 +254,7 @@ namespace InventoryWebApp
             listDetails.EditIndex = -1;
             BindData();
         }
-
-        protected void listDetails_PreRender(object sender, EventArgs e)
-        {
-
-        }
+        
 
         private void BindData()
         {
@@ -286,5 +278,24 @@ namespace InventoryWebApp
             return false;
         }
 
+        protected void ValidNotes_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            if (source is CustomValidator && IsPostBack)
+            {
+                CustomValidator validator = (CustomValidator)source;
+                ListViewItem parentItem = (ListViewItem)validator.Parent;
+                var txtNotes = (TextBox)parentItem.FindControl("txtNotes");
+                string notes = args.Value;
+                args.IsValid = notes.Count<char>() <= 200;
+                if (!args.IsValid)
+                {
+                    txtNotes.CssClass = "control error";
+                }
+                else
+                {
+                    txtNotes.CssClass = "control";
+                }
+            }
+        }
     }
 }

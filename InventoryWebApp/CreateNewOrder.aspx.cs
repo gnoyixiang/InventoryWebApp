@@ -17,31 +17,29 @@ namespace InventoryWebApp
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                LoadPurchaseItems();
+                BindData();
+                RefreshCategory();
+            }
+            
+        }
+
+        protected void LoadPurchaseItems()
+        {
             List<StationeryCatalogue> stationeries = scController.GetStationeriesBelowReorderLevel();
             List<PurchaseItem> purchaseItems = new List<PurchaseItem>();
-            if (Session["purchaseItems"] != null)
+            if (ViewState["purchaseItems"] != null)
             {
-                purchaseItems = (List<PurchaseItem>)Session["purchaseItems"];
-
-                var copyPurchaseItems = new List<PurchaseItem>(purchaseItems);
+                purchaseItems = (List<PurchaseItem>)ViewState["purchaseItems"];               
+            }
+            else
+            {
                 foreach (StationeryCatalogue s in stationeries)
                 {
-                    bool isFound = false;
-                    for (int i = 0; i < copyPurchaseItems.Count; i++)
-                    {
-                        //check if there are changes in stock for the same product
-                        if (copyPurchaseItems[i].Stationery.ItemCode == s.ItemCode)
-                        {
-                            isFound = true;
-                            if (copyPurchaseItems[i].Stationery.Stock != s.Stock)
-                            {
-                                purchaseItems[i].Stationery = s;
-                            }
-                            break;
-                        }
-                    }
-                    //item has fallen below reorder level but not in purchaseItems list (not found)
-                    if (!isFound)
+                    int existingOrdersQty = scController.SumOfItemQtyInPendingAndApprovedOrders(s.ItemCode);
+                    if (s.Stock + existingOrdersQty <= s.ReorderLevel)
                     {
                         PurchaseItem p = new PurchaseItem();
                         p.Stationery = s;
@@ -51,25 +49,36 @@ namespace InventoryWebApp
                     }
                 }
             }
-            else
-            {
-                foreach (StationeryCatalogue s in stationeries)
-                {
-                    PurchaseItem p = new PurchaseItem();
-                    p.Stationery = s;
-                    p.SupplierCode = s.Supplier1;
-                    p.OrderQuantity = s.ReorderQuantity;
-                    purchaseItems.Add(p);
-                }
-            }
 
-            Session["purchaseItems"] = purchaseItems;
+            ViewState["purchaseItems"] = purchaseItems;
+        }
 
-            if (!IsPostBack)
-            {
-                listItems.DataSource = purchaseItems;
-                listItems.DataBind();
-            }
+        private void RefreshCategory()
+        {
+            List<String> categories = scController.GetCategories();
+            string defaultCatValue = "-- Select a category --";
+            categories.Insert(0, defaultCatValue);
+
+            ddlAddCategory.DataSource = categories;
+            ddlAddCategory.DataBind();
+
+            ddlAddCategory.SelectedValue = defaultCatValue;
+
+            ddlAddDescription.Enabled = false;
+            ddlAddDescription.Items.Clear();
+            hfAddItemCode.Value = "";
+            hfAddReorderQty.Value = "";
+            lblAddReorderLevel.Text = "";
+            lblAddStock.Text = "";
+            lblAddMeasureUnitStock.Text = "";
+            txtAddOrderQuantity.Text = "";
+            txtAddOrderQuantity.Enabled = false;
+            txtAddOrderQuantity.CssClass = "control";
+            lblAddPrice.Text = "";
+            lblAddAmount.Text = "";
+            btnAddItem.Enabled = false;
+            ddlAddSuppliers.Enabled = false;
+            ddlAddSuppliers.Items.Clear();
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
@@ -79,11 +88,11 @@ namespace InventoryWebApp
                 return;
             }
 
-            var purchaseItems = (List<PurchaseItem>)Session["purchaseItems"];
+            var purchaseItems = (List<PurchaseItem>)ViewState["purchaseItems"];
             if (scController.CreatePurchaseOrders(purchaseItems) != 0)
             {
                 Session["CreatedPO"] = true;
-                Session["purchaseItems"] = null;
+                ViewState["purchaseItems"] = null;
             }
             else
             {
@@ -94,14 +103,9 @@ namespace InventoryWebApp
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("/ViewPurchaseOrders");
         }
-
-        protected void listItems_ItemCreated(object sender, ListViewItemEventArgs e)
-        {
-
-        }
-
+        
         protected void ddlSuppliers_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (sender is DropDownList)
@@ -117,6 +121,13 @@ namespace InventoryWebApp
                 var txtOrderQty = (TextBox)parentItem.FindControl("txtOrderQuantity");
                 var lblAmount = (Label)parentItem.FindControl("lblAmount");
                 lblAmount.Text = GetAmount(txtOrderQty.Text, lblPrice.Text).ToString();
+
+                var purchaseItems = (List<PurchaseItem>)ViewState["purchaseItems"];
+                if (purchaseItems != null)
+                {
+                    purchaseItems[parentItem.DataItemIndex].SupplierCode = supplierCode;
+                }
+                ViewState["purchaseItems"] = purchaseItems;
             }
         }
 
@@ -140,17 +151,21 @@ namespace InventoryWebApp
             var lblAmount = (Label)e.Item.FindControl("lblAmount");
             var txtOrderQty = (TextBox)e.Item.FindControl("txtOrderQuantity");
             decimal amount = GetAmount(txtOrderQty.Text, lblPrice.Text);
-            lblAmount.Text = amount.ToString();
+            lblAmount.Text = amount.ToString();     
+            
+            var lblRecommendQty = (Label)e.Item.FindControl("lblRecommendQty");
+            int recommendQty = scController.RecommendReorderQty(item.ItemCode);
+            lblRecommendQty.Text = recommendQty.ToString();
 
-            var validOrderQuantity = (CustomValidator)e.Item.FindControl("validOrderQuantity");
-            validOrderQuantity.ErrorMessage = "Order quantity cannot be less than " + item.ReorderQuantity;
+            //var listRequests = (ListView)e.Item.FindControl("listRequests");
+            //listRequests.DataSource = scController.ListIncompleteOrProcessingRequestsDetails(item.ItemCode);
+            //listRequests.DataBind();
 
-            if ((e.Item.ItemType == ListViewItemType.InsertItem))
-            {
-                var ddlCat = (DropDownList)e.Item.FindControl("ddlAddCategory");
-                ddlCat.DataSource = scController.GetCategories();
-                ddlCat.DataBind();
-            }
+            //var listOrders = (ListView)e.Item.FindControl("listOrders");
+            //listOrders.DataSource = scController.ListPendingAndApprovedOrderDetails(item.ItemCode);
+            //listOrders.DataBind();
+            
+
         }
 
         private decimal GetAmount(string orderQty, string price)
@@ -158,41 +173,49 @@ namespace InventoryWebApp
             return int.Parse(orderQty) * decimal.Parse(price);
         }
 
+        private decimal? GetAmount(int orderQty, decimal? price)
+        {
+            return orderQty * price;
+        }
+
         protected void listItems_PreRender(object sender, EventArgs e)
         {
-            //if (IsPostBack)
-            //{
-            //    listItems.DataSource = (List<PurchaseItem>)Session["purchaseItems"];
-            //    listItems.DataBind();
-            //}
-
             var lblGrandTotal = (Label)listItems.FindControl("lblGrandTotal");
-            decimal total = 0;
-            foreach (ListViewDataItem item in listItems.Items)
+            if (lblGrandTotal != null)
             {
-                var lblAmount = (Label)item.FindControl("lblAmount");
-                total += decimal.Parse(lblAmount.Text);
+                decimal total = 0;
+                foreach (ListViewDataItem item in listItems.Items)
+                {
+                    var lblAmount = (Label)item.FindControl("lblAmount");
+                    total += decimal.Parse(lblAmount.Text);
+                }
+                lblGrandTotal.Text = total.ToString();
             }
-            //var lblInsertAmount = (Label)listItems.InsertItem.FindControl("lblAmount");
-            //total+= decimal.Parse(lblInsertAmount.Text);
-            //lblGrandTotal.Text = total.ToString();
-            
+
         }
 
         protected void txtOrderQuantity_TextChanged(object sender, EventArgs e)
         {
+            Validate();
             if (sender is TextBox)
             {
-                TextBox txt = (TextBox)sender;
+                TextBox txt = (TextBox)sender;           
+
                 ListViewDataItem parentItem = (ListViewDataItem)txt.Parent;
-                //HiddenField hfOrderQtyIsValid = (HiddenField)parentItem.FindControl("hfOrderQtyIsValid");
-                //if (hfOrderQtyIsValid.Value.Equals("true"))
-                //{
+                int quantity = Convert.ToInt32(txt.Text);
+                
+                var purchaseItems = (List<PurchaseItem>)ViewState["purchaseItems"];
+                if (purchaseItems != null)
+                {
+                    purchaseItems[parentItem.DataItemIndex].OrderQuantity = quantity;
+                }
+                ViewState["purchaseItems"] = purchaseItems;
+                
+
                 Label lblPrice = (Label)parentItem.FindControl("lblPrice");
                 var txtOrderQty = (TextBox)parentItem.FindControl("txtOrderQuantity");
                 var lblAmount = (Label)parentItem.FindControl("lblAmount");
-                lblAmount.Text = GetAmount(txtOrderQty.Text, lblPrice.Text).ToString();
-                //} 
+                lblAmount.Text = GetAmount(txtOrderQty.Text, lblPrice.Text).ToString();               
             }
         }
 
@@ -216,65 +239,31 @@ namespace InventoryWebApp
                 {
                     txtOrderQuantity.CssClass = "control";
                 }
+
+                validator.ErrorMessage = "Order quantity cannot be less than " + minReorderQty;
             }
         }
 
         protected void ddlAddSuppliers_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DropDownList ddlAddSuppliers = (DropDownList)listItems.InsertItem.FindControl("ddlAddSuppliers"); ;
-            HiddenField hfItemCode = (HiddenField)listItems.InsertItem.FindControl("hfItemCode");
-            TextBox txtAddOrderQuantity = (TextBox)listItems.InsertItem.FindControl("txtAddOrderQuantity");
-
-            Label lblPrice = (Label)listItems.InsertItem.FindControl("lblPrice");
-            lblPrice.Text = scController.GetSupplierItemPrice(ddlAddSuppliers.SelectedValue, hfItemCode.Value).ToString();
-            Label lblAmount = (Label)listItems.InsertItem.FindControl("lblAmount");
-            lblAmount.Text = GetAmount(txtAddOrderQuantity.Text, lblPrice.Text).ToString();
-        }
-
-        protected void listItems_ItemInserting(object sender, ListViewInsertEventArgs e)
-        {
-            if (!Page.IsValid)
-            {
-                return;
-            }
-            ListViewItem item = e.Item;
-            var hfItemCode = (HiddenField)item.FindControl("hfItemCode");
-            string itemCode = hfItemCode.Value;
-            StationeryCatalogue stationery = scController.GetStationeryByItemCode(itemCode);
-            var ddlAddSuppliers = (DropDownList)item.FindControl("ddlAddSuppliers");
-            string supplierCode = ddlAddSuppliers.SelectedValue;
-            Supplier supplier = scController.GetSupplier(supplierCode);
-            var txtAddOrderQuantity = (TextBox)item.FindControl("txtAddOrderQuantity");
-            string orderQuantity = txtAddOrderQuantity.Text;
-            if (stationery == null || supplier == null || orderQuantity == "")
-            {
-                return;
-            }
-            var purchaseItems = (List<PurchaseItem>)Session["purchaseItems"];
-            PurchaseItem pi = new PurchaseItem();
-            pi.Stationery = stationery;
-            pi.SupplierCode = supplier.SupplierCode;
-            pi.OrderQuantity = int.Parse(orderQuantity);
-            purchaseItems.Add(pi);
-            Session["purchaseItems"] = purchaseItems;
-            listItems.DataSource = (List<PurchaseItem>)Session["purchaseItems"];
-            listItems.DataBind();
-
-        }
-        
-        
+            decimal? price= scController.GetSupplierItemPrice(ddlAddSuppliers.SelectedValue, hfAddItemCode.Value);
+            lblAddPrice.Text = String.Format("{0:c}", price);
+            int orderQty = int.Parse(txtAddOrderQuantity.Text);
+            decimal? amount = GetAmount(orderQty, price);
+            lblAddAmount.Text = String.Format("{0:c}", amount);
+        }       
 
         protected void validAddOrderQuantity_ServerValidate(object source, ServerValidateEventArgs args)
         {
             if (source is CustomValidator)
             {
                 CustomValidator validator = (CustomValidator)source;
-                ListViewItem parentItem = (ListViewItem)validator.Parent;
-                var hfReorderQty = (HiddenField)parentItem.FindControl("hfReorderQty");
-                int minReorderQty = int.Parse(hfReorderQty.Value);
+                //ListViewItem parentItem = (ListViewItem)validator.Parent;
+                //var hfReorderQty = (HiddenField)parentItem.FindControl("hfReorderQty");
+                int minReorderQty = int.Parse(hfAddReorderQty.Value);
                 int num = int.Parse(args.Value);
                 args.IsValid = num >= minReorderQty;
-                var txtAddOrderQuantity = (TextBox)parentItem.FindControl("txtAddOrderQuantity");
+                //var txtAddOrderQuantity = (TextBox)parentItem.FindControl("txtAddOrderQuantity");
                 if (!args.IsValid)
                 {
                     txtAddOrderQuantity.CssClass = "control error";
@@ -290,128 +279,266 @@ namespace InventoryWebApp
 
         protected void txtAddOrderQuantity_TextChanged(object sender, EventArgs e)
         {
-
+            Validate();
         }
 
         protected void ddlAddCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DropDownList ddlCat = (DropDownList)listItems.InsertItem.FindControl("ddlAddCategory"); ;
-            DropDownList ddlDescription = (DropDownList)listItems.InsertItem.FindControl("ddlAddDescription");
-            string categoryCode = ddlCat.SelectedValue;
-            List<String> descriptionList = scController.GetProductListByCat(categoryCode);
-            var productList = new List<String>();
-            var purchaseItems = (List<PurchaseItem>)Session["purchaseItems"];
-            if (purchaseItems != null)
+            List<String> productList = new List<String>();
+            if (ddlAddCategory.SelectedIndex != 0)
             {
-                foreach (String description in descriptionList)
+                
+                string categoryCode = ddlAddCategory.SelectedValue;
+                List<String> descriptionList = scController.GetProductListByCat(categoryCode);
+
+                var purchaseItems = (List<PurchaseItem>)ViewState["purchaseItems"];
+                if (purchaseItems != null)
                 {
-                    bool isInPurchaseItem = false;
-                    foreach (PurchaseItem pi in purchaseItems)
+                    foreach (String description in descriptionList)
                     {
-                        if (pi.Stationery.Description == description)
+                        bool isInPurchaseItem = false;
+                        foreach (PurchaseItem pi in purchaseItems)
                         {
-                            isInPurchaseItem = true;
-                            break;
-                        }                       
-                    }
-                    if (!isInPurchaseItem)
-                    {
-                        productList.Add(description);
+                            if (pi.Stationery.Description == description)
+                            {
+                                isInPurchaseItem = true;
+                                break;
+                            }
+                        }
+                        if (!isInPurchaseItem)
+                        {
+                            productList.Add(description);
+                        }
                     }
                 }
+
+                if (productList.Count == 0)
+                {
+                    lblNoItems.Visible = true;
+                    ddlAddDescription.Enabled = false;
+                }
+                else
+                {
+                    lblNoItems.Visible = false;
+                    ddlAddDescription.Enabled = true;
+                }
             }
-            ddlDescription.DataSource = productList;
-            ddlDescription.DataBind();
+            else
+            {
+                lblNoItems.Visible = false;
+            }
+
+            ddlAddDescription.DataSource = productList;
+            ddlAddDescription.DataBind();
             ddlAddDescription_SelectedIndexChanged(sender, e);
         }
 
+        
 
         protected void ddlAddDescription_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DropDownList ddlDescription = (DropDownList)listItems.InsertItem.FindControl("ddlAddDescription"); ;
-            string description = ddlDescription.SelectedValue;
-            StationeryCatalogue s = scController.GetStationeryByDescription(description);
-            HiddenField hfItemCode = (HiddenField)listItems.InsertItem.FindControl("hfItemCode");
-            hfItemCode.Value = s.ItemCode;
-            HiddenField hfReorderQty = (HiddenField)listItems.InsertItem.FindControl("hfReorderQty");
-            hfReorderQty.Value = s.ReorderQuantity.ToString();
-            Label lblReorderLevel = (Label)listItems.InsertItem.FindControl("lblReorderLevel");
-            lblReorderLevel.Text = s.ReorderLevel.ToString();
-            Label lblStock = (Label)listItems.InsertItem.FindControl("lblStock");
-            lblStock.Text = s.Stock.ToString();
-            Label lblMeasureUnitStock = (Label)listItems.InsertItem.FindControl("lblMeasureUnitStock");
-            lblMeasureUnitStock.Text = s.MeasureUnit;
-            TextBox txtAddOrderQuantity = (TextBox)listItems.InsertItem.FindControl("txtAddOrderQuantity");
-            txtAddOrderQuantity.Text = s.ReorderQuantity.ToString();
-
-            DropDownList ddlAddSuppliers = (DropDownList)listItems.InsertItem.FindControl("ddlAddSuppliers");
+        {           
+            string description = ddlAddDescription.SelectedValue;
             ddlAddSuppliers.Items.Clear();
-            ddlAddSuppliers.Items.Add(new ListItem(scController.GetSupplierName(s.Supplier1), s.Supplier1));
-            ddlAddSuppliers.Items.Add(new ListItem(scController.GetSupplierName(s.Supplier2), s.Supplier2));
-            ddlAddSuppliers.Items.Add(new ListItem(scController.GetSupplierName(s.Supplier3), s.Supplier3));
-            ddlAddSuppliers_SelectedIndexChanged(sender, e);
+            if (description == "")
+            {
+                hfAddItemCode.Value = "";
+                hfAddReorderQty.Value = "";
+                lblAddReorderLevel.Text = "";
+                lblAddStock.Text = "";
+                lblAddMeasureUnitStock.Text = "";
+                txtAddOrderQuantity.Text = "";
+                txtAddOrderQuantity.Enabled = false;
+                txtAddOrderQuantity.CssClass = "control";
+                lblAddPrice.Text = "";
+                lblAddAmount.Text = "";
+                btnAddItem.Enabled = false;
+                ddlAddSuppliers.Enabled = false;
+                
+            }
+            else
+            {
+                StationeryCatalogue s = scController.GetStationeryByDescription(description);
+                hfAddItemCode.Value = s.ItemCode;
+                hfAddReorderQty.Value = s.ReorderQuantity.ToString();
+                lblAddReorderLevel.Text = s.ReorderLevel.ToString();
+                lblAddStock.Text = s.Stock.ToString();
+                lblAddMeasureUnitStock.Text = lblAddMeasureUnitReorderLevel.Text = lblAddMeasureUnitQty.Text = s.MeasureUnit;
+                txtAddOrderQuantity.Text = s.ReorderQuantity.ToString();
+                txtAddOrderQuantity.Enabled = true;
+                txtAddOrderQuantity.CssClass = "control";
+                btnAddItem.Enabled = true;
+                ddlAddSuppliers.Enabled = true; 
+
+                ddlAddSuppliers.Items.Add(new ListItem(scController.GetSupplierName(s.Supplier1), s.Supplier1));
+                ddlAddSuppliers.Items.Add(new ListItem(scController.GetSupplierName(s.Supplier2), s.Supplier2));
+                ddlAddSuppliers.Items.Add(new ListItem(scController.GetSupplierName(s.Supplier3), s.Supplier3));
+                ddlAddSuppliers_SelectedIndexChanged(sender, e);
+            }
             
         }
 
        
-
-        protected void listItems_DataBound(object sender, EventArgs e)
+        protected void btnAddItem_Click(object sender, EventArgs e)
         {
-            DropDownList ddlCat = (DropDownList)listItems.InsertItem.FindControl("ddlAddCategory");
-            List<String> categories = scController.GetCategories();
-            string defaultCatValue = "-- Select a category --";
-            categories.Insert(0, defaultCatValue);
-
-            ddlCat.DataSource = categories;
-            ddlCat.DataBind();
-
-            if (!IsPostBack)
+            if (!Page.IsValid)
             {
-                ddlCat.SelectedValue = defaultCatValue;
+                Validate();
+                return;
+            }           
+            string itemCode = hfAddItemCode.Value;
+            StationeryCatalogue stationery = scController.GetStationeryByItemCode(itemCode);            
+            string supplierCode = ddlAddSuppliers.SelectedValue;
+            Supplier supplier = scController.GetSupplier(supplierCode);
+            string orderQuantity = txtAddOrderQuantity.Text;
+            if (stationery == null || supplier == null || orderQuantity == "")
+            {
+                return;
+            }
+            var purchaseItems = (List<PurchaseItem>)ViewState["purchaseItems"];
+            PurchaseItem pi = new PurchaseItem();
+            pi.Stationery = stationery;
+            pi.SupplierCode = supplier.SupplierCode;
+            pi.OrderQuantity = int.Parse(orderQuantity);
+            purchaseItems.Add(pi);
+            ViewState["purchaseItems"] = purchaseItems;
+
+            BindData();
+
+            RefreshCategory();
+        }
+
+        protected void listItems_ItemDeleting(object sender, ListViewDeleteEventArgs e)
+        {
+            var purchaseItems = (List<PurchaseItem>)ViewState["purchaseItems"];
+            if (purchaseItems != null)
+            {
+                PurchaseItem deleteItem = purchaseItems[e.ItemIndex];
+                purchaseItems.Remove(deleteItem);
+                ViewState["purchaseItems"] = purchaseItems;
+                BindData();
             }
         }
 
-        protected void linkViewRequest_Command(object sender, CommandEventArgs e)
+        private void BindData()
         {
-            LinkButton linkViewRequest = (LinkButton)sender;
-            ListViewDataItem listItem = (ListViewDataItem)linkViewRequest.Parent;
-            ListView listRequests = (ListView)listItem.FindControl("listRequests");
-            LinkButton linkHideRequest = (LinkButton)listItem.FindControl("linkHideRequest");
-            HiddenField hfItemCode = (HiddenField)listItem.FindControl("hfItemCode");
-            string itemCode = hfItemCode.Value;
+            var purchaseItems = (List<PurchaseItem>)ViewState["purchaseItems"];
+            if (purchaseItems!=null)
+            {
+                listItems.Visible = true;
+                btnSubmit.Enabled = true;
+                btnCancel.Enabled = true;
+                listItems.DataSource = purchaseItems;
+                listItems.DataBind();
+                if (IsPostBack)
+                {
+                    Validate();
+                }
+            }
+            else
+            {
+                listItems.Visible = false;
+                btnSubmit.Enabled = false;
+                btnCancel.Enabled = false;
+            }
+        }
 
-            listRequests.Visible = true;
-            listRequests.DataSource = scController.GetRequestDetailsByItemCode(itemCode);
+        protected void txtNotes_TextChanged(object sender, EventArgs e)
+        {
+            Validate();
+            if (sender is TextBox)
+            {
+                TextBox t = (TextBox)sender;
+                ListViewDataItem item = (ListViewDataItem)t.Parent;
+                string notes = t.Text;
+                var purchaseItems = (List<PurchaseItem>)ViewState["purchaseItems"];
+                if (purchaseItems != null)
+                {
+                    purchaseItems[item.DataItemIndex].Notes = notes;
+                }
+                ViewState["purchaseItems"] = purchaseItems;
+
+            }
+        }
+        
+
+        protected void listRequests_ItemDataBound(object sender, ListViewItemEventArgs e)
+        {
+            var requestDetail = (RequestDetail)e.Item.DataItem;
+            var stationery = scController.GetStationeryByItemCode(requestDetail.ItemCode);
+            int qtyRequiredForRequestDetail = Convert.ToInt32(requestDetail.RemainingQuant);
+            Request request = scController.GetRequest(requestDetail.RequestCode);
+            List<DisbursementDetail> dDetails = scController.ListDisbursingDDetails(request, stationery);
+            int disbursingQty = scController.SumOfDisbursingQty(dDetails);
+            qtyRequiredForRequestDetail -= disbursingQty;
+
+            var lblRemainingQty = (Label)e.Item.FindControl("lblRemainingQty");
+            lblRemainingQty.Text = Convert.ToString(requestDetail.RemainingQuant);
+
+            var lblDisbursingOrAllocating = (Label)e.Item.FindControl("lblDisbursingOrAllocating");
+            lblDisbursingOrAllocating.Text = disbursingQty.ToString();
+
+            var lblRequiredQty = (Label)e.Item.FindControl("lblRequiredQty");
+            lblRequiredQty.Text = qtyRequiredForRequestDetail.ToString();
+            
+            var listRequests = (ListView)e.Item.Parent.Parent;
+            var lblTotalRemainingQty = (Label)listRequests.FindControl("lblTotalRemainingQty");
+            lblTotalRemainingQty.Text = Convert.ToString(Convert.ToInt32(lblTotalRemainingQty.Text) + requestDetail.RemainingQuant);
+            var lblTotalDisbursingOrAllocating = (Label)listRequests.FindControl("lblTotalDisbursingOrAllocating");
+            lblTotalDisbursingOrAllocating.Text = Convert.ToString(Convert.ToInt32(lblTotalDisbursingOrAllocating.Text) + disbursingQty);
+            var lblTotalRequiredQty = (Label)listRequests.FindControl("lblTotalRequiredQty");
+            lblTotalRequiredQty.Text = Convert.ToString(Convert.ToInt32(lblTotalRequiredQty.Text) + qtyRequiredForRequestDetail);
+
+            //var listDisbursements = (ListView)e.Item.FindControl("listDisbursements");
+            //listDisbursements.DataSource = dDetails;
+            //listDisbursements.DataBind();
+        }
+
+        protected void linkBreakdown_Command(object sender, CommandEventArgs e)
+        {
+            var linkBreakdown = (LinkButton)sender;
+            var listViewDataItem = (ListViewDataItem)linkBreakdown.Parent;
+            var item = scController.GetStationeryByItemCode((string)e.CommandArgument);                
+
+            var listRequests = (ListView)listViewDataItem.FindControl("listRequests");
+            listRequests.DataSource = null;
             listRequests.DataBind();
-            linkViewRequest.Visible = false;
-            linkHideRequest.Visible = true;
+
+            listRequests.DataSource = scController.ListIncompleteOrProcessingRequestsDetails(item.ItemCode);
+            listRequests.DataBind();
+
+            var listOrders = (ListView)listViewDataItem.FindControl("listOrders");
+            listOrders.DataSource = null;
+            listOrders.DataBind();
+
+            listOrders.DataSource = scController.ListPendingAndApprovedOrderDetails(item.ItemCode);
+            listOrders.DataBind();
+
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            sb.Append(@"<script type='text/javascript'>");
+            sb.Append("$('#modalBreakdown" + item.ItemCode + "').modal('show');");
+            sb.Append(@"</script>");
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "none", sb.ToString(), false);
         }
 
-        protected void linkHideRequest_Command(object sender, CommandEventArgs e)
+        protected void listOrders_ItemDataBound(object sender, ListViewItemEventArgs e)
         {
-            LinkButton linkHideRequest = (LinkButton)sender;
-            ListViewDataItem listItem = (ListViewDataItem)linkHideRequest.Parent;            
-            ListView listRequests = (ListView)listItem.FindControl("listRequests");
-            LinkButton linkViewRequest = (LinkButton)listItem.FindControl("linkViewRequest");
-            listRequests.Visible = false;
-            linkViewRequest.Visible = true;
-            linkHideRequest.Visible = false;
-        }
+            var poDetail = (PODetail)e.Item.DataItem;
+            var purchaseOrder = scController.GetPurchaseOrderByCode(poDetail.PurchaseOrderCode);
+            
+            List<PODetail> poDetails = scController.ListPendingAndApprovedOrderDetails(poDetail.ItemCode);
 
-        protected void linkHidePO_Command(object sender, CommandEventArgs e)
-        {
+            var lblOrderStatus = (Label)e.Item.FindControl("lblOrderStatus");
+            lblOrderStatus.Text = purchaseOrder.Status;
 
-        }
-
-        protected void linkPageDetail_Command(object sender, CommandEventArgs e)
-        {
-            string strUrl = "/PurchaseOrderDetail?PO=" + e.CommandArgument;
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "popup", "window.open('" + strUrl + "','_blank')", true);
-        }
-
-        protected void linkViewPO_Command(object sender, CommandEventArgs e)
-        {
-
+            var lblDate = (Label)e.Item.FindControl("lblDate");
+            lblDate.Text = purchaseOrder.Status.ToUpper()=="PENDING"? 
+                Convert.ToDateTime(purchaseOrder.DateCreated).ToString("dd MMM yyyy")
+                : Convert.ToDateTime(purchaseOrder.DateApproved).ToString("dd MMM yyyy");
+                        
+            var listOrders = (ListView)e.Item.Parent.Parent;
+            var lblTotalOrderQty = (Label)listOrders.FindControl("lblTotalOrderQty");
+            int totalOrderQty = Convert.ToInt32(lblTotalOrderQty.Text != "" ? lblTotalOrderQty.Text : "0");
+            lblTotalOrderQty.Text = Convert.ToString(Convert.ToInt32(totalOrderQty) + Convert.ToInt32(poDetail.Quantity));
         }
     }
 

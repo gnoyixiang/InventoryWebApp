@@ -14,5 +14,7 @@ namespace InventoryWebApp.Models.Classes
         public string SupplierCode { get; set; }
 
         public int? OrderQuantity { get; set; }
+
+        public string Notes { get; set; }
     }
 }

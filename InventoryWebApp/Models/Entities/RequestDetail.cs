@@ -6,6 +6,7 @@ namespace InventoryWebApp.Models.Entities
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
+    [Serializable]
     [Table("RequestDetail")]
     public partial class RequestDetail
     {

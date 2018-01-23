@@ -22,5 +22,12 @@ namespace InventoryWebApp.DAO
             em = new EntityModel();
             return em.DisbursementDetails.Where(dd => dd.RequestCode == request.RequestCode).ToList();
         }
+
+        public List<DisbursementDetail> SearchDDByRequestAndItemCode(Request request, StationeryCatalogue item)
+        {
+            em = new EntityModel();
+            return em.DisbursementDetails.Where(dd => dd.RequestCode == request.RequestCode &&
+                                                                                    dd.ItemCode == item.ItemCode).ToList();
+        }
     }
 }

@@ -19,6 +19,116 @@ namespace InventoryWebApp.Controllers
         ICatagoryDAO catagoryDAO = new CatagoryDAO();
         IRequestDetailsDAO requestDetailsDAO = new RequestDetailsDAO();
         IRequestDAO requestDAO = new RequestDAO();
+        IDisbursementDAO disbursementDAO = new DisbursementDAO();
+        IDisbursementDetailsDAO dDetailsDAO = new DisbursementDetailsDAO();
+
+
+        internal int RecommendReorderQty(string itemCode)
+        {
+            int recommendQty = 0;
+
+            StationeryCatalogue item = stationeryDAO.GetStationery(itemCode);
+
+            int outstandingRequestQty = SumTotalRequiredQuantity(item);
+
+            int qtyInPendingAndApprovedOrders = SumOfItemQtyInPendingAndApprovedOrders(itemCode);
+
+            int remainingQtyToOrder = outstandingRequestQty - qtyInPendingAndApprovedOrders;
+
+            if (outstandingRequestQty - qtyInPendingAndApprovedOrders > item.ReorderQuantity)
+            {
+                recommendQty = outstandingRequestQty - qtyInPendingAndApprovedOrders;
+            }
+            else
+            {
+                recommendQty = Convert.ToInt32(item.ReorderQuantity);
+            }
+
+            return recommendQty;
+        }
+
+        internal int SumTotalRequiredQuantity(StationeryCatalogue item)
+        {
+            List<RequestDetail> rdList = ListIncompleteOrProcessingRequestsDetails(item.ItemCode);
+
+            int requiredQty = 0;
+
+            foreach (RequestDetail rd in rdList)
+            {
+                int qtyRequiredForRequestDetail = Convert.ToInt32(rd.RemainingQuant);
+                Request request = GetRequest(rd.RequestCode);
+                List<DisbursementDetail> dDetails = ListDisbursingDDetails(request, item);
+                qtyRequiredForRequestDetail -= SumOfDisbursingQty(dDetails);
+                requiredQty += qtyRequiredForRequestDetail;
+            }
+
+            return requiredQty;
+        }
+
+        internal int SumTotalRemainingQuantity(StationeryCatalogue item)
+        {
+            List<RequestDetail> rdList = ListIncompleteOrProcessingRequestsDetails(item.ItemCode);
+
+            int remainingQty = 0;
+
+            foreach (RequestDetail rd in rdList)
+            {
+                remainingQty += Convert.ToInt32(rd.RemainingQuant);
+            }
+
+            return remainingQty;
+        }
+
+        internal Request GetRequest(string requestCode)
+        {
+            return requestDAO.GetRequest(requestCode);
+        }
+
+        internal int SumOfDisbursingQty(List<DisbursementDetail> dDetails)
+        {
+            int sum = 0;
+            foreach (DisbursementDetail dd in dDetails)
+            {
+                sum += Convert.ToInt32(dd.Quantity);
+            }
+            return sum;
+        }
+
+        internal List<DisbursementDetail> ListDisbursingDDetails(Request request, StationeryCatalogue item)
+        {
+            List<DisbursementDetail> returnList = new List<DisbursementDetail>();
+            foreach (DisbursementDetail dDetails in dDetailsDAO.SearchDDByRequestAndItemCode(request, item))
+            {
+                Disbursement disbursement = disbursementDAO.GetDisbursementByCode(dDetails.DisbursementCode);
+                if (disbursement.Status != "DISBURSED" || disbursement.Status != "NOT COLLECTED")
+                {
+                    returnList.Add(dDetails);
+                }
+            }
+            return returnList;
+        }
+
+        internal List<RequestDetail> ListIncompleteOrProcessingRequestsDetails(string itemCode)
+        {
+            List<RequestDetail> returnList = new List<RequestDetail>();
+            List<RequestDetail> rdList = GetRequestDetailsByItemCode(itemCode);
+            foreach (RequestDetail rd in rdList)
+            {
+                string status = Convert.ToString(rd.Status);
+                if (status.ToUpper() == "INCOMPLETE" || status.ToUpper() == "PROCESSING")
+                {
+                    returnList.Add(rd);
+                }
+            }
+            return returnList; 
+            
+        }
+
+        internal List<StationeryCatalogue> ListStationeries()
+        {
+            return stationeryDAO.ListAllStationery();
+        }
+    
 
         internal List<RequestDetail> GetAllRequestDetails()
         {
@@ -44,6 +154,30 @@ namespace InventoryWebApp.Controllers
                 }
             }
             return rdList;
+        }
+
+        internal int SumOfItemQtyInPendingAndApprovedOrders(string itemCode)
+        {
+            int sum = 0;
+            foreach(PODetail pod in ListPendingAndApprovedOrderDetails(itemCode))
+            {               
+                sum += Convert.ToInt32(pod.Quantity);                
+            }
+            return sum;
+        }
+
+        internal List<PODetail> ListPendingAndApprovedOrderDetails(string itemCode)
+        {
+            List<PODetail> podList = new List<PODetail>();
+            foreach (PODetail pod in poDetailsDAO.ListPODetailsByItemCode(itemCode))
+            {
+                PurchaseOrder po = purchaseOrderDAO.GetPurchaseOrder(pod.PurchaseOrderCode);
+                if (po.Status.ToUpper() == "PENDING" || po.Status.ToUpper() == "APPROVED")
+                {
+                    podList.Add(pod);
+                }
+            }
+            return podList;
         }
 
         internal PurchaseOrder GetPurchaseOrderByCode(string poNum)
@@ -151,15 +285,12 @@ namespace InventoryWebApp.Controllers
             int rows = 0;
             var purchaseOrders = new List<PurchaseOrder>();
             foreach (PurchaseItem pi in purchaseItems)
-            {
-                
+            {                
                 bool hasPurchaseOrder = false;
                 PurchaseOrder purchaseOrder = new PurchaseOrder();
 
                 DateTime now = DateTime.Now;
-
-
-
+                
                 foreach (PurchaseOrder po in purchaseOrders)
                 {
                     if (pi.SupplierCode == po.SupplierCode)
@@ -186,6 +317,7 @@ namespace InventoryWebApp.Controllers
                 pod.Price = GetSupplierItemPrice(pi.SupplierCode, pi.Stationery.ItemCode);
                 pod.Quantity = pi.OrderQuantity;
                 pod.PurchaseOrderCode = purchaseOrder.PurchaseOrderCode;
+                pod.Notes = pi.Notes;
                 purchaseOrder.PODetails.Add(pod);
             }
             foreach (PurchaseOrder po in purchaseOrders)
@@ -195,6 +327,7 @@ namespace InventoryWebApp.Controllers
             }
             return rows;
         }
+
 
         internal bool IsPurchaseOrderEditable(PurchaseOrder po)
         {

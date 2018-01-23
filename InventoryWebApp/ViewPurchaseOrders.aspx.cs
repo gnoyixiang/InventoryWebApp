@@ -26,6 +26,7 @@ namespace InventoryWebApp
         {
             poList = scController.GetAllPurchaseOrders();
             poList.Sort(new ComparePurchaseOrderByPONum());
+            poList.Reverse();
             if (!IsPostBack)
             {                
                 ddlSearch.Items.Clear();
