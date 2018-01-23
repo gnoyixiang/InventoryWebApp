@@ -21,7 +21,7 @@ namespace InventoryWebApp
         {
             if (!IsPostBack)
             {
-                //TODO: change back to usernames to session["userName"]
+                //TODO: change back to userName to session["userName"]
                 string userName = "suriya@logic.edu.sg";
                 lblEmpName.Text = ec.GetEmployeeNameByUserName(userName);
                 string deptCode = ec.GetDeptCodeByUserName(userName);
@@ -44,10 +44,10 @@ namespace InventoryWebApp
             if (Page.IsValid)
             {
                 var stationaries = (List<RequestDTO>)Session["ItemDetails"];
+                //TODO: change back to userName to session["userName"]
                 string userName = "suriya@logic.edu.sg";
                 string deptCode = ec.GetDeptCodeByUserName(userName);
                 string requestcode = ec.AddRequest(userName, deptCode, stationaries);
-                //string requestcode = ec.AddRequest(lblDeptName.Text, lblEmpName.Text, stationaries);
                
                 //clear
                 Session["ItemDetails"] = null;

@@ -9,13 +9,8 @@ namespace InventoryWebApp.DAO
     public class DepartmentDAO : IDepartmentDAO
     {
         EntityModel em = new EntityModel();
-
-
-
         public int AddDepartment(Department dept)
         {
-
-
             /*Department dept = new Department();
             dept.DepartmentCode = deptCode;
             dept.DepartmentName = deptName;
@@ -29,9 +24,6 @@ namespace InventoryWebApp.DAO
             return em.SaveChanges();
 
         }
-
-
-
         public int UpdateDepartment(string deptCode, string phone, string fax, string head)
         {
             Department dept = em.Departments.Where(x => x.DepartmentCode == deptCode).First();
