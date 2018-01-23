@@ -23,31 +23,22 @@ namespace InventoryWebApp.WCF
     }
     [DataContract]
     public class WCFPurchaseOrder
-    {
-        [DataMember]
+    { 
         private String purchaseOrderCode;
-        [DataMember]
         private string dateCreated;
-        [DataMember]
         private String dateApproved;
-        [DataMember]
         private String note;
-        [DataMember]
         private String status;
-        [DataMember]
         private String supplierCode;
-        [DataMember]
         private String dateReceived;
-        [DataMember]
         private String dateSupplyExpected;
-        [DataMember]
         private String headRemark;
 
         public WCFPurchaseOrder(String purchaseOrderCode, String dateCreated, String dateApproved, String note, String status, String supplierCode, String dateReceived,
             String dateSupplyExpected, String headRemark)
         {
 
-            this.purchaseOrderCode = PurchaseOrderCode;
+            this.purchaseOrderCode = purchaseOrderCode;
             this.dateCreated = dateCreated;
             this.dateApproved = dateApproved;
             this.note = note;
@@ -84,59 +75,59 @@ namespace InventoryWebApp.WCF
         public string PurchaseOrderCode
         {
             get { return purchaseOrderCode; }
-            set { purchaseOrderCode = value; }
+            set { this.purchaseOrderCode = value; }
         }
 
         [DataMember]
         public string DateCreated
         {
             get { return dateCreated; }
-            set { dateCreated = value; }
+            set { this.dateCreated = value; }
         }
 
         [DataMember]
         public string DateApproved
         {
             get { return dateApproved; }
-            set { dateApproved = value; }
+            set { this.dateApproved = value; }
         }
 
         [DataMember]
         public string Note
         {
             get { return note; }
-            set { note = value; }
+            set { this.note = value; }
         }
         [DataMember]
         public string Status
         {
             get { return status; }
-            set { status = value; }
+            set { this.status = value; }
         }
 
         [DataMember]
         public string SupplierCode
         {
             get { return supplierCode; }
-            set { supplierCode = value; }
+            set { this.supplierCode = value; }
         }
         [DataMember]
         public string DateReceived
         {
             get { return dateReceived; }
-            set { dateReceived = value; }
+            set { this.dateReceived = value; }
         }
         [DataMember]
         public string DateSupplyExpected
         {
             get { return dateSupplyExpected; }
-            set { dateSupplyExpected = value; }
+            set { this.dateSupplyExpected = value; }
         }
         [DataMember]
         public string HeadRemark
         {
             get { return headRemark; }
-            set { headRemark = value; }
+            set { this.headRemark = value; }
         }
     }
 
