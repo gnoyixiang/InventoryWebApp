@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using InventoryWebApp.Models.Entities;
 
 namespace InventoryWebApp.DAO
@@ -14,5 +15,6 @@ namespace InventoryWebApp.DAO
         List<Employee> SearchByDept(string dept);
         List<Employee> SearchByRole(string role);
         int UpdateRole(string username, string role);
+        Employee GetEmployeeByCode(String employeeCode);
     }
 }

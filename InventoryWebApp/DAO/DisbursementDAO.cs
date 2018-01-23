@@ -137,6 +137,11 @@ namespace InventoryWebApp.DAO
             em = new EntityModel();
             return em.Disbursements.ToList();
         }
+        public Disbursement GetDisbursingDisburmentByDeptCode(String deptCode)
+        {
+            em = new EntityModel();
+            return em.Disbursements.Where(d => d.Status == "disbursing" && d.DepartmentCode == deptCode).First();
+        }
 
     }
 }

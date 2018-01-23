@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using System.Data.Entity;
 using InventoryWebApp.Models.Entities;
 using InventoryWebApp.Controllers;
-
+using InventoryWebApp.Models;
 
 namespace InventoryWebApp
 {
@@ -16,6 +16,7 @@ namespace InventoryWebApp
         string RequestC;
         Request RO;
         EmployeeController ec = new EmployeeController();
+        string ItCode;
         
         
         protected void Page_Load(object sender, EventArgs e)
@@ -24,7 +25,13 @@ namespace InventoryWebApp
             {
                 RequestC = Request.QueryString["REQUESTCODE"];
                 RO = ec.GetRequestbyRequestCode(RequestC);
-
+                if (Request.QueryString["ItemCode"] != null)
+                {
+                    ItCode = Request.QueryString["ItemCode"];
+                    var rd=Session["ItemDetails"];
+                    ec.AddRequestDetailtoCurrentRequest(RequestC, (List<RequestDTO>)rd);
+                    Session["ItemDetails"] = null;
+                }
             }
             else
             {
@@ -43,8 +50,6 @@ namespace InventoryWebApp
                 ListView2.DataBind();
 
             }
-
-
         }
 
         private void FillFields()
@@ -101,7 +106,13 @@ namespace InventoryWebApp
             RequestDetail rd = ec.ListAllRequestDetails(RO)[e.ItemIndex];
             ec.DeleteRequestDetail(rd);
             BindData();
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "$('#myModal').modal('show');", true);
 
+        }
+
+        protected void btnAddItem_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("/ViewCatalogue.aspx?REQUESTCODE=" + RO.RequestCode);
         }
     }
 }

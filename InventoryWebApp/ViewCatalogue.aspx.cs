@@ -5,25 +5,34 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using InventoryWebApp.Models.Entities;
 
 namespace InventoryWebApp
 {
     public partial class ViewCatalogue : System.Web.UI.Page
     {
         EmployeeController ec = new EmployeeController();
+        string RequestC;
+        Request RO;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Request.QueryString["REQUESTCODE"] != null)
+            {
+                RequestC = Request.QueryString["REQUESTCODE"];
+                RO = ec.GetRequestbyRequestCode(RequestC);
+
+            }
             if (!IsPostBack)
             {
-                try
-                {
-                    BindGrid();
-                }
-                catch (Exception ex)
-                {
-                    string errormsg = string.Format("<script>Error:{0}</script>", ex.Message);
-                    Response.Write(errormsg);
-                }
+                //try
+                //{
+                BindGrid();
+                //}
+                //catch (Exception ex)
+                //{
+                //    string errormsg = string.Format("<script>Error:{0}</script>", ex.Message);
+                //    Response.Write(errormsg);
+                //}
             }
         }
         protected void btnSearch_Click(object sender, EventArgs e)
@@ -45,7 +54,7 @@ namespace InventoryWebApp
             }
             else if (list == null)
             {
-               lblSearch.Text = "No result found";
+                lblSearch.Text = "No result found";
             }
             try
             {
@@ -68,5 +77,43 @@ namespace InventoryWebApp
             gvCatalogue.PageIndex = e.NewPageIndex;
             this.BindGrid();
         }
+
+        protected bool IsRedirect()
+        {
+            if (Request.QueryString["REQUESTCODE"] != null)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+
+        protected void gvCatalogue_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            string itcode;
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                HyperLink HyperLink1 = e.Row.FindControl("itemcode") as HyperLink;
+                itcode = HyperLink1.Text;
+                if (IsRedirect())
+                {
+                    HyperLink1.NavigateUrl = "/ItemDetails.aspx?ItemCode=" +
+                         itcode + "&REQUESTCODE=" + RequestC;
+                }
+                else
+                {
+                    HyperLink1.NavigateUrl = "/ItemDetails.aspx?ItemCode=" +
+                         itcode;
+                }
+
+            }
+
+
+        }
     }
+
+
+
+
+
 }

@@ -9,30 +9,36 @@ namespace InventoryWebApp.DAO
 {
     public class StationeryCatalogueDAO : IStationeryCatalogueDAO
     {
-        EntityModel em = new EntityModel();
+        EntityModel em;
         public List<StationeryCatalogue> SearchByItemCode(string keyword)
         {
+            em = new EntityModel();
             return em.StationeryCatalogues.Where(x => x.ItemCode.Contains(keyword.ToUpper())).ToList();
         }
         public List<StationeryCatalogue> SearchByDescription(string keyword)
         {
+            em = new EntityModel();
             return em.StationeryCatalogues.Where(x => x.Description.Contains(keyword)).ToList();
         }
         public List<StationeryCatalogue> SearchByCategory(string keyword)
         {
+            em = new EntityModel();
             return em.StationeryCatalogues.Where(x => x.CategoryCode.Contains(keyword)).ToList();
         }
         public List<StationeryCatalogue> ListAllStationery()
         {
+            em = new EntityModel();
             return em.StationeryCatalogues.ToList();
         }
         public StationeryCatalogue GetStationery(string itemcode)
         {
+            em = new EntityModel();
             StationeryCatalogue stationery = em.StationeryCatalogues.Where(x => x.ItemCode == itemcode).FirstOrDefault();
             return stationery;
         }
         public int AddStationery(StationeryCatalogue st)
         {
+            em = new EntityModel();
             try
             {
                 em.StationeryCatalogues.Add(st);
@@ -45,6 +51,7 @@ namespace InventoryWebApp.DAO
         }
         public int UpdateStationery(StationeryCatalogue st)
         {
+            em = new EntityModel();
             StationeryCatalogue stationery = em.StationeryCatalogues.Where(x => x.ItemCode == st.ItemCode).FirstOrDefault();
             if (stationery != null)
             {
@@ -65,6 +72,7 @@ namespace InventoryWebApp.DAO
         }
         public void DeleteStationery(string itemCode)
         {
+            em = new EntityModel();
             StationeryCatalogue stationery = em.StationeryCatalogues.Where(x => x.ItemCode == itemCode).FirstOrDefault();
             em.StationeryCatalogues.Remove(stationery);
             em.SaveChanges();

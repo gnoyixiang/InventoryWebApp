@@ -43,7 +43,7 @@ namespace InventoryWebApp.DAO
         {
             using (EntityModel e = new EntityModel())
             {
-                return new EntityModel().Requests.Where(p => p.RequestCode == ROCode).FirstOrDefault<Request>();
+                return e.Requests.Where(p => p.RequestCode == ROCode).FirstOrDefault<Request>();
             }
         }
         public int AddRequest(Request newR)

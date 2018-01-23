@@ -7,7 +7,7 @@ namespace InventoryWebApp.Models.Entities
     using System.Data.Entity.Spatial;
 
     [Table("Disbursement")]
-    public partial class Disbursement
+    public partial class Disbursement : IComparable<Disbursement>
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Disbursement()
@@ -39,10 +39,20 @@ namespace InventoryWebApp.Models.Entities
 
         [StringLength(256)]
         public string ReceivedBy { get; set; }
+        [Column(TypeName = "date")]
+        public DateTime? DatePlanToCollect { get; set; }
+
+        [StringLength(256)]
+        public string CollectionPointCode { get; set; }
+        public virtual CollectionPoint CollectionPoint { get; set; }
 
         public virtual Department Department { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DisbursementDetail> DisbursementDetails { get; set; }
+        public int CompareTo(Disbursement other)
+        {
+            return this.CollectionPointCode.CompareTo(other.CollectionPointCode);
+        }
     }
 }

@@ -46,16 +46,16 @@
     <br />
     <br />
     <asp:GridView ID="gvCatalogue" runat="server" AutoGenerateColumns="False" Width="100%" AllowPaging="True"
-        OnPageIndexChanging="OnPageIndexChanging" CellPadding="4" ForeColor="#333333" GridLines="None"
+        OnPageIndexChanging="OnPageIndexChanging" OnRowDataBound="gvCatalogue_RowDataBound" CellPadding="4" ForeColor="#333333" GridLines="None"
         CssClass="table table-striped table-bordered table-hover">
         <AlternatingRowStyle BackColor="White" />
         <Columns>
             <asp:TemplateField HeaderText="Stationery Number" ItemStyle-Width="150px">
                 <ItemTemplate>
-                    <asp:HyperLink ID="ItemCode" runat="server" ForeColor="Blue" DataNavigateUrlFields="ItemCode"
-                        NavigateUrl='<%#"~/ItemDetails.aspx?ItemCode="+ Eval("ItemCode")%>'
+                    <asp:HyperLink ID="ItemCode" runat="server" ForeColor="Blue"
                         Text='<%# Eval("ItemCode") %>'>
-                    </asp:HyperLink>
+                    </asp:HyperLink> 
+                   
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:BoundField DataField="CategoryCode" HeaderText="Category">

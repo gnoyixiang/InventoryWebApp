@@ -36,5 +36,8 @@ namespace InventoryWebApp.Models.Entities
         public virtual Request Request { get; set; }
 
         public virtual StationeryCatalogue StationeryCatalogue { get; set; }
+
+        public int? ActualQuantity { get; set; }
+
     }
 }

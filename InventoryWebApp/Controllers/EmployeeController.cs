@@ -66,8 +66,34 @@ namespace InventoryWebApp.Controllers
                 request.RequestDetails.Add(new RequestDetail()
                 { ItemCode = stationary.ItemCode, Quantity = stationary.Quantity, RemainingQuant = stationary.Quantity, Notes = "" });
             }
-            Ir.AddRequest(request);
+            rDAO.AddRequest(request);
             return requestCode;
+        }
+        public string AddRequestDetailtoCurrentRequest(string requestcode, List<RequestDTO> stationaries)
+        {
+            Request R = GetRequestbyRequestCode(requestcode);
+            List<RequestDetail> rd = new List<RequestDetail>();
+            RequestDetail exrd = new RequestDetail();
+
+            foreach (var stationary in stationaries)
+            {
+                rd.Add(new RequestDetail()
+                { RequestCode=requestcode, ItemCode = stationary.ItemCode, Quantity = stationary.Quantity, RemainingQuant = stationary.Quantity, Notes = "" });
+            }
+            exrd = rd.FirstOrDefault();
+            if (rdDAO.GetRequestDetail(requestcode, exrd.ItemCode) == null)
+            {
+                
+            }
+            else
+            {
+                rdDAO.GetRequestDetail(requestcode, exrd.ItemCode).Quantity = exrd.Quantity;
+                rdDAO.GetRequestDetail(requestcode, exrd.ItemCode).RemainingQuant = exrd.RemainingQuant;
+
+            }
+                
+          
+            return R.RequestCode;
         }
         public List<Request> ListAllRequest()
         {
@@ -123,6 +149,11 @@ namespace InventoryWebApp.Controllers
             return dlist;
         }
 
+        public RequestDetail GetRequestDetail(string requestCode, string itemCode)
+        {
+            return rdDAO.GetRequestDetail(requestCode, itemCode);
+        }
+
         public List<Disbursement> ListDisbursementList()
         {
             return dDAO.GetAllDisbursement();
@@ -146,6 +177,11 @@ namespace InventoryWebApp.Controllers
         public List<CollectionPoint> DdlCollectionPoint()
         {
             return Icp.ListAllCollectionPoint();
+        }
+
+        public int AddRequestDetail(RequestDetail rd)
+        {
+            return rdDAO.AddRequestDetail(rd);
         }
 
 

@@ -94,7 +94,23 @@ namespace InventoryWebApp.DAO
             }
         }
 
-        
+        public List<RequestDetail> SearchOutstandingRequestDetails()
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                return em.RequestDetails.Where(rd => rd.RemainingQuant != 0).ToList();
+            }
+        }
+
+        public int AddRequestDetail(RequestDetail rd)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                em.RequestDetails.Add(rd);
+                return em.SaveChanges();
+            }
+        }
+
 
     }
 }

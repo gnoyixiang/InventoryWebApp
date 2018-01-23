@@ -6,18 +6,27 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using InventoryWebApp.Models.Entities;
 
 namespace InventoryWebApp
 {
     public partial class ItemDetails : System.Web.UI.Page
     {
         EmployeeController ec = new EmployeeController();
+        string requestcode;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Request.QueryString["REQUESTCODE"] != null)
+            {
+                requestcode = Request.QueryString["REQUESTCODE"];
+                var RO = ec.GetRequestbyRequestCode(requestcode);
+
+            }
 
             if (!IsPostBack)
             {
                 string itemcode = Request.QueryString["ItemCode"];
+
                 try
                 {
                     Session["ItemDetails"] = Session["ItemDetails"] != null ? (List<RequestDTO>)Session["ItemDetails"] : new List<RequestDTO>();
@@ -47,11 +56,11 @@ namespace InventoryWebApp
                 {
                     lblQuantityResult.Text = "";
                 }
-                else if(int.TryParse(tbxQuantity.Text, out quantity) && int.Parse(tbxQuantity.Text) < 0)
+                else if (int.TryParse(tbxQuantity.Text, out quantity) && int.Parse(tbxQuantity.Text) < 0)
                 {
                     lblQuantityResult.Text = "";
                 }
-                else 
+                else
                 {
                     lblQuantityResult.Text = "Quantity for this item is:" + Convert.ToInt32(tbxQuantity.Text);
                 }
@@ -67,48 +76,116 @@ namespace InventoryWebApp
             }
         }
 
+        protected bool IsRedirect()
+        {
+            if (Request.QueryString["REQUESTCODE"] != null)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+
         protected void btnAddToRequest_Click(object sender, EventArgs e)
         {
+
             if (Page.IsValid)
             {
-                //show success message
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "$('#myModal').modal('show');", true);
-
-                List<RequestDTO> addItem = (List<RequestDTO>)Session["ItemDetails"];
-                RequestDTO newItem = addItem.FirstOrDefault(x => x.ItemCode == lblItemCode.Text);
-                if (newItem == null)
+                //add item from existing database
+                if (Request.QueryString["REQUESTCODE"] != null)
                 {
-                    if (!String.IsNullOrEmpty(tbxQuantity.Text))
+                    if ((string)Request.QueryString["REQUESTCODE"] != "")
                     {
-                        newItem = new RequestDTO(lblItemCode.Text, lblCategory.Text, lblDescription.Text, Convert.ToInt32(tbxQuantity.Text));
-                        addItem.Add(newItem);
-                        Session["ItemDetails"] = addItem;
-                    }
-                    else if (rdlQuantity.SelectedItem.Selected)
-                    {
-                        newItem = new RequestDTO(lblItemCode.Text, lblCategory.Text, lblCategory.Text, Convert.ToInt32(rdlQuantity.SelectedItem.Text));
-                        addItem.Add(newItem);
-                        Session["ItemDetails"] = addItem;
+                        RequestDetail requestDetail=null;
+                        if (!String.IsNullOrEmpty(tbxQuantity.Text))
+                        {
+                            requestDetail = new RequestDetail();
+                            requestDetail.RequestCode = (string)Request.QueryString["REQUESTCODE"];
+                            requestDetail.ItemCode = (string)Request.QueryString["ItemCode"];
+                            requestDetail.Quantity = requestDetail.RemainingQuant = Convert.ToInt32(tbxQuantity.Text);
+
+                            //newItem = new RequestDTO(lblItemCode.Text, lblCategory.Text, lblDescription.Text, Convert.ToInt32(tbxQuantity.Text));
+                            //addItem.Add(newItem);
+                            //Session["ItemDetails"] = addItem;
+                        }
+                        else if (rdlQuantity.SelectedItem.Selected)
+                        {
+                            requestDetail = new RequestDetail();
+                            requestDetail.RequestCode = (string)Request.QueryString["REQUESTCODE"];
+                            requestDetail.ItemCode = (string)Request.QueryString["ItemCode"];
+                            requestDetail.Quantity = requestDetail.RemainingQuant =
+                                Convert.ToInt32(rdlQuantity.SelectedItem.Text);
+
+                            //newItem = new RequestDTO(lblItemCode.Text, lblCategory.Text, lblCategory.Text, Convert.ToInt32(rdlQuantity.SelectedItem.Text));
+                            //addItem.Add(newItem);
+                            //Session["ItemDetails"] = addItem;
+                        }
+                        if (requestDetail != null)
+                        {
+                            RequestDetail existingRequestDetail = 
+                                ec.GetRequestDetail(requestDetail.RequestCode, requestDetail.ItemCode);
+                            if (existingRequestDetail == null)
+                                ec.AddRequestDetail(requestDetail);
+                            else
+                            {
+                                existingRequestDetail.Quantity += requestDetail.Quantity;
+                                existingRequestDetail.RemainingQuant += requestDetail.RemainingQuant;
+                                ec.UpdateRequestDetail(existingRequestDetail);
+                            }
+                        }
+
                     }
                 }
                 else
                 {
-                    if (!String.IsNullOrEmpty(tbxQuantity.Text))
+                    //add item to new request
+
+                    List<RequestDTO> addItem = (List<RequestDTO>)Session["ItemDetails"];
+                    RequestDTO newItem = addItem.FirstOrDefault(x => x.ItemCode == lblItemCode.Text);
+                    if (newItem == null)
                     {
-                        newItem.Quantity += Convert.ToInt32(tbxQuantity.Text);
-                        addItem.RemoveAll(x => x.ItemCode == lblItemCode.Text);
-                        addItem.Add(newItem);
-                        Session["ItemDetails"] = addItem;
+                        if (!String.IsNullOrEmpty(tbxQuantity.Text))
+                        {
+                            newItem = new RequestDTO(lblItemCode.Text, lblCategory.Text, lblDescription.Text, Convert.ToInt32(tbxQuantity.Text));
+                            addItem.Add(newItem);
+                            Session["ItemDetails"] = addItem;
+                        }
+                        else if (rdlQuantity.SelectedItem.Selected)
+                        {
+                            newItem = new RequestDTO(lblItemCode.Text, lblCategory.Text, lblCategory.Text, Convert.ToInt32(rdlQuantity.SelectedItem.Text));
+                            addItem.Add(newItem);
+                            Session["ItemDetails"] = addItem;
+                        }
                     }
-                    else if (rdlQuantity.SelectedItem.Selected)
+                    else
                     {
-                        newItem.Quantity += Convert.ToInt32(rdlQuantity.SelectedItem.Text);
-                        addItem.RemoveAll(x => x.ItemCode == lblItemCode.Text);
-                        addItem.Add(newItem);
-                        Session["ItemDetails"] = addItem;
+                        if (!String.IsNullOrEmpty(tbxQuantity.Text))
+                        {
+                            newItem.Quantity += Convert.ToInt32(tbxQuantity.Text);
+                            addItem.RemoveAll(x => x.ItemCode == lblItemCode.Text);
+                            addItem.Add(newItem);
+                            Session["ItemDetails"] = addItem;
+                        }
+                        else if (rdlQuantity.SelectedItem.Selected)
+                        {
+                            newItem.Quantity += Convert.ToInt32(rdlQuantity.SelectedItem.Text);
+                            addItem.RemoveAll(x => x.ItemCode == lblItemCode.Text);
+                            addItem.Add(newItem);
+                            Session["ItemDetails"] = addItem;
+                        }
                     }
                 }
             }
+            
+            if (IsRedirect() && Session["ItemDetails"] != null)
+            {
+                Response.Redirect("/RequisitionDetails.aspx?REQUESTCODE=" + requestcode);
+            }
+            else
+                //show success message
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "$('#myModal').modal('show');", true);
+
+
         }
     }
 }

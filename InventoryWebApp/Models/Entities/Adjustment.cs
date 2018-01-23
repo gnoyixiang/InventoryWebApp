@@ -43,5 +43,6 @@ namespace InventoryWebApp.Models.Entities
         public string ApprovedBy { get; set; }
 
         public virtual StationeryCatalogue StationeryCatalogue { get; set; }
+
     }
 }

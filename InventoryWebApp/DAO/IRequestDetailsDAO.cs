@@ -13,5 +13,7 @@ namespace InventoryWebApp.DAO
         RequestDetail GetRequestDetail(string RequestC, string itemCode);
         int UpdateRequestDetail(RequestDetail rDetail);
         int DeleteRequestDetail(RequestDetail rDetail);
+        List<RequestDetail> SearchOutstandingRequestDetails();
+        int AddRequestDetail(RequestDetail rd);
     }
 }

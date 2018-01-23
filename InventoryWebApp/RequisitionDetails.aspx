@@ -69,7 +69,7 @@
                                 </asp:LinkButton>
                             </td>
                             <td align="center" style="width: 3%">
-                                <asp:LinkButton ID="lbDelete" runat="server" CommandName="Delete" Title="Delete" data-toggle="modal" data-target="#exampleModalCenter">
+                                <asp:LinkButton ID="lbDelete" runat="server" CommandName="Delete" Title="Delete">
                         <i class="fa fa-trash-o" style="font-size:1.5em;color:hotpink" aria-hidden="true"></i></asp:LinkButton>
                             </td>
                             <% } %>
@@ -109,9 +109,12 @@
                                 </asp:CustomValidator>
                             </td>
                         </tr>--%>
-                    </EditItemTemplate>
+                    </EditItemTemplate>              
                 </asp:ListView>
+                 <% if (IsEditable())
+                                { %><asp:Button ID="btnAddItem" runat="server" Text="Add Item" OnClick="btnAddItem_Click"/>
                 <br />
+                 <% } %>
                 <asp:ListView ID="ListView2" runat="server">
                     <LayoutTemplate>
                         <table class="table">
@@ -129,7 +132,7 @@
                         <tr>
                             <td><%# Eval("DisbursementCode") %></a></td>
                             <td><%# Eval("Status") %></td>
-                            <td><%# Eval("DateDisbursed") %></td>
+                            <td><%# Eval("DateDisbursed","{0:MMM dd, yyyy}") %></td>
                             <td><%# Eval("ReceivedBy") %></td>
                         </tr>
                     </ItemTemplate>
@@ -149,16 +152,17 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        Are you Sure You Want To Remove Enty
+                        Are you Sure You Want To Remove Entry
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Delete</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Confirm</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Confirm</button>
                     </div>
                 </div>
             </div>
+            <asp:Button ID="PrintButton" runat="server" Text="Print" OnClientClick='printDiv("printableArea")' />
         </div>
-        <asp:Button ID="PrintButton" runat="server" Text="Print" OnClientClick='printDiv("printableArea")' />
+        
     </div>
     <script language="javascript">
         function printDiv(divName) {

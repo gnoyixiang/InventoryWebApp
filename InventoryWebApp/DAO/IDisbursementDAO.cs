@@ -20,5 +20,6 @@ namespace InventoryWebApp.DAO
         int UpdateDbmStatus(Disbursement d);
         int UpdateDisbursement(Disbursement d);
         List<Disbursement> GetAllDisbursement();
+        Disbursement GetDisbursingDisburmentByDeptCode(String deptCode);
     }
 }
