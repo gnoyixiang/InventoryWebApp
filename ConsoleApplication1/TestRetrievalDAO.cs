@@ -14,6 +14,9 @@ namespace ConsoleTestApp
         static DateTime now = DateTime.Now;
         public static void Main(String[] args)
         {
+            Console.WriteLine(DateTime.Now.Year);
+            Console.WriteLine(DateTime.Now.Month);
+            Console.WriteLine(DateTime.Now.Day);
             Retrieval retrival = new Retrieval()
         {
             RetrievalCode = "RE"+now.ToString("yyMMddHHmmssfff"),
@@ -25,7 +28,7 @@ namespace ConsoleTestApp
         {
             RetrievalCode = retrival.RetrievalCode,
             ItemCode = "C001",
-            Quantity = 1
+            QuantityRetrieved = 1
 
         };
         retrival.RetrievalDetails.Add(rd1);
@@ -71,7 +74,7 @@ namespace ConsoleTestApp
 
             //GetRetrievalDetails
             RetrievalDetail rde = rd.GetRetrievalDetails("RE180117112530712", "C001");
-            Console.WriteLine(rde.Quantity);
+            Console.WriteLine(rde.QuantityNeeded);
 
             //ListRetrievalDetailsByitemCode
             List<RetrievalDetail> rde1 = rd.ListRetrievalDetailsByitemCode("C001");
@@ -92,7 +95,7 @@ namespace ConsoleTestApp
             {
                 RetrievalCode = "RE180117112530712",
                 ItemCode = "C001",
-                Quantity = 100
+                QuantityNeeded = 100
 
             };
             rd.UpdateRetrivalDetails(rd3);

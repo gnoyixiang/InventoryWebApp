@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using InventoryWebApp.Models;
+using System.Data.Entity;
 
 namespace InventoryWebApp.Models
 {
@@ -30,7 +31,7 @@ namespace InventoryWebApp.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("MyIdentityConnection")
         {
         }
 
@@ -38,7 +39,31 @@ namespace InventoryWebApp.Models
         {
             return new ApplicationDbContext();
         }
-    }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+
+        {
+
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<ApplicationUser>().ToTable("User");
+
+            modelBuilder.Entity<IdentityUserLogin>().ToTable("UserLogin");
+
+            modelBuilder.Entity<IdentityUserRole>().ToTable("UserRole");
+
+            modelBuilder.Entity<IdentityUserClaim>().ToTable("UserClaim");
+
+            modelBuilder.Entity<IdentityRole>().ToTable("Role");
+
+            modelBuilder.Entity<ApplicationUser>().Ignore(c => c.PhoneNumberConfirmed)
+
+                                                  .Ignore(c => c.LockoutEnabled)
+                                                  .Ignore(c => c.EmailConfirmed)
+                                                  .Ignore(c => c.LockoutEndDateUtc)
+                                                  .Ignore(c => c.TwoFactorEnabled);
+        }
+        }
 }
 
 #region Helpers
