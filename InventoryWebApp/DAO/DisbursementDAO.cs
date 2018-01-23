@@ -55,6 +55,11 @@ namespace InventoryWebApp.DAO
             em = new EntityModel();
             return em.Disbursements.Where(d => d.DateCreated == date).ToList();
         }
+        public List<Disbursement> SearchDbmByDatePlanToCollect(DateTime date, string deptcode)
+        {
+            em = new EntityModel();
+            return em.Disbursements.Where(d => d.DatePlanToCollect > date && d.DepartmentCode == deptcode).ToList();
+        }
         public List<Disbursement> SearchDbmByPeriodCreated(DateTime date1, DateTime date2)
         {
             em = new EntityModel();
@@ -86,12 +91,15 @@ namespace InventoryWebApp.DAO
             Disbursement disbursement = em.Disbursements.Where(db => db.DisbursementCode == d.DisbursementCode).FirstOrDefault();
             if (disbursement != null)
             {
-                disbursement.DateDisbursed = d.DateDisbursed;
                 disbursement.DateCreated = d.DateCreated;
-                disbursement.Notes = d.Notes;
-                disbursement.ReceivedBy = d.ReceivedBy;
                 disbursement.Status = d.Status;
+                disbursement.DepartmentCode = d.DepartmentCode;
+                disbursement.DateDisbursed = d.DateDisbursed;
+                disbursement.Notes = d.Notes;
                 disbursement.UserName = d.UserName;
+                disbursement.ReceivedBy = d.ReceivedBy;
+                disbursement.CollectionPointCode = d.CollectionPointCode;
+                disbursement.DatePlanToCollect = d.DatePlanToCollect;
                 disbursement.DisbursementDetails = d.DisbursementDetails;
                 em.SaveChanges();
                 return 1;
@@ -100,7 +108,6 @@ namespace InventoryWebApp.DAO
                 return 0;
 
         }
-
         public int UpdateDbmStatus(Disbursement d)
         {
             em = new EntityModel();
@@ -124,24 +131,38 @@ namespace InventoryWebApp.DAO
             Disbursement disbursement = em.Disbursements.Where(db => db.DisbursementCode == d.DisbursementCode).FirstOrDefault();
             if (disbursement != null)
             {
-                disbursement.DisbursementDetails = d.DisbursementDetails;
+                disbursement.Status = d.Status;
+                disbursement.ReceivedBy = d.ReceivedBy;
+                disbursement.DateDisbursed = d.DateDisbursed;
+                disbursement.Notes = d.Notes;
+                disbursement.DateCreated = d.DateCreated;
+                disbursement.CollectionPointCode = d.CollectionPointCode;
+                disbursement.DatePlanToCollect = d.DatePlanToCollect;
                 em.SaveChanges();
                 return 1;
             }
             else
                 return 0;
         }
-
-        public List<Disbursement> GetAllDisbursement()
+        public int UpdateDbmCollectionPoint(string depcode, string newCLP)
         {
             em = new EntityModel();
-            return em.Disbursements.ToList();
+            Disbursement disbursement = em.Disbursements.Where(d => d.DepartmentCode == depcode).FirstOrDefault();
+            if (disbursement != null)
+            {
+                var collectionDateGreaterthanToday = SearchDbmByDatePlanToCollect(DateTime.Now.Date, depcode);
+                if (collectionDateGreaterthanToday != null)
+                {
+                    foreach (Disbursement dbm in collectionDateGreaterthanToday)
+                    {
+                        dbm.CollectionPointCode = newCLP;
+                    }
+                    em.SaveChanges();
+                }
+                return 1;
+            }
+            else
+                return 0;
         }
-        public Disbursement GetDisbursingDisburmentByDeptCode(String deptCode)
-        {
-            em = new EntityModel();
-            return em.Disbursements.Where(d => d.Status == "disbursing" && d.DepartmentCode == deptCode).First();
-        }
-
     }
 }

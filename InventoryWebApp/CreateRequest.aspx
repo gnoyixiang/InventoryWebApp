@@ -58,7 +58,7 @@
         OnRowDeleting="gvNewRequest_RowDeleting"
         OnRowCancelingEdit="gvNewRequest_RowCancelingEdit"
         OnRowUpdating="gvNewRequest_RowUpdating"
-        OnPageIndexChanging="gvNewRequest_PageIndexChanging" AllowPaging="True" CssClass="table table-striped table-bordered table-hover">
+        OnPageIndexChanging="gvNewRequest_PageIndexChanging" AllowPaging="True" CssClass="table table-striped table-bordered table-hover" OnRowDataBound="gvNewRequest_RowDataBound">
         <AlternatingRowStyle BackColor="White" />
         <Columns>
             <asp:BoundField DataField="ItemCode" HeaderText="Item Number" ReadOnly="true" />
@@ -66,11 +66,8 @@
             <asp:BoundField DataField="Description" HeaderText="Description" ReadOnly="true" />
             <asp:TemplateField HeaderText="Quantity" SortExpression="Quantity">
                 <EditItemTemplate>
-                    <asp:TextBox ID="tbxQuantity" runat="server">
+                    <asp:TextBox ID="tbxQuantity" runat="server" type="number">
                     </asp:TextBox>
-                    <asp:CompareValidator ID="quantityCompareValidator1" runat="server" Type="Integer"
-                        Operator="DataTypeCheck" Display="Dynamic"
-                        ErrorMessage="Invalid Value" ControlToValidate="tbxQuantity" ForeColor="Red"></asp:CompareValidator>
                     <asp:CompareValidator ID="quantityCompareValidator2" runat="server" Type="Integer" Operator="GreaterThan" Display="Dynamic"
                         ErrorMessage="Enter a value greater than Zero" ValueToCompare="0" ControlToValidate="tbxQuantity"
                         ForeColor="Red"></asp:CompareValidator>
@@ -81,9 +78,21 @@
                     <asp:Label ID="lblQuantity" runat="server" Text='<%# Eval("Quantity") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:CommandField ShowEditButton="True" ButtonType="Button" HeaderText="Manage Requests" ShowDeleteButton="True" SelectImageUrl="" />
+            <asp:TemplateField HeaderText="Edit">
+                <ItemTemplate>
+                    <asp:ImageButton ImageUrl="~/Images/edit.png" CommandName="Edit" Width="20px" Height="20px" runat="server" />
+                </ItemTemplate>
+                <EditItemTemplate>
+                    <asp:ImageButton ImageUrl="~/Images/save.png" CommandName="Update" Width="20px" Height="20px" runat="server" />
+                    <asp:ImageButton ImageUrl="~/Images/cancel.png" CommandName="Cancel" Width="20px" Height="20px" runat="server" />
+                </EditItemTemplate>
+            </asp:TemplateField>
+           <asp:TemplateField HeaderText="Delete">
+               <ItemTemplate>
+                   <asp:ImageButton ImageUrl="~/Images/delete.png" CommandName="Delete" Width="20px" Height="20px" runat="server" HeaderText="Delete" />
+               </ItemTemplate>
+           </asp:TemplateField>
         </Columns>
-        <EditRowStyle />
         <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
         <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
         <PagerStyle ForeColor="Black" HorizontalAlign="Center" CssClass="pager-style" />

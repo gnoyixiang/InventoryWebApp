@@ -8,12 +8,18 @@
         <li class="active">Update Collection Point</li>
     </ul>
     <h3>Update Collection Point</h3>
+    <div class="row">
+        <div class="col-xs-12 col-md-6">
+    <asp:Label ID="lblDeptName" runat="server" Text="Department Name: "></asp:Label>
+    <asp:Label ID="lblInfoDeptName" runat="server" Text=""></asp:Label>
+             </div>
+    </div>
     <br />
     <br />
     <div class="row">
         <div class="col-xs-12 col-md-6">
             <asp:Label ID="lblCCP" runat="server" Text="Current Collection Point: "></asp:Label>
-            <asp:TextBox ID="tbxCCP" runat="server" Width="129px" margin="5px"></asp:TextBox>
+            <asp:TextBox ID="tbxCCP" runat="server" Width="267px" margin="5px"></asp:TextBox>
         </div>
     </div>
     <br />

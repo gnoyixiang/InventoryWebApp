@@ -9,10 +9,19 @@ namespace ConsoleTestApp
 {
     class TestDepartmentDAO
     {
-       
-            //DepartmentDAOTest
-            //IDepartmentDAO ddao = new DepartmentDAO();
 
+        //DepartmentDAOTest
+        
+        public static void Main(String[] args)
+        {
+            IDepartmentDAO dDAO = new DepartmentDAO();
+            Department d = new Department();
+            d.DepartmentCode = "COMM";
+            d.DepartmentName = "hh";
+            d.CollectionPointCode = "ENGSCH";
+            d.Contact_Name = "HH";
+            dDAO.UpdateCollectionPoint(d);
+        }
             /*Department d = new Department();
             d.DepartmentCode = "hehe";
             d.DepartmentName = "hh";
@@ -22,8 +31,7 @@ namespace ConsoleTestApp
 
             //Console.WriteLine(ddao.UpdateDepartment("REGR", "1234", "nicai", "10011"));
 
-            //Console.WriteLine(ddao.UpdateCollectionPoint("COMM", "MANSCH"));
-
+           
             //Console.WriteLine(ddao.UpdateRep("REGR", "10016"));   
 
             /*List<Department> dlist = ddao.ListDepartment();

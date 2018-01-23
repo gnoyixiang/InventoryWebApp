@@ -16,10 +16,17 @@ namespace InventoryWebApp
     public partial class CreateRequest : System.Web.UI.Page
     {
         EmployeeController ec = new EmployeeController();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                //TODO: change back to userName to session["userName"]
+                string userName = "suriya@logic.edu.sg";
+                lblEmpName.Text = ec.GetEmployeeNameByUserName(userName);
+                string deptCode = ec.GetDeptCodeByUserName(userName);
+                string deptName = ec.GetDeptNameByCode(deptCode);
+                lblDeptName.Text = deptName;
                 BindGrid();
             }
         }
@@ -37,11 +44,11 @@ namespace InventoryWebApp
             if (Page.IsValid)
             {
                 var stationaries = (List<RequestDTO>)Session["ItemDetails"];
-                //Todo: change back to username and department code
-
-                //Session["userName"] = lblEmpName.Text;
-                string requestcode = ec.AddRequest("yufei@logic.edu.sg", "CPSC", stationaries);
-                //string requestcode = ec.AddRequest(lblDeptName.Text, lblEmpName.Text, stationaries);
+                //TODO: change back to userName to session["userName"]
+                string userName = "suriya@logic.edu.sg";
+                string deptCode = ec.GetDeptCodeByUserName(userName);
+                string requestcode = ec.AddRequest(userName, deptCode, stationaries);
+               
                 //clear
                 Session["ItemDetails"] = null;
                 BindGrid();
@@ -87,6 +94,27 @@ namespace InventoryWebApp
         {
             gvNewRequest.PageIndex = e.NewPageIndex;
             this.BindGrid();
+        }
+
+        protected void gvNewRequest_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if(e.Row.RowType == DataControlRowType.DataRow)
+            {
+                RequestDTO request = (RequestDTO)e.Row.DataItem;
+
+                TextBox quantity = (e.Row.FindControl("tbxQuantity") as TextBox);
+                if(quantity != null)
+                {
+                    try
+                    {
+                        quantity.Text = request.Quantity.ToString();
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                }
+            }
         }
     }
 }

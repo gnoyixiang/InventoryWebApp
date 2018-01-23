@@ -84,5 +84,9 @@ namespace InventoryWebApp.DAO
         }
 
 
+        public string GetDeptCodeByUserName(string userName)
+        {
+            return em.Employees.Where(x => x.UserName.Equals(userName)).Select(p => p.DepartmentCode).FirstOrDefault();
+        }
     }
 }
