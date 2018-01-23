@@ -24,6 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -83,6 +84,8 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
@@ -200,6 +203,9 @@
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
     <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
     <Content Include="Account\VerifyPhoneNumber.aspx" />
+    <Content Include="AdjustmentByStoreManager.aspx" />
+    <Content Include="AdjustmentByStoreSupervisor.aspx" />
+    <Content Include="AssigningAuthorityStoreDept.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -214,12 +220,21 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\addnew.png" />
+    <Content Include="Images\cancel.png" />
+    <Content Include="Images\delete.png" />
+    <Content Include="Images\edit.png" />
+    <Content Include="Images\save.png" />
+    <Content Include="Images\selecte.jpg" />
     <Content Include="PurchaseOrderDetail.aspx" />
     <Content Include="RequisitionList.aspx" />
     <Content Include="Scripts\fancy-sidebar-navigation.js" />
     <Content Include="Layout.Master" />
+    <Content Include="StoreEmployeeList.aspx" />
     <Content Include="SupplierList.aspx" />
+    <Content Include="System.ServiceModel.Web.dll" />
     <Content Include="ViewPurchaseOrders.aspx" />
+    <None Include="Properties\PublishProfiles\InventoryWCF.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
@@ -257,6 +272,7 @@
     <Content Include="Global.asax" />
     <Content Include="Site.Master" />
     <Content Include="ViewSwitcher.ascx" />
+    <Content Include="WCF\SupervisorService.svc" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -378,6 +394,20 @@
     <Compile Include="Account\VerifyPhoneNumber.aspx.designer.cs">
       <DependentUpon>VerifyPhoneNumber.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AdjustmentByStoreManager.aspx.cs">
+      <DependentUpon>AdjustmentByStoreManager.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdjustmentByStoreManager.aspx.designer.cs">
+      <DependentUpon>AdjustmentByStoreManager.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdjustmentByStoreSupervisor.aspx.cs">
+      <DependentUpon>AdjustmentByStoreSupervisor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdjustmentByStoreSupervisor.aspx.designer.cs">
+      <DependentUpon>AdjustmentByStoreSupervisor.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="About.aspx.cs">
       <DependentUpon>About.aspx</DependentUpon>
@@ -389,6 +419,13 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="AssigningAuthorityStoreDept.aspx.cs">
+      <DependentUpon>AssigningAuthorityStoreDept.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AssigningAuthorityStoreDept.aspx.designer.cs">
+      <DependentUpon>AssigningAuthorityStoreDept.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -518,6 +555,13 @@
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="StoreEmployeeList.aspx.cs">
+      <DependentUpon>StoreEmployeeList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreEmployeeList.aspx.designer.cs">
+      <DependentUpon>StoreEmployeeList.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SupplierList.aspx.cs">
       <DependentUpon>SupplierList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -539,6 +583,10 @@
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
+    <Compile Include="WCF\ISupervisorService.cs" />
+    <Compile Include="WCF\SupervisorService.svc.cs">
+      <DependentUpon>SupervisorService.svc</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -558,7 +606,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>15132</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:15132/</IISUrl>
+          <IISUrl>http://localhost:15133/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

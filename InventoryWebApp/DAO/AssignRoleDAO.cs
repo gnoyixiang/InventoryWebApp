@@ -10,7 +10,7 @@ namespace InventoryWebApp.DAO
     {
 
         EntityModel em = new EntityModel();
-        
+
         public int AddAssignRole(string assignrolecode, string temporaryrolecode, string employeecode,
             DateTime startdate, DateTime enddate, string assignedby)
         {
@@ -35,11 +35,11 @@ namespace InventoryWebApp.DAO
         }
 
 
-        public int UpdateAssignRole(string assignrolecode, string temporaryrolecode,
-            DateTime startdate, DateTime enddate)
+        public int UpdateAssignRole(string assignrolecode, string temporaryrolecode,string empCode,DateTime startdate, DateTime enddate)
         {
             AssignRole asrl = em.AssignRoles.Where(x => x.AssignRoleCode == assignrolecode).First();
             asrl.TemporaryRoleCode = temporaryrolecode;
+            asrl.EmployeeCode = empCode;
             asrl.StartDate = startdate;
             asrl.EndDate = enddate;
             return em.SaveChanges();
@@ -78,6 +78,54 @@ namespace InventoryWebApp.DAO
             }
 
         }
-    }
 
+        public string GetTemporaryRoleCode(string empcode)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                return em.AssignRoles.Where(p => p.EmployeeCode.Contains(empcode)).Select(p => p.TemporaryRoleCode).FirstOrDefault();
+
+
+
+
+            }
+
+        }
+
+        
+
+        public List<AssignRole> SearchByEmployeeCode(string empCode)
+        {
+
+            using (EntityModel em = new EntityModel())
+            {
+                return em.AssignRoles.Where(x => x.EmployeeCode.Contains(empCode.Trim())).ToList<AssignRole>();
+
+            }
+        }
+
+        //public List<string> SearchByEmployeeName(string empName)
+        //{
+
+        //    using (EntityModel em = new EntityModel())
+        //    {
+        //        // return em.Employees.Where(x => x.EmployeeName.ToLower().Contains(empName.Trim().ToLower())).ToList<Employee>();
+
+        //       var q =  (from p in em.Employees
+        //         join e in em.AssignRoles
+        //         on p.EmployeeCode equals e.EmployeeCode
+        //         where p.EmployeeName.Contains(empName.Trim())
+        //         select new { p.EmployeeName }).ToList<string>;
+
+
+
+
+        //        return q;
+
+
+
+        //    }
+        //}
+
+    }
 }
