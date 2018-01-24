@@ -31,6 +31,8 @@ namespace InventoryWebApp.Models.Entities
         [StringLength(200)]
         public string Notes { get; set; }
 
+        public int? ActualQuantity { get; set; }
+
         public virtual Disbursement Disbursement { get; set; }
 
         public virtual Request Request { get; set; }

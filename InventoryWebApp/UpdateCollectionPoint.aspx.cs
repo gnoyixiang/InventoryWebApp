@@ -13,11 +13,12 @@ namespace InventoryWebApp
     public partial class ChangeCollectionPoint : System.Web.UI.Page
     {
         EmployeeController ec = new EmployeeController();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                //TODO: display Department Name
+                //TODO: display Department Name by userName
                 lblInfoDeptName.Text = "Institute of Systems Science";
                 var collectionCode = ec.GetCollectionPoint(lblInfoDeptName.Text);
                 tbxCCP.Text = ec.GetCollectionPointnameByCode(collectionCode);

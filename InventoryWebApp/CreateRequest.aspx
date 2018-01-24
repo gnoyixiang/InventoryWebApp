@@ -28,7 +28,7 @@
     <table>
         <tr>
             <td>
-                <asp:Label ID="lblDept" runat="server" Text="Department Name"></asp:Label>
+                <asp:Label ID="lblDept" runat="server" Text="Department Name: "></asp:Label>
                 <br />
                 <br />
             </td>
@@ -40,7 +40,7 @@
         </tr>
         <tr>
             <td>
-                <asp:Label ID="lblEmp" runat="server" Text="Employee Name"></asp:Label>
+                <asp:Label ID="lblEmp" runat="server" Text="Employee Name: "></asp:Label>
                 <br />
                 <br />
             </td>

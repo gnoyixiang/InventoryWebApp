@@ -20,6 +20,7 @@ namespace InventoryWebApp.Controllers
         IDepartmentDAO Idpt = new DepartmentDAO();
         IDisbursementDAO Idbm = new DisbursementDAO();
         IEmployeeDAO Iempl = new EmployeeDAO();
+        IDisbursementDetailsDAO IdbmDetails = new DisbursementDetailsDAO();
         public List<StationeryCatalogue> Gridview()
         {
             List<StationeryCatalogue> list = Isc.ListAllStationery();
@@ -103,6 +104,14 @@ namespace InventoryWebApp.Controllers
         public string GetDeptNameByCode(string deptCode)
         {
             return Idpt.GetDeptNameByCode(deptCode);
+        }
+        public List<Disbursement> ListAllDisbursement()
+        {
+            return Idbm.ListAllDisbursement();
+        }
+        public List<DisbursementDetail> ListAllDisbursementDetails()
+        {
+            return IdbmDetails.ListAllDisbursementDetails();
         }
     }
 }

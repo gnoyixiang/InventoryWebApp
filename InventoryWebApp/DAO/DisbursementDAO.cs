@@ -27,9 +27,7 @@ namespace InventoryWebApp.DAO
             }
 
         }
-
         //Read
-
         public Disbursement GetDisbursementByCode(String disbursementCode)
         {
             em = new EntityModel();
@@ -82,6 +80,11 @@ namespace InventoryWebApp.DAO
             em = new EntityModel();
 
             return em.Disbursements.Where(d => d.Status == status).ToList();
+        }
+        public List<Disbursement> ListAllDisbursement()
+        {
+            em = new EntityModel();
+            return em.Disbursements.ToList();
         }
 
         //Update

@@ -16,13 +16,12 @@ namespace InventoryWebApp
     public partial class CreateRequest : System.Web.UI.Page
     {
         EmployeeController ec = new EmployeeController();
-
+        //TODO: change back to userName to session["userName"]
+        string userName = "empl1@logic.edu.sg";
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                //TODO: change back to userName to session["userName"]
-                string userName = "suriya@logic.edu.sg";
                 lblEmpName.Text = ec.GetEmployeeNameByUserName(userName);
                 string deptCode = ec.GetDeptCodeByUserName(userName);
                 string deptName = ec.GetDeptNameByCode(deptCode);
@@ -44,8 +43,6 @@ namespace InventoryWebApp
             if (Page.IsValid)
             {
                 var stationaries = (List<RequestDTO>)Session["ItemDetails"];
-                //TODO: change back to userName to session["userName"]
-                string userName = "suriya@logic.edu.sg";
                 string deptCode = ec.GetDeptCodeByUserName(userName);
                 string requestcode = ec.AddRequest(userName, deptCode, stationaries);
                
