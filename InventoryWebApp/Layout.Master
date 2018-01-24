@@ -44,8 +44,8 @@
                 <li class="active" id="menu-Reorder">
                     <a href="#ReorderSubmenu" data-toggle="collapse" aria-expanded="false">Manage Re-order</a>
                     <ul class="collapse list-unstyled submenu" id="ReorderSubmenu">
-                        <li><a href="/ViewPurchaseOrders">View All Orders</a></li>
-                        <li class="active"><a href="/CreateNewOrder">Create New Order</a></li>
+                        <li><a href="/Store/ViewPurchaseOrders">View All Orders</a></li>
+                        <li class="active"><a href="/Store/CreateNewOrder">Create New Order</a></li>
                     </ul>
                 </li>
                 <li>

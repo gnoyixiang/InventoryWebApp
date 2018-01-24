@@ -98,12 +98,12 @@ namespace InventoryWebApp
             {
                 Session["CreatedPO"] = false;
             }
-            Response.Redirect("/ViewPurchaseOrders");
+            Response.Redirect("/StoreClerk/ViewPurchaseOrders");
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            Response.Redirect("/ViewPurchaseOrders");
+            Response.Redirect("/StoreClerk/ViewPurchaseOrders");
         }
         
         protected void ddlSuppliers_SelectedIndexChanged(object sender, EventArgs e)

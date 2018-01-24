@@ -65,7 +65,7 @@
                 </LayoutTemplate>
                 <ItemTemplate>
                     <tr>
-                        <td><a href="/PurchaseOrderDetail?PO=<%#Eval("PurchaseOrderCode") %>" style="color: #337ab7"><%# Eval("PurchaseOrderCode") %></a></td>
+                        <td><a href="/Store/PurchaseOrderDetail?PO=<%#Eval("PurchaseOrderCode") %>" style="color: #337ab7"><%# Eval("PurchaseOrderCode") %></a></td>
                         <td><%# Eval("SupplierCode") %></td>
                         <td><%# Eval("DateCreated") %></td>
                         <td><%# Eval("Username") %></td>
