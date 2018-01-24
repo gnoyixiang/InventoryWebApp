@@ -5,12 +5,14 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server" />
     <h3>Disbursement Form</h3>
-    <asp:Button ID="btnBack" runat="server" Text="<Back to Requests" Style="float: left" CssClass="btn btn-success" OnClick="btnBack_Click" />
+    <asp:Button ID="btnBack" runat="server" Text="<Back" Style="float: left" CssClass="btn btn-success" OnClick="btnBack_Click" />
 
-    <asp:Button ID="btnNext" runat="server" Text="Proceed to Charge Back>" Style="float: right" CssClass="btn btn-success" OnClick="btnNext_Click1" />
+    <%--<asp:Button ID="btnNext" runat="server" Text="Proceed to Charge Back>" Style="float: right" CssClass="btn btn-success" OnClick="btnNext_Click1" />--%>
+    <asp:Button ID="btnNext" runat="server" Style="float: right" Text="Proceed to Charge Back>" CssClass="btn btn-success" OnClick="btnNext_Click"  ></asp:Button>
     <asp:Label ID="lblSpace" runat="server" Style="float: right" Text=" ">&nbsp &nbsp &nbsp</asp:Label>
     <asp:Button ID="btnNotCollected" runat="server" Text="Mark as Not Collected" Style="float: right" CssClass="btn btn-danger" OnClick="btnNotCollected_Click" />
-
+    <br />
+    <br />
 
     <%--<asp:Label ID="lblTest" runat="server" Text="Label"></asp:Label>--%>
     <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="true">
@@ -43,9 +45,9 @@
             </table>
             <br />
             <br />
-            <div class="alert alert-warning" role="alert">
+            
                 <asp:Label ID="lblAlert" runat="server" Text=""></asp:Label>
-            </div>
+            
             <asp:ListView ID="lvDisbursementDetails" runat="server" OnItemEditing="lvDisbursementDetails_ItemEditing" OnItemCanceling="lvDisbursementDetails_ItemCanceling" OnItemUpdating="lvDisbursementDetails_ItemUpdating">
                 <LayoutTemplate>
                     <table class="table">
@@ -87,7 +89,7 @@
                             <td style="text-align: right; padding-right: 20px"><%# GetRequestDetail(Eval("RequestCode").ToString(), Eval("ItemCode").ToString()).RemainingQuant %></td>
                             <td style="text-align: right; padding-right: 20px"><%# Eval("Quantity") %></td>
                             <td style="text-align: right; padding-right: 20px">
-                                <asp:TextBox ID="tbxActualQuantity" runat="server" Text='<%# Bind("ActualQuantity") %>'></asp:TextBox>
+                                <asp:TextBox ID="tbxActualQuantity" runat="server" TextMode="Number" min=0 max=<%#Eval("Quantity") %> Text='<%# Bind("ActualQuantity") %>'></asp:TextBox>
                             </td>
                             <td><%# GetRequest(Eval("RequestCode").ToString()).Status %></td>
                             <td>
@@ -103,7 +105,7 @@
                                 <asp:Label ID="lblNotes" runat="server" Text="Notes"></asp:Label>
                             </td>
                             <td style="text-align: right; padding-right: 20px">
-                                <asp:TextBox ID="tbxNotes" runat="server" Text='<%# Bind("Notes") %>'></asp:TextBox>
+                                <asp:TextBox ID="tbxNotes" runat="server" Text='<%# Bind("Notes") %>' MaxLength="200"></asp:TextBox>
                             </td>
                             <td></td>
                             <td></td>

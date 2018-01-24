@@ -20,6 +20,30 @@ namespace InventoryWebApp.Controllers
         IStationeryCatalogueDAO stationeryDAO = new StationeryCatalogueDAO();
         ICollectionPointDAO collectionPointDAO = new CollectionPointDAO();
         
+        public List<Retrieval> GetRetrievalsByStatus(String status)
+        {
+            return retrievalDAO.ListRetrievalByStatus(status);
+        }
+        public decimal? GetPriceOfDisbursement(String disbursementCode)
+        {
+            List<DisbursementDetail> ddList = GetDisbursementDetails(disbursementCode);
+            decimal? totalPrice = 0;
+            foreach (var item in ddList)
+            {
+                totalPrice += item.Price * item.ActualQuantity;
+            }
+            return totalPrice;
+        }
+
+        public List<Disbursement> GetDisbursementsByStatus(String status)
+        {
+            return disbursementDAO.SearchDbmByStatus(status);
+        }
+
+        public List<Disbursement> GetAllDisbursement()
+        {
+            return disbursementDAO.GetAllDisbursement();
+        }
         public Disbursement GetDisbursement(string disbursementCode)
         {
             return disbursementDAO.GetDisbursementByCode(disbursementCode);
@@ -118,6 +142,7 @@ namespace InventoryWebApp.Controllers
             dList.Sort();
             return dList;
         }
+
         public String GetCollectionSClerkInCharge(String collectionPointCode)
         {
             return employeeDAO.GetEmployeeByCode(collectionPointDAO.SearchByCollectionPointCode(collectionPointCode).FirstOrDefault().SClerkInCharge).EmployeeName;
@@ -132,6 +157,7 @@ namespace InventoryWebApp.Controllers
                 foreach (var detail in disbursementDetailsDAO.SearchDDByDCode(item.DisbursementCode))
                 {
                     detail.ActualQuantity = detail.Quantity;
+                    detail.Price = GetStationeryByCode(detail.ItemCode).Price;
                     disbursementDetailsDAO.UpdateDisbursementDetail(detail);
                 }
             }
@@ -324,39 +350,41 @@ namespace InventoryWebApp.Controllers
             List<Disbursement> dbmList = disbursementDAO.SearchDbmByStatus("allocating").ToList();
             if (dbmList.Count == 0)
             {
-                //if (disbursementDAO.SearchDbmByStatus("disbursing").ToList().Count != 0)
-                //{
-                //    return disbursementDAO.SearchDbmByStatus("disbursing").ToList();
-                //}
-                //dbm = new List<Disbursement>();
-                List<DisbursementDetail> ddList = GenerateDisbursementDetail();
-                HashSet<String> departmentList = GetListOfDeptFromDisbursementDetails(ddList);
-                Dictionary<String, Disbursement> disbursementDictionary = new Dictionary<string, Disbursement>();
-
-                int count = 0;
-
-                foreach(var item in departmentList)
+                if (GetDisbursingDisbursements().Count == 0)
                 {
-                    Disbursement disbursement = new Disbursement();
-                    disbursement.DisbursementCode = "DBM" + DateTime.Now.ToString("yyMMddhhmmssfff")+count++;
-                    disbursement.DepartmentCode = item;
-                    disbursement.Status = "allocating";
-                    //disbursement.Username = Session["User"]; Need to write with user
-                    //dbm.Add(disbursement);
-                    disbursementDictionary.Add(item, disbursement);
-                }
-                //Add disbursement Details to disbursement
-                foreach (var item in ddList)
-                {
-                    item.DisbursementCode = disbursementDictionary[requestDAO.GetRequest(item.RequestCode).DepartmentCode].DisbursementCode;
-                    disbursementDictionary[requestDAO.GetRequest(item.RequestCode).DepartmentCode].DisbursementDetails.Add(item);
-                }
+                    List<DisbursementDetail> ddList = GenerateDisbursementDetail();
+                    HashSet<String> departmentList = GetListOfDeptFromDisbursementDetails(ddList);
+                    Dictionary<String, Disbursement> disbursementDictionary = new Dictionary<string, Disbursement>();
 
-                foreach (var item in disbursementDictionary.Values)
-                {
-                    disbursementDAO.AddDisbursement(item);
+                    int count = 0;
+
+                    foreach (var item in departmentList)
+                    {
+                        Disbursement disbursement = new Disbursement();
+                        disbursement.DisbursementCode = "DBM" + DateTime.Now.ToString("yyMMddhhmmssfff") + count++;
+                        disbursement.DepartmentCode = item;
+                        disbursement.Status = "allocating";
+                        //disbursement.Username = Session["User"]; Need to write with user
+                        //dbm.Add(disbursement);
+                        disbursementDictionary.Add(item, disbursement);
+                    }
+                    //Add disbursement Details to disbursement
+                    foreach (var item in ddList)
+                    {
+                        item.DisbursementCode = disbursementDictionary[requestDAO.GetRequest(item.RequestCode).DepartmentCode].DisbursementCode;
+                        disbursementDictionary[requestDAO.GetRequest(item.RequestCode).DepartmentCode].DisbursementDetails.Add(item);
+                    }
+
+                    foreach (var item in disbursementDictionary.Values)
+                    {
+                        disbursementDAO.AddDisbursement(item);
+                    }
+                    return disbursementDictionary.Values.ToList();
                 }
-                return disbursementDictionary.Values.ToList();
+                else
+                    return null;
+
+               
             }
             else
             {
@@ -381,21 +409,34 @@ namespace InventoryWebApp.Controllers
             return employeeDAO.GetEmployeeByCode(emplCode);
         }
 
+        public Retrieval UpdateCurrentRetrievalToRetrieved()
+        {
+            Retrieval retrieval = retrievalDAO.ListRetrievalByStatus("processing").FirstOrDefault();
+            retrieval.Status = "retrieved";
+            retrievalDAO.UpdateRetrival(retrieval);
+            return retrieval;
+        }
+
         public Retrieval GetCurrentRetrieval()
         {
             Retrieval retrieval = retrievalDAO.ListRetrievalByStatus("processing").FirstOrDefault();
             //Retrieval rTest = retrievalList.FirstOrDefault();
             if (retrieval == null)
             {
-                retrieval = new Retrieval();
-                retrieval.RetrievalDetails = new List<RetrievalDetail>();
-                retrieval.RetrievalCode = "RT" + DateTime.Now.ToString("yyMMddHHmmssfff");
-                retrieval.Status = "processing";
-                //retrieval.UserName = Identity.User;
-                retrieval.DateRetrieved = DateTime.Now;
-                retrieval = CreateRetrievalDetails(retrieval);
-                retrievalDAO.AddRetrieval(retrieval);
-                return retrieval;
+                if (GetDisbursingDisbursements().Count == 0)
+                {
+                    retrieval = new Retrieval();
+                    retrieval.RetrievalDetails = new List<RetrievalDetail>();
+                    retrieval.RetrievalCode = "RT" + DateTime.Now.ToString("yyMMddHHmmssfff");
+                    retrieval.Status = "processing";
+                    //retrieval.UserName = Identity.User;
+                    retrieval.DateRetrieved = DateTime.Now;
+                    retrieval = CreateRetrievalDetails(retrieval);
+                    retrievalDAO.AddRetrieval(retrieval);
+                    return retrieval;
+                }
+                return null;
+                
             }
             else
             {

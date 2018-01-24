@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using InventoryWebApp.Models.Entities;
+using System.Data.Entity;
+
 namespace InventoryWebApp.DAO
 {
     public class RetrievalDAO : IRetrievalDAO
     {
         public int AddRetrieval(Retrieval r)
         {
-            using (EntityModel en = new EntityModel())
+            using (EntityModel em = new EntityModel())
             {
                 Retrieval re = new Retrieval
                 {
@@ -22,65 +24,60 @@ namespace InventoryWebApp.DAO
 
                 };
 
-                en.Retrievals.Add(re);
-                return en.SaveChanges();
+                em.Retrievals.Add(re);
+                return em.SaveChanges();
             }
         }
 
 
         public int UpdateRetrival(Retrieval r)
         {
-            using (EntityModel en = new EntityModel())
+            using (EntityModel em = new EntityModel())
             {
-                Retrieval re = en.Retrievals.Where(p => p.RetrievalCode == r.RetrievalCode).FirstOrDefault<Retrieval>();
-                re.Status = r.Status;
-                re.Notes = r.Notes;
-                re.DateRetrieved = r.DateRetrieved;
-                re.UserName = r.UserName;
-                re.RetrievalDetails = r.RetrievalDetails;
-                return en.SaveChanges();
+                em.Entry(r).State = EntityState.Modified;
+                return em.SaveChanges();
             }
         }
 
         public List<Retrieval> ListRetrievalByDate(DateTime name)
         {
-            using (EntityModel en = new EntityModel())
+            using (EntityModel em = new EntityModel())
             {
-                return en.Retrievals.Where(p => p.DateRetrieved == name).ToList<Retrieval>();
+                return em.Retrievals.Where(p => p.DateRetrieved == name).ToList<Retrieval>();
             }
         }
 
         public List<Retrieval> ListRetrievalByStatus(string name)
         {
-            using (EntityModel en = new EntityModel())
+            using (EntityModel em = new EntityModel())
             {
-                return en.Retrievals.Where(p => p.Status == name).ToList<Retrieval>();
+                return em.Retrievals.Where(p => p.Status == name).ToList<Retrieval>();
             }
         }
 
         public List<Retrieval> ListAllRetrieval()
         {
-            using (EntityModel en = new EntityModel())
+            using (EntityModel em = new EntityModel())
             {
-                return en.Retrievals.ToList<Retrieval>();
+                return em.Retrievals.ToList<Retrieval>();
             }
         }
 
         public Retrieval GetRetrieval(string retrievalCode)
         {
-            using (EntityModel en = new EntityModel())
+            using (EntityModel em = new EntityModel())
             {
-                return en.Retrievals.Where(p => p.RetrievalCode == retrievalCode).FirstOrDefault<Retrieval>();
+                return em.Retrievals.Where(p => p.RetrievalCode == retrievalCode).FirstOrDefault<Retrieval>();
             }
         }
 
         public void DeleteRetrieval(string retrievalCode)
         {
-            using (EntityModel en = new EntityModel())
+            using (EntityModel em = new EntityModel())
             {
-                Retrieval r = en.Retrievals.Where(p => p.RetrievalCode == retrievalCode).FirstOrDefault<Retrieval>();
-                en.Retrievals.Remove(r);
-                en.SaveChanges();
+                Retrieval r = em.Retrievals.Where(p => p.RetrievalCode == retrievalCode).FirstOrDefault<Retrieval>();
+                em.Retrievals.Remove(r);
+                em.SaveChanges();
             }
         }
 

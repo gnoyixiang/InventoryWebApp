@@ -22,9 +22,18 @@ namespace InventoryWebApp
 
             if (!IsPostBack)
             {
-                sClerkCtrl.GetAllocatingDisbursementList();
-                outerList = (List<RetrievalDetail>) retrieval.RetrievalDetails;
-                BindGrid();
+                if (retrieval != null)
+                {
+                    sClerkCtrl.GetAllocatingDisbursementList();
+                    outerList = (List<RetrievalDetail>)retrieval.RetrievalDetails;
+                    BindGrid();
+                }
+                else
+                {
+                    lblNotification.Text = "There is no retrieval to allocate at the moment.";
+                }
+
+
             }
         }
 
@@ -33,7 +42,8 @@ namespace InventoryWebApp
             lvAllocation.DataSource = outerList;
             lvAllocation.DataBind();
         }
-        
+
+
         protected List<DisbursementDetail> GetDisbursementDetailsPerItem(String itemCode)
         {
             innerList = sClerkCtrl.GenerateDisbursementDetailPerItem();
@@ -77,13 +87,13 @@ namespace InventoryWebApp
         {
             return sClerkCtrl.GetRequestDetail(requestCode, itemCode);
         }
-        
+
         protected Request GetRequest(String requestCode)
         {
             return sClerkCtrl.GetRequest(requestCode);
         }
 
-        protected Department GetDepartment (String departmentCode)
+        protected Department GetDepartment(String departmentCode)
         {
             return sClerkCtrl.GetDeptByCode(departmentCode);
         }
@@ -94,6 +104,7 @@ namespace InventoryWebApp
         }
         protected void btnNext_Click(object sender, EventArgs e)
         {
+
             sClerkCtrl.ChangeDisbursementAllocatingToDisbursing();
             Response.Redirect("DisbursementGenerationPage.aspx");
         }
@@ -105,7 +116,7 @@ namespace InventoryWebApp
             ListView listDetails = (ListView)listItem.FindControl("lvDetails");
             HiddenField hfItemCode = (HiddenField)listItem.FindControl("hfItemCode");
 
-            listDetails.DataSource = null;
+            listDetails.Visible = true;
             listDetails.DataSource = GetDisbursementDetailsPerItem(hfItemCode.Value);
             listDetails.DataBind();
 
@@ -116,9 +127,32 @@ namespace InventoryWebApp
             ListViewDataItem listItem = (ListViewDataItem)linkViewRequest.Parent;
             ListView listDetails = (ListView)listItem.FindControl("lvDetails");
 
-            listDetails.DataSource = null;
-            listDetails.DataBind();
+            listDetails.Visible = false;
 
+        }
+        protected void lvAllocation_ItemEditing(object sender, ListViewEditEventArgs e)
+        {
+            lvAllocation.EditIndex = e.NewEditIndex;
+
+            
+
+            ////LinkButton linkViewRequest = (LinkButton)sender;
+            ////ListViewDataItem listItem = (ListViewDataItem)linkViewRequest.Parent;
+            ListView listDetails = lvAllocation.Items[e.NewEditIndex].FindControl("lvDetails") as ListView;
+            HiddenField hfItemCode = lvAllocation.Items[e.NewEditIndex].FindControl("hfItemCode") as HiddenField;
+
+            listDetails.Visible = true;
+            listDetails.DataSource = GetDisbursementDetailsPerItem(hfItemCode.Value);
+            listDetails.DataBind();
+            BindGrid();
+
+
+        }
+        protected void lvAllocation_ItemUpdating(object sender, ListViewUpdateEventArgs e)
+        {
+        }
+        protected void lvAllocation_ItemCanceling(object sender, ListViewCancelEventArgs e)
+        {
         }
     }
 }

@@ -47,7 +47,7 @@
                 <br />
             </tr>
             <tr>
-                <asp:TextBox ID="tbxDate" runat="server" TextMode="Date" />
+                <asp:TextBox ID="tbxDate" runat="server" TextMode="Date" ClientIdMode = "static" />
                 <%--<asp:RangeValidator ID="RV1" runat="server" ControlToValidate="tbxDate" Type="Date" ErrorMessage="Disbursement"></asp:RangeValidator>--%>
             </tr>
             <tr>
@@ -58,7 +58,7 @@
             </tr>
             <tr>
                 <td>
-                    <asp:Button ID="btnChangeDate" runat="server" Text="Change date" CssClass="btn btn-primary" OnClick="btnChangeDate_Click1" /></td>
+                    <asp:Button ID="btnChangeDate" runat="server" Text="Change date" CssClass="btn btn-primary"/></td>
                 <td>&nbsp &nbsp &nbsp</td>
                 <td>
                     <asp:Button ID="btnResetDate" runat="server" Text="Cancel" CssClass="btn btn-danger" OnClick="btnResetDate_Click" /></td>

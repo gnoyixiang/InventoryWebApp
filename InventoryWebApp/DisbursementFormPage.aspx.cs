@@ -21,8 +21,8 @@ namespace InventoryWebApp
             {
                 BindDropDownList();
             }
-            
-            
+
+
         }
 
         protected void BindDropDownList()
@@ -104,8 +104,8 @@ namespace InventoryWebApp
         {
             return sClerkCtrl.GetStationeryByCode(itemCode);
         }
-        
-        protected RequestDetail GetRequestDetail (String requestCode, String itemCode)
+
+        protected RequestDetail GetRequestDetail(String requestCode, String itemCode)
         {
             return sClerkCtrl.GetRequestDetail(requestCode, itemCode);
         }
@@ -139,7 +139,8 @@ namespace InventoryWebApp
         protected override void OnPreRenderComplete(EventArgs e)
         {
             BindLvDisbursementDetails();
-            if (deptList.Count != 0 && deptList != null)
+
+            if (deptList != null && deptList.Count != 0)
             {
                 tbxRep.Text = GetEmployee(GetDepartment().RepresentativeCode).EmployeeTitle + " " + GetEmployee(GetDepartment().RepresentativeCode).EmployeeName;
                 tbxDisbursementDate.Text = GetPlanToCollectDate().ToString("dd MMM yyyy");
@@ -160,25 +161,32 @@ namespace InventoryWebApp
 
         protected void btnNotCollected_Click(object sender, EventArgs e)
         {
-            Disbursement d = GetDisbursingDisbursementByDeptCode(ddlDepartment.SelectedValue);
-            d.Status = "not collected";
-            List<DisbursementDetail> ddList = sClerkCtrl.GetDisbursementDetails(d.DisbursementCode);
-            foreach (var item in ddList)
+
+            if (ddlDepartment.SelectedValue != "")
             {
-                StationeryCatalogue sc = sClerkCtrl.GetStationeryByCode(item.ItemCode);
-                sc.Stock += item.ActualQuantity;
-                item.ActualQuantity = 0;
-                sClerkCtrl.UpdateDisbursementDetail(item);
-                sClerkCtrl.UpdateStationeryCatalogue(sc);
-                RequestDetail rd = sClerkCtrl.GetRequestDetail(item.RequestCode, item.ItemCode);
+                Disbursement d = GetDisbursingDisbursementByDeptCode(ddlDepartment.SelectedValue);
+                d.Status = "not collected";
+                List<DisbursementDetail> ddList = sClerkCtrl.GetDisbursementDetails(d.DisbursementCode);
+                foreach (var item in ddList)
+                {
+                    StationeryCatalogue sc = sClerkCtrl.GetStationeryByCode(item.ItemCode);
+                    sc.Stock += item.ActualQuantity;
+                    item.ActualQuantity = 0;
+                    sClerkCtrl.UpdateDisbursementDetail(item);
+                    sClerkCtrl.UpdateStationeryCatalogue(sc);
+                    RequestDetail rd = sClerkCtrl.GetRequestDetail(item.RequestCode, item.ItemCode);
+                    sClerkCtrl.UpdateDisbursement(d);
+                    BindDropDownList();
+                }
             }
-            sClerkCtrl.UpdateDisbursement(d);
-            BindDropDownList();
+            else
+                btnNotCollected.Enabled = false;
+            
         }
 
-        protected void btnNext_Click1(object sender, EventArgs e)
+        protected void btnNext_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("ChargeBackPage.aspx");
         }
     }
 

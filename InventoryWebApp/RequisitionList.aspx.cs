@@ -54,5 +54,32 @@ namespace InventoryWebApp
         {
             Response.Redirect("/RetrievalPage.aspx");
         }
+
+        protected StationeryCatalogue GetStationery(String itemCode)
+        {
+            return sClerCtrl.GetStationeryByCode(itemCode);
+        }
+
+        protected void Display_InnerList(object sender, CommandEventArgs e)
+        {
+            LinkButton linkViewRequest = (LinkButton)sender;
+            ListViewDataItem listItem = (ListViewDataItem)linkViewRequest.Parent;
+            ListView listDetails = (ListView)listItem.FindControl("lvRequestDetails");
+            Label lblRequestCode = (Label)listItem.FindControl("lblRequestCode");
+
+            listDetails.Visible = true;
+            listDetails.DataSource = sClerCtrl.GetRequestDetails(lblRequestCode.Text);
+            listDetails.DataBind();
+        }
+
+        protected void Hide_InnerList(object sender, CommandEventArgs e)
+        {
+            LinkButton linkViewRequest = (LinkButton)sender;
+            ListViewDataItem listItem = (ListViewDataItem)linkViewRequest.Parent;
+            ListView listDetails = (ListView)listItem.FindControl("lvRequestDetails");
+
+            listDetails.Visible = false;
+
+        }
     }
 }

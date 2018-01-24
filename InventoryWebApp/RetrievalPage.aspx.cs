@@ -24,9 +24,9 @@ namespace InventoryWebApp
                 if (retrieval == null)
                 {
                     btnReset.Visible = false;
-                    btnNext.Visible = false;
+                    btnNext.Text = "Proceed to Disbursement Generation>";
                     btnTickAll.Visible = false;
-                    lblNoData.Text = "There is no retrieval at the moment";
+                    lblNoData.Text = "There is no retrieval at the moment. You may need to complete all current disbursement to get new retrieval.";
 
                 }else
                 {
@@ -45,7 +45,7 @@ namespace InventoryWebApp
 
         protected void BindGrid()
         {
-
+            rdList.Sort();
             lvRetrievalList.DataSource = rdList;
             lvRetrievalList.DataBind();
 
@@ -88,28 +88,36 @@ namespace InventoryWebApp
         }
         protected void btnNext_Click(object sender, EventArgs e)
         {
-            rdList = sClerkCtrl.GetCurrentRetrieval().RetrievalDetails.ToList<RetrievalDetail>();
+            retrieval = sClerkCtrl.GetCurrentRetrieval();
 
-            for (int i = 0; i < rdList.Count; i++)
+            if (retrieval == null){
+                Response.Redirect ("DisbursementGenerationPage.aspx");
+            }
             {
-                CheckBox cbxRetrieved = (CheckBox)lvRetrievalList.Items[i].FindControl("cbxRetrieved");
-                if (cbxRetrieved.Checked == false)
+                rdList = sClerkCtrl.GetCurrentRetrieval().RetrievalDetails.ToList<RetrievalDetail>();
+
+                for (int i = 0; i < rdList.Count; i++)
                 {
-                    lblNotification.Text = "Please tick all items in 'Retrieved' column for proceeding to the next step.";
-                    return;
+                    CheckBox cbxRetrieved = (CheckBox)lvRetrievalList.Items[i].FindControl("cbxRetrieved");
+                    if (cbxRetrieved.Checked == false)
+                    {
+                        lblNotification.Text = "Please tick all items in 'Retrieved' column for proceeding to the next step.";
+                        return;
+                    }
                 }
-            }
 
-            for (int i = 0; i < rdList.Count; i++)
-            {
-                TextBox tbxQuantRetrieved = (TextBox)lvRetrievalList.Items[i].FindControl("tbxQuantityRetrieved");
-                TextBox tbxNotes = (TextBox)lvRetrievalList.Items[i].FindControl("tbxNotes");
+                for (int i = 0; i < rdList.Count; i++)
+                {
+                    TextBox tbxQuantRetrieved = (TextBox)lvRetrievalList.Items[i].FindControl("tbxQuantityRetrieved");
+                    TextBox tbxNotes = (TextBox)lvRetrievalList.Items[i].FindControl("tbxNotes");
 
-                rdList[i].QuantityRetrieved = Int32.Parse(tbxQuantRetrieved.Text);
-                rdList[i].Notes = tbxNotes.Text;
-                sClerkCtrl.UpdateRetrievalDetail(rdList[i]);
+                    rdList[i].QuantityRetrieved = Int32.Parse(tbxQuantRetrieved.Text);
+                    rdList[i].Notes = tbxNotes.Text;
+                    sClerkCtrl.UpdateRetrievalDetail(rdList[i]);
+                }
+                Response.Redirect("/2AllocationPage.aspx");
             }
-            Response.Redirect("/2AllocationPage.aspx");
+            
         }
 
 

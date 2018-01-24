@@ -14,8 +14,11 @@ namespace InventoryWebApp
         StoreClerkController sClerkCtrl = new StoreClerkController();
         protected void Page_Load(object sender, EventArgs e)
         {
+            
+
             if (!IsPostBack)
             {
+                tbxDate.Attributes["min"] = DateTime.Now.ToString("yyyy-MM-dd");
                 if (sClerkCtrl.GetDisbursingDisbursements().FirstOrDefault() != null)
                 {
                     tbxDate.Text = GetPlanToCollectDate();
@@ -49,6 +52,7 @@ namespace InventoryWebApp
                     lblFixedCollectionPoint.Visible = false;
                     lblFixedDisbursementDate.Visible = false;
                     ddlCollectionPoint.Visible = false;
+                    
                 }
             }
         }
@@ -106,13 +110,11 @@ namespace InventoryWebApp
 
         protected void btnBack_Click(object sender, EventArgs e)
         {
-            sClerkCtrl.ChangeDisbursementDisbursingToAllocating();
+            if (sClerkCtrl.GetRetrievalsByStatus("retrieving") != null || sClerkCtrl.GetDisbursingDisbursements() != null || sClerkCtrl.GetDisbursingDisbursements().FirstOrDefault().DatePlanToCollect != null && sClerkCtrl.GetRetrievalsByStatus("retrieving").Count == 0)
+            {
+                sClerkCtrl.ChangeDisbursementDisbursingToAllocating();
+            }
             Response.Redirect("2AllocationPage.aspx");
-        }
-
-        protected void btnChangeDate_Click1(object sender, EventArgs e)
-        {
-
         }
 
         protected void btnResetDate_Click(object sender, EventArgs e)
@@ -130,6 +132,8 @@ namespace InventoryWebApp
         protected void btnConfirm_Click(object sender, EventArgs e)
         {
             sClerkCtrl.SetCollectionDateToDisbursement(DateTime.Parse(tbxDate.Text));
+            sClerkCtrl.UpdateCurrentRetrievalToRetrieved();
+            btnBack.Enabled = false;
             GetPlanToCollectDate();
             btnNext.Enabled = true;
         }
