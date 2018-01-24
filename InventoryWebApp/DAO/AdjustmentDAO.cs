@@ -50,5 +50,13 @@ namespace InventoryWebApp.DAO
             }
         }
 
+        public List<Adjustment> ListAllAdjustmentsByItemCode(string itemCode)
+        {
+            using (em)
+            {
+                return em.Adjustments.Where(x => x.ItemCode == itemCode).ToList<Adjustment>();
+            }
+        }
+
     }
 }

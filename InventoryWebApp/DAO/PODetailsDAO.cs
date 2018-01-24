@@ -55,6 +55,16 @@ namespace InventoryWebApp.DAO
                 return em.SaveChanges();
             }
         }
-        
+
+        public List<PODetail> ListAllPODetailsByPOCode(string purchaseOrderCode)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                return em.PODetails
+                    .Where(p => p.PurchaseOrderCode.ToUpper()==(purchaseOrderCode.ToUpper()))
+                    .ToList<PODetail>();
+            }
+        }
+
     }
 }

@@ -10,5 +10,6 @@ namespace InventoryWebApp.DAO
         Category GetCategory(string categoryCode);
         List<Category> SearchByCategory(string keyword);
         int UpdateCategory(Category c);
+        List<Category> ListAllCategory();
     }
 }

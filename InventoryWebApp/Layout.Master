@@ -119,7 +119,7 @@
                 <% if ((string)Session["UserRole"] == "departmentHead")
                     {%>
                 <li id="menu-RequestDepartmentHead">
-                    <a href="#RequestEmployeeSubmenu" data-toggle="collapse" aria-expanded="false">Manage Requests</a>
+                    <a href="#RequestDepartmentHead" data-toggle="collapse" aria-expanded="false">Manage Requests</a>
                     <ul class="collapse list-unstyled submenu" id="RequestDepartmentHead">
                         <li><a href="#">View Requests</a></li>
                         <li><a href="#">Approve Requests</a></li>

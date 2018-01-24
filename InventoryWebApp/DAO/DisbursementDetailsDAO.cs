@@ -44,5 +44,11 @@ namespace InventoryWebApp.DAO
                 return em.SaveChanges();
             }
         }
+
+        public List<DisbursementDetail> ListDDByItemCode(string ItemCode)
+        {
+            em = new EntityModel();
+            return em.DisbursementDetails.Where(dd => dd.ItemCode == ItemCode).ToList();
+        }
     }
 }

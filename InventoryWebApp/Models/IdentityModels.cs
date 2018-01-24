@@ -31,10 +31,14 @@ namespace InventoryWebApp.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("MyIdentityConnection", throwIfV1Schema: false)
+            : base("MyIdentityConnection")
         {
         }
 
+        public static ApplicationDbContext Create()
+        {
+            return new ApplicationDbContext();
+        }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
 
@@ -52,25 +56,14 @@ namespace InventoryWebApp.Models
 
             modelBuilder.Entity<IdentityRole>().ToTable("Role");
 
-
-
             modelBuilder.Entity<ApplicationUser>().Ignore(c => c.PhoneNumberConfirmed)
 
-                                           .Ignore(c => c.LockoutEnabled)
-
-                                           .Ignore(c => c.EmailConfirmed)
-
-                                           .Ignore(c => c.LockoutEndDateUtc)
-
-                                           .Ignore(c => c.TwoFactorEnabled);
-
+                                                  .Ignore(c => c.LockoutEnabled)
+                                                  .Ignore(c => c.EmailConfirmed)
+                                                  .Ignore(c => c.LockoutEndDateUtc)
+                                                  .Ignore(c => c.TwoFactorEnabled);
         }
-
-        public static ApplicationDbContext Create()
-        {
-            return new ApplicationDbContext();
         }
-    }
 }
 
 #region Helpers
