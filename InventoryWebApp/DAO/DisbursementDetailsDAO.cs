@@ -29,5 +29,11 @@ namespace InventoryWebApp.DAO
             return em.DisbursementDetails.Where(dd => dd.RequestCode == request.RequestCode &&
                                                                                     dd.ItemCode == item.ItemCode).ToList();
         }
+
+        public List<DisbursementDetail> ListDDByItemCode(string ItemCode)
+        {
+            em = new EntityModel();
+            return em.DisbursementDetails.Where(dd => dd.ItemCode == ItemCode).ToList();
+        }
     }
 }

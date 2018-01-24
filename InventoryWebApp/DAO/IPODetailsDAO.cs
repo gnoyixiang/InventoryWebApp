@@ -10,5 +10,6 @@ namespace InventoryWebApp.DAO
         List<PODetail> ListPODetailsByItemCode(string itemCode);
         List<PODetail> ListPODetailsByPOCode(string purchaseOrderCode);
         int UpdatePODetail(PODetail poDetail);
+        List<PODetail> ListAllPODetailsByPOCode(string purchaseOrderCode);
     }
 }

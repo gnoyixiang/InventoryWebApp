@@ -52,6 +52,9 @@ namespace InventoryWebApp.Models.Entities
         [StringLength(20)]
         public string Supplier3 { get; set; }
 
+        [StringLength(50)]
+        public string Location { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Adjustment> Adjustments { get; set; }
 

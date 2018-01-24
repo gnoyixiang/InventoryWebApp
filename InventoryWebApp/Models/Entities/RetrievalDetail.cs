@@ -14,7 +14,7 @@ namespace InventoryWebApp.Models.Entities
         [StringLength(20)]
         public string ItemCode { get; set; }
 
-        public int? Quantity { get; set; }
+        public int? QuantityRetrieved { get; set; }
 
         [StringLength(200)]
         public string Notes { get; set; }
@@ -23,6 +23,8 @@ namespace InventoryWebApp.Models.Entities
         [Column(Order = 1)]
         [StringLength(20)]
         public string RetrievalCode { get; set; }
+
+        public int? QuantityNeeded { get; set; }
 
         public virtual Retrieval Retrieval { get; set; }
 

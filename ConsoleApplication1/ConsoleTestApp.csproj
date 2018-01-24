@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestAdjustmentDAO.cs" />
     <Compile Include="TestAssignRoleAndRole.cs" />
     <Compile Include="TestCategoryDAO.cs" />
     <Compile Include="TestCollectionPointDAO.cs" />

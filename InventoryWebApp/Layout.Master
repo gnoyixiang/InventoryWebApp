@@ -49,13 +49,13 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#">Stock Adjustment</a>
+                    <a href="StockAdjustmentList.aspx">Stock Adjustment</a>
                 </li>
                 <li>
-                    <a href="#">Stock Card</a>
+                    <a href="StockCardView.aspx">Stock Card</a>
                 </li>
                 <li>
-                    <a href="#">View / Print Quotation</a>
+                    <a href="QuotationView.aspx">View / Print Quotation</a>
                 </li>
 
                 <!-- Employee -->

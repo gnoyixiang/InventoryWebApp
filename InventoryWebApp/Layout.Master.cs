@@ -52,7 +52,7 @@ namespace InventoryWebApp
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //Session["UserRole"] = "storeClerk";
+            Session["UserRole"] = "storeClerk";
             //Session["UserRole"] = "storeSupervisor";
             //Session["UserRole"] = "employee";
             //Session["UserRole"] = "departmentHead";

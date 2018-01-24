@@ -228,11 +228,19 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="NewSupplierDetail.aspx" />
-    <Content Include="StoreClerk\PurchaseOrderDetail.aspx" />
+    <Content Include="PendingPO.aspx" />
+    <Content Include="PendingPODetails.aspx" />
+    <Content Include="QuotationPrint.aspx" />
+    <Content Include="QuotationView.aspx" />
     <Content Include="RequisitionList.aspx" />
     <Content Include="Scripts\fancy-sidebar-navigation.js" />
     <Content Include="Layout.Master" />
+    <Content Include="StockCardSearch.aspx" />
+    <Content Include="StockAdjustmentEdit.aspx" />
+    <Content Include="StockAdjustmentList.aspx" />
+    <Content Include="StockAdjustmentNew.aspx" />
+    <Content Include="StockAdjustmentView.aspx" />
+    <Content Include="StockCardView.aspx" />
     <Content Include="StoreClerk\ViewPurchaseOrders.aspx" />
     <Content Include="Public.Master" />
     <None Include="Properties\PublishProfiles\InventoryWCF.pubxml" />
@@ -272,7 +280,12 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Site.Master" />
+    <Content Include="ViewStockCard.aspx" />
     <Content Include="ViewSwitcher.ascx" />
+    <Content Include="WCF\ClerkService.svc" />
+    <Content Include="WCF\DepartmentService.svc" />
+    <Content Include="WCF\EmployeeService.svc" />
+    <Content Include="WCF\SupervisorService.svc" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -535,11 +548,26 @@
     <Compile Include="Models\Entities\sysdiagram.cs" />
     <Compile Include="Models\Entities\Tender.cs" />
     <Compile Include="Models\Entities\TenderDetail.cs" />
+    <Compile Include="Models\Entities\TransactionOfRetrieval_Adjustment_PurchaseOrder.cs" />
     <Compile Include="Models\Entities\User.cs" />
     <Compile Include="Models\Entities\UserClaim.cs" />
     <Compile Include="Models\Entities\UserLogin.cs" />
     <Compile Include="Models\Entities\Util.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="PendingPO.aspx.cs">
+      <DependentUpon>PendingPO.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PendingPO.aspx.designer.cs">
+      <DependentUpon>PendingPO.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PendingPODetails.aspx.cs">
+      <DependentUpon>PendingPODetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PendingPODetails.aspx.designer.cs">
+      <DependentUpon>PendingPODetails.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StoreClerk\PurchaseOrderDetail.aspx.cs">
       <DependentUpon>PurchaseOrderDetail.aspx</DependentUpon>
@@ -547,6 +575,20 @@
     </Compile>
     <Compile Include="StoreClerk\PurchaseOrderDetail.aspx.designer.cs">
       <DependentUpon>PurchaseOrderDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="QuotationPrint.aspx.cs">
+      <DependentUpon>QuotationPrint.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="QuotationPrint.aspx.designer.cs">
+      <DependentUpon>QuotationPrint.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="QuotationView.aspx.cs">
+      <DependentUpon>QuotationView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="QuotationView.aspx.designer.cs">
+      <DependentUpon>QuotationView.aspx</DependentUpon>
     </Compile>
     <Compile Include="RequisitionList.aspx.cs">
       <DependentUpon>RequisitionList.aspx</DependentUpon>
@@ -569,12 +611,58 @@
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
-    <Compile Include="StoreClerk\ViewPurchaseOrders.aspx.cs">
-      <DependentUpon>ViewPurchaseOrders.aspx</DependentUpon>
+    <Compile Include="StockCardSearch.aspx.cs">
+      <DependentUpon>StockCardSearch.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="StockCardSearch.aspx.designer.cs">
+      <DependentUpon>StockCardSearch.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StockAdjustmentEdit.aspx.cs">
+      <DependentUpon>StockAdjustmentEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StockAdjustmentEdit.aspx.designer.cs">
+      <DependentUpon>StockAdjustmentEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StockAdjustmentList.aspx.cs">
+      <DependentUpon>StockAdjustmentList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StockAdjustmentList.aspx.designer.cs">
+      <DependentUpon>StockAdjustmentList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StockAdjustmentNew.aspx.cs">
+      <DependentUpon>StockAdjustmentNew.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StockAdjustmentNew.aspx.designer.cs">
+      <DependentUpon>StockAdjustmentNew.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StockAdjustmentView.aspx.cs">
+      <DependentUpon>StockAdjustmentView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StockAdjustmentView.aspx.designer.cs">
+      <DependentUpon>StockAdjustmentView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StockCardView.aspx.cs">
+      <DependentUpon>StockCardView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StockCardView.aspx.designer.cs">
+      <DependentUpon>StockCardView.aspx</DependentUpon>
+    </Compile>
+    
     <Compile Include="StoreClerk\ViewPurchaseOrders.aspx.designer.cs">
       <DependentUpon>ViewPurchaseOrders.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewStockCard.aspx.cs">
+      <DependentUpon>ViewStockCard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewStockCard.aspx.designer.cs">
+      <DependentUpon>ViewStockCard.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
@@ -583,9 +671,28 @@
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
+    <Compile Include="WCF\ClerkService.svc.cs">
+      <DependentUpon>ClerkService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="WCF\DepartmentService.svc.cs">
+      <DependentUpon>DepartmentService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="WCF\EmployeeService.svc.cs">
+      <DependentUpon>EmployeeService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="WCF\IClerkService.cs" />
+    <Compile Include="WCF\IDepartmentService.cs" />
+    <Compile Include="WCF\IEmployeeService.cs" />
+    <Compile Include="WCF\ISupervisorService.cs" />
+    <Compile Include="WCF\SupervisorService.svc.cs">
+      <DependentUpon>SupervisorService.svc</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
