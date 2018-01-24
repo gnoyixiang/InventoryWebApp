@@ -18,12 +18,18 @@ namespace InventoryWebApp.DAO
         {
             return em.CollectionPoints.Where(x => x.CollectionVenue.Contains(keyword)).ToList();
         }
+        public List<CollectionPoint> ListAllCollectionPoint()
+        {
+            return em.CollectionPoints.ToList();
+        }
         public int AddCollectionPoint(CollectionPoint c)
         {
+            int result = -1;
             try
             {
                 em.CollectionPoints.Add(c);
-                return em.SaveChanges();
+                result = em.SaveChanges();
+                return 1;
             }
             catch(Exception e)
             {
@@ -48,6 +54,11 @@ namespace InventoryWebApp.DAO
             CollectionPoint collectionPoint = em.CollectionPoints.Where(x => x.CollectionPointCode == collectionPointCode).FirstOrDefault();
             em.CollectionPoints.Remove(collectionPoint);
             em.SaveChanges();
+        }
+        public CollectionPoint GetCollectionPoint(string collectionPointCode)
+        {
+            CollectionPoint cp = em.CollectionPoints.Where(x => x.CollectionPointCode == collectionPointCode).FirstOrDefault();
+            return cp;
         }
     }
 }

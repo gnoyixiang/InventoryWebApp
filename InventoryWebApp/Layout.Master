@@ -89,7 +89,7 @@
                 <% if ((string)Session["UserRole"] == "storeSupervisor" || (string)Session["ChangeRole"] == "actingStoreSupervisor")
                     {%>
                 <li>
-                    <a href="#">Pending PO</a>
+                    <a href="/PendingPO.aspx">Pending PO</a>
                 </li>
                 <% if (!((string)Session["ChangeRole"] == "actingStoreSupervisor"))
                     {%>
@@ -110,7 +110,7 @@
                     <a href="#">View Supplier</a>
                 </li>
                 <li>
-                    <a href="#">View Stock Card</a>
+                    <a href="/StockCardSearch.aspx">View Stock Card</a>
                 </li>
 
                 <%} %>
@@ -119,7 +119,7 @@
                 <% if ((string)Session["UserRole"] == "departmentHead")
                     {%>
                 <li id="menu-RequestDepartmentHead">
-                    <a href="#RequestEmployeeSubmenu" data-toggle="collapse" aria-expanded="false">Manage Requests</a>
+                    <a href="#RequestDepartmentHead" data-toggle="collapse" aria-expanded="false">Manage Requests</a>
                     <ul class="collapse list-unstyled submenu" id="RequestDepartmentHead">
                         <li><a href="#">View Requests</a></li>
                         <li><a href="#">Approve Requests</a></li>
@@ -157,11 +157,11 @@
                     </ul>
                 </div>
             </nav>
-            <ul class="breadcrumb">
+            <%--<ul class="breadcrumb">
                 <li><a href="#">Home</a></li>
                 <li><a href="#">Manage Requests</a></li>
                 <li class="active">View Requests</li>
-            </ul>
+            </ul>--%>
 
             <!-- Fill Content Here -->
             <form id="form1" runat="server">

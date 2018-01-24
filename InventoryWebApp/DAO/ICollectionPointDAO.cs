@@ -10,5 +10,7 @@ namespace InventoryWebApp.DAO
         List<CollectionPoint> SearchByCollectionPointCode(string keyword);
         List<CollectionPoint> SearchByCollectionVenue(string keyword);
         int UpdateCollectionPoint(CollectionPoint c);
+        CollectionPoint GetCollectionPoint(string collectionPointCode);
+        List<CollectionPoint> ListAllCollectionPoint();
     }
 }

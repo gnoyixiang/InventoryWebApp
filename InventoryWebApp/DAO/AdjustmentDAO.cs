@@ -50,5 +50,13 @@ namespace InventoryWebApp.DAO
             }
         }
 
+        public List<Adjustment> ListAllAdjustmentsByItemCode(string itemCode,DateTime start)
+        {
+            using (em =new EntityModel())
+            {
+                return em.Adjustments.Where(x => x.ItemCode == itemCode && x.DateApproved>=start).ToList<Adjustment>();
+            }
+        }
+
     }
 }
