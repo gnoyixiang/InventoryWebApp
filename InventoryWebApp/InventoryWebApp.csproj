@@ -195,6 +195,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="401.aspx" />
     <Content Include="About.aspx" />
     <Content Include="Account\AddPhoneNumber.aspx" />
     <Content Include="Account\Confirm.aspx" />
@@ -218,8 +219,7 @@
     <Content Include="Content\custom.css" />
     <Content Include="Content\custom2.css" />
     <Content Include="Content\Site.css" />
-    <Content Include="CreateNewOrder.aspx" />
-    <Content Include="EditPurchaseOrder.aspx" />
+    <Content Include="StoreClerk\CreateNewOrder.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -229,11 +229,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="NewSupplierDetail.aspx" />
-    <Content Include="PurchaseOrderDetail.aspx" />
+    <Content Include="StoreClerk\PurchaseOrderDetail.aspx" />
     <Content Include="RequisitionList.aspx" />
     <Content Include="Scripts\fancy-sidebar-navigation.js" />
     <Content Include="Layout.Master" />
-    <Content Include="ViewPurchaseOrders.aspx" />
+    <Content Include="StoreClerk\ViewPurchaseOrders.aspx" />
     <Content Include="Public.Master" />
     <None Include="Properties\PublishProfiles\InventoryWCF.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -290,6 +290,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="401.aspx.cs">
+      <DependentUpon>401.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="401.aspx.designer.cs">
+      <DependentUpon>401.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Account\AddPhoneNumber.aspx.cs">
       <DependentUpon>AddPhoneNumber.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -402,15 +409,11 @@
     <Compile Include="AcknowledgeReceipt.aspx.designer.cs">
       <DependentUpon>AcknowledgeReceipt.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\StoreClerkController.cs" />
     <Compile Include="DAO\IRequestDAO.cs" />
     <Compile Include="DAO\IRequestDetailsDAO.cs" />
-    <Compile Include="EditPurchaseOrder.aspx.cs">
-      <DependentUpon>EditPurchaseOrder.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="EditPurchaseOrder.aspx.designer.cs">
-      <DependentUpon>EditPurchaseOrder.aspx</DependentUpon>
-    </Compile>
+    <Compile Include="DAO\UserDAO.cs" />
     <Compile Include="Models\Classes\ComparePurchaseOrderByPONum.cs" />
     <Compile Include="Models\Classes\ComparePurchaseOrderByStatus.cs" />
     <Compile Include="Models\Classes\PurchaseItem.cs" />
@@ -486,11 +489,11 @@
     <Compile Include="DAO\SupplierDetailsDAO.cs" />
     <Compile Include="DAO\TenderDAO.cs" />
     <Compile Include="DAO\TenderDetailsDAO.cs" />
-    <Compile Include="CreateNewOrder.aspx.cs">
+    <Compile Include="StoreClerk\CreateNewOrder.aspx.cs">
       <DependentUpon>CreateNewOrder.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="CreateNewOrder.aspx.designer.cs">
+    <Compile Include="StoreClerk\CreateNewOrder.aspx.designer.cs">
       <DependentUpon>CreateNewOrder.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
@@ -538,11 +541,11 @@
     <Compile Include="Models\Entities\Util.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PurchaseOrderDetail.aspx.cs">
+    <Compile Include="StoreClerk\PurchaseOrderDetail.aspx.cs">
       <DependentUpon>PurchaseOrderDetail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="PurchaseOrderDetail.aspx.designer.cs">
+    <Compile Include="StoreClerk\PurchaseOrderDetail.aspx.designer.cs">
       <DependentUpon>PurchaseOrderDetail.aspx</DependentUpon>
     </Compile>
     <Compile Include="RequisitionList.aspx.cs">
@@ -566,11 +569,11 @@
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
-    <Compile Include="ViewPurchaseOrders.aspx.cs">
+    <Compile Include="StoreClerk\ViewPurchaseOrders.aspx.cs">
       <DependentUpon>ViewPurchaseOrders.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewPurchaseOrders.aspx.designer.cs">
+    <Compile Include="StoreClerk\ViewPurchaseOrders.aspx.designer.cs">
       <DependentUpon>ViewPurchaseOrders.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">

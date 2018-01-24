@@ -15,8 +15,6 @@ namespace InventoryWebApp.DAO
 
         public int AddEmployee(Employee emp)
         {
-
-
             /* Employee emp = new Employee();
              emp.EmployeeCode = empCode;
              emp.ReportTo = reportTo;

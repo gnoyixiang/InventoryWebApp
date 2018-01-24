@@ -20,6 +20,7 @@
     </asp:ContentPlaceHolder>
 </head>
 <body>
+    <form runat="server">
     <div class="wrapper">
         <!-- Sidebar Holder -->
         <nav id="sidebar">
@@ -31,8 +32,6 @@
 
             <ul class="list-unstyled components">
                 <!-- Store Clerk -->
-                <% if ((string)Session["UserRole"] == "storeClerk")
-                    {%>
                 <li id="menu-RequestClerk">
                     <a href="#RequestClerkSubmenu" data-toggle="collapse" aria-expanded="false">Manage Requests</a>
                     <ul class="collapse list-unstyled submenu" id="RequestClerkSubmenu">
@@ -58,77 +57,71 @@
                 <li>
                     <a href="#">View / Print Quotation</a>
                 </li>
-                <%} %>
 
                 <!-- Employee -->
-                <% if ((string)Session["UserRole"] == "employee")
-                    {%>
-                <li>
-                    <a href="#">View Catalog</a>
-                </li>
-                <li id="menu-RequestEmployee" class="active">
-                    <a href="#RequestEmployeeSubmenu" data-toggle="collapse" aria-expanded="false">Manage Requests</a>
-                    <ul class="collapse list-unstyled submenu" id="RequestEmployeeSubmenu">
-                        <li><a href="#">View Requests</a></li>
-                        <li><a href="#">Create Request</a></li>
-                        <% if ((string)Session["ChangeRole"] == "actingDepartmentHead")
-                            {%>
-                        <li class="active"><a href="#">Approve Requests</a></li>
-                        <%} %>
-                    </ul>
-                </li>
-                <li><a href="#">View Disbursements</a></li>
-                <% if ((string)Session["ChangeRole"] == "departmentRep")
-                    {%>
-                <li><a href="#">Update Collection Point</a></li>
-                <%} %>
-
-                <%} %>
+                <asp:Panel runat="server" ID="panelEmployee" Visible="false">
+                    <li>
+                        <a href="#">View Catalog</a>
+                    </li>
+                    <li id="menu-RequestEmployee" class="active">
+                        <a href="#RequestEmployeeSubmenu" data-toggle="collapse" aria-expanded="false">Manage Requests</a>
+                        <ul class="collapse list-unstyled submenu" id="RequestEmployeeSubmenu">
+                            <li><a href="#">View Requests</a></li>
+                            <li><a href="#">Create Request</a></li>
+                            <asp:Panel runat="server" ID="panelActingDeptRepApprReq" Visible="false">
+                                <li class="active"><a href="#">Approve Requests</a></li>
+                            </asp:Panel>
+                        </ul>
+                    </li>
+                    <li><a href="#">View Disbursements</a></li>
+                    <asp:Panel runat="server" ID="panelActingDeptRepUpdColPt" Visible="false">
+                        <li><a href="#">Update Collection Point</a></li>
+                    </asp:Panel>
+                </asp:Panel>
 
                 <!-- Store Supervisor -->
-                <% if ((string)Session["UserRole"] == "storeSupervisor" || (string)Session["ChangeRole"] == "actingStoreSupervisor")
-                    {%>
-                <li>
-                    <a href="#">Pending PO</a>
-                </li>
-                <% if (!((string)Session["ChangeRole"] == "actingStoreSupervisor"))
-                    {%>
-                <li>
-                    <a href="#">Assigning Authority</a>
-                </li>
-                <%} %>
-                <li>
-                    <a href="#">Adjust Stock</a>
-                </li>
-                <li>
-                    <a href="#">Generate Trend Analysis</a>
-                </li>
-                <li>
-                    <a href="#">View Employees</a>
-                </li>
-                <li>
-                    <a href="#">View Supplier</a>
-                </li>
-                <li>
-                    <a href="#">View Stock Card</a>
-                </li>
+                <asp:Panel runat="server" ID="panelStoreSup" Visible="false">
+                    <%--<% if ((string)Session["UserRole"] == "storeSupervisor" || (string)Session["ChangeRole"] == "actingStoreSupervisor")
+                    {%>--%>
+                    <li>
+                        <a href="#">Pending PO</a>
+                    </li>
+                    <%--<% if (!((string)Session["ChangeRole"] == "actingStoreSupervisor"))
+                    {%>--%>
+                    <li>
+                        <a href="#">Assigning Authority</a>
+                    </li>
+                    <li>
+                        <a href="#">Adjust Stock</a>
+                    </li>
+                    <li>
+                        <a href="#">Generate Trend Analysis</a>
+                    </li>
+                    <li>
+                        <a href="#">View Employees</a>
+                    </li>
+                    <li>
+                        <a href="#">View Supplier</a>
+                    </li>
+                    <li>
+                        <a href="#">View Stock Card</a>
+                    </li>
 
-                <%} %>
+                </asp:Panel>
 
                 <!-- Department Head -->
-                <% if ((string)Session["UserRole"] == "departmentHead")
-                    {%>
-                <li id="menu-RequestDepartmentHead">
-                    <a href="#RequestDepartmentHead" data-toggle="collapse" aria-expanded="false">Manage Requests</a>
-                    <ul class="collapse list-unstyled submenu" id="RequestDepartmentHead">
-                        <li><a href="#">View Requests</a></li>
-                        <li><a href="#">Approve Requests</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">Authorise Staff</a>
-                </li>
-                <%} %>
+                <asp:Panel runat="server" ID="panelDeptHead" Visible="false">
+                    <li id="menu-RequestDepartmentHead">
+                        <a href="#RequestDepartmentHead" data-toggle="collapse" aria-expanded="false">Manage Requests</a>
+                        <ul class="collapse list-unstyled submenu" id="RequestDepartmentHead">
+                            <li><a href="#">View Requests</a></li>
+                            <li><a href="#">Approve Requests</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Authorise Staff</a>
+                    </li>
+                </asp:Panel>
 
 
                 <li role="separator" class="divider"></li>
@@ -141,10 +134,29 @@
         <div id="content">
 
             <nav class="navbar navbar-default">
-                <div class="container-fluid">
+                <div class="container-fluid">                    
+                    <asp:LoginView runat="server" ViewStateMode="Disabled">
+                        <AnonymousTemplate>
+                            <ul class="nav navbar-nav navbar-right">
+                                <%--<li><a runat="server" href="~/Account/Register">Register</a></li>--%>
+                                <li><a runat="server" href="~/Account/Login">Log in</a></li>
+                            </ul>
+                        </AnonymousTemplate>
+                        <LoggedInTemplate>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a runat="server" href="~/Account/Manage" title="Manage your account">Hello, <%: GetEmployeeName(Context.User.Identity.GetUserName())  %> !</a></li>
+                                <li>
+                                    <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
+                                </li>
+                            </ul>
+                        </LoggedInTemplate>
+                    </asp:LoginView>
                     <ul class="nav navbar-nav navbar-right" id="navtopitems">
                         <li><a href="#">Home</a></li>
-                        <li><a class="dropdown-toggle" id="dropdownMenu2" data-toggle="dropdown">Welcome, Esther
+                    </ul>
+
+
+                       <%-- <li><a class="dropdown-toggle" id="dropdownMenu2" data-toggle="dropdown">Welcome, Esther
     <span class="caret"></span></a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
                                 <li><a href="#">Manage Account</a></li>
@@ -153,8 +165,7 @@
                             </ul>
 
 
-                        </li>
-                    </ul>
+                        </li>--%>
                 </div>
             </nav>
             <ul class="breadcrumb">
@@ -164,16 +175,16 @@
             </ul>
 
             <!-- Fill Content Here -->
-            <form id="form1" runat="server">
+            
                 <div>
                     <asp:ContentPlaceHolder ID="MainContent" runat="server">
                     </asp:ContentPlaceHolder>
                 </div>
-            </form>
+            
         </div>
 
     </div>
-
+</form>
 
     <!-- jQuery CDN -->
     <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>

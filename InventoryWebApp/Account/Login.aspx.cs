@@ -5,13 +5,30 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Owin;
 using InventoryWebApp.Models;
+using InventoryWebApp.Models.Entities;
+using InventoryWebApp.Controllers;
 
 namespace InventoryWebApp.Account
 {
     public partial class Login : Page
     {
+        
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!Page.IsPostBack)
+            {
+                if (Request.IsAuthenticated )
+                    if (!string.IsNullOrEmpty(Request.QueryString["ReturnUrl"]))
+                    {
+                        Response.Redirect("~/401.aspx");
+                    }
+                    else
+                    {
+                        Response.Redirect("~/");
+                    }
+            }
+
             RegisterHyperLink.NavigateUrl = "Register";
             // Enable this once you have account confirmation enabled for password reset functionality
             //ForgotPasswordHyperLink.NavigateUrl = "Forgot";
@@ -57,5 +74,6 @@ namespace InventoryWebApp.Account
                 }
             }
         }
+
     }
 }
