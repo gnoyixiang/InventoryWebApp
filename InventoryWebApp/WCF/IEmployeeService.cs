@@ -38,6 +38,13 @@ namespace InventoryWebApp.WCF
             this.status = _status;
         }
 
+        public WCF_Disbursement(string _disbursementCode)
+        {
+            this.disbursementCode = _disbursementCode;
+           
+        }
+
+
         [DataMember]
         public string DisbursementCode
         {
