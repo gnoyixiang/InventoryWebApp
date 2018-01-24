@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using InventoryWebApp.Models.Entities;
+using System;
 
 namespace InventoryWebApp.DAO
 {
@@ -8,6 +9,6 @@ namespace InventoryWebApp.DAO
         List<DisbursementDetail> SearchDDByItem(StationeryCatalogue item);
         List<DisbursementDetail> SearchDDByRequest(Request request);
 
-        List<DisbursementDetail> ListDDByItemCode(string ItemCode);
+        List<DisbursementDetail> ListDDByItemCode(string ItemCode,DateTime start);
     }
 }
