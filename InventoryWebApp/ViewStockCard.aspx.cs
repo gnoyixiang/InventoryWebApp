@@ -12,16 +12,18 @@ namespace InventoryWebApp
     {
         StoreSupervisorController supervisorController = new StoreSupervisorController();
         StationeryCatalogue sCatalogue;
-        static List<TransactionOfRetrieval_Adjustment_PurchaseOrder> tranList ;
+        static List<TransactionOfRetrieval_Adjustment_PurchaseOrder> tranList;
+      
+        DateTime startDate;
+        DateTime endDate;
+
+        public GridLines Both { get; private set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+
             if (!IsPostBack)
             {
-
-                Page.DataBind();
-           
-                
                 sCatalogue = (StationeryCatalogue)Session["StationaryCatalogue"];
                 lblItemCodeValue.Text = sCatalogue.ItemCode;
                 lblDesValue.Text = sCatalogue.Description;
@@ -31,78 +33,125 @@ namespace InventoryWebApp
                 lblthirdSupplierValue.Text = sCatalogue.Supplier3;
                 int year = DateTime.Now.Year;
                 int month = DateTime.Now.Month;
-              
+
                 if (month == 1)
-                   tranList=supervisorController. GetAllTransaction(sCatalogue.ItemCode, new DateTime(year - 1, 12, 01), new DateTime(year - 1, 12, DateTime.DaysInMonth(year, month)));
+                {
+                    startDate = new DateTime(year - 1, 12, 01);
+                    endDate = new DateTime(year - 1, 12, DateTime.DaysInMonth(year, month));
+                    tranList = supervisorController.GetAllTransaction(sCatalogue.ItemCode, startDate, endDate);
+                }
                 else
-                    tranList=supervisorController. GetAllTransaction(sCatalogue.ItemCode, new DateTime(year, month - 1, 01), new DateTime(year, month - 1, DateTime.DaysInMonth(year, month)));
+                {
+                    startDate = new DateTime(year, month - 1, 01);
+                    endDate = new DateTime(year, month - 1, DateTime.DaysInMonth(year, month));
+                    tranList = supervisorController.GetAllTransaction(sCatalogue.ItemCode,startDate, endDate);
+                }
+                    if (tranList!=null)
                 BindGrid();
-            } 
+            }
         }
 
         public void BindGrid()
         {
-            gvStockCard.DataSource = tranList;
-            gvStockCard.DataBind();
-        }
-        protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.DataRow)
+          
+            List<List<TransactionOfRetrieval_Adjustment_PurchaseOrder>> tList = new List<List<TransactionOfRetrieval_Adjustment_PurchaseOrder>>();
+            for(DateTime i = startDate; i <= endDate; i=i.AddMonths(1))
             {
-                TransactionOfRetrieval_Adjustment_PurchaseOrder trans = (TransactionOfRetrieval_Adjustment_PurchaseOrder)e.Row.DataItem;
-                Label supDepLabel = (e.Row.FindControl("lblDepSup") as Label);
-                Label quantityLabel = (e.Row.FindControl("lblQuantity") as Label);
-                if (trans.SupplierId != "")
-                {
-                    supDepLabel.Text = supervisorController.GetSupplier(trans.SupplierId).SupplierName;
-                    quantityLabel.Text = "+" + trans.Quantity;
-                }
-                else if (trans.DeptId != "")
-                {
-                    supDepLabel.Text = supervisorController.GetDepartment(trans.DeptId).DepartmentName;
-                    quantityLabel.Text = "-" + trans.Quantity;
-                }
-                else
-                {
-                    supDepLabel.Text = "Adjustment";
-                    if (trans.Quantity > 0)
-                        quantityLabel.Text = "ADJ+" + trans.Quantity;
-                    else
-                        quantityLabel.Text = "ADJ" + trans.Quantity;
-                }  
+
+                tranList = supervisorController.GetAllTransaction(sCatalogue.ItemCode, i, new DateTime(i.Year, i.Month, DateTime.DaysInMonth(i.Year, i.Month)));
+                tList.Add(tranList);
              
+
             }
-        }
-
-
-        protected void btnSearch_Click(object sender, EventArgs e)
-        {
-           
-            sCatalogue = (StationeryCatalogue)Session["StationaryCatalogue"];
-
-            String a = tbxMonth.Text;
-            string[] arr = tbxMonth.Text.Split('-');
-            int year = Convert.ToInt32(arr[0]);
-            int month = Convert.ToInt32(arr[1]);
-            tranList = supervisorController.GetAllTransaction(sCatalogue.ItemCode, new DateTime(year
-                , month, 01), new DateTime(year, month, DateTime.DaysInMonth(year, month)));
-            if (tranList==null)
+            if (tList==null && tList.Count==0)
             {
                 lblShowStatus.Text = "NO RECORD FOUND ";
                 lblShowStatus.Visible = true;
-                BindGrid();
 
             }
             else
             {
                 lblShowStatus.Visible = false;
-                BindGrid();
+                
             }
+
+
+            foreach (List<TransactionOfRetrieval_Adjustment_PurchaseOrder> entry in tList)
+            {
+              
+                GridView gvStockCard = new GridView();
+                gvStockCard.AutoGenerateColumns = false;
+
+                BoundField boundfield1 = new BoundField();
+                boundfield1.DataField = "Date";
+                boundfield1.DataFormatString = "{0:dd/MM/yyyy}";
+                BoundField boundfield2 = new BoundField();
+                boundfield2.DataField = "Dept_SupId";
+                BoundField boundfield3 = new BoundField();
+                boundfield3.DataField = "Quantity";
+                BoundField boundfield4 = new BoundField();
+                boundfield4.DataField = "Balance";
+
+                boundfield1.HeaderText = "Date";
+                boundfield2.HeaderText = "Dept/Supplier";
+                boundfield3.HeaderText = "Qty";
+                boundfield4.HeaderText = "Balance";
+
+                gvStockCard.Columns.Add(boundfield1);
+                gvStockCard.Columns.Add(boundfield2);
+                gvStockCard.Columns.Add(boundfield3);
+                gvStockCard.Columns.Add(boundfield4);
+
+
+                gvStockCard.DataSource =entry ;
+                gvStockCard.DataBind();
+                gvStockCard.Width = 1100;
+              
+                gvStockCard.Columns[0].ItemStyle.Width = 300;
+                gvStockCard.Columns[1].ItemStyle.Width = 500;
+                gvStockCard.Columns[2].ItemStyle.Width = 100;
+                gvStockCard.Columns[3].ItemStyle.Width = 200;
+
+                gvStockCard.HeaderRow.CssClass = "header";
+                gvStockCard.RowStyle.CssClass = "rowstyle";
+                gvStockCard.GridLines =Both;
+                panelStockCard.Controls.Add(gvStockCard);
+               
+            }
+
         }
-        protected void GvStockCard_PageIndexChanging(object sender, GridViewPageEventArgs e)
+
+
+        protected void btnSearch_Click(object sender, EventArgs e)
         {
-            gvStockCard.PageIndex = e.NewPageIndex;
-            this.BindGrid();
+
+            sCatalogue = (StationeryCatalogue)Session["StationaryCatalogue"];
+
+
+            string[] arr = tbxStart.Text.Split('-');
+            int startYear = Convert.ToInt32(arr[0]);
+            int startMonth = Convert.ToInt32(arr[1]);
+
+            arr = tbxEnd.Text.Split('-');
+            int endYear = Convert.ToInt32(arr[0]);
+            int endMonth = Convert.ToInt32(arr[1]);
+
+            startDate = new DateTime(startYear, startMonth, 01);
+            endDate = new DateTime(endYear, endMonth, DateTime.DaysInMonth(endYear, endMonth));
+            BindGrid();
+           
+
         }
+        protected void valDateRange_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            DateTime minDate = DateTime.Parse(tbxStart.Text);
+            DateTime maxDate = DateTime.Parse(tbxEnd.Text);
+            DateTime dt;
+
+            args.IsValid = (DateTime.TryParse(args.Value, out dt)
+                            && dt <= maxDate
+                            && dt >= minDate);
+        }
+
     }
 }

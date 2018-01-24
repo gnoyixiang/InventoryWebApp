@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using InventoryWebApp.Models.Entities;
+using System;
 
 namespace InventoryWebApp.DAO
 {
@@ -10,5 +11,6 @@ namespace InventoryWebApp.DAO
         List<DisbursementDetail> SearchDDByDCode(string disbursementCode);
         int UpdateDisbursementDetail(DisbursementDetail ddUpdate);
 
+        List<DisbursementDetail> ListDDByItemCode(string ItemCode,DateTime start);
     }
 }

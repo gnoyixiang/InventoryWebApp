@@ -66,5 +66,24 @@ namespace InventoryWebApp.DAO
             }
         }
 
+        public List<PODetail> ListPODetailByItemCodeAndDate(string itemCode,DateTime start)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                List<PODetail> poList = new List<PODetail>();
+                List<PODetail> poListAfterStartDate = new List<PODetail>();
+               
+                poList = em.PODetails.Where(p => p.ItemCode == itemCode).ToList();
+                foreach (PODetail p in poList)
+                {
+                    if (em.PurchaseOrders.Where(x => x.PurchaseOrderCode == p.PurchaseOrderCode && x.DateReceived >= start).FirstOrDefault() != null)
+                    {
+                        poListAfterStartDate.Add(p);
+                    }
+                }
+                return poListAfterStartDate;
+            }
+        }
+
     }
 }
