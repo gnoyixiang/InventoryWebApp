@@ -63,5 +63,13 @@ namespace InventoryWebApp.DAO
                 return ddListAfterStartDate;
             }
         }
+
+        public List<DisbursementDetail> ListAllDisbursementDetails()
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                return em.DisbursementDetails.ToList();
+            }
+        }
     }
 }
