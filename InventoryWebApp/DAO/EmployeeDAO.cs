@@ -78,5 +78,15 @@ namespace InventoryWebApp.DAO
         {
             return em.Employees.Where(x => x.DepartmentCode == dept && x.CurrentRoleCode == role).Select(x=>x.EmployeeName).ToList();
         }
+
+        public int AddEmployee(Employee emp)
+        {
+            throw new NotImplementedException();
+        }
+
+        int IEmployeeDAO.UpdateRole(string username, string role)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

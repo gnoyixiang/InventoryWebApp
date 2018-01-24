@@ -28,10 +28,10 @@ namespace InventoryWebApp.Models.Entities
 
         public int? ActualQuantity { get; set; }
 
+        public int? Quantity { get; set; }
+
         [StringLength(200)]
         public string Notes { get; set; }
-
-        public int? ActualQuantity { get; set; }
 
         public virtual Disbursement Disbursement { get; set; }
 

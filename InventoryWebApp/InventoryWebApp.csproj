@@ -524,6 +524,7 @@
     <Compile Include="Models\Entities\SupplierDetail.cs" />
     <Compile Include="Models\Entities\Tender.cs" />
     <Compile Include="Models\Entities\TenderDetail.cs" />
+    <Compile Include="Models\Entities\TransactionOfRetrieval_Adjustment_PurchaseOrder.cs" />
     <Compile Include="Models\Entities\User.cs" />
     <Compile Include="Models\Entities\UserClaim.cs" />
     <Compile Include="Models\Entities\UserLogin.cs" />
