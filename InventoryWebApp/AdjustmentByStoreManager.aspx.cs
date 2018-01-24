@@ -15,6 +15,7 @@ namespace InventoryWebApp
     public partial class AdjustmentByStoreManager : System.Web.UI.Page
     {
         StoreSupervisorController storeSpController = new StoreSupervisorController();
+        StoreManagerController storeMgController = new StoreManagerController();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -26,7 +27,7 @@ namespace InventoryWebApp
 
         public void PopulateGridViewForSupervisor()
         {
-            List<Adjustment> adjustment = storeSpController.ListOfPendingAdjustmentByManager();
+            List<Adjustment> adjustment = storeMgController.ListOfPendingAdjustmentByManager();
             if (adjustment.Count == 0)
             {
                 lblErrorMsg.Text = "No pending Adjustment request";

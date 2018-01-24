@@ -21,6 +21,12 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
+    <ul class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li class="active"><a href="#">StoreEmployee List</a></li>
+               
+            </ul>
+
     <div class="row">
         <div class="col-xs-12 col-md-2">
     <asp:TextBox ID="tbxSearch" runat="server" Height="30px" Width="150px"> </asp:TextBox>

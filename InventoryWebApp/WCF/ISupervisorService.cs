@@ -6,41 +6,53 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
 
+
 namespace InventoryWebApp.WCF
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "ISupervisorService" in both code and config file together.
     [ServiceContract]
     public interface ISupervisorService
     {
-        [OperationContract]
-        [WebGet(UriTemplate = "/Pending", ResponseFormat = WebMessageFormat.Json)]
-        List<WCFPurchaseOrder> GetAllPendingPO();
+
 
         //[OperationContract]
         //[WebGet(UriTemplate = "/Adjustment", ResponseFormat = WebMessageFormat.Json)]
         //List<WCFPurchaseOrder> GetAllAdjustment();
 
+        [OperationContract]
+        [WebGet(UriTemplate = "/PendingSupervisor", ResponseFormat = WebMessageFormat.Json)]
+        List<WCFAdjustment> ListOfPendingRequestForSupervisor();
+
+        [OperationContract]
+        [WebGet(UriTemplate = "/Pend", ResponseFormat = WebMessageFormat.Json)]
+        List<WCFPurchaseOrder> GetAllPendingPO();
+
+        [OperationContract]
+        [WebGet(UriTemplate = "/PendingManager", ResponseFormat = WebMessageFormat.Json)]
+
+        List<WCFAdjustment> ListOfPendingRequestForManager();
+
     }
     [DataContract]
     public class WCFPurchaseOrder
     {
-        [DataMember]
+
         private String purchaseOrderCode;
-        [DataMember]
+
         private string dateCreated;
-        [DataMember]
+
         private String dateApproved;
-        [DataMember]
+
         private String note;
-        [DataMember]
+
         private String status;
-        [DataMember]
+
         private String supplierCode;
-        [DataMember]
+
         private String dateReceived;
-        [DataMember]
+
         private String dateSupplyExpected;
-        [DataMember]
+
         private String headRemark;
 
         public WCFPurchaseOrder(String purchaseOrderCode, String dateCreated, String dateApproved, String note, String status, String supplierCode, String dateReceived,
@@ -140,4 +152,98 @@ namespace InventoryWebApp.WCF
         }
     }
 
+    [DataContract]
+    public class WCFAdjustment
+    {
+
+        string adjustmentCode;
+
+
+        string itemCode;
+
+
+        decimal price;
+
+
+        int adjustmentQuant;
+
+
+        int stock;
+
+
+        string reason;
+
+
+        string remark;
+
+
+        [DataMember]
+        public string AdjustmentCode
+        {
+            get { return adjustmentCode; }
+            set { adjustmentCode = value; }
+        }
+
+        [DataMember]
+        public string ItemCode
+        {
+            get { return itemCode; }
+            set { itemCode = value; }
+        }
+        [DataMember]
+        public decimal Price
+        {
+            get { return price; }
+            set { price = value; }
+        }
+
+        [DataMember]
+        public int AdjustmentQuant
+        {
+            get { return adjustmentQuant; }
+            set { adjustmentQuant = value; }
+        }
+
+        [DataMember]
+        public int Stock
+        {
+            get { return stock; }
+            set { stock = value; }
+        }
+
+        [DataMember]
+        public string Reason
+        {
+            get { return reason; }
+            set { reason = value; }
+        }
+        [DataMember]
+        public string Remark
+        {
+            get { return remark; }
+            set { remark = value; }
+        }
+
+
+        public WCFAdjustment(string adjustmentCode, string itemCode, decimal price, int adjustmentQuant, int stock, string reason, string remark)
+        {
+            this.adjustmentCode = adjustmentCode;
+
+            this.itemCode = itemCode;
+            this.price = price;
+            this.adjustmentQuant = adjustmentQuant;
+
+            this.stock = stock;
+            this.reason = reason;
+            this.remark = remark;
+        }
+
+        public WCFAdjustment()
+        {
+
+        }
+    }
+
 }
+
+

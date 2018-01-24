@@ -397,30 +397,30 @@ namespace InventoryWebApp.Controllers
             return pendingAdLdit;
         }
 
-        public List<Adjustment> ListOfPendingAdjustmentByManager()
-        {
+        //public List<Adjustment> ListOfPendingAdjustmentByManager()
+        //{
 
-            List<Adjustment> pendingAdLdit = new List<Adjustment>();
-            List<Adjustment> adjustmentList = adjustmentDao.ListAllAdjustments();
-
-
-            foreach (Adjustment ad in adjustmentList)
-            {
-                if (ad.Status.ToLower().Equals(statusOfAdjustment.ToLower()))
-                {
-                    StationeryCatalogue tempst = GetStationaryDetails(ad.ItemCode);
-                    if ((ad.AdjustmentQuant * tempst.Price) >= 250)
-                    {
-                        pendingAdLdit.Add(ad);
-                    }
-                }
-
-            }
-
-            return pendingAdLdit;
+        //    List<Adjustment> pendingAdLdit = new List<Adjustment>();
+        //    List<Adjustment> adjustmentList = adjustmentDao.ListAllAdjustments();
 
 
-        }
+        //    foreach (Adjustment ad in adjustmentList)
+        //    {
+        //        if (ad.Status.ToLower().Equals(statusOfAdjustment.ToLower()))
+        //        {
+        //            StationeryCatalogue tempst = GetStationaryDetails(ad.ItemCode);
+        //            if ((ad.AdjustmentQuant * tempst.Price) >= 250)
+        //            {
+        //                pendingAdLdit.Add(ad);
+        //            }
+        //        }
+
+        //    }
+
+        //    return pendingAdLdit;
+
+
+        //}
         
        
         public List<PurchaseOrder> ListAllPendingPO()
@@ -445,7 +445,7 @@ namespace InventoryWebApp.Controllers
 
         public StationeryCatalogue GetStationeryCatalogue(string itemCode)
         {
-            return cDAO.GetStationery(itemCode);
+            return stationaryDao.GetStationery(itemCode);
         }
 
         public PurchaseOrder GetPOByPOCode(string PoCode)
@@ -465,7 +465,7 @@ namespace InventoryWebApp.Controllers
 
         public List<StationeryCatalogue> SearchStationeryCatalogueByItemCode(string SearchName)
         {
-            return cDAO.SearchByItemCode(SearchName);
+            return stationaryDao.SearchByItemCode(SearchName);
         }
 
         public List<StationeryCatalogue> SearchStationeryCatalogueByCategoryCode(string SearchName)
@@ -478,63 +478,63 @@ namespace InventoryWebApp.Controllers
             return catDAO.ListAllCategory();
         }
 
-        public List<TransactionOfRetrieval_Adjustment_PurchaseOrder> GetAllTransaction(string itemCode,DateTime start,DateTime end)
-        {
-            List<TransactionOfRetrieval_Adjustment_PurchaseOrder> tList = new List<TransactionOfRetrieval_Adjustment_PurchaseOrder>();
-            List<DisbursementDetail> dList = new List<DisbursementDetail>();
-            List<Adjustment> adjList = new List<Adjustment>();
-            List<PODetail> podList = new List<PODetail>();
-            dList = dbdDAO.ListDDByItemCode(itemCode);
-            foreach(DisbursementDetail d in dList)
-            {
-                Disbursement r = dbDAO.GetDisbursementByCode(d.DisbursementCode);
-                if(r.DateDisbursed>start)
-                tList.Add(new TransactionOfRetrieval_Adjustment_PurchaseOrder(r.DateDisbursed, d.Quantity,r.DepartmentCode,""));
-            }
+        //public List<TransactionOfRetrieval_Adjustment_PurchaseOrder> GetAllTransaction(string itemCode,DateTime start,DateTime end)
+        //{
+        //    List<TransactionOfRetrieval_Adjustment_PurchaseOrder> tList = new List<TransactionOfRetrieval_Adjustment_PurchaseOrder>();
+        //    List<DisbursementDetail> dList = new List<DisbursementDetail>();
+        //    List<Adjustment> adjList = new List<Adjustment>();
+        //    List<PODetail> podList = new List<PODetail>();
+        //    dList = dbdDAO.ListDDByItemCode(itemCode);
+        //    foreach(DisbursementDetail d in dList)
+        //    {
+        //        Disbursement r = dbDAO.GetDisbursementByCode(d.DisbursementCode);
+        //        if(r.DateDisbursed>start)
+        //        tList.Add(new TransactionOfRetrieval_Adjustment_PurchaseOrder(r.DateDisbursed, d.Quantity,r.DepartmentCode,""));
+        //    }
 
-            adjList = adjDAO.ListAllAdjustmentsByItemCode(itemCode);
-            foreach (Adjustment adj in adjList)
-            {
-                if(adj.DateApproved>start)
-                tList.Add(new TransactionOfRetrieval_Adjustment_PurchaseOrder(adj.DateApproved, adj.AdjustmentQuant,"",""));
-            }
+        //    adjList = adjDAO.ListAllAdjustmentsByItemCode(itemCode);
+        //    foreach (Adjustment adj in adjList)
+        //    {
+        //        if(adj.DateApproved>start)
+        //        tList.Add(new TransactionOfRetrieval_Adjustment_PurchaseOrder(adj.DateApproved, adj.AdjustmentQuant,"",""));
+        //    }
 
-            podList = podDAO.ListPODetailsByItemCode(itemCode);
-            foreach (PODetail pod in podList)
-            {
+        //    podList = podDAO.ListPODetailsByItemCode(itemCode);
+        //    foreach (PODetail pod in podList)
+        //    {
                 
-                PurchaseOrder po = poDAO.GetPurchaseOrder(pod.PurchaseOrderCode);
-                if(po.DateReceived>start)
-                tList.Add(new TransactionOfRetrieval_Adjustment_PurchaseOrder(po.DateReceived, pod.Quantity,"",po.SupplierCode));
-            }
-            if (tList.Count==0)
-            {
-                return null;
-            }
-            tList.Sort();
-            int? currentStock = Convert.ToInt32(cDAO.GetStationery(itemCode).Stock);
+        //        PurchaseOrder po = poDAO.GetPurchaseOrder(pod.PurchaseOrderCode);
+        //        if(po.DateReceived>start)
+        //        tList.Add(new TransactionOfRetrieval_Adjustment_PurchaseOrder(po.DateReceived, pod.Quantity,"",po.SupplierCode));
+        //    }
+        //    if (tList.Count==0)
+        //    {
+        //        return null;
+        //    }
+        //    tList.Sort();
+        //    int? currentStock = Convert.ToInt32(cDAO.GetStationery(itemCode).Stock);
             
-            tList.Last().Balance = currentStock;
-            for(int i = tList.Count - 1; i > 0; i--)
-            {
-                if (tList[i].Quantity>0)
-                {
-                    tList[i - 1].Balance = currentStock - tList[i].Quantity;
-                    currentStock = tList[i - 1].Balance;
-                }
-                else
-                {
-                    tList[i - 1].Balance = currentStock + tList[i].Quantity;
-                    currentStock = tList[i - 1].Balance;
-                }
-            }
-            List<TransactionOfRetrieval_Adjustment_PurchaseOrder> tListBeforeEndDate = new List<TransactionOfRetrieval_Adjustment_PurchaseOrder>();
-            foreach (TransactionOfRetrieval_Adjustment_PurchaseOrder trans in tList)
-            {
-                if(trans.Date<=end)
-                tListBeforeEndDate.Add(trans);
-            }
-            return tListBeforeEndDate;
-        }
+        //    tList.Last().Balance = currentStock;
+        //    for(int i = tList.Count - 1; i > 0; i--)
+        //    {
+        //        if (tList[i].Quantity>0)
+        //        {
+        //            tList[i - 1].Balance = currentStock - tList[i].Quantity;
+        //            currentStock = tList[i - 1].Balance;
+        //        }
+        //        else
+        //        {
+        //            tList[i - 1].Balance = currentStock + tList[i].Quantity;
+        //            currentStock = tList[i - 1].Balance;
+        //        }
+        //    }
+        //    List<TransactionOfRetrieval_Adjustment_PurchaseOrder> tListBeforeEndDate = new List<TransactionOfRetrieval_Adjustment_PurchaseOrder>();
+        //    foreach (TransactionOfRetrieval_Adjustment_PurchaseOrder trans in tList)
+        //    {
+        //        if(trans.Date<=end)
+        //        tListBeforeEndDate.Add(trans);
+        //    }
+        //    return tListBeforeEndDate;
+        //}
     }
 }

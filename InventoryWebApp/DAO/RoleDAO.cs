@@ -38,6 +38,6 @@ namespace InventoryWebApp.DAO
             return em.Roles.ToList<Role>();
         }
 
-
+        
     }
 }

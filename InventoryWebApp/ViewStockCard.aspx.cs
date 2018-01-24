@@ -32,11 +32,11 @@ namespace InventoryWebApp
                 int year = DateTime.Now.Year;
                 int month = DateTime.Now.Month;
               
-                if (month == 1)
-                   tranList=supervisorController. GetAllTransaction(sCatalogue.ItemCode, new DateTime(year - 1, 12, 01), new DateTime(year - 1, 12, DateTime.DaysInMonth(year, month)));
-                else
-                    tranList=supervisorController. GetAllTransaction(sCatalogue.ItemCode, new DateTime(year, month - 1, 01), new DateTime(year, month - 1, DateTime.DaysInMonth(year, month)));
-                BindGrid();
+                //if (month == 1)
+                //   tranList=supervisorController. GetAllTransaction(sCatalogue.ItemCode, new DateTime(year - 1, 12, 01), new DateTime(year - 1, 12, DateTime.DaysInMonth(year, month)));
+                //else
+                //    tranList=supervisorController. GetAllTransaction(sCatalogue.ItemCode, new DateTime(year, month - 1, 01), new DateTime(year, month - 1, DateTime.DaysInMonth(year, month)));
+                //BindGrid();
             } 
         }
 
@@ -84,8 +84,8 @@ namespace InventoryWebApp
             string[] arr = tbxMonth.Text.Split('-');
             int year = Convert.ToInt32(arr[0]);
             int month = Convert.ToInt32(arr[1]);
-            tranList = supervisorController.GetAllTransaction(sCatalogue.ItemCode, new DateTime(year
-                , month, 01), new DateTime(year, month, DateTime.DaysInMonth(year, month)));
+            //tranList = supervisorController.GetAllTransaction(sCatalogue.ItemCode, new DateTime(year
+            //    , month, 01), new DateTime(year, month, DateTime.DaysInMonth(year, month)));
             if (tranList==null)
             {
                 lblShowStatus.Text = "NO RECORD FOUND ";

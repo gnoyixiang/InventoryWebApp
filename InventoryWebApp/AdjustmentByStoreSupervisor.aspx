@@ -2,6 +2,11 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+     <ul class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li class="active"><a href="#">Adjustment By Supervisor</a></li>
+               
+            </ul>
 
     <asp:GridView ID="gvPendingAdjutment" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="100%" AutoGenerateColumns="false" DataKeyNames="AdjustmentCode"
         OnRowDataBound="gvPendingAdjutment_RowDataBound" OnRowCommand="gvPendingAdjutment_RowCommand">

@@ -20,7 +20,11 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
+    <ul class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li class="active"><a href="#">Assigning Authority</a></li>
+               
+            </ul>
     <div class="row">
         <div class="col-xs-12 col-md-2">
     <asp:TextBox ID="tbxSearch" runat="server" Height="30px" Width="150px"> </asp:TextBox>
@@ -94,7 +98,7 @@
                 </ItemTemplate>
                 <EditItemTemplate>
                     <asp:DropDownList ID="ddlTemporaryRoleCode" runat="server" ItemStyle-Width="150px" ItemStyle-HorizontalAlign="Left">
-                        <asp:ListItem Text="SSupervisor" Value="SSupervisor" />
+                        <asp:ListItem Text="Acting Store Supervisor" Value="ActSSup" />
  
                     </asp:DropDownList>
 
@@ -102,7 +106,7 @@
 
                 <FooterTemplate>
                     <asp:DropDownList ID="ddlTemporaryRoleCodeFooter" runat="server" ItemStyle-Width="150px" ItemStyle-HorizontalAlign="Left">
-                        <asp:ListItem Text="SSupervisor" Value="SSupervisor" />
+                        <asp:ListItem Text="Acting Store Supervisor" Value="ActSSup" />
                      
                     </asp:DropDownList>
                 </FooterTemplate>
