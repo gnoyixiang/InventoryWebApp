@@ -64,10 +64,8 @@ namespace InventoryWebApp
         {
             string itemCode = gvItem.SelectedDataKey.Value.ToString();
             StationeryCatalogue catalogue = supervisorController.GetStationeryCatalogue(itemCode);
-           
-            Session["StationaryCatalogue"] = catalogue;
             
-            Response.Redirect("ViewStockCard.aspx");
+            Response.Redirect("/Store/ViewStockCard?itemCode=" + itemCode);
         }
 
         protected void GVItem_PageIndexChanging(object sender, GridViewPageEventArgs e)

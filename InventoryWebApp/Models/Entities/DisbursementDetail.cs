@@ -6,7 +6,6 @@ namespace InventoryWebApp.Models.Entities
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Serializable]
     [Table("DisbursementDetail")]
     public partial class DisbursementDetail
     {
@@ -27,10 +26,12 @@ namespace InventoryWebApp.Models.Entities
 
         public decimal? Price { get; set; }
 
-        public int? ActualQuantity { get; set; }
+        public int? Quantity { get; set; }
 
         [StringLength(200)]
         public string Notes { get; set; }
+
+        public int? ActualQuantity { get; set; }
 
         public virtual Disbursement Disbursement { get; set; }
 

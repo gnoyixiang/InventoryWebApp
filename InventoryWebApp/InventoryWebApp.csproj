@@ -227,8 +227,6 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Store\PendingPO.aspx" />
-    <Content Include="Store\PendingPODetails.aspx" />
     <Content Include="Store\QuotationPrint.aspx" />
     <Content Include="Store\QuotationView.aspx" />
     <Content Include="RequisitionList.aspx" />
@@ -239,7 +237,6 @@
     <Content Include="Store\StockAdjustmentList.aspx" />
     <Content Include="Store\StockAdjustmentNew.aspx" />
     <Content Include="Store\StockAdjustmentView.aspx" />
-    <Content Include="Store\StockCardView.aspx" />
     <Content Include="Store\PurchaseOrderDetail.aspx" />
     <Content Include="Store\ViewPurchaseOrders.aspx" />
     <Content Include="Public.Master" />
@@ -424,6 +421,30 @@
     <Compile Include="Models\Classes\ComparePurchaseOrderByPONum.cs" />
     <Compile Include="Models\Classes\ComparePurchaseOrderByStatus.cs" />
     <Compile Include="Models\Classes\PurchaseItem.cs" />
+    <Compile Include="Models\Entities\Adjustment.cs" />
+    <Compile Include="Models\Entities\AssignRole.cs" />
+    <Compile Include="Models\Entities\Category.cs" />
+    <Compile Include="Models\Entities\CollectionPoint.cs" />
+    <Compile Include="Models\Entities\Department.cs" />
+    <Compile Include="Models\Entities\Disbursement.cs" />
+    <Compile Include="Models\Entities\DisbursementDetail.cs" />
+    <Compile Include="Models\Entities\Employee.cs" />
+    <Compile Include="Models\Entities\EntityModel.cs" />
+    <Compile Include="Models\Entities\PODetail.cs" />
+    <Compile Include="Models\Entities\PurchaseOrder.cs" />
+    <Compile Include="Models\Entities\Request.cs" />
+    <Compile Include="Models\Entities\RequestDetail.cs" />
+    <Compile Include="Models\Entities\Retrieval.cs" />
+    <Compile Include="Models\Entities\RetrievalDetail.cs" />
+    <Compile Include="Models\Entities\Role.cs" />
+    <Compile Include="Models\Entities\StationeryCatalogue.cs" />
+    <Compile Include="Models\Entities\Supplier.cs" />
+    <Compile Include="Models\Entities\SupplierDetail.cs" />
+    <Compile Include="Models\Entities\Tender.cs" />
+    <Compile Include="Models\Entities\TenderDetail.cs" />
+    <Compile Include="Models\Entities\User.cs" />
+    <Compile Include="Models\Entities\UserClaim.cs" />
+    <Compile Include="Models\Entities\UserLogin.cs" />
     <Compile Include="Public.Master.cs">
       <DependentUpon>Public.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -513,48 +534,9 @@
     <Compile Include="Layout.Master.designer.cs">
       <DependentUpon>Layout.Master</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entities\Adjustment.cs" />
-    <Compile Include="Models\Entities\AssignRole.cs" />
-    <Compile Include="Models\Entities\Category.cs" />
-    <Compile Include="Models\Entities\CollectionPoint.cs" />
-    <Compile Include="Models\Entities\Department.cs" />
-    <Compile Include="Models\Entities\Disbursement.cs" />
-    <Compile Include="Models\Entities\DisbursementDetail.cs" />
-    <Compile Include="Models\Entities\Employee.cs" />
-    <Compile Include="Models\Entities\EntityModel.cs" />
-    <Compile Include="Models\Entities\PODetail.cs" />
-    <Compile Include="Models\Entities\PurchaseOrder.cs" />
-    <Compile Include="Models\Entities\Request.cs" />
-    <Compile Include="Models\Entities\RequestDetail.cs" />
-    <Compile Include="Models\Entities\Retrieval.cs" />
-    <Compile Include="Models\Entities\RetrievalDetail.cs" />
-    <Compile Include="Models\Entities\Role.cs" />
-    <Compile Include="Models\Entities\StationeryCatalogue.cs" />
-    <Compile Include="Models\Entities\Supplier.cs" />
-    <Compile Include="Models\Entities\SupplierDetail.cs" />
-    <Compile Include="Models\Entities\sysdiagram.cs" />
-    <Compile Include="Models\Entities\Tender.cs" />
-    <Compile Include="Models\Entities\TenderDetail.cs" />
     <Compile Include="Models\Entities\TransactionOfRetrieval_Adjustment_PurchaseOrder.cs" />
-    <Compile Include="Models\Entities\User.cs" />
-    <Compile Include="Models\Entities\UserClaim.cs" />
-    <Compile Include="Models\Entities\UserLogin.cs" />
     <Compile Include="Models\Entities\Util.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Store\PendingPO.aspx.cs">
-      <DependentUpon>PendingPO.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Store\PendingPO.aspx.designer.cs">
-      <DependentUpon>PendingPO.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Store\PendingPODetails.aspx.cs">
-      <DependentUpon>PendingPODetails.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Store\PendingPODetails.aspx.designer.cs">
-      <DependentUpon>PendingPODetails.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Store\PurchaseOrderDetail.aspx.cs">
       <DependentUpon>PurchaseOrderDetail.aspx</DependentUpon>
@@ -632,13 +614,6 @@
     </Compile>
     <Compile Include="Store\StockAdjustmentView.aspx.designer.cs">
       <DependentUpon>StockAdjustmentView.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Store\StockCardView.aspx.cs">
-      <DependentUpon>StockCardView.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Store\StockCardView.aspx.designer.cs">
-      <DependentUpon>StockCardView.aspx</DependentUpon>
     </Compile>
     <Compile Include="Store\ViewPurchaseOrders.aspx.cs">
       <DependentUpon>ViewPurchaseOrders.aspx</DependentUpon>

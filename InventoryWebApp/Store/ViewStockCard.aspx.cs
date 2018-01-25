@@ -21,34 +21,53 @@ namespace InventoryWebApp
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            string itemCode;
 
-            if (!IsPostBack)
+            if (!String.IsNullOrEmpty(Request.QueryString["itemCode"]))
             {
-                sCatalogue = (StationeryCatalogue)Session["StationaryCatalogue"];
-                lblItemCodeValue.Text = sCatalogue.ItemCode;
-                lblDesValue.Text = sCatalogue.Description;
-                lblUOMValue.Text = sCatalogue.MeasureUnit;
-                lblfirstSupplierValue.Text = sCatalogue.Supplier1;
-                lblsecondSupplierValue.Text = sCatalogue.Supplier2;
-                lblthirdSupplierValue.Text = sCatalogue.Supplier3;
-                int year = DateTime.Now.Year;
-                int month = DateTime.Now.Month;
-
-                if (month == 1)
-                {
-                    startDate = new DateTime(year - 1, 12, 01);
-                    endDate = new DateTime(year - 1, 12, DateTime.DaysInMonth(year, month));
-                    tranList = supervisorController.GetAllTransaction(sCatalogue.ItemCode, startDate, endDate);
-                }
-                else
-                {
-                    startDate = new DateTime(year, month - 1, 01);
-                    endDate = new DateTime(year, month - 1, DateTime.DaysInMonth(year, month));
-                    tranList = supervisorController.GetAllTransaction(sCatalogue.ItemCode,startDate, endDate);
-                }
-                    if (tranList!=null)
-                BindGrid();
+                itemCode = Request.QueryString["itemCode"];
+                sCatalogue = supervisorController.GetStationeryCatalogue(itemCode);
             }
+
+            if (sCatalogue != null)
+            {
+                panelItem.Visible = true;
+                panelNoItem.Visible = false;
+                if (!IsPostBack)
+                {
+
+                    lblItemCodeValue.Text = sCatalogue.ItemCode;
+                    lblDesValue.Text = sCatalogue.Description;
+                    lblUOMValue.Text = sCatalogue.MeasureUnit;
+                    lblfirstSupplierValue.Text = sCatalogue.Supplier1;
+                    lblsecondSupplierValue.Text = sCatalogue.Supplier2;
+                    lblthirdSupplierValue.Text = sCatalogue.Supplier3;
+                    int year = DateTime.Now.Year;
+                    int month = DateTime.Now.Month;
+
+                    if (month == 1)
+                    {
+                        startDate = new DateTime(year - 1, 12, 01);
+                        endDate = new DateTime(year - 1, 12, DateTime.DaysInMonth(year, month));
+                        tranList = supervisorController.GetAllTransaction(sCatalogue.ItemCode, startDate, endDate);
+                    }
+                    else
+                    {
+                        startDate = new DateTime(year, month - 1, 01);
+                        endDate = new DateTime(year, month - 1, DateTime.DaysInMonth(year, month));
+                        tranList = supervisorController.GetAllTransaction(sCatalogue.ItemCode, startDate, endDate);
+                    }
+                    if (tranList != null)
+                        BindGrid();
+                }
+            }
+            else
+            {
+                panelItem.Visible = false;
+                panelNoItem.Visible = true;
+
+            }
+            
         }
 
         public void BindGrid()
@@ -84,7 +103,7 @@ namespace InventoryWebApp
 
                 BoundField boundfield1 = new BoundField();
                 boundfield1.DataField = "Date";
-                boundfield1.DataFormatString = "{0:dd/MM/yyyy}";
+                boundfield1.DataFormatString = "{0:dd MMM yyyy}";
                 BoundField boundfield2 = new BoundField();
                 boundfield2.DataField = "Dept_SupId";
                 BoundField boundfield3 = new BoundField();
@@ -105,15 +124,16 @@ namespace InventoryWebApp
 
                 gvStockCard.DataSource =entry ;
                 gvStockCard.DataBind();
-                gvStockCard.Width = 1100;
-              
-                gvStockCard.Columns[0].ItemStyle.Width = 300;
-                gvStockCard.Columns[1].ItemStyle.Width = 500;
-                gvStockCard.Columns[2].ItemStyle.Width = 100;
-                gvStockCard.Columns[3].ItemStyle.Width = 200;
+                gvStockCard.Width = Unit.Percentage(100); 
 
-                gvStockCard.HeaderRow.CssClass = "header";
-                gvStockCard.RowStyle.CssClass = "rowstyle";
+                gvStockCard.Columns[0].ItemStyle.Width = Unit.Percentage(20);
+                gvStockCard.Columns[1].ItemStyle.Width = Unit.Percentage(50);
+                gvStockCard.Columns[2].ItemStyle.Width = Unit.Percentage(15);
+                gvStockCard.Columns[3].ItemStyle.Width = Unit.Percentage(15);
+
+                //gvStockCard.HeaderRow.CssClass = "header";
+                //gvStockCard.RowStyle.CssClass = "rowstyle";
+                gvStockCard.CssClass = "table";
                 gvStockCard.GridLines =Both;
                 panelStockCard.Controls.Add(gvStockCard);
                
@@ -124,23 +144,20 @@ namespace InventoryWebApp
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
+            if (sCatalogue != null)
+            {
+                string[] arr = tbxStart.Text.Split('-');
+                int startYear = Convert.ToInt32(arr[0]);
+                int startMonth = Convert.ToInt32(arr[1]);
 
-            sCatalogue = (StationeryCatalogue)Session["StationaryCatalogue"];
+                arr = tbxEnd.Text.Split('-');
+                int endYear = Convert.ToInt32(arr[0]);
+                int endMonth = Convert.ToInt32(arr[1]);
 
-
-            string[] arr = tbxStart.Text.Split('-');
-            int startYear = Convert.ToInt32(arr[0]);
-            int startMonth = Convert.ToInt32(arr[1]);
-
-            arr = tbxEnd.Text.Split('-');
-            int endYear = Convert.ToInt32(arr[0]);
-            int endMonth = Convert.ToInt32(arr[1]);
-
-            startDate = new DateTime(startYear, startMonth, 01);
-            endDate = new DateTime(endYear, endMonth, DateTime.DaysInMonth(endYear, endMonth));
-            BindGrid();
-           
-
+                startDate = new DateTime(startYear, startMonth, 01);
+                endDate = new DateTime(endYear, endMonth, DateTime.DaysInMonth(endYear, endMonth));
+                BindGrid();
+            }
         }
         protected void valDateRange_ServerValidate(object source, ServerValidateEventArgs args)
         {

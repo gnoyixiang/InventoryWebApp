@@ -6,7 +6,6 @@ namespace InventoryWebApp.Models.Entities
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Serializable]
     [Table("Category")]
     public partial class Category
     {

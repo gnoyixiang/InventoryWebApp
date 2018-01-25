@@ -109,5 +109,12 @@ namespace InventoryWebApp.DAO
             }
         }
 
+        public List<Adjustment> ListAllAdjustmentsByItemCode(string itemCode)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                return em.Adjustments.Where(x => x.ItemCode == itemCode).ToList<Adjustment>();
+            }
+        }
     }
 }

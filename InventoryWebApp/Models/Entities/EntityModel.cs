@@ -11,10 +11,6 @@ namespace InventoryWebApp.Models.Entities
             : base("name=EntityModel")
         {
         }
-        static EntityModel()
-        {
-            Util.EnsureStaticReference<System.Data.Entity.SqlServer.SqlProviderServices>();
-        }
 
         public virtual DbSet<Adjustment> Adjustments { get; set; }
         public virtual DbSet<AssignRole> AssignRoles { get; set; }
@@ -34,7 +30,6 @@ namespace InventoryWebApp.Models.Entities
         public virtual DbSet<StationeryCatalogue> StationeryCatalogues { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<SupplierDetail> SupplierDetails { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Tender> Tenders { get; set; }
         public virtual DbSet<TenderDetail> TenderDetails { get; set; }
         public virtual DbSet<User> Users { get; set; }

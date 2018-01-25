@@ -9,8 +9,6 @@ namespace InventoryWebApp.Models.Entities
     [Table("PurchaseOrder")]
     public partial class PurchaseOrder
     {
-        
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PurchaseOrder()
         {
@@ -64,8 +62,5 @@ namespace InventoryWebApp.Models.Entities
         public virtual ICollection<PODetail> PODetails { get; set; }
 
         public virtual Supplier Supplier { get; set; }
-
-        
-
     }
 }
