@@ -413,6 +413,7 @@ namespace InventoryWebApp.Controllers
         {
             Retrieval retrieval = retrievalDAO.ListRetrievalByStatus("processing").FirstOrDefault();
             retrieval.Status = "retrieved";
+            retrieval.DateRetrieved = DateTime.Today;
             retrievalDAO.UpdateRetrival(retrieval);
             return retrieval;
         }
@@ -429,8 +430,9 @@ namespace InventoryWebApp.Controllers
                     retrieval.RetrievalDetails = new List<RetrievalDetail>();
                     retrieval.RetrievalCode = "RT" + DateTime.Now.ToString("yyMMddHHmmssfff");
                     retrieval.Status = "processing";
+                    retrieval.UserName = "nathalie@ssis.edu.sg";
                     //retrieval.UserName = Identity.User;
-                    retrieval.DateRetrieved = DateTime.Now;
+                    //retrieval.DateRetrieved = DateTime.Now;
                     retrieval = CreateRetrievalDetails(retrieval);
                     retrievalDAO.AddRetrieval(retrieval);
                     return retrieval;

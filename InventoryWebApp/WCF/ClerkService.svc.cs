@@ -16,6 +16,19 @@ namespace InventoryWebApp.WCF
     {
         StoreClerkController sClerkCtrl = new StoreClerkController();
 
+        public List<WCF_RetrievalDetail> GetCurrentRetrievalDetails()
+        {
+            Retrieval r = sClerkCtrl.GetCurrentRetrieval();
+            List<RetrievalDetail> rdList = r.RetrievalDetails.ToList<RetrievalDetail>();
+            List<WCF_RetrievalDetail> wrdList = new List<WCF_RetrievalDetail>();
+            foreach (var item in rdList)
+            {
+                WCF_RetrievalDetail wrd = new WCF_RetrievalDetail(item.RetrievalCode, sClerkCtrl.GetStationeryByCode(item.ItemCode).Description, item.QuantityRetrieved.ToString(), item.QuantityNeeded.ToString(),item.Notes, r.Status,r.DateRetrieved==null?"":((DateTime)r.DateRetrieved).ToString("dd MMM yyyy"));
+                wrdList.Add(wrd);
+            }
+            return wrdList;
+        }
+
         public List<WCF_Request> GetOutstandingRequests()
         {
             List<Request> rList = sClerkCtrl.GetNotDisbursedRequestList();

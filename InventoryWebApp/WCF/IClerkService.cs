@@ -13,10 +13,139 @@ namespace InventoryWebApp.WCF
     public interface IClerkService
     {
         [OperationContract]
+        [WebGet(UriTemplate = "/CurrentRetrievalDetails", ResponseFormat = WebMessageFormat.Json)]
+        List<WCF_RetrievalDetail> GetCurrentRetrievalDetails();
+
+        [OperationContract]
         [WebGet(UriTemplate = "/OutstandingRequests", ResponseFormat = WebMessageFormat.Json)]
         List<WCF_Request> GetOutstandingRequests();
-    }
 
+    }
+    [DataContract]
+    public class WCF_RetrievalDetail
+    {
+        private string retrievalCode;
+        private string itemName;
+        private string quantityRetrieved;
+        private string quantityNeeded;
+        private string notes;
+        private string status;
+        private string dateRetrieved;
+        public WCF_RetrievalDetail(string retrievalCode, string itemName, string quantityRetrieved, string quantityNeeded, string notes, string status, string dateRetrieved)
+        {
+            this.RetrievalCode = retrievalCode;
+            this.ItemName = itemName;
+            this.QuantityRetrieved = quantityRetrieved;
+            this.QuantityNeeded = quantityNeeded;
+            this.Notes = notes;
+            this.Status = status;
+            this.DateRetrieved = dateRetrieved;
+        }
+
+        public WCF_RetrievalDetail(string retrievalCode)
+        {
+            this.retrievalCode = retrievalCode;
+        }
+
+        public WCF_RetrievalDetail() { }
+        [DataMember]
+        public string RetrievalCode
+        {
+            get
+            {
+                return retrievalCode;
+            }
+
+            set
+            {
+                retrievalCode = value;
+            }
+        }
+        [DataMember]
+        public string ItemName
+        {
+            get
+            {
+                return itemName;
+            }
+
+            set
+            {
+                itemName = value;
+            }
+        }
+        [DataMember]
+        public string QuantityRetrieved
+        {
+            get
+            {
+                return quantityRetrieved;
+            }
+
+            set
+            {
+                quantityRetrieved = value;
+            }
+        }
+
+        [DataMember]
+        public string QuantityNeeded
+        {
+            get
+            {
+                return quantityNeeded;
+            }
+
+            set
+            {
+                quantityNeeded = value;
+            }
+        }
+
+        [DataMember]
+        public string Notes
+        {
+            get
+            {
+                return notes;
+            }
+
+            set
+            {
+                notes = value;
+            }
+        }
+
+        [DataMember]
+        public string Status
+        {
+            get
+            {
+                return status;
+            }
+
+            set
+            {
+                status = value;
+            }
+        }
+
+        [DataMember]
+        public string DateRetrieved
+        {
+            get
+            {
+                return dateRetrieved;
+            }
+
+            set
+            {
+                dateRetrieved = value;
+            }
+        }
+
+        
+    }
     [DataContract]
     public class WCF_Request
     {
@@ -51,4 +180,5 @@ namespace InventoryWebApp.WCF
             set { status = value; }
         }
     }
+
 }
