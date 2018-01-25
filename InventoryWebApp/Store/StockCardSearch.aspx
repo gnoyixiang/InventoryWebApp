@@ -1,7 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="StockCardSearch.aspx.cs" Inherits="InventoryWebApp.StockCardSearch" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+      
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+  <ul class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li class="active">Search Item</li>
+            </ul>
      <!DOCTYPE html>
 <html><head><title></title></head>
 <body>

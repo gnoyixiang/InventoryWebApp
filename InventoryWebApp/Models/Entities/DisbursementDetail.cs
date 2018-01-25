@@ -27,7 +27,7 @@ namespace InventoryWebApp.Models.Entities
 
         public decimal? Price { get; set; }
 
-        public int? Quantity { get; set; }
+        public int? ActualQuantity { get; set; }
 
         [StringLength(200)]
         public string Notes { get; set; }

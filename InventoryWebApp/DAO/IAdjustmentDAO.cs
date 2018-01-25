@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using InventoryWebApp.Models.Entities;
+using System;
 
 namespace InventoryWebApp.DAO
 {
@@ -15,5 +16,6 @@ namespace InventoryWebApp.DAO
         Adjustment GetAdjustment(string adjustmentCode);
         string GetLastAdjustment();
         List<Adjustment> ListAllAdjustmentsByItemCode(string itemCode);
+        List<Adjustment> ListAllAdjustmentsByItemCode(string itemCode,DateTime start);
     }
 }

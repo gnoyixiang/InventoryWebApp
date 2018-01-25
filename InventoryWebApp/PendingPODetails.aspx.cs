@@ -6,6 +6,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using InventoryWebApp.Controllers;
 using InventoryWebApp.Models.Entities;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
+
 namespace InventoryWebApp
 {
     public partial class PendingPODetails : System.Web.UI.Page
@@ -67,7 +70,9 @@ namespace InventoryWebApp
             PurchaseOrder po = supervisorController.GetPOByPOCode(pOrder.PurchaseOrderCode);
             po.Status = "APPROVED";
             po.DateApproved = DateTime.Now;
-            po.ApprovedBy = Context.User.Identity.Name;
+            
+            //var user= HttpContext.Current.GetOwinContext().Get<ApplicationUserManager>().FindById(User.Identity.GetUserName());
+            //po.ApprovedBy = user.UserName;
             supervisorController.updatePOStatus(po);
             Response.Redirect("PendingPO.aspx");
         }
@@ -77,7 +82,8 @@ namespace InventoryWebApp
             PurchaseOrder po = supervisorController.GetPOByPOCode(pOrder.PurchaseOrderCode);
             po.Status = "CANCELLED";
             po.DateApproved = DateTime.Now;
-            po.ApprovedBy = Context.User.Identity.Name;
+            //var user= HttpContext.Current.GetOwinContext().Get<ApplicationUserManager>().FindById(User.Identity.GetUserName());
+            //po.ApprovedBy = user.UserName;
             supervisorController.updatePOStatus(po);
             Response.Redirect("PendingPO.aspx");
         }

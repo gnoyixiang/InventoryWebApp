@@ -2,13 +2,74 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <ul class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li><a href="/StockCardSearch.aspx">Search Item</a></li>
+                <li class="active">View StockCard</li>
+            </ul>
+    <style type="text/css">
+        .header {
+            
+           text-decoration-color:white;
+           background-color:#00ffff;
+        }     
+    </style>
+    <style type="text/css">
+        .rowstyle {
+          
+         
+           background-color:#EFF3FB;
+        }     
+    </style>
+    <script language="javascript">
+        function printDiv(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            var originalContents = document.body.innerHTML;
+
+            document.body.innerHTML = printContents;
+
+            window.print();
+
+            document.body.innerHTML = originalContents;
+        }</script>
     <!DOCTYPE html>
 <html><head><title></title></head>
 <body>
+  
     <asp:Label ID="Label1" runat="server" Text="Stock Card" Font-Size="X-Large"></asp:Label>
-     <table border="0" style="width: 600px;height:100px"  >
+       <table border="0" style="width: 1000px"  ><tr>
+   <td>
+   From Date</td>
+    <td><asp:TextBox ID="tbxStart" runat="server" TextMode="Month" ></asp:TextBox><br />
+    <asp:RequiredFieldValidator ID="RequiredFieldValidator"
+                            runat="server"
+                            ControlToValidate="tbxStart"
+                            Display="Static"
+                            ForeColor="Red"
+                            ErrorMessage=" Date is required!" />
+         
+        
+             
+             </td><td>ToDate</td>
+        <td><asp:TextBox ID="tbxEnd" runat="server" TextMode="Month" ></asp:TextBox><asp:CustomValidator runat="server"
+    ID="valDateRange" 
+    ControlToValidate="tbxStart"
+    onservervalidate="valDateRange_ServerValidate" 
+    ErrorMessage="Please enter valid date" ForeColor="Red"/><br />
+    <asp:RequiredFieldValidator ID="RequiredFieldValidator1"
+                            runat="server"
+                            ControlToValidate="tbxEnd"
+                            Display="Static"
+                            ForeColor="Red"
+                            ErrorMessage=" Date is required!" /></td><td></td><td><asp:Button ID="btnPrint" runat="server" Text="Print" OnClientClick='printDiv("printA")' /></td><br />
+           
+        </tr>
+  <tr><td></td><td>
+      <asp:Button ID="btnSearch" runat="server"  Text="Search" OnClick="btnSearch_Click" /></td></tr></table><br /><br />
+     <div id="printA">
+     <table border="0" style="width: 400px;height:100px"  >
      <tr><td> <asp:Label ID="lblItemCode" runat="server" Text="Item Code"></asp:Label></td>
-         <td><asp:Label ID="lblItemCodeValue" runat="server" Text="Label"></asp:Label></td>
+         <td><asp:Label ID="lblItemCodeValue" runat="server" Text="Label"></asp:Label></td><td></td><td></td>
     </tr>
     <tr><td> <asp:Label ID="lblDes" runat="server" Text="Item Description"></asp:Label></td>
          <td><asp:Label ID="lblDesValue" runat="server" Text="Label"></asp:Label></td>
@@ -25,55 +86,14 @@
     <tr><td> <asp:Label ID="lblthirdSupplier" runat="server" Text="3rd Supplier"></asp:Label></td>
          <td><asp:Label ID="lblthirdSupplierValue" runat="server" Text="Label"></asp:Label></td>
     </tr>
-   <tr><td>
-   Select Month</td>
-    <td><asp:TextBox ID="tbxMonth" runat="server" TextMode="Month" ></asp:TextBox>
-    <asp:RequiredFieldValidator ID="RequiredFieldValidator"
-                            runat="server"
-                            ControlToValidate="tbxMonth"
-                            Display="Static"
-                            ForeColor="Red"
-                            ErrorMessage=" Date is required!" /> </td></tr><tr><td></td><td>
-      <asp:Button ID="btnSearch" runat="server"  Text="Search" OnClick="btnSearch_Click" /></td></tr></table><br />
+        </table>
     <asp:Label ID="lblShowStatus" runat="server" Text="Label" ForeColor="#3333CC" Font-Size="X-Large" Visible="False"></asp:Label>
      <br />
-     <asp:GridView ID="gvStockCard" runat="server" AutoGenerateColumns="False" Width="1091px" CellPadding="4" OnRowDataBound="OnRowDataBound" ForeColor="#333333" GridLines="None" AllowPaging="True" OnPageIndexChanging="GvStockCard_PageIndexChanging">
-            <AlternatingRowStyle BackColor="White" />
-            <Columns>
-                <asp:TemplateField HeaderText="Date">
-                    <ItemTemplate>
-                        <asp:Label ID="lblDate" runat="server" Text='<%# Bind("Date", "{0:dd/MM/yyyy}") %>'
-></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>
-           
-                <asp:TemplateField HeaderText="Dept/Supplier">
-                    <ItemTemplate>
-                        <asp:Label ID="lblDepSup" runat="server"></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>
-               
-                <asp:TemplateField HeaderText="Qty">
-                    <ItemTemplate>
-                        <asp:Label ID="lblQuantity" runat="server"></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>
+   
+    <asp:Panel ID="panelStockCard" runat="server">
 
-                  <asp:BoundField DataField="Balance" HeaderText="Balance" SortExpression="Balance" />
-            </Columns>
-            <EditRowStyle BackColor="#2461BF" />
-            <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-            <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-            <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-            <RowStyle BackColor="#EFF3FB" />
-            <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-            <SortedAscendingCellStyle BackColor="#F5F7FB" />
-            <SortedAscendingHeaderStyle BackColor="#6D95E1" />
-            <SortedDescendingCellStyle BackColor="#E9EBEF" />
-            <SortedDescendingHeaderStyle BackColor="#4870BE" />
-        </asp:GridView>
-    <PagerSettings Mode="NumericFirstLast" FirstPageText="First" LastPageText="Last" PreviousPageText="Previous" NextPageText="Next" />
-        <PagerStyle ForeColor="Black" HorizontalAlign="Center" CssClass="pager-style"/>
-
+    </asp:Panel>
+   </div>
+     
     </body></html>
 </asp:Content>
