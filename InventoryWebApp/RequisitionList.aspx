@@ -14,6 +14,11 @@
     <asp:Button ID="btnNext" runat="server" Text="Proceed to Retrieval>" OnClick="btnNext_Click" Style="float: right" CssClass="btn btn-success" />
     <br />
     <br />
+
+    <asp:Label ID="lblNotification" runat="server" Text="" class="label label-danger" Style="float: right; font-size:12px"></asp:Label>
+
+    <br />
+    <br />
     <%-- <asp:Label ID="lblTest" runat="server" Text="Label"></asp:Label>--%>
     <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="true">
         <ContentTemplate>

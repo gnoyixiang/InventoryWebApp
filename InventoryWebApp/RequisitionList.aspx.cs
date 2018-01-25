@@ -15,6 +15,12 @@ namespace InventoryWebApp
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack){
+                if (HaveExistingRetrieval())
+                {
+                    lblNotification.Text = "There is outstanding retrieval, you cannot create new retrieval at the moment.";
+                }
+            }
             List<Request> requestList = sClerCtrl.GetNotDisbursedRequestList();
             lvRequestList.DataSource = requestList;
             lvRequestList.DataBind();
@@ -29,6 +35,14 @@ namespace InventoryWebApp
             lblTotalQuant.Text = itemCount.ToString();
         }
 
+        protected bool HaveExistingRetrieval()
+        {
+            List<Retrieval> retrievalList = sClerCtrl.GetRetrievalsByStatus("processing");
+            if (retrievalList == null || retrievalList.Count == 0)
+                return false;
+            else
+                return true;
+        }
         protected int GetTotalQuantOfRequest(String requestCode)
         {
             List<RequestDetail> rdList;
