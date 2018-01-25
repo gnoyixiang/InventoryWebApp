@@ -12,9 +12,14 @@ namespace InventoryWebApp.WCF
     [ServiceContract]
     public interface IClerkService
     {
+
         [OperationContract]
-        [WebGet(UriTemplate = "/CurrentRetrievalDetails", ResponseFormat = WebMessageFormat.Json)]
-        List<WCF_RetrievalDetail> GetCurrentRetrievalDetails();
+        [WebGet(UriTemplate = "/ProcessingRetrievalDetail/{itemCode}", ResponseFormat = WebMessageFormat.Json)]
+        WCF_RetrievalDetail GetRetrievalDetail(string itemCode);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "/ProcessingRetrievalDetails", ResponseFormat = WebMessageFormat.Json)]
+        List<WCF_RetrievalDetail> GetProcessingRetrievalDetails();
 
         [OperationContract]
         [WebGet(UriTemplate = "/OutstandingRequests", ResponseFormat = WebMessageFormat.Json)]
@@ -32,7 +37,9 @@ namespace InventoryWebApp.WCF
         private string status;
         private string dateRetrieved;
         private string stock;
-        public WCF_RetrievalDetail(string retrievalCode, string itemName, string quantityRetrieved, string quantityNeeded, string notes, string status, string dateRetrieved, string stock)
+        private string location;
+        private string itemCode;
+        public WCF_RetrievalDetail(string retrievalCode, string itemName, string quantityRetrieved, string quantityNeeded, string notes, string status, string dateRetrieved, string stock, string location, string itemCode)
         {
             this.RetrievalCode = retrievalCode;
             this.ItemName = itemName;
@@ -42,6 +49,8 @@ namespace InventoryWebApp.WCF
             this.Status = status;
             this.DateRetrieved = dateRetrieved;
             this.Stock = stock;
+            this.Location = location;
+            this.ItemCode = itemCode;
         }
 
         public WCF_RetrievalDetail(string retrievalCode)
@@ -156,6 +165,32 @@ namespace InventoryWebApp.WCF
             set
             {
                 stock = value;
+            }
+        }
+        [DataMember]
+        public string Location
+        {
+            get
+            {
+                return location;
+            }
+
+            set
+            {
+                location = value;
+            }
+        }
+        [DataMember]
+        public string ItemCode
+        {
+            get
+            {
+                return itemCode;
+            }
+
+            set
+            {
+                itemCode = value;
             }
         }
     }

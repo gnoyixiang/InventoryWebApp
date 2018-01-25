@@ -51,7 +51,7 @@ namespace InventoryWebApp.DAO
         {
             using (EntityModel em = new EntityModel())
             {
-                return em.Disbursements.Where(d => d.Status == "disbursing" && d.DepartmentCode == deptCode).First();
+                return em.Disbursements.Where(d => d.Status == "disbursing" && d.DepartmentCode == deptCode).FirstOrDefault();
             }
         }
         public List<Disbursement> SearchDisbursementByCode(String disbursementCode)

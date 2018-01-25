@@ -15,15 +15,26 @@ namespace InventoryWebApp.WCF
     public class ClerkService : IClerkService
     {
         StoreClerkController sClerkCtrl = new StoreClerkController();
-
-        public List<WCF_RetrievalDetail> GetCurrentRetrievalDetails()
+        public WCF_RetrievalDetail GetRetrievalDetail(string itemCode)
+        {
+            List<WCF_RetrievalDetail> wrdList = GetProcessingRetrievalDetails();
+            foreach(var item in wrdList)
+            {
+                if (item.ItemCode == itemCode)
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
+        public List<WCF_RetrievalDetail> GetProcessingRetrievalDetails()
         {
             Retrieval r = sClerkCtrl.GetCurrentRetrieval();
             List<RetrievalDetail> rdList = r.RetrievalDetails.ToList<RetrievalDetail>();
             List<WCF_RetrievalDetail> wrdList = new List<WCF_RetrievalDetail>();
             foreach (var item in rdList)
             {
-                WCF_RetrievalDetail wrd = new WCF_RetrievalDetail(item.RetrievalCode, sClerkCtrl.GetStationeryByCode(item.ItemCode).Description, item.QuantityRetrieved.ToString(), item.QuantityNeeded.ToString(),item.Notes, r.Status,r.DateRetrieved==null?"":((DateTime)r.DateRetrieved).ToString("dd MMM yyyy"), sClerkCtrl.GetStationeryByCode(item.ItemCode).Stock.ToString());
+                WCF_RetrievalDetail wrd = new WCF_RetrievalDetail(item.RetrievalCode, sClerkCtrl.GetStationeryByCode(item.ItemCode).Description, item.QuantityRetrieved.ToString(), item.QuantityNeeded.ToString(),item.Notes, r.Status,r.DateRetrieved==null?"":((DateTime)r.DateRetrieved).ToString("dd MMM yyyy"), sClerkCtrl.GetStationeryByCode(item.ItemCode).Stock.ToString(),sClerkCtrl.GetStationeryByCode(item.ItemCode).Location, item.ItemCode);
                 wrdList.Add(wrd);
             }
             return wrdList;
@@ -40,5 +51,7 @@ namespace InventoryWebApp.WCF
             }
             return wRList;
         }
+
+        
     }
 }

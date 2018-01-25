@@ -31,7 +31,7 @@ namespace InventoryWebApp
             all.CollectionVenue = "ALL";
             all.CollectionPointCode = "ALL";
 
-            HashSet<CollectionPoint> collectionPointList = sClerkCtrl.GetListOfCollectionPoint();
+            HashSet<CollectionPoint> collectionPointList = sClerkCtrl.GetListOfCollectionPoint("disbursing");
             collectionPointList.Add(all);
             List<CollectionPoint> sortedCPList = collectionPointList.ToList();
             sortedCPList.Sort();
@@ -68,7 +68,7 @@ namespace InventoryWebApp
 
         protected void ddlCollectionPoint_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ddlDepartment.DataSource = ddlCollectionPoint.SelectedValue == "ALL" ? sClerkCtrl.GetDisbursingDepartmentList(sClerkCtrl.GetDisbursingDisbursements()) : sClerkCtrl.GetDisbursingDepartmentList(sClerkCtrl.GetDisbursementListByCollectionPoint(ddlCollectionPoint.SelectedValue));
+            ddlDepartment.DataSource = ddlCollectionPoint.SelectedValue == "ALL" ? sClerkCtrl.GetDisbursingDepartmentList(sClerkCtrl.GetDisbursingDisbursements()) : sClerkCtrl.GetDisbursingDepartmentList(sClerkCtrl.GetDisbursementListByCollectionPoint(ddlCollectionPoint.SelectedValue,"disbursing"));
             ddlDepartment.DataTextField = "DepartmentName";
             ddlDepartment.DataValueField = "DepartmentCode";
             ddlDepartment.DataBind();

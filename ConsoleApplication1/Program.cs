@@ -11,5 +11,10 @@ namespace ConsoleTestApp
 {
     class Program
     {
-    }
+        static IRetrievalDAO re = new RetrievalDAO();
+        public static void Main(String[] args)
+        {
+            re.ListRetrievalByStatus("processing");
+        }   
+     }
 }

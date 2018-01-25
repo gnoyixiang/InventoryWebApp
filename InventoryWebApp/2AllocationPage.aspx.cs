@@ -105,7 +105,6 @@ namespace InventoryWebApp
         protected void btnNext_Click(object sender, EventArgs e)
         {
 
-            sClerkCtrl.ChangeDisbursementAllocatingToDisbursing();
             Response.Redirect("DisbursementGenerationPage.aspx");
         }
 

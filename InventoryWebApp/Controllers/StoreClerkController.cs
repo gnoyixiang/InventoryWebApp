@@ -121,9 +121,9 @@ namespace InventoryWebApp.Controllers
 
         }
 
-        public List<Disbursement> GetDisbursementListByCollectionPoint(String collectionPointCode)
+        public List<Disbursement> GetDisbursementListByCollectionPoint(String collectionPointCode, String disbursementStatus)
         {
-            List<Disbursement> disbursingList = GetDisbursingDisbursements();
+            List<Disbursement> disbursingList = GetDisbursementsByStatus(disbursementStatus);
             List<Disbursement> dList = new List<Disbursement>();
             foreach (var item in disbursingList)
             {
@@ -149,10 +149,12 @@ namespace InventoryWebApp.Controllers
         }
         public void SetCollectionDateToDisbursement(DateTime dt)
         {
-            List<Disbursement> dList = GetDisbursingDisbursements();
+            List<Disbursement> dList = GetDisbursementsByStatus("allocating");
             foreach(var item in dList)
             {
                 item.DatePlanToCollect = dt;
+                item.Status = "disbursing";
+                item.CollectionPointCode = departmentDAO.GetDepartmentInfo(item.DepartmentCode).CollectionPointCode;
                 disbursementDAO.UpdateDbmStatus(item);
                 foreach (var detail in disbursementDetailsDAO.SearchDDByDCode(item.DisbursementCode))
                 {
@@ -179,14 +181,14 @@ namespace InventoryWebApp.Controllers
             }
             return deptList;
         }
-        public HashSet<CollectionPoint> GetListOfCollectionPoint()
+        public HashSet<CollectionPoint> GetListOfCollectionPoint(String disbursementStatus)
         {
-            List<Disbursement> dList = disbursementDAO.SearchDbmByStatus("disbursing");
+            List<Disbursement> dList = disbursementDAO.SearchDbmByStatus(disbursementStatus);
             HashSet<CollectionPoint> cpList = new HashSet<CollectionPoint>();
             HashSet<String> collectionList = new HashSet<string>();
             foreach (var item in dList)
             {
-                cpList.Add(collectionPointDAO.SearchByCollectionPointCode(disbursementDAO.GetDisbursingDisburmentByDeptCode(item.DepartmentCode).CollectionPointCode).FirstOrDefault());
+                cpList.Add(collectionPointDAO.SearchByCollectionPointCode(item.CollectionPointCode).FirstOrDefault());
             }
 
             return cpList; 
@@ -199,29 +201,29 @@ namespace InventoryWebApp.Controllers
             DateTime nextTuesday = today.AddDays(daysUntilTuesday);
             return nextTuesday;
         }
-        public void ChangeDisbursementDisbursingToAllocating()
-        {
-            List<Disbursement> dList = disbursementDAO.SearchDbmByStatus("disbursing");
-            foreach (var item in dList)
-            {
-                item.Status = "allocating";
-                item.DateCreated = null;
-                item.DatePlanToCollect = null;
-                disbursementDAO.UpdateDbmStatus(item);
-            }
-        }
-        public void ChangeDisbursementAllocatingToDisbursing()
-        {
-            List<Disbursement> dList = disbursementDAO.SearchDbmByStatus("allocating");
-            foreach (var item in dList)
-            {
-                item.Status = "disbursing";
-                item.DateCreated = DateTime.Today;
-                item.CollectionPointCode = departmentDAO.GetDepartmentInfo(item.DepartmentCode).CollectionPointCode;
-                disbursementDAO.UpdateDbmStatus(item);
+        //public void ChangeDisbursementDisbursingToAllocating()
+        //{
+        //    List<Disbursement> dList = disbursementDAO.SearchDbmByStatus("disbursing");
+        //    foreach (var item in dList)
+        //    {
+        //        item.Status = "allocating";
+        //        item.DateCreated = null;
+        //        item.DatePlanToCollect = null;
+        //        disbursementDAO.UpdateDbmStatus(item);
+        //    }
+        //}
+        //public void ChangeDisbursementAllocatingToDisbursing()
+        //{
+        //    List<Disbursement> dList = disbursementDAO.SearchDbmByStatus("allocating");
+        //    foreach (var item in dList)
+        //    {
+        //        item.Status = "disbursing";
+        //        item.DateCreated = DateTime.Today;
+        //        item.CollectionPointCode = departmentDAO.GetDepartmentInfo(item.DepartmentCode).CollectionPointCode;
+        //        disbursementDAO.UpdateDbmStatus(item);
                 
-            }
-        }
+        //    }
+        //}
         public List<DisbursementDetail> GenerateDisbursementDetail()
         {
             List<RequestDetail> requestDetailList = this.GetNotDisbursedRequestDetailList();

@@ -90,6 +90,7 @@
                             <td style="text-align: right; padding-right: 20px"><%# Eval("Quantity") %></td>
                             <td style="text-align: right; padding-right: 20px">
                                 <asp:TextBox ID="tbxActualQuantity" runat="server" TextMode="Number" min=0 max=<%#Eval("Quantity") %> Text='<%# Bind("ActualQuantity") %>'></asp:TextBox>
+                                
                             </td>
                             <td><%# GetRequest(Eval("RequestCode").ToString()).Status %></td>
                             <td>
