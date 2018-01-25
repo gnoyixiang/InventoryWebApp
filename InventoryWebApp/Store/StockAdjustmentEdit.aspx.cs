@@ -21,12 +21,23 @@ namespace InventoryWebApp
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            s = (string)Request.QueryString["AdjustmentCode"];
+            adjRetrieved = sClerkCtrl.GetAdjustment(s);
+
+            if (adjRetrieved == null)
+            {
+                panelNoAdj.Visible = true;
+                panelAdj.Visible = false;
+                return;
+            }
+            else
+            {
+                panelNoAdj.Visible = false;
+                panelAdj.Visible = true;
+            }
+
             if (!IsPostBack)
             {
-                s = Request.QueryString["AdjustmentCode"];
-
-                adjRetrieved = sClerkCtrl.GetAdjustment(s);
-
                 lblItemChoiceName.Text = sClerkCtrl.DisplayItemChoiceName(adjRetrieved);
                 lblCurrentStockAmount.Text = sClerkCtrl.DisplayCurrentStock(adjRetrieved);
                 lblQuantityAdjustShow.Text = adjRetrieved.AdjustmentQuant.ToString();
@@ -35,6 +46,7 @@ namespace InventoryWebApp
                 int displayNewQuantity = (Convert.ToInt32(lblCurrentStockAmount.Text)) + (Convert.ToInt32(lblQuantityAdjustShow.Text));
                 tbxNewQuantity.Text = displayNewQuantity.ToString();
             }
+            
 
         }
 
@@ -81,8 +93,8 @@ namespace InventoryWebApp
 
             adjRetrieved.Status = "pending";
             int submitResult = sClerkCtrl.UpdateAdjustment(adjRetrieved, QuantUpdate, tbxReason.Text);
-
-            Response.Redirect("StockAdjustmentList.aspx");
+            
+            Response.Redirect("/Store/StockAdjustmentList.aspx");
         }
         protected void btnSave_Click(object sender, EventArgs e)
         {
@@ -98,11 +110,27 @@ namespace InventoryWebApp
             //a.Status = "unsubmitted";
             int submitResult = sClerkCtrl.UpdateAdjustment(adjRetrieved, QuantUpdate, tbxReason.Text);
 
-            Response.Redirect("StockAdjustmentList.aspx");
+            Response.Redirect("/Store/StockAdjustmentList.aspx");
         }
         protected void btnDiscard_Click(object sender, EventArgs e)
         {
-            Response.Redirect("StockAdjustmentList.aspx");
+            Response.Redirect("/Store/StockAdjustmentList.aspx");
+        }
+
+        protected void validNewQuantity_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            int newQuantity = Convert.ToInt32(args.Value);
+            args.IsValid = newQuantity >= 0;
+            if (!args.IsValid)
+            {
+                tbxNewQuantity.CssClass = "form-control error";
+            }
+            else
+            {
+                tbxNewQuantity.CssClass = "form-control";
+            }
+            validNewQuantity.ErrorMessage = "New quantity cannot be lower than 0";
+
         }
     }
 }

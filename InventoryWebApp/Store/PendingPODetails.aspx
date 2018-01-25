@@ -2,25 +2,34 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-   
-    <html>
-<head>
-  <title></title>
-</head>
-<body>
-    
-    <asp:Label ID="Label1" runat="server" Text="PO Details" Font-Size="X-Large"></asp:Label><br /><br /><br />
-    <table border="0" style="width: 400px;height:100px"><tr><td>
-    <asp:Label ID="lblNo" runat="server" Text="No             :"></asp:Label></td>
-   <td><asp:Label ID="lblNoValue" runat="server" Text="Label"></asp:Label></td> </tr>
-   <tr><td><asp:Label ID="lblIssueDate" runat="server" Text="Issue Date    :"></asp:Label></td>
-    <td><asp:Label ID="lblIssueDateValue" runat="server" Text="Label"></asp:Label></td></tr> 
-    <tr><td><asp:Label ID="lblSName" runat="server" Text="Supplier Name   :"></asp:Label></td>
-   <td><asp:Label ID="lblSupplierNameValue" runat="server" Text="Label"></asp:Label></td> </tr>
-      </table>
-      <asp:GridView ID="gvPendingPODetails" runat="server" AutoGenerateColumns="False" OnRowDataBound="OnRowDataBound" 
-          Width="1091px" CellPadding="4" ShowFooter="True"  ForeColor="#333333" GridLines="None" >
-            <AlternatingRowStyle BackColor="White" />
+    <h3><asp:Label ID="Label1" runat="server" Text="PO Details"></asp:Label></h3>
+    <div class="row">
+        <div class="col-md-2 col-sm-3">
+            <asp:Label ID="lblNo" runat="server" Text="PO#" Font-Bold="true"></asp:Label>
+        </div>
+        <div class="col-md-2 col-sm-3">
+            <asp:Label ID="lblNoValue" runat="server" Text="Label"></asp:Label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 col-sm-3">
+            <asp:Label ID="lblIssueDate" runat="server" Text="Issue Date" Font-Bold="true"></asp:Label>
+        </div>
+        <div class="col-md-2 col-sm-3">
+            <asp:Label ID="lblIssueDateValue" runat="server" Text="Label"></asp:Label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 col-sm-3">
+            <asp:Label ID="lblSName" runat="server" Text="Supplier Name" Font-Bold="true"></asp:Label>
+        </div>
+        <div class="col-md-2 col-sm-3">
+            <asp:Label ID="lblSupplierNameValue" runat="server" Text="Label"></asp:Label>
+        </div>
+    </div>
+
+    <asp:GridView ID="gvPendingPODetails" runat="server" AutoGenerateColumns="False" OnRowDataBound="OnRowDataBound" 
+          Width="1091px" CellPadding="4" ShowFooter="True" CssClass="table" >
             <Columns>
                  <asp:TemplateField HeaderText="No" >
                     <ItemTemplate>
@@ -48,7 +57,7 @@
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
-            <EditRowStyle BackColor="#2461BF" />
+            <%--<EditRowStyle BackColor="#2461BF" />
             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
             <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
             <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
@@ -57,13 +66,9 @@
             <SortedAscendingCellStyle BackColor="#F5F7FB" />
             <SortedAscendingHeaderStyle BackColor="#6D95E1" />
             <SortedDescendingCellStyle BackColor="#E9EBEF" />
-            <SortedDescendingHeaderStyle BackColor="#4870BE" />
+            <SortedDescendingHeaderStyle BackColor="#4870BE" />--%>
         </asp:GridView>
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      &nbsp;&nbsp;&nbsp;&nbsp; </body></html>
+
     <asp:Button ID="btnApprove" runat="server" Text="Approve" BackColor="Lime" ForeColor="Black" OnClick="btnApprove_Click" OnClientClick="return confirm('Do you want to approve?')" />
     &nbsp;&nbsp;&nbsp;&nbsp;
     <asp:Button ID="btnReject" runat="server" Text="Reject" BackColor="#FF6666" OnClick="btnReject_Click" OnClientClick="return confirm('Do you want to reject?')" />

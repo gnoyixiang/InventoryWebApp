@@ -151,9 +151,6 @@
                             </ul>
                         </LoggedInTemplate>
                     </asp:LoginView>
-                    <ul class="nav navbar-nav navbar-right" id="navtopitems">
-                        <li><a href="#">Home</a></li>
-                    </ul>
 
 
                        <%-- <li><a class="dropdown-toggle" id="dropdownMenu2" data-toggle="dropdown">Welcome, Esther

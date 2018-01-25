@@ -3,12 +3,25 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="container-fluid">
+    <asp:Panel runat="server" ID="panelNoAdj">
+         <h3>No adjustment found!</h3>
+        <a href="/Store/StockAdjustmentList.aspx">Return to view all adjustments</a>
+    </asp:Panel>
+    <asp:Panel runat="server" ID="panelAdj">
         <div class="row">
             <div class="col-sm-10">
-                <h3>View Inventory Adjustment <%=Request.QueryString["AdjustmentCode"].ToString()%></h3>
+                <h3>View Inventory Adjustment <%= (string)Request.QueryString["AdjustmentCode"]%></h3>
+            </div>
+            <div class="col-sm-2" style="text-align:right">
+                <div class="margin:20px 0 10px 0;">
+                    <a href="#"><i class="fa fa-print" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
                 <br />
-                <table border="0" style="width: 300px; height: 100px">
+                <table class="table" style="max-width:50%">
                     <tr>
                         <td>
                             <asp:Label ID="lblItemChoice" runat="server" Text="Item:"></asp:Label>
@@ -23,12 +36,6 @@
                         </td>
                         <td>
                             <asp:Label ID="lblQuantityAdjustedShow" runat="server" Text="Load item name from DB"></asp:Label>
-                            <%--                <asp:Label ID="lblCurrentStock" runat="server" Text="Current Stock:"></asp:Label>
-                <asp:Label ID="lblCurrentStockAmount" runat="server" Text=""></asp:Label>
-                <br />
-                <asp:Label ID="lblNewQuantity" runat="server" Text="New Quantity:"></asp:Label>
-                <asp:Label ID="lblNewQuantityAmount" runat="server" Text=""></asp:Label>
-                <br />--%>
                         </td>
                     </tr>
                     <tr>
@@ -48,14 +55,8 @@
                         </td>
                     </tr>
                 </table>
-                <asp:Button ID="btnReturn" runat="server" Text="Back" OnClick="ReturnToAdjustmentList_Click" />
-
-            </div>
-            <div class="col-sm-2">
-                <div class="margin:20px 0 10px 0;">
-                    <a href="#"><i class="fa fa-print" aria-hidden="true"></i></a>
-                </div>
+                <asp:Button ID="btnReturn" runat="server" Text="Back" OnClick="ReturnToAdjustmentList_Click" CssClass="btn btn-default" />
             </div>
         </div>
-    </div>
+    </asp:Panel>
 </asp:Content>

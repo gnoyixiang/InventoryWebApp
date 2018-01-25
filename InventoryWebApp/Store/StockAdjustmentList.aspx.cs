@@ -49,14 +49,14 @@ namespace InventoryWebApp
                 {
                     HyperLink hl = e.Row.FindControl("HyperLink1") as HyperLink;
                     //hl.NavigateUrl = "~/StockAdjustmentEdit.aspx?AdjustmentCode=" + ParameterId.ToString();
-                    hl.NavigateUrl = "~/StockAdjustmentEdit.aspx?AdjustmentCode=" + a.AdjustmentCode;
+                    hl.NavigateUrl = "~/Store/StockAdjustmentEdit.aspx?AdjustmentCode=" + a.AdjustmentCode;
                     hl.Text = "Edit";
                 }
                 else
                 {
                     HyperLink hl = e.Row.FindControl("HyperLink1") as HyperLink;
                     //hl.NavigateUrl = "~/StockAdjustmentView.aspx?AdjustmentCode=" + ParameterId.ToString();
-                    hl.NavigateUrl = "~/StockAdjustmentView.aspx?AdjustmentCode=" + a.AdjustmentCode;
+                    hl.NavigateUrl = "~/Store/StockAdjustmentView.aspx?AdjustmentCode=" + a.AdjustmentCode;
                     hl.Text = "View";
                 }
             }

@@ -18,26 +18,95 @@ namespace InventoryWebApp
         {
             PONum, SupplierName, OrderDate, CreatedBy, EstimatedSupplyDate, Status
         }
-
+        
         List<PurchaseOrder> poList;
         StoreClerkController scController = new StoreClerkController();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            poList = scController.GetAllPurchaseOrders();
-            poList.Sort(new ComparePurchaseOrderByPONum());
-            poList.Reverse();
-            if (!IsPostBack)
-            {                
-                ddlSearch.Items.Clear();
-                ddlSearch.DataSource = SEARCH_ITEMS;
-                ddlSearch.DataBind();
-            }
+            
         }
 
         protected override void OnPreRenderComplete(EventArgs e)
         {
             base.OnPreRenderComplete(e);
+
+            if (!IsPostBack)
+            {
+                ddlSearch.Items.Clear();
+                ddlSearch.DataSource = SEARCH_ITEMS;
+                ddlSearch.DataBind();
+            }
+
+            poList = scController.GetAllPurchaseOrders();
+            if (!String.IsNullOrEmpty(Request.QueryString["search"]))
+            {
+                string search = Request.QueryString["search"];
+
+                switch (search)
+                {
+                    case "1":
+                    case "2":
+                    case "4":
+                    case "5":
+                        if (!IsPostBack)
+                        {
+                            ddlSearch.SelectedIndex = Convert.ToInt32(search);
+                        }
+                        string searchText = (string)Request.QueryString["q"];
+                        if (!IsPostBack)
+                        {
+                            txtSearch.Text = searchText;
+                        }
+                        poList = scController.GetPurchaseOrdersBySearchText(Convert.ToInt32(search), searchText);
+                        break;
+                    case "3":
+                        if (!IsPostBack)
+                        {
+                            ddlSearch.SelectedIndex = Convert.ToInt32(search);
+                        }
+                        DateTime startDate, endDate;
+
+                        if (DateTime.TryParse((string)Request.QueryString["d1"], out startDate)
+                            && DateTime.TryParse((string)Request.QueryString["d2"], out endDate))
+                        {
+                            if (!IsPostBack)
+                            {
+                                txtStartDate.Text = startDate.ToString("yyyy-MM-dd");
+                                txtEndDate.Text = endDate.ToString("yyyy-MM-dd");
+                            }
+                            if (endDate >= startDate)
+                            {
+                                poList = scController.GetPurchaseOrdersByDateCreated(startDate, endDate);
+                            }
+                            else
+                            {
+                                poList = new List<PurchaseOrder>();
+                            }
+                        }
+                        else if (DateTime.TryParse((string)Request.QueryString["d1"], out startDate))
+                        {
+                            if (!IsPostBack)
+                            {
+                                txtStartDate.Text = startDate.ToString("yyyy-MM-dd");
+                            }
+                            poList = scController.GetPurchaseOrdersByDateCreated(startDate);
+                        }
+                        else if (DateTime.TryParse((string)Request.QueryString["d2"], out endDate))
+                        {
+                            if (!IsPostBack)
+                            {
+                                txtEndDate.Text = endDate.ToString("yyyy-MM-dd");
+                            }
+                            poList = scController.GetPurchaseOrdersByDateCreated(endDate);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+
             if (isSearchDate())
             {
                 panelDate.Visible = true;
@@ -48,21 +117,30 @@ namespace InventoryWebApp
                 panelDate.Visible = false;
                 txtSearch.Visible = true;
             }
-                        
-            foreach (PurchaseOrder p in poList)
+
+            if (poList.Count > 0)
             {
-                p.SupplierCode = scController.GetSupplierName(p.SupplierCode);
+                panelList.Visible = true;
+                panelNoList.Visible = false;
+
+                poList.Sort(new ComparePurchaseOrderByPONum());
+                poList.Reverse();
+
+                foreach (PurchaseOrder p in poList)
+                {
+                    p.SupplierCode = scController.GetSupplierName(p.SupplierCode);
+                }
+
+                listPO.DataSource = poList;
+                listPO.DataBind();
             }
-            
-            listPO.DataSource = poList;
-            listPO.DataBind();
+            else
+            {
+                panelList.Visible = false;
+                panelNoList.Visible = true;
+            }
         }
-
-        protected void Page_PreRender(EventArgs e)
-        {
-            
-        }
-
+        
         protected void ddlSearch_SelectedIndexChanged(object sender, EventArgs e)
         {
             txtEndDate.Text = "";
@@ -72,7 +150,21 @@ namespace InventoryWebApp
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            poList = searchList();
+            //poList = searchList();
+
+            string searchBy = ddlSearch.SelectedValue;
+            int searchIndex = ddlSearch.SelectedIndex;
+            string searchText = txtSearch.Text.Trim();
+
+            if (isSearchDate())
+            {
+                //DateTime startDate = DateTime.Parse(txtStartDate.Text);
+                //DateTime endDate = DateTime.Parse(txtEndDate.Text);
+                Response.Redirect("/Store/ViewPurchaseOrders?search=" + searchIndex + "&d1=" + txtStartDate.Text + "&d2=" + txtEndDate.Text);
+                //return scController.GetPurchaseOrdersByDateCreated(startDate, endDate);
+            }
+            Response.Redirect("/Store/ViewPurchaseOrders?search=" + searchIndex + "&q=" + searchText);
+            //return scController.GetPurchaseOrdersBySearchText(searchIndex, searchText);
         }
 
         private bool isSearchDate()

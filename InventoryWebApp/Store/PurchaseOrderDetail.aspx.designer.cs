@@ -166,13 +166,22 @@ namespace InventoryWebApp {
         protected global::System.Web.UI.HtmlControls.HtmlTextArea lblNotes;
         
         /// <summary>
-        /// linkEdit control.
+        /// btnCancelOrder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton linkEdit;
+        protected global::System.Web.UI.WebControls.Button btnCancelOrder;
+        
+        /// <summary>
+        /// btnRejectRequest control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnRejectRequest;
         
         /// <summary>
         /// btnAckReceipt control.
@@ -184,12 +193,12 @@ namespace InventoryWebApp {
         protected global::System.Web.UI.WebControls.Button btnAckReceipt;
         
         /// <summary>
-        /// btnCancelOrder control.
+        /// btnApproveRequest control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCancelOrder;
+        protected global::System.Web.UI.WebControls.Button btnApproveRequest;
     }
 }

@@ -55,8 +55,6 @@ namespace InventoryWebApp.Models
 
             modelBuilder.Entity<IdentityRole>().ToTable("Role");
 
-
-
             modelBuilder.Entity<ApplicationUser>().Ignore(c => c.PhoneNumberConfirmed)
 
                                            .Ignore(c => c.LockoutEnabled)

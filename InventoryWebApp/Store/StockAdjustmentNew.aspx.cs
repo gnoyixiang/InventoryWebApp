@@ -75,32 +75,53 @@ namespace InventoryWebApp
         }
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            lblCurrentStockAmount.Text = sClerkCtrl.UpdateViewCurrentStockAmount(ddlItemChoice.SelectedItem.Text);
-            int QuantUpdate = CreateQuantityUpdate(tbxNewQuantity.Text, lblCurrentStockAmount.Text);
+            if (Page.IsValid)
+            {
+                lblCurrentStockAmount.Text = sClerkCtrl.UpdateViewCurrentStockAmount(ddlItemChoice.SelectedItem.Text);
+                int QuantUpdate = CreateQuantityUpdate(tbxNewQuantity.Text, lblCurrentStockAmount.Text);
 
-            //...handled by PrefillAdjustment:ItemCode,AdjustmentQuant,Reason
-            Adjustment a = sClerkCtrl.PrefillAdjustment(ddlItemChoice.SelectedValue, QuantUpdate, tbxReason.Text);
+                //...handled by PrefillAdjustment:ItemCode,AdjustmentQuant,Reason
+                Adjustment a = sClerkCtrl.PrefillAdjustment(ddlItemChoice.SelectedValue, QuantUpdate, tbxReason.Text);
 
-            int submitResult = sClerkCtrl.SubmitAdjustment(a);
+                sClerkCtrl.SubmitAdjustment(a);
 
-            Response.Redirect("StockAdjustmentList.aspx");
+                Response.Redirect("StockAdjustmentList.aspx");
+            }
         }
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            lblCurrentStockAmount.Text = sClerkCtrl.UpdateViewCurrentStockAmount(ddlItemChoice.SelectedItem.Text);
-            int QuantUpdate = CreateQuantityUpdate(tbxNewQuantity.Text, lblCurrentStockAmount.Text);
+            if (Page.IsValid)
+            {
+                lblCurrentStockAmount.Text = sClerkCtrl.UpdateViewCurrentStockAmount(ddlItemChoice.SelectedItem.Text);
+                int QuantUpdate = CreateQuantityUpdate(tbxNewQuantity.Text, lblCurrentStockAmount.Text);
 
-            //...handled by PrefillAdjustment:ItemCode,AdjustmentQuant,Reason
-            Adjustment a = sClerkCtrl.PrefillAdjustment(ddlItemChoice.SelectedValue, QuantUpdate, tbxReason.Text);
+                //...handled by PrefillAdjustment:ItemCode,AdjustmentQuant,Reason
+                Adjustment a = sClerkCtrl.PrefillAdjustment(ddlItemChoice.SelectedValue, QuantUpdate, tbxReason.Text);
 
-            int submitResult = sClerkCtrl.SaveAdjustment(a);
+                int submitResult = sClerkCtrl.SaveAdjustment(a);
 
-            Response.Redirect("StockAdjustmentList.aspx");
+                Response.Redirect("StockAdjustmentList.aspx");
+            }
         }
         protected void btnDiscard_Click(object sender, EventArgs e)
         {
             Response.Redirect("StockAdjustmentList.aspx");
         }
 
+        protected void validNewQuantity_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            int newQuantity = Convert.ToInt32(args.Value);
+            args.IsValid = newQuantity >= 0;
+            if (!args.IsValid)
+            {
+                tbxNewQuantity.CssClass = "form-control error";
+            }
+            else
+            {
+                tbxNewQuantity.CssClass = "form-control";
+            }
+            validNewQuantity.ErrorMessage = "New quantity cannot be lower than 0";
+
+        }
     }
 }

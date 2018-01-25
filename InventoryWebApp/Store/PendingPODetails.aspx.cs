@@ -67,7 +67,7 @@ namespace InventoryWebApp
             PurchaseOrder po = supervisorController.GetPOByPOCode(pOrder.PurchaseOrderCode);
             po.Status = "APPROVED";
             po.DateApproved = DateTime.Now;
-            po.ApprovedBy = "";
+            po.ApprovedBy = Context.User.Identity.Name;
             supervisorController.updatePOStatus(po);
             Response.Redirect("PendingPO.aspx");
         }
@@ -77,7 +77,7 @@ namespace InventoryWebApp
             PurchaseOrder po = supervisorController.GetPOByPOCode(pOrder.PurchaseOrderCode);
             po.Status = "CANCELLED";
             po.DateApproved = DateTime.Now;
-            po.ApprovedBy = "";
+            po.ApprovedBy = Context.User.Identity.Name;
             supervisorController.updatePOStatus(po);
             Response.Redirect("PendingPO.aspx");
         }

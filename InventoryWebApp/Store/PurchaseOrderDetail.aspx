@@ -21,7 +21,14 @@
         <div class="row">
             <div class="col-sm-12">
                 <h4>No records found!</h4>
-                <a href="/ViewPurchaseOrders">Return to view purchase orders</a>
+                <% if (Context.User.IsInRole("Store Clerk"))
+                    { %>
+                <a href="/Store/ViewPurchaseOrders">Return to view purchase orders</a>
+                <% } %>
+                <% if (Context.User.IsInRole("Store Manager") || Context.User.IsInRole("Store Supervisor") )
+                    { %>
+                <a href="/Store/ViewPurchaseOrders?search=5&q=pending">Return to view pending purchase orders</a>
+                <% } %>
             </div>
         </div>
     </asp:Panel>
@@ -102,7 +109,7 @@
                                 <td align="right"><%# Eval("Quantity") %></td>
                                 <td align="right"><span>$&nbsp;&nbsp;</span><%# Eval("Price", "{0:0.00}") %></td>
                                 <td align="right"><span>$&nbsp;&nbsp;</span><%# GetAmount(Eval("Quantity"), Eval("Price")) %></td>
-                                <% if (IsEditable())
+                                <% if (IsEditable() && Context.User.IsInRole("Store Clerk"))                    
                                     { %>
                                 <td align="center" style="width: 3%">
                                     <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" title="Edit">
@@ -222,20 +229,37 @@
         </div>
         <div class="row">
             <div class="col-lg-3">
-                <asp:LinkButton ID="linkEdit" runat="server" CssClass="btn btn-warning"
-                    Style="width: 100%; margin-bottom: 10px" OnCommand="linkEdit_Command">Edit Order</asp:LinkButton>
-            </div>
-            <div class="col-lg-3"></div>
-            <div class="col-lg-3">
-                <asp:Button runat="server" ID="btnAckReceipt" CssClass="btn btn-success" OnClick="btnAckReceipt_Click"
-                    Text="Acknowledge Receipt" Width="100%" Style="margin-bottom: 10px"
-                    OnClientClick="return confirm('Confirm to receive this order?');" />
-
-            </div>
-            <div class="col-lg-3">
+                <% if (Context.User.IsInRole("Store Clerk"))
+                    { %>
                 <asp:Button runat="server" ID="btnCancelOrder" CssClass="btn btn-danger" OnClick="btnCancelOrder_Click"
                     Text="Cancel Order" Width="100%" Style="margin-bottom: 10px"
                     OnClientClick="return confirm('Cancel this order?');" />
+                <%} %>
+                <%--<asp:LinkButton ID="linkEdit" runat="server" CssClass="btn btn-warning"
+                    Style="width: 100%; margin-bottom: 10px" OnCommand="linkEdit_Command">Edit Order</asp:LinkButton>--%>
+            </div>
+            <div class="col-lg-3"></div>
+            <div class="col-lg-3">                
+                <% if (Context.User.IsInRole("Store Supervisor") || Context.User.IsInRole("Store Manager"))
+                    { %>                 
+                <asp:Button runat="server" ID="btnRejectRequest" CssClass="btn btn-danger" OnClick="btnRejectRequest_Click"
+                    Text="Reject PO" Width="100%" Style="margin-bottom: 10px"
+                    OnClientClick="return confirm('Confirm to reject this PO?');" /> 
+                <% } %>
+            </div>
+            <div class="col-lg-3">
+                <% if (Context.User.IsInRole("Store Clerk"))
+                    { %>
+                <asp:Button runat="server" ID="btnAckReceipt" CssClass="btn btn-success" OnClick="btnAckReceipt_Click"
+                    Text="Acknowledge Receipt" Width="100%" Style="margin-bottom: 10px"
+                    OnClientClick="return confirm('Confirm to receive this order?');" />
+                <% } %>
+                <% if (Context.User.IsInRole("Store Supervisor") || Context.User.IsInRole("Store Manager"))
+                    { %>
+                <asp:Button runat="server" ID="btnApproveRequest" CssClass="btn btn-success" OnClick="btnApproveRequest_Click"
+                    Text="Approve PO" Width="100%" Style="margin-bottom: 10px"
+                    OnClientClick="return confirm('Confirm to approve this PO?');" /> 
+                <% } %>
             </div>
         </div>
 

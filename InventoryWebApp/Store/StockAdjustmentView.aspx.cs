@@ -12,21 +12,30 @@ namespace InventoryWebApp
     public partial class StockAdjustmentView : System.Web.UI.Page
     {
         StoreClerkController sClerkCtrl = new StoreClerkController();
-        string s;
-        EntityModel em;
+        Adjustment adjRetrieved;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            s = Request.QueryString["AdjustmentCode"];
+            if (!String.IsNullOrEmpty(Request.QueryString["AdjustmentCode"]))
+            {
+                adjRetrieved = sClerkCtrl.GetAdjustment(Request.QueryString["AdjustmentCode"]);
+            }
+            if (adjRetrieved != null)
+            {
+                panelAdj.Visible = true;
+                panelNoAdj.Visible = false;
 
-            em = new EntityModel();
-            Adjustment adjRetrieved = sClerkCtrl.GetAdjustment(s);
+                lblItemChoiceName.Text = sClerkCtrl.DisplayItemChoiceName(adjRetrieved);
+                lblQuantityAdjustedShow.Text = adjRetrieved.AdjustmentQuant.ToString();
 
-            lblItemChoiceName.Text = sClerkCtrl.DisplayItemChoiceName(adjRetrieved);
-            lblQuantityAdjustedShow.Text = adjRetrieved.AdjustmentQuant.ToString();
-
-            lblReasonSubmitted.Text = adjRetrieved.Reason;
-            lblRejectionReasonShow.Text = adjRetrieved.HeadRemarks;
-
+                lblReasonSubmitted.Text = adjRetrieved.Reason;
+                lblRejectionReasonShow.Text = adjRetrieved.HeadRemarks;
+            }
+            else
+            {
+                panelAdj.Visible = false;
+                panelNoAdj.Visible = true;
+            }
             ////get current stock present
             //lblNewQuantityAmount.Text = em.StationeryCatalogues.Where
             //    (x => x.ItemCode == adjRetrieved.ItemCode).FirstOrDefault().Stock.ToString();
@@ -38,7 +47,7 @@ namespace InventoryWebApp
 
         protected void ReturnToAdjustmentList_Click(object sender, EventArgs e)
         {
-            Response.Redirect("StockAdjustmentList.aspx");
+            Response.Redirect("/Store/StockAdjustmentList.aspx");
         }
     }
 }

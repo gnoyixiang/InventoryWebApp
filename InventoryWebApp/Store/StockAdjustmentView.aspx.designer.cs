@@ -13,6 +13,24 @@ namespace InventoryWebApp {
     public partial class StockAdjustmentView {
         
         /// <summary>
+        /// panelNoAdj control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel panelNoAdj;
+        
+        /// <summary>
+        /// panelAdj control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel panelAdj;
+        
+        /// <summary>
         /// lblItemChoice control.
         /// </summary>
         /// <remarks>

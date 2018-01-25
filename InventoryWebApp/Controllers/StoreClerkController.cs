@@ -439,6 +439,11 @@ namespace InventoryWebApp.Controllers
             return purchaseOrderDAO.ListPurchaseOrdersByDateCreated(startDate, endDate);
         }
 
+        internal List<PurchaseOrder> GetPurchaseOrdersByDateCreated(DateTime date)
+        {
+            return purchaseOrderDAO.ListPurchaseOrdersByDateCreated(date);
+        }
+
         internal int ApprovePurchaseOrder(PurchaseOrder po)
         {
             po.Status = "APPROVED";
@@ -532,24 +537,20 @@ namespace InventoryWebApp.Controllers
 
             Adjustment a = new Adjustment();
             //a.AdjustmentCode = em.Adjustments.Last().AdjustmentCode;
-            StringBuilder adjustmentCodeTemp;
+            //StringBuilder adjustmentCodeTemp;
 
-            if (adjustmentDAO.GetLastAdjustment() == null)
-            {
-                adjustmentCodeTemp = new StringBuilder("A000000001");
-            }
-            else
-            {
-                //create new adjustment code
-                string fmt = "00000000";
-                adjustmentCodeTemp = new StringBuilder(adjustmentDAO.GetLastAdjustment());
-                int adjustmentCodeTemp2 = Convert.ToInt32(adjustmentCodeTemp.Replace("A", "").ToString());
-                adjustmentCodeTemp2++;
-                adjustmentCodeTemp = new StringBuilder(adjustmentCodeTemp2.ToString(fmt));
-                adjustmentCodeTemp.Insert(0, "A", 1);
-            }
+            //adjustmentCodeTemp = new StringBuilder("A" + DateTime.Now.ToString("ddMMyyHHmmssfff"));
 
-            a.AdjustmentCode = adjustmentCodeTemp.ToString();
+            //create new adjustment code
+            //string fmt = "00000000";
+            //adjustmentCodeTemp = new StringBuilder(adjustmentDAO.GetLastAdjustment());
+            //int adjustmentCodeTemp2 = Convert.ToInt32(adjustmentCodeTemp.Replace("A", "").ToString());
+            //adjustmentCodeTemp2++;
+            //adjustmentCodeTemp = new StringBuilder(adjustmentCodeTemp2.ToString(fmt));
+            //adjustmentCodeTemp.Insert(0, "A", 1);
+            
+
+            a.AdjustmentCode = "A" + dateCreated.ToString("ddMMyyHHmmssfff");
             a.DateCreated = dateCreated;
             a.ItemCode = stationeryDAO.SearchByDescription(selectedItem).FirstOrDefault().ItemCode;
             a.AdjustmentQuant = quantityUpdate;

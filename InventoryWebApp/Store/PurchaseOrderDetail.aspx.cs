@@ -12,7 +12,7 @@ namespace InventoryWebApp
     public partial class PurchaseOrderDetail : System.Web.UI.Page
     {
         StoreClerkController scController = new StoreClerkController();
-
+        StoreSupervisorController supervisorController = new StoreSupervisorController();
         string poNum;
         PurchaseOrder po;
         List<PODetail> poDetails;
@@ -114,31 +114,36 @@ namespace InventoryWebApp
                     lblStatus.ForeColor = System.Drawing.Color.Gray;
                     btnAckReceipt.Visible = false;
                     btnCancelOrder.Visible = true;
-                    linkEdit.Visible = true;
+                    btnApproveRequest.Visible = true;
+                    btnRejectRequest.Visible = true;
                     break;
                 case "APPROVED":
                     lblStatus.ForeColor = System.Drawing.Color.Blue;
                     btnAckReceipt.Visible = true;
                     btnCancelOrder.Visible = true;
-                    linkEdit.Visible = false;
+                    btnApproveRequest.Visible = false;
+                    btnRejectRequest.Visible = false;
                     break;
                 case "RECEIVED":
                     lblStatus.ForeColor = System.Drawing.Color.Green;
                     btnAckReceipt.Visible = false;
                     btnCancelOrder.Visible = false;
-                    linkEdit.Visible = false;
+                    btnApproveRequest.Visible = false;
+                    btnRejectRequest.Visible = false;
                     break;
                 case "REJECTED":
                     lblStatus.ForeColor = System.Drawing.Color.Red;
                     btnAckReceipt.Visible = false;
                     btnCancelOrder.Visible = false;
-                    linkEdit.Visible = false;
+                    btnApproveRequest.Visible = false;
+                    btnRejectRequest.Visible = false;
                     break;
                 case "CANCELLED":
                     lblStatus.ForeColor = System.Drawing.Color.OrangeRed;
                     btnAckReceipt.Visible = false;
                     btnCancelOrder.Visible = false;
-                    linkEdit.Visible = false;
+                    btnApproveRequest.Visible = false;
+                    btnRejectRequest.Visible = false;
                     break;
             }
 
@@ -295,6 +300,30 @@ namespace InventoryWebApp
                 {
                     txtNotes.CssClass = "control";
                 }
+            }
+        }
+
+        protected void btnApproveRequest_Click(object sender, EventArgs e)
+        {
+            if (po != null)
+            {
+                po.Status = "APPROVED";
+                po.DateApproved = DateTime.Now;
+                po.ApprovedBy = Context.User.Identity.Name;
+                supervisorController.updatePOStatus(po);
+                BindData();
+            }
+        }
+
+        protected void btnRejectRequest_Click(object sender, EventArgs e)
+        {
+            if (po != null)
+            {
+                po.Status = "REJECTED";
+                po.DateApproved = DateTime.Now;
+                po.ApprovedBy = Context.User.Identity.Name;
+                supervisorController.updatePOStatus(po);
+                BindData();
             }
         }
     }
