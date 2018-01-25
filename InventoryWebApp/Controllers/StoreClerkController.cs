@@ -159,6 +159,9 @@ namespace InventoryWebApp.Controllers
                     detail.ActualQuantity = detail.Quantity;
                     detail.Price = GetStationeryByCode(detail.ItemCode).Price;
                     disbursementDetailsDAO.UpdateDisbursementDetail(detail);
+                    StationeryCatalogue sc = GetStationeryByCode(detail.ItemCode);
+                    sc.Stock -= detail.Quantity;
+                    stationeryDAO.UpdateStationery(sc);
                 }
             }
         }

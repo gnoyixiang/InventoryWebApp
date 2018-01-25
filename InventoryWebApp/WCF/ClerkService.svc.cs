@@ -23,7 +23,7 @@ namespace InventoryWebApp.WCF
             List<WCF_RetrievalDetail> wrdList = new List<WCF_RetrievalDetail>();
             foreach (var item in rdList)
             {
-                WCF_RetrievalDetail wrd = new WCF_RetrievalDetail(item.RetrievalCode, sClerkCtrl.GetStationeryByCode(item.ItemCode).Description, item.QuantityRetrieved.ToString(), item.QuantityNeeded.ToString(),item.Notes, r.Status,r.DateRetrieved==null?"":((DateTime)r.DateRetrieved).ToString("dd MMM yyyy"));
+                WCF_RetrievalDetail wrd = new WCF_RetrievalDetail(item.RetrievalCode, sClerkCtrl.GetStationeryByCode(item.ItemCode).Description, item.QuantityRetrieved.ToString(), item.QuantityNeeded.ToString(),item.Notes, r.Status,r.DateRetrieved==null?"":((DateTime)r.DateRetrieved).ToString("dd MMM yyyy"), sClerkCtrl.GetStationeryByCode(item.ItemCode).Stock.ToString());
                 wrdList.Add(wrd);
             }
             return wrdList;

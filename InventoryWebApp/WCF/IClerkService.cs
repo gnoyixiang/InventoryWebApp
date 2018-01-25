@@ -31,7 +31,8 @@ namespace InventoryWebApp.WCF
         private string notes;
         private string status;
         private string dateRetrieved;
-        public WCF_RetrievalDetail(string retrievalCode, string itemName, string quantityRetrieved, string quantityNeeded, string notes, string status, string dateRetrieved)
+        private string stock;
+        public WCF_RetrievalDetail(string retrievalCode, string itemName, string quantityRetrieved, string quantityNeeded, string notes, string status, string dateRetrieved, string stock)
         {
             this.RetrievalCode = retrievalCode;
             this.ItemName = itemName;
@@ -40,6 +41,7 @@ namespace InventoryWebApp.WCF
             this.Notes = notes;
             this.Status = status;
             this.DateRetrieved = dateRetrieved;
+            this.Stock = stock;
         }
 
         public WCF_RetrievalDetail(string retrievalCode)
@@ -143,8 +145,19 @@ namespace InventoryWebApp.WCF
                 dateRetrieved = value;
             }
         }
+        [DataMember]
+        public string Stock
+        {
+            get
+            {
+                return stock;
+            }
 
-        
+            set
+            {
+                stock = value;
+            }
+        }
     }
     [DataContract]
     public class WCF_Request
