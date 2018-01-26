@@ -41,19 +41,37 @@
             <asp:Label ID="lblSupplierAddress" runat="server" Text="Load supplier address here..."></asp:Label>
         </div>
     </div>
+    
     <div class="row">
         <div class="col-md-12">
-            <asp:Label ID="lblTenderDate" runat="server" Text="Load tender created date here..."></asp:Label>
+            Year: <asp:DropDownList runat="server" ID="ddlYear" OnSelectedIndexChanged="ddlYear_SelectedIndexChanged"
+                AutoPostBack="true"></asp:DropDownList>
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-12" id="printA">
+        <div class="col-md-12">
+            Quotation Date: <asp:Label ID="lblTenderDate" runat="server" Text="Load tender created date here..."></asp:Label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8" id="printA">
 
             <%--<div style="width: 100%; height: 400px; overflow: scroll">--%>
             <%--<div id="printA">--%>
-            <asp:GridView ID="gvItemsSupplied" runat="server" AutoGenerateColumns="False" CssClass="table" CellSpacing="-1" GridLines="None">
+            <asp:GridView ID="gvItemsSupplied" runat="server" AutoGenerateColumns="False" CssClass="table" 
+                OnRowDataBound="gvItemsSupplied_RowDataBound"
+                CellSpacing="-1" GridLines="None">
                 <Columns>
-                    <asp:BoundField DataField="Description" HeaderText="Item Name" />
+                    <asp:TemplateField HeaderText ="Stationery Description" >
+                        <ItemTemplate>
+                            <asp:Label runat="server" ID="lblDescription"></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText ="Quotation Price" ItemStyle-HorizontalAlign="Right" HeaderStyle-HorizontalAlign="Right" >
+                        <ItemTemplate>
+                            $&nbsp;&nbsp;<asp:Label runat="server" ID="lblPrice"></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
                 </Columns>
             </asp:GridView>
         </div>

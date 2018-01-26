@@ -53,7 +53,7 @@ namespace InventoryWebApp
 
                 if (lblPrice != null)
                 {
-                    lblPrice.Text = sCatalogue.Price.ToString();
+                    lblPrice.Text = (sCatalogue.Price * adjustment.AdjustmentQuant).ToString();
                 }
 
                 Label lblStock = (e.Row.FindControl("lblStock") as Label);

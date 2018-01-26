@@ -64,7 +64,7 @@ namespace InventoryWebApp
 
                 //gvSearchResult.DataSource = empListInEMployee;
                 //gvSearchResult.DataBind();
-                ImageButton img = (gvSearchResult.FooterRow.FindControl("btnAdd") as ImageButton);
+                LinkButton img = (gvSearchResult.FooterRow.FindControl("btnAdd") as LinkButton);
                 img.Enabled = false;
                 //return empListInEMployee;
                 return empList;
@@ -87,7 +87,7 @@ namespace InventoryWebApp
 
                     //gvSearchResult.DataSource = empListInEMployee;
                     //gvSearchResult.DataBind();
-                    ImageButton img = (gvSearchResult.FooterRow.FindControl("btnAdd") as ImageButton);
+                    LinkButton img = (gvSearchResult.FooterRow.FindControl("btnAdd") as LinkButton);
                     img.Enabled = false;
                     return empList;
                 }
@@ -123,9 +123,9 @@ namespace InventoryWebApp
 
                     //gvSearchResult.DataSource = empListInEMployee;
                     //gvSearchResult.DataBind();
-                    ImageButton img = (gvSearchResult.FooterRow.FindControl("btnAdd") as ImageButton);
+                    LinkButton img = (gvSearchResult.FooterRow.FindControl("btnAdd") as LinkButton);
                     img.Enabled = false;
-                    //ImageButton editimage = (gvSearchResult.FooterRow.FindControl("btnEdit") as ImageButton);
+                    //LinkButton editimage = (gvSearchResult.FooterRow.FindControl("btnEdit") as LinkButton);
                     //editimage.Enabled = false;
 
                     //return empListInEMployee;
@@ -159,7 +159,7 @@ namespace InventoryWebApp
 
                     //gvSearchResult.DataSource = empListInEMployee;
                     //gvSearchResult.DataBind();
-                    ImageButton img = (gvSearchResult.FooterRow.FindControl("btnAdd") as ImageButton);
+                    LinkButton img = (gvSearchResult.FooterRow.FindControl("btnAdd") as LinkButton);
                     img.Enabled = false;
                     return empListInEMployee;
                 }
@@ -542,7 +542,7 @@ namespace InventoryWebApp
             empCodeFooter.Text = empCode.Text;
             empNameFooter.Text = empName.Text;
             currentRoleFooter.Text = currentRole.Text;
-            ImageButton img = (gvSearchResult.FooterRow.FindControl("btnAdd") as ImageButton);
+            LinkButton img = (gvSearchResult.FooterRow.FindControl("btnAdd") as LinkButton);
             img.Enabled = true;
 
 

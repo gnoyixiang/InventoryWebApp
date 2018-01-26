@@ -26,6 +26,7 @@ namespace InventoryWebApp
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             if (!IsPostBack)
             {
                 ddlItemChoice.DataSource = sClerkCtrl.LoadDDLStockAdjustmentNew();
@@ -37,7 +38,7 @@ namespace InventoryWebApp
                     tbxNewQuantity.Text = Convert.ToString(stationery.Stock);
                 }
             }
-
+            tbxNewQuantity.CssClass = "form-control";
             //em to get information for the dropdownlist
             //ddlItemChoice.DataSource = em.StationeryCatalogues.Select(x => x.Description).ToList();
             //ddlItemChoice.DataBind();
@@ -125,16 +126,29 @@ namespace InventoryWebApp
         protected void validNewQuantity_ServerValidate(object source, ServerValidateEventArgs args)
         {
             int newQuantity = Convert.ToInt32(args.Value);
-            args.IsValid = newQuantity >= 0;
-            if (!args.IsValid)
+
+            if (!(newQuantity >= 0))
             {
+                args.IsValid = false;
                 tbxNewQuantity.CssClass = "form-control error";
+                validNewQuantity.ErrorMessage = "New quantity cannot be lower than 0";
             }
             else
             {
-                tbxNewQuantity.CssClass = "form-control";
+                stationery = sClerkCtrl.GetStationeryByDescription(ddlItemChoice.SelectedValue);
+                if (newQuantity == stationery.Stock)
+                {
+                    args.IsValid = false;
+                    tbxNewQuantity.CssClass = "form-control error";
+                    validNewQuantity.ErrorMessage = "New quantity cannot same as current stock";
+                }
+                else
+                {
+                    args.IsValid = true;
+                    tbxNewQuantity.CssClass = "form-control";
+                }
             }
-            validNewQuantity.ErrorMessage = "New quantity cannot be lower than 0";
+            
 
         }
     }

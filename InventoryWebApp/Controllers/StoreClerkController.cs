@@ -25,6 +25,7 @@ namespace InventoryWebApp.Controllers
         IDisbursementDetailsDAO dDetailsDAO = new DisbursementDetailsDAO();
         IAdjustmentDAO adjustmentDAO = new AdjustmentDAO();
         ITenderDAO tenderDAO = new TenderDAO();
+        ITenderDetailsDAO tenderDetailsDAO = new TenderDetailsDAO();
 
         internal int RecommendReorderQty(string itemCode)
         {
@@ -83,6 +84,16 @@ namespace InventoryWebApp.Controllers
             }
 
             return recommendQty;
+        }
+
+        internal List<string> GetTenderYearsFromSupplier(string supplierCode)
+        {
+            List<string> tenderYears = new List<string>();
+            foreach(Tender t in tenderDAO.ListTendersBySupplierCode(supplierCode))
+            {
+                tenderYears.Add(Convert.ToDateTime(t.DateCreated).Year.ToString());
+            }
+            return tenderYears;
         }
 
         internal int SumTotalRequiredQuantity(StationeryCatalogue item)
@@ -593,52 +604,30 @@ namespace InventoryWebApp.Controllers
         //    return supplierDAO.GetSupplier(supplierCode);
         //}
         //QuotationPrint.aspx.cs
-        public DataTable LoadQuotationPriceList(string s, Supplier supplierPick)
+
+        public Tender GetTenderByCodeAndDate(Supplier supplierPick, int year)
         {
-            using (EntityModel em = new EntityModel())
+            List<Tender> tList = tenderDAO.ListTendersBySupplierCode(supplierPick.SupplierCode);
+            Tender tender = null;
+            foreach (Tender t in tList)
             {
-                List<StationeryCatalogue> stationerySupplied = em.StationeryCatalogues.Where
-                    (x => x.Supplier1 == s || x.Supplier2 == s || x.Supplier3 == s).ToList();
-
-                DataTable intermediateDataSource = new DataTable();
-                DataColumn[] keys = new DataColumn[1];
-                DataColumn column;
-                DataRow rowTempDataSource;
-
-                column = new DataColumn();
-                column.DataType = System.Type.GetType("System.String");
-                column.ColumnName = "Description";
-
-                intermediateDataSource.Columns.Add(column);
-
-                keys[0] = column;
-                intermediateDataSource.PrimaryKey = keys;
-
-                column = new DataColumn();
-                column.DataType = System.Type.GetType("System.Decimal");
-                column.ColumnName = "Price";
-                intermediateDataSource.Columns.Add(column);
-
-                Tender tenderTemp;
-                tenderTemp = em.Tenders.Where
-                        (x => x.SupplierCode == supplierPick.SupplierCode).OrderByDescending(x => x.DateCreated).FirstOrDefault();
-
-                foreach (StationeryCatalogue a in stationerySupplied)
+                if (Convert.ToDateTime(t.DateCreated).Year == year)
                 {
-                    rowTempDataSource = intermediateDataSource.NewRow();
-                    rowTempDataSource["Description"] = a.Description;
-
-                    if (tenderTemp != null)
-                    {
-                        rowTempDataSource["Price"] = em.TenderDetails.Where
-                                (x => x.ItemCode == a.ItemCode &&
-                                x.TenderCode == tenderTemp.TenderCode).FirstOrDefault().Price;
-                    }
-
-                    intermediateDataSource.Rows.Add(rowTempDataSource);
+                    tender = t;
+                    break;
                 }
-                return intermediateDataSource;
             }
+            return tender;
+        }
+
+        public List<TenderDetail> LoadQuotationPriceList(Supplier supplierPick, int year)
+        {
+            Tender tender = GetTenderByCodeAndDate(supplierPick, year);
+            if(tender != null)
+            {
+                return tenderDetailsDAO.ListTenderDetailsByTenderCode(tender.TenderCode);
+            }
+            return null;
         }
         //QuotationPrint.aspx.cs
         public Tender GetTender(string supplierCode)
