@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>ConsoleTestApp.TestDepartmentDAO</StartupObject>
+    <StartupObject>ConsoleTestApp.TestUpdateDisbursement</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -61,6 +61,7 @@
     <Compile Include="TestRetrievalDAO.cs" />
     <Compile Include="TestStationeryCatalogueDAO.cs" />
     <Compile Include="TestSupplierDAO.cs" />
+    <Compile Include="TestUpdateDisbursement.cs" />
     <Compile Include="TestUserDAO.cs" />
     <Compile Include="TestTenderDAO.cs" />
     <Compile Include="TestTenderDetailsDAO.cs" />

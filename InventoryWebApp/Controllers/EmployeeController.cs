@@ -109,9 +109,33 @@ namespace InventoryWebApp.Controllers
         {
             return Idbm.ListAllDisbursement();
         }
-        public List<DisbursementDetail> ListAllDisbursementDetails()
+        public List<DisbursementDetail> DisbursementDetails(string disbrusementCode)
         {
-            return IdbmDetails.ListAllDisbursementDetails();
+            return IdbmDetails.GetDisbursementDetails(disbrusementCode);
+        }
+        public int UpdateDisbursement(Disbursement d)
+        {
+            return Idbm.UpdateDbmStatus(d);
+        }
+        public Disbursement GetDisbursementCode(string disbursementCode)
+        {
+            return Idbm.GetDisbursementByCode(disbursementCode);
+        }
+        public int UpdateRequestDetails(RequestDetail reDetails)
+        {
+            return Ird.UpdateRequestDetail(reDetails);
+        }
+        public int UpdateRequestStatus(Request rq, string status)
+        {
+            return Ir.UpdateRequestStatus(rq, status);
+        }
+        public int UpdateRequest(Request rq)
+        {
+            return Ir.UpdateRequest(rq);
+        }
+        public List<RequestDetail> ListRequestDetail(string requestCode)
+        {
+            return Ird.ListRequestDetail(requestCode);
         }
     }
 }

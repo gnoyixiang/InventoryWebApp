@@ -18,8 +18,12 @@ namespace InventoryWebApp.WCF
         List<WCF_Disbursement> ListAllDisbursement();
 
         [OperationContract]
-        [WebGet(UriTemplate = "/ListDisbursementDetails", ResponseFormat = WebMessageFormat.Json)]
-        List<WCF_DisbursementDetails> ListAllDisbursementDetails();
+        [WebGet(UriTemplate = "/DisbursementDetails/{disbursementCode}", ResponseFormat = WebMessageFormat.Json)]
+        List<WCF_DisbursementDetails> DisbursementDetails(string disbursementCode);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "/UpdateDisbursement", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        void UpdateDisbursement(WCF_Disbursement wcfDisbursement);
     }
     [DataContract]
     public class WCF_Disbursement
@@ -30,12 +34,15 @@ namespace InventoryWebApp.WCF
         private string departmentName;
 
         private string status;
-        
-        public WCF_Disbursement(string _disbursementCode, string _departmentName, string _status)
+
+        private string repName;
+
+        public WCF_Disbursement(string _disbursementCode, string _departmentName, string _status, string _repName)
         {
             this.disbursementCode = _disbursementCode;
             this.departmentName = _departmentName;
             this.status = _status;
+            this.repName = _repName;
         }
 
         [DataMember]
@@ -56,50 +63,74 @@ namespace InventoryWebApp.WCF
             get { return status; }
             set { status = value; }
         }
+        [DataMember]
+        public string RepName
+        {
+            get { return repName; }
+            set { repName = value; }
+        }
     }
     [DataContract]
     public class WCF_DisbursementDetails
     {
-        [DataMember]
+       
         private string disbursementCode;
-        [DataMember]
+        
         private string itemDescription;
-        [DataMember]
-        private int actualQuantity;
-        [DataMember]
+        
+        private string actualQuantity;
+
+        private string neededQuantity;
+      
         private string collectionPointName;
-        //[DataMember]
+        
         //private string collectionTime;
-        [DataMember]
+
+        private string departmentName;
+        
         private string repName;
-        [DataMember]
+      
         private string status;
         public WCF_DisbursementDetails(string _disbursementCode, string _itemDescription,
-            int _actualQuantity, string _collectionPointName, string _repName, string _status)
+            string _actualQuantity, string _neededQuantity, string _collectionPointName, string _deparmentName, string _repName, string _status)
         {
             this.disbursementCode = _disbursementCode;
             this.itemDescription = _itemDescription;
             this.actualQuantity = _actualQuantity;
+            this.neededQuantity = _neededQuantity;
             this.collectionPointName = _collectionPointName;
-            //this.collectionTime = _collectionTime;
+           // this.collectionTime = _collectionTime;
+            this.departmentName = _deparmentName;
             this.repName = _repName;
             this.status = _status;
         }
+        //string _collectionTime,
+        [DataMember]
         public string DisbursementCode
         {
             get { return disbursementCode; }
             set { disbursementCode = value; }
         }
+        [DataMember]
         public string ItemDescription
         {
             get { return itemDescription; }
             set { itemDescription = value; }
         }
-        public int ActualQuantity
+        [DataMember]
+        public string ActualQuantity
         {
             get { return actualQuantity; }
             set { actualQuantity = value; }
         }
+        [DataMember]
+        public string NeededQuantity
+        {
+            get { return neededQuantity; }
+            set { neededQuantity = value; }
+        }
+
+        [DataMember]
         public string CollectionPointName
         {
             get { return collectionPointName; }
@@ -110,11 +141,19 @@ namespace InventoryWebApp.WCF
         //    get { return collectionTime; }
         //    set { collectionTime = value; }
         //}
+        [DataMember]
+        public string DepartmentName
+        {
+            get { return departmentName; }
+            set { departmentName = value; }
+        }
+        [DataMember]
         public string RepName
         {
             get { return repName; }
             set { repName = value; }
         }
+        [DataMember]
         public string Status
         {
             get { return status; }

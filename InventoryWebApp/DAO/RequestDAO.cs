@@ -31,7 +31,10 @@ namespace InventoryWebApp.DAO
         }
         public Request GetRequest(string ROCode)
         {
-            return new EntityModel().Requests.Where(p => p.RequestCode == ROCode).FirstOrDefault<Request>();
+            using (EntityModel em = new EntityModel())
+            {
+                return em.Requests.Where(p => p.RequestCode == ROCode).FirstOrDefault<Request>();
+            }
         }
         public int AddRequest(Request newR)
         {
@@ -70,7 +73,5 @@ namespace InventoryWebApp.DAO
                 return em.SaveChanges();
             }
         }
-
-
     }
 }

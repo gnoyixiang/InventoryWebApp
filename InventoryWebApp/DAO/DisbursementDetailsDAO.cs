@@ -22,10 +22,12 @@ namespace InventoryWebApp.DAO
             em = new EntityModel();
             return em.DisbursementDetails.Where(dd => dd.RequestCode == request.RequestCode).ToList();
         }
-        public List<DisbursementDetail> ListAllDisbursementDetails()
+        public List<DisbursementDetail> GetDisbursementDetails(string disbursementCode)
         {
-            em = new EntityModel();
-            return em.DisbursementDetails.ToList();
+            using (EntityModel em = new EntityModel())
+            {
+                return em.DisbursementDetails.Where(x => x.DisbursementCode == disbursementCode).ToList();
+            }
         }
     }
 }
