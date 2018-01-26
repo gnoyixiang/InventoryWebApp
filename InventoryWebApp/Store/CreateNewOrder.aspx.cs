@@ -30,9 +30,9 @@ namespace InventoryWebApp
         {
             List<StationeryCatalogue> stationeries = scController.GetStationeriesBelowReorderLevel();
             List<PurchaseItem> purchaseItems = new List<PurchaseItem>();
-            if (ViewState["purchaseItems"] != null)
+            if (Session["purchaseItems"] != null)
             {
-                purchaseItems = (List<PurchaseItem>)ViewState["purchaseItems"];               
+                purchaseItems = (List<PurchaseItem>)Session["purchaseItems"];               
             }
             else
             {
@@ -50,7 +50,7 @@ namespace InventoryWebApp
                 }
             }
 
-            ViewState["purchaseItems"] = purchaseItems;
+            Session["purchaseItems"] = purchaseItems;
         }
 
         private void RefreshCategory()
@@ -88,11 +88,11 @@ namespace InventoryWebApp
                 return;
             }
 
-            var purchaseItems = (List<PurchaseItem>)ViewState["purchaseItems"];
+            var purchaseItems = (List<PurchaseItem>)Session["purchaseItems"];
             if (scController.CreatePurchaseOrders(purchaseItems) != 0)
             {
                 Session["CreatedPO"] = true;
-                ViewState["purchaseItems"] = null;
+                Session["purchaseItems"] = null;
             }
             else
             {
@@ -103,6 +103,7 @@ namespace InventoryWebApp
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
+            Session["purchaseItems"] = null;
             Response.Redirect("/StoreClerk/ViewPurchaseOrders");
         }
         
@@ -122,12 +123,12 @@ namespace InventoryWebApp
                 var lblAmount = (Label)parentItem.FindControl("lblAmount");
                 lblAmount.Text = GetAmount(txtOrderQty.Text, lblPrice.Text).ToString();
 
-                var purchaseItems = (List<PurchaseItem>)ViewState["purchaseItems"];
+                var purchaseItems = (List<PurchaseItem>)Session["purchaseItems"];
                 if (purchaseItems != null)
                 {
                     purchaseItems[parentItem.DataItemIndex].SupplierCode = supplierCode;
                 }
-                ViewState["purchaseItems"] = purchaseItems;
+                Session["purchaseItems"] = purchaseItems;
             }
         }
 
@@ -157,6 +158,9 @@ namespace InventoryWebApp
             int recommendQty = scController.RecommendReorderQty(item.ItemCode);
             lblRecommendQty.Text = recommendQty.ToString();
 
+            var lblModalRecommendQty = (Label)e.Item.FindControl("lblModalRecommendQty");
+            lblModalRecommendQty.Text = recommendQty.ToString();
+
             //var listRequests = (ListView)e.Item.FindControl("listRequests");
             //listRequests.DataSource = scController.ListIncompleteOrProcessingRequestsDetails(item.ItemCode);
             //listRequests.DataBind();
@@ -164,7 +168,7 @@ namespace InventoryWebApp
             //var listOrders = (ListView)e.Item.FindControl("listOrders");
             //listOrders.DataSource = scController.ListPendingAndApprovedOrderDetails(item.ItemCode);
             //listOrders.DataBind();
-            
+
 
         }
 
@@ -204,12 +208,12 @@ namespace InventoryWebApp
                 ListViewDataItem parentItem = (ListViewDataItem)txt.Parent;
                 int quantity = Convert.ToInt32(txt.Text);
                 
-                var purchaseItems = (List<PurchaseItem>)ViewState["purchaseItems"];
+                var purchaseItems = (List<PurchaseItem>)Session["purchaseItems"];
                 if (purchaseItems != null)
                 {
                     purchaseItems[parentItem.DataItemIndex].OrderQuantity = quantity;
                 }
-                ViewState["purchaseItems"] = purchaseItems;
+                Session["purchaseItems"] = purchaseItems;
                 
 
                 Label lblPrice = (Label)parentItem.FindControl("lblPrice");
@@ -291,7 +295,7 @@ namespace InventoryWebApp
                 string categoryCode = ddlAddCategory.SelectedValue;
                 List<String> descriptionList = scController.GetProductListByCat(categoryCode);
 
-                var purchaseItems = (List<PurchaseItem>)ViewState["purchaseItems"];
+                var purchaseItems = (List<PurchaseItem>)Session["purchaseItems"];
                 if (purchaseItems != null)
                 {
                     foreach (String description in descriptionList)
@@ -394,13 +398,13 @@ namespace InventoryWebApp
             {
                 return;
             }
-            var purchaseItems = (List<PurchaseItem>)ViewState["purchaseItems"];
+            var purchaseItems = (List<PurchaseItem>)Session["purchaseItems"];
             PurchaseItem pi = new PurchaseItem();
             pi.Stationery = stationery;
             pi.SupplierCode = supplier.SupplierCode;
             pi.OrderQuantity = int.Parse(orderQuantity);
             purchaseItems.Add(pi);
-            ViewState["purchaseItems"] = purchaseItems;
+            Session["purchaseItems"] = purchaseItems;
 
             BindData();
 
@@ -409,19 +413,19 @@ namespace InventoryWebApp
 
         protected void listItems_ItemDeleting(object sender, ListViewDeleteEventArgs e)
         {
-            var purchaseItems = (List<PurchaseItem>)ViewState["purchaseItems"];
+            var purchaseItems = (List<PurchaseItem>)Session["purchaseItems"];
             if (purchaseItems != null)
             {
                 PurchaseItem deleteItem = purchaseItems[e.ItemIndex];
                 purchaseItems.Remove(deleteItem);
-                ViewState["purchaseItems"] = purchaseItems;
+                Session["purchaseItems"] = purchaseItems;
                 BindData();
             }
         }
 
         private void BindData()
         {
-            var purchaseItems = (List<PurchaseItem>)ViewState["purchaseItems"];
+            var purchaseItems = (List<PurchaseItem>)Session["purchaseItems"];
             if (purchaseItems!=null)
             {
                 listItems.Visible = true;
@@ -450,12 +454,12 @@ namespace InventoryWebApp
                 TextBox t = (TextBox)sender;
                 ListViewDataItem item = (ListViewDataItem)t.Parent;
                 string notes = t.Text;
-                var purchaseItems = (List<PurchaseItem>)ViewState["purchaseItems"];
+                var purchaseItems = (List<PurchaseItem>)Session["purchaseItems"];
                 if (purchaseItems != null)
                 {
                     purchaseItems[item.DataItemIndex].Notes = notes;
                 }
-                ViewState["purchaseItems"] = purchaseItems;
+                Session["purchaseItems"] = purchaseItems;
 
             }
         }
@@ -502,16 +506,40 @@ namespace InventoryWebApp
             var listRequests = (ListView)listViewDataItem.FindControl("listRequests");
             listRequests.DataSource = null;
             listRequests.DataBind();
+            
+            var panelNoRequests = (Panel)listViewDataItem.FindControl("panelNoRequests");
+            if (scController.ListIncompleteOrProcessingRequestsDetails(item.ItemCode).Count > 0)
+            {
+                
+                panelNoRequests.Visible = false;
+                listRequests.Visible = true;
+                listRequests.DataSource = scController.ListIncompleteOrProcessingRequestsDetails(item.ItemCode);
+                listRequests.DataBind();
+            }
+            else
+            {
+                panelNoRequests.Visible = true;
+                listRequests.Visible = false;
+            }
 
-            listRequests.DataSource = scController.ListIncompleteOrProcessingRequestsDetails(item.ItemCode);
-            listRequests.DataBind();
-
+            
             var listOrders = (ListView)listViewDataItem.FindControl("listOrders");
             listOrders.DataSource = null;
             listOrders.DataBind();
 
-            listOrders.DataSource = scController.ListPendingAndApprovedOrderDetails(item.ItemCode);
-            listOrders.DataBind();
+            var panelNoOrders = (Panel)listViewDataItem.FindControl("panelNoOrders");
+            if (scController.ListPendingAndApprovedOrderDetails(item.ItemCode).Count > 0)
+            {
+                panelNoOrders.Visible = false;
+                listOrders.Visible = true;
+                listOrders.DataSource = scController.ListPendingAndApprovedOrderDetails(item.ItemCode);
+                listOrders.DataBind();
+            }
+            else
+            {
+                panelNoOrders.Visible = true;
+                listOrders.Visible = false;
+            }
 
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
             sb.Append(@"<script type='text/javascript'>");

@@ -533,7 +533,7 @@ namespace InventoryWebApp.Controllers
         //StockAdjustmentNew.aspx.cs
         public Adjustment PrefillAdjustment(string selectedItem, int quantityUpdate, string reason)
         {
-            DateTime dateCreated = DateTime.Now.Date;
+            DateTime dateCreated = DateTime.Now;
 
             Adjustment a = new Adjustment();
             //a.AdjustmentCode = em.Adjustments.Last().AdjustmentCode;

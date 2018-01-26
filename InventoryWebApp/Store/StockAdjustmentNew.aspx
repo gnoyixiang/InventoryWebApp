@@ -79,7 +79,7 @@
             <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" CssClass="btn btn-primary" />
         </div>
         <div class="col-md-2 col-sm-3">
-            <asp:Button ID="btnDiscard" runat="server" Text="Cancel" OnClick="btnDiscard_Click" CssClass="btn btn-danger" />
+            <asp:Button ID="btnDiscard" runat="server" Text="Cancel" OnClick="btnDiscard_Click" CssClass="btn btn-danger" CausesValidation="false"/>
         </div>
     </div>
 </asp:Content>

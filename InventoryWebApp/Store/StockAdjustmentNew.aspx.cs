@@ -13,6 +13,7 @@ namespace InventoryWebApp
     public partial class StockAdjustmentNew : System.Web.UI.Page
     {
         StoreClerkController sClerkCtrl = new StoreClerkController();
+        StationeryCatalogue stationery;
         protected int CreateQuantityUpdate(String a, String b)
         {
             int c = Int32.Parse(a) - Int32.Parse(b);
@@ -29,6 +30,12 @@ namespace InventoryWebApp
             {
                 ddlItemChoice.DataSource = sClerkCtrl.LoadDDLStockAdjustmentNew();
                 ddlItemChoice.DataBind();
+                stationery = sClerkCtrl.GetStationeryByDescription(ddlItemChoice.SelectedValue);
+                
+                if (stationery != null)
+                {
+                    tbxNewQuantity.Text = Convert.ToString(stationery.Stock);
+                }
             }
 
             //em to get information for the dropdownlist
@@ -41,17 +48,24 @@ namespace InventoryWebApp
             if (!IsPostBack)
             {
                 lblCurrentStockAmount.Text = refreshCurrentStockAmount(ddlItemChoice.SelectedItem.Text);
-            }
-        }
-        protected void ddlItemChoice_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (!String.IsNullOrEmpty(tbxNewQuantity.Text))
-            {
-                lblCurrentStockAmount.Text = sClerkCtrl.UpdateViewCurrentStockAmount(ddlItemChoice.SelectedItem.Text);
-                
                 int updateQuantityShow = (Convert.ToInt32(tbxNewQuantity.Text)) - (Convert.ToInt32(lblCurrentStockAmount.Text));
                 lblQuantityAdjustShow.Text = updateQuantityShow.ToString();
             }
+        }
+        protected void ddlItemChoice_SelectedIndexChanged(object sender, EventArgs e)
+        {            
+            lblCurrentStockAmount.Text = sClerkCtrl.UpdateViewCurrentStockAmount(ddlItemChoice.SelectedItem.Text);
+            stationery = sClerkCtrl.GetStationeryByDescription(ddlItemChoice.SelectedValue);
+            if (stationery != null)
+            {
+                tbxNewQuantity.Text = Convert.ToString(stationery.Stock);
+            }
+            if (tbxNewQuantity.Text != "")
+            {
+                int updateQuantityShow = (Convert.ToInt32(tbxNewQuantity.Text)) - (Convert.ToInt32(lblCurrentStockAmount.Text));
+                lblQuantityAdjustShow.Text = updateQuantityShow.ToString();
+            }
+            
         }
         protected void tbxQuantityAdjust_TextChanged(object sender, EventArgs e)
         {

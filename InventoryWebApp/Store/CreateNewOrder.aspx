@@ -170,8 +170,8 @@
                                             <div class="modal-dialog" role="document" style="width: 90%">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <div style="float: left;">
-                                                            <h5 class="modal-title">Breakdown of Recommended Quantity</h5>
+                                                        <div style="float:left;">
+                                                            <h3 class="modal-title">Breakdown of Recommended Quantity</h3>
                                                         </div>
                                                         <div style="float: right;">
                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -182,102 +182,119 @@
                                                     <div class="modal-body">
                                                         <div class="container-fluid">
                                                             <div class="row">
-                                                                <div class="col-md-6">Item: <%# Eval("Stationery.Description") %></div>
-                                                                <div class="col-md-6">Date: <%# DateTime.Now.ToString("dd MMM yyyy") %></div>
+                                                                <div class="col-md-4">Item:&nbsp;&nbsp;<b><%# Eval("Stationery.Description") %></b></div>                                                                
+                                                                <div class="col-md-4">Date:&nbsp;&nbsp;<b><%# DateTime.Now.ToString("d MMM yyyy") %></b></div>
                                                             </div>
                                                             <div class="row">
-                                                                <%--<asp:UpdatePanel ID="UpdatePanelGridView"
-                                                                    runat="server" UpdateMode="Always">
-                                                                    <ContentTemplate>--%>
-                                                                        <asp:ListView runat="server" ID="listRequests" OnItemDataBound="listRequests_ItemDataBound">
-                                                                            <LayoutTemplate>
-                                                                                <table class="table">
-                                                                                    <thead>
-                                                                                        <tr>
-                                                                                            <th>Request#</th>
-                                                                                            <th class="right">Remaining Qty</th>
-                                                                                            <th class="right">Disbursing / Allocating</th>
-                                                                                            <th class="right">Required Qty</th>
-                                                                                        </tr>
-                                                                                    </thead>
-                                                                                    <tfoot>
-                                                                                        <tr>
-                                                                                            <th>Grand Total</th>
-                                                                                            <th class="right">
-                                                                                                <asp:Label runat="server" ID="lblTotalRemainingQty" Text="0"></asp:Label></th>
-                                                                                            <th class="right">
-                                                                                                <asp:Label runat="server" ID="lblTotalDisbursingOrAllocating" Text="0"></asp:Label></th>
-                                                                                            <th class="right">
-                                                                                                <asp:Label runat="server" ID="lblTotalRequiredQty" Text="0"></asp:Label></th>
-                                                                                        </tr>
-                                                                                    </tfoot>
-                                                                                    <tbody id="itemPlaceholder" runat="server"></tbody>
-                                                                                </table>
-                                                                            </LayoutTemplate>
-                                                                            <ItemTemplate>
-                                                                                <tbody>
+                                                                <div class="col-md-4">
+                                                                    Recommended Reorder Level:&nbsp;&nbsp;
+                                                                    <b><%# (int)(Convert.ToInt32(Eval("Stationery.ReorderLevel")) * 1.2) %>&nbsp;<%# Eval("Stationery.MeasureUnit") %></b>
+                                                                    <br />
+                                                                    (1.2x Reorder Level)
+                                                                </div>
+                                                                <div class="col-md-4">Minimum Reorder Qty:&nbsp;&nbsp;
+                                                                    <b><%# Eval("Stationery.ReorderQuantity") %>&nbsp;<%# Eval("Stationery.MeasureUnit") %></b></div>
+                                                                <div class="col-md-4">Current Stock:&nbsp;&nbsp;
+                                                                    <b><%# Eval("Stationery.Stock") %>&nbsp;<%# Eval("Stationery.MeasureUnit") %></b></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <asp:Panel runat="server" ID="panelNoRequests">
+                                                                        <h5>No outstanding requests for this item.</h5>
+                                                                    </asp:Panel>
+                                                                    <asp:ListView runat="server" ID="listRequests" OnItemDataBound="listRequests_ItemDataBound">
+                                                                        <LayoutTemplate>
+                                                                            <table class="table">
+                                                                                <thead>
                                                                                     <tr>
-                                                                                        <td><%# Eval("RequestCode") %></td>
-                                                                                        <td class="right">
-                                                                                            <asp:Label runat="server" ID="lblRemainingQty"></asp:Label></td>
-                                                                                        <td class="right">
-                                                                                            <asp:Label runat="server" ID="lblDisbursingOrAllocating"></asp:Label></td>
-                                                                                        <td class="right">
-                                                                                            <asp:Label runat="server" ID="lblRequiredQty"></asp:Label></td>
+                                                                                        <th>Request#</th>
+                                                                                        <th class="right">Remaining Qty</th>
+                                                                                        <th class="right">Disbursing / Allocating</th>
+                                                                                        <th class="right">Required Qty</th>
                                                                                     </tr>
-                                                                                </tbody>
-                                                                            </ItemTemplate>
-                                                                        </asp:ListView>
-                                                                        <br />
-                                                                        <asp:ListView runat="server" ID="listOrders" OnItemDataBound="listOrders_ItemDataBound">
-                                                                            <LayoutTemplate>
-                                                                                <table class="table">
-                                                                                    <thead>
-                                                                                        <tr>
-                                                                                            <th>PO#</th>
-                                                                                            <th class="right">Order Status</th>
-                                                                                            <th class="right">Order / Approved Date</th>
-                                                                                            <th class="right">Order Quantity</th>
-                                                                                        </tr>
-                                                                                    </thead>
-                                                                                    <tfoot>
-                                                                                        <tr>
-                                                                                            <th colspan="3" class="right">Grand Total</th>
-                                                                                            <th class="right">
-                                                                                                <asp:Label runat="server" ID="lblTotalOrderQty" Text="0"></asp:Label></th>
-                                                                                        </tr>
-                                                                                    </tfoot>
-                                                                                    <tbody id="itemPlaceholder" runat="server"></tbody>
-                                                                                </table>
-                                                                            </LayoutTemplate>
-                                                                            <ItemTemplate>
-                                                                                <tbody>
+                                                                                </thead>
+                                                                                <tfoot>
                                                                                     <tr>
-                                                                                        <td><%# Eval("PurchaseOrderCode") %></td>
-                                                                                        <td class="right">
-                                                                                            <asp:Label runat="server" ID="lblOrderStatus"></asp:Label></td>
-                                                                                        <td class="right">
-                                                                                            <asp:Label runat="server" ID="lblDate"></asp:Label></td>
-                                                                                        <td class="right"><%# Eval("Quantity") %></td>
+                                                                                        <th>Grand Total</th>
+                                                                                        <th class="right">
+                                                                                            <asp:Label runat="server" ID="lblTotalRemainingQty" Text="0"></asp:Label></th>
+                                                                                        <th class="right">
+                                                                                            <asp:Label runat="server" ID="lblTotalDisbursingOrAllocating" Text="0"></asp:Label></th>
+                                                                                        <th class="right">
+                                                                                            <asp:Label runat="server" ID="lblTotalRequiredQty" Text="0"></asp:Label></th>
                                                                                     </tr>
-                                                                                </tbody>
-                                                                            </ItemTemplate>
-                                                                        </asp:ListView>
-                                                                    <%--</ContentTemplate>
-                                                                    <Triggers>
-                                                                        <asp:AsyncPostBackTrigger ControlID="linkBreakdown" />
-                                                                    </Triggers>
-                                                                </asp:UpdatePanel>--%>
+                                                                                </tfoot>
+                                                                                <tbody id="itemPlaceholder" runat="server"></tbody>
+                                                                            </table>
+                                                                        </LayoutTemplate>
+                                                                        <ItemTemplate>
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td><%# Eval("RequestCode") %></td>
+                                                                                    <td class="right">
+                                                                                        <asp:Label runat="server" ID="lblRemainingQty"></asp:Label></td>
+                                                                                    <td class="right">
+                                                                                        <asp:Label runat="server" ID="lblDisbursingOrAllocating"></asp:Label></td>
+                                                                                    <td class="right">
+                                                                                        <asp:Label runat="server" ID="lblRequiredQty"></asp:Label></td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </ItemTemplate>
+                                                                    </asp:ListView>
+                                                                    <br />
+                                                                    <asp:Panel runat="server" ID="panelNoOrders">
+                                                                        <h5>No pending or approved orders for this item.</h5>
+                                                                    </asp:Panel>
+                                                                    <asp:ListView runat="server" ID="listOrders" OnItemDataBound="listOrders_ItemDataBound">
+                                                                        <LayoutTemplate>
+                                                                            <table class="table">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>PO#</th>
+                                                                                        <th class="right">Order Status</th>
+                                                                                        <th class="right">Order / Approved Date</th>
+                                                                                        <th class="right">Order Quantity</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tfoot>
+                                                                                    <tr>
+                                                                                        <th colspan="3" class="right">Grand Total</th>
+                                                                                        <th class="right">
+                                                                                            <asp:Label runat="server" ID="lblTotalOrderQty" Text="0"></asp:Label></th>
+                                                                                    </tr>
+                                                                                </tfoot>
+                                                                                <tbody id="itemPlaceholder" runat="server"></tbody>
+                                                                            </table>
+                                                                        </LayoutTemplate>
+                                                                        <ItemTemplate>
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td><%# Eval("PurchaseOrderCode") %></td>
+                                                                                    <td class="right">
+                                                                                        <asp:Label runat="server" ID="lblOrderStatus"></asp:Label></td>
+                                                                                    <td class="right">
+                                                                                        <asp:Label runat="server" ID="lblDate"></asp:Label></td>
+                                                                                    <td class="right"><%# Eval("Quantity") %></td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </ItemTemplate>
+                                                                    </asp:ListView>
+                                                                </div>
+                                                            </div>
 
-                                                            </div>
                                                             <div class="row">
-                                                                <div class="col-md-6"></div>
+                                                                <div class="col-md-4">
+                                                                    Recommended Reorder Quantity:<b><u><asp:Label runat="server" ID="lblModalRecommendQty" Style="padding-left: 10px"></asp:Label>
+                                                                    &nbsp;<%# Eval("Stationery.MeasureUnit") %></u></b>
+                                                                </div>
+                                                            </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="modal-footer">
+                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                     </div>
+                                                    </div>
+                                                   
                                                 </div>
                                             </div>
                                         </div>

@@ -212,15 +212,16 @@
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
     <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
     <Content Include="Account\VerifyPhoneNumber.aspx" />
-    <Content Include="AdjustmentByStoreManager.aspx" />
-    <Content Include="AdjustmentByStoreSupervisor.aspx" />
-    <Content Include="AssigningAuthorityStoreDept.aspx" />
+    <Content Include="Store\AdjustmentByStoreManager.aspx" />
+    <Content Include="Store\AdjustmentByStoreSupervisor.aspx" />
+    <Content Include="Store\AssigningAuthorityStoreDept.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\custom.css" />
     <Content Include="Content\custom2.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Store\StoreEmployeeList.aspx" />
     <Content Include="Store\CreateNewOrder.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -281,6 +282,7 @@
     <Content Include="Global.asax" />
     <Content Include="Site.Master" />
     <Content Include="Store\ViewStockCard.aspx" />
+    <Content Include="Store\SupplierList.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="WCF\ClerkService.svc" />
     <Content Include="WCF\DepartmentService.svc" />
@@ -417,6 +419,7 @@
     </Compile>
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\StoreClerkController.cs" />
+    <Compile Include="Controllers\StoreManagerController.cs" />
     <Compile Include="Controllers\StoreSupervisorController.cs" />
     <Compile Include="DAO\IRequestDAO.cs" />
     <Compile Include="DAO\IRequestDetailsDAO.cs" />
@@ -467,11 +470,25 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="AssigningAuthorityStoreDept.aspx.cs">
+    <Compile Include="Store\AdjustmentByStoreManager.aspx.cs">
+      <DependentUpon>AdjustmentByStoreManager.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Store\AdjustmentByStoreManager.aspx.designer.cs">
+      <DependentUpon>AdjustmentByStoreManager.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Store\AdjustmentByStoreSupervisor.aspx.cs">
+      <DependentUpon>AdjustmentByStoreSupervisor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Store\AdjustmentByStoreSupervisor.aspx.designer.cs">
+      <DependentUpon>AdjustmentByStoreSupervisor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Store\AssigningAuthorityStoreDept.aspx.cs">
       <DependentUpon>AssigningAuthorityStoreDept.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AssigningAuthorityStoreDept.aspx.designer.cs">
+    <Compile Include="Store\AssigningAuthorityStoreDept.aspx.designer.cs">
       <DependentUpon>AssigningAuthorityStoreDept.aspx</DependentUpon>
     </Compile>
     <Compile Include="Contact.aspx.cs">
@@ -589,20 +606,17 @@
     </Compile>
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
-    </Compile><Compile Include="StoreEmployeeList.aspx.cs">
+    </Compile>
+    <Compile Include="Store\StoreEmployeeList.aspx.cs">
       <DependentUpon>StoreEmployeeList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="StoreEmployeeList.aspx.designer.cs">
-      <DependentUpon>StoreEmployeeList.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="SupplierList.aspx.cs">
+    <Compile Include="Store\StoreEmployeeList.aspx.designer.cs" />
+    <Compile Include="Store\SupplierList.aspx.cs">
       <DependentUpon>SupplierList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="SupplierList.aspx.designer.cs">
-      <DependentUpon>SupplierList.aspx</DependentUpon>
-    </Compile>
+    <Compile Include="Store\SupplierList.aspx.designer.cs" />
     <Compile Include="Store\StockCardSearch.aspx.cs">
       <DependentUpon>StockCardSearch.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
