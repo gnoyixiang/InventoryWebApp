@@ -116,6 +116,7 @@ namespace InventoryWebApp
                 gvStockCard.RowStyle.CssClass = "rowstyle";
                 gvStockCard.GridLines =Both;
                 panelStockCard.Controls.Add(gvStockCard);
+                
                
             }
 
