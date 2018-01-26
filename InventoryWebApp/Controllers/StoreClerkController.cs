@@ -19,6 +19,19 @@ namespace InventoryWebApp.Controllers
         IRetrievalDetailsDAO retrievalDetailsDAO = new RetrievalDetailsDAO();
         IStationeryCatalogueDAO stationeryDAO = new StationeryCatalogueDAO();
         ICollectionPointDAO collectionPointDAO = new CollectionPointDAO();
+        public RetrievalDetail GetProcessingRetrievalDetailByItemCode(String itemCode)
+        {
+            List<RetrievalDetail> rdList = retrievalDetailsDAO.ListRetrievalDetailsByRetrievalCode(GetCurrentRetrieval().RetrievalCode);
+            foreach (var item in rdList)
+            {
+                if (item.ItemCode == itemCode)
+                {
+                    return item;
+                }
+            }
+            return null;
+            
+        }
         
         public List<Retrieval> GetRetrievalsByStatus(String status)
         {
@@ -436,6 +449,7 @@ namespace InventoryWebApp.Controllers
                     retrieval.RetrievalCode = "RT" + DateTime.Now.ToString("yyMMddHHmmssfff");
                     retrieval.Status = "processing";
                     retrieval.UserName = "nathalie@ssis.edu.sg";
+                    retrieval.DateRetrieved = DateTime.Today;
                     //retrieval.UserName = Identity.User;
                     //retrieval.DateRetrieved = DateTime.Now;
                     retrieval = CreateRetrievalDetails(retrieval);

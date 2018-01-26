@@ -14,18 +14,20 @@ namespace InventoryWebApp.WCF
     // NOTE: In order to launch WCF Test Client for testing this service, please select ClerkService.svc or ClerkService.svc.cs at the Solution Explorer and start debugging.
     public class ClerkService : IClerkService
     {
-        StoreClerkController sClerkCtrl = new StoreClerkController();
-        public WCF_RetrievalDetail GetRetrievalDetail(string itemCode)
+        void IClerkService.UpdateRetrievalDetail(WCF_RetrievalDetail wrd)
         {
-            List<WCF_RetrievalDetail> wrdList = GetProcessingRetrievalDetails();
-            foreach(var item in wrdList)
-            {
-                if (item.ItemCode == itemCode)
-                {
-                    return item;
-                }
-            }
-            return null;
+            RetrievalDetail rd = sClerkCtrl.GetProcessingRetrievalDetailByItemCode(wrd.ItemCode);
+            rd.QuantityRetrieved = Int32.Parse(wrd.QuantityRetrieved);
+            rd.Notes = wrd.Notes;
+            sClerkCtrl.UpdateRetrievalDetail(rd);
+        }
+
+        StoreClerkController sClerkCtrl = new StoreClerkController();
+        public WCF_RetrievalDetail GetRetrievalDetail(string id)
+        {
+            Retrieval r = sClerkCtrl.GetCurrentRetrieval();
+            RetrievalDetail item = sClerkCtrl.GetProcessingRetrievalDetailByItemCode(id);
+            return new WCF_RetrievalDetail(item.RetrievalCode, sClerkCtrl.GetStationeryByCode(item.ItemCode).Description, item.QuantityRetrieved.ToString(), item.QuantityNeeded.ToString(), item.Notes, r.Status, r.DateRetrieved == null ? "" : ((DateTime)r.DateRetrieved).ToString("dd MMM yyyy"), sClerkCtrl.GetStationeryByCode(item.ItemCode).Stock.ToString(), sClerkCtrl.GetStationeryByCode(item.ItemCode).Location, item.ItemCode);
         }
         public List<WCF_RetrievalDetail> GetProcessingRetrievalDetails()
         {

@@ -12,10 +12,15 @@ namespace InventoryWebApp.WCF
     [ServiceContract]
     public interface IClerkService
     {
+        [OperationContract]
+        [WebInvoke(UriTemplate = "/ProcessingRetrievalDetail/Update", Method = "POST",
+        RequestFormat = WebMessageFormat.Json,
+        ResponseFormat = WebMessageFormat.Json)]
+        void UpdateRetrievalDetail(WCF_RetrievalDetail wrd);
 
         [OperationContract]
-        [WebGet(UriTemplate = "/ProcessingRetrievalDetail/{itemCode}", ResponseFormat = WebMessageFormat.Json)]
-        WCF_RetrievalDetail GetRetrievalDetail(string itemCode);
+        [WebGet(UriTemplate = "/ProcessingRetrievalDetail/{id}", ResponseFormat = WebMessageFormat.Json)]
+        WCF_RetrievalDetail GetRetrievalDetail(string id);
 
         [OperationContract]
         [WebGet(UriTemplate = "/ProcessingRetrievalDetails", ResponseFormat = WebMessageFormat.Json)]
@@ -24,6 +29,8 @@ namespace InventoryWebApp.WCF
         [OperationContract]
         [WebGet(UriTemplate = "/OutstandingRequests", ResponseFormat = WebMessageFormat.Json)]
         List<WCF_Request> GetOutstandingRequests();
+
+        
 
     }
     [DataContract]
