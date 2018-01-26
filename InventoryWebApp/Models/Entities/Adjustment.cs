@@ -45,3 +45,4 @@ namespace InventoryWebApp.Models.Entities
         public virtual StationeryCatalogue StationeryCatalogue { get; set; }
     }
 }
+

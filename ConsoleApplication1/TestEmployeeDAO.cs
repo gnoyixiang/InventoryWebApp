@@ -5,13 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using InventoryWebApp.Models.Entities;
 using InventoryWebApp.DAO;
+using InventoryWebApp.Controllers;
+using System.Collections;
+
 namespace ConsoleTestApp
 {
     class TestEmployeeDAO
     {
 
-        public static void Main()
-        {
+        //public static void Main()
+        //{
 
             //EmployeeDAOTest
             IEmployeeDAO edao = new EmployeeDAO();
@@ -54,18 +57,47 @@ namespace ConsoleTestApp
                Console.WriteLine(s);
             }*/
 
+            //This method will seacrch and return a list of Employee based on the employeeName
+            //List<Employee> empNameList = edao.SearchByEmployeeName("Zh");
+
+            //foreach (Employee e in empNameList)
+            //{
+            //    Console.WriteLine(e.EmployeeName);
+
+            //}
+
+            //This method will return a list of Employee based on the employeCode.
+            //List<Employee> empCodeList = edao.SearchByEmployeeCode("10001");
+
+            //foreach (Employee e in empCodeList)
+            //{
+            //    Console.WriteLine(e.EmployeeName);
+
+            //}
+
+            //This method search employee who are present only in store department.
+            //List<Employee> stlist = edao.SearchStoreEmployee("10017");
+
+            //foreach (Employee e in stlist)
+            //{
+            //    Console.WriteLine(e.EmployeeName);
+
+            //}
+            //Console.ReadLine();
 
 
+            //StoreSupervisorController s = new StoreSupervisorController();
 
+            //ArrayList al = s.ListOfEmployeeNameInStore("Koh");
 
+            //foreach (Employee a in al)
+            //{
+            //    Console.WriteLine(a.EmployeeName);
+            //}
 
+            //Console.ReadLine();
 
-
-
-
-
-
-        }
+        //}
 
 
     }

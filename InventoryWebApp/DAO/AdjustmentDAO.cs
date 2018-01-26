@@ -116,5 +116,37 @@ namespace InventoryWebApp.DAO
                 return em.Adjustments.Where(x => x.ItemCode == itemCode).ToList<Adjustment>();
             }
         }
+
+        public int UpdateAdjustmentByStoreSupervisor(Adjustment adjustment)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+              Adjustment ad =   em.Adjustments.Where(x => x.AdjustmentCode.Equals(adjustment.AdjustmentCode)).FirstOrDefault();
+
+                ad.AdjustmentCode = adjustment.AdjustmentCode;
+                ad.Status = adjustment.Status;
+                ad.DateApproved = adjustment.DateApproved;
+                ad.ApprovedBy = adjustment.ApprovedBy;
+                //ad.Notes = adjustment.Notes;
+                ad.HeadRemarks = adjustment.HeadRemarks;
+
+              return  em.SaveChanges();
+
+
+            }
+
+            
+        }
+
+        public Adjustment GetAdjustmentByAdjustmentCode(string adjustmentCode)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+              return  em.Adjustments.Where(x => x.AdjustmentCode.Equals(adjustmentCode)).FirstOrDefault();
+
+
+            }
+
+        }
     }
 }

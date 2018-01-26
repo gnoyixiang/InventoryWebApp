@@ -28,8 +28,37 @@ namespace InventoryWebApp.WCF
             }
             return wcfPoList;
         }
-     
 
-       
+        public List<WCFAdjustment> ListOfPendingRequestForManager()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<WCFAdjustment> ListOfPendingRequestForSupervisor()
+        {
+            List<WCFAdjustment> listOfWcfAdjustmwnt = new List<WCFAdjustment>();
+            WCFAdjustment wcfAdjustment = new WCFAdjustment();
+            WCFAdjustment wcfAdjustment2 = new WCFAdjustment();
+            wcfAdjustment2.Remark = "NotFound";
+            WCFAdjustment wcfAdjustment3 = new WCFAdjustment();
+            wcfAdjustment3.Remark = "Go to hell";
+           // List<Adjustment> adList = controller.ListOfPendingAdjustmentBySupervisor();
+
+            //foreach (Adjustment a in adList)
+            //{
+            //    wcfAdjustment.AdjustmentCode = a.AdjustmentCode;
+            //    wcfAdjustment.ItemCode = a.ItemCode;
+            //    // wcfAdjustment.AdjustmentQuant =(int) a.AdjustmentQuant;
+            //    wcfAdjustment.Reason = a.Reason;
+            //    wcfAdjustment.Remark = a.HeadRemarks;
+                
+            //}
+
+            listOfWcfAdjustmwnt.Add(wcfAdjustment);
+            listOfWcfAdjustmwnt.Add(wcfAdjustment2);
+            listOfWcfAdjustmwnt.Add(wcfAdjustment3);
+            return listOfWcfAdjustmwnt;
+        }
+
     }
 }

@@ -93,7 +93,7 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
-    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.ServiceModel.Web, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
@@ -212,6 +212,9 @@
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
     <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
     <Content Include="Account\VerifyPhoneNumber.aspx" />
+    <Content Include="AdjustmentByStoreManager.aspx" />
+    <Content Include="AdjustmentByStoreSupervisor.aspx" />
+    <Content Include="AssigningAuthorityStoreDept.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -464,6 +467,13 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="AssigningAuthorityStoreDept.aspx.cs">
+      <DependentUpon>AssigningAuthorityStoreDept.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AssigningAuthorityStoreDept.aspx.designer.cs">
+      <DependentUpon>AssigningAuthorityStoreDept.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -579,6 +589,19 @@
     </Compile>
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
+    </Compile><Compile Include="StoreEmployeeList.aspx.cs">
+      <DependentUpon>StoreEmployeeList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreEmployeeList.aspx.designer.cs">
+      <DependentUpon>StoreEmployeeList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SupplierList.aspx.cs">
+      <DependentUpon>SupplierList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SupplierList.aspx.designer.cs">
+      <DependentUpon>SupplierList.aspx</DependentUpon>
     </Compile>
     <Compile Include="Store\StockCardSearch.aspx.cs">
       <DependentUpon>StockCardSearch.aspx</DependentUpon>
@@ -674,7 +697,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>15132</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:15132/</IISUrl>
+          <IISUrl>http://localhost:15133/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

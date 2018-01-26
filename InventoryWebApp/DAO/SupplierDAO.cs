@@ -15,7 +15,7 @@ namespace InventoryWebApp.DAO
         {
             using (EntityModel em = new EntityModel())
             {
-                Supplier sp1 = em.Suppliers.Where(p => p.SupplierCode.Contains(supplier.SupplierCode)).FirstOrDefault<Supplier>();
+                Supplier sp1 = em.Suppliers.Where(p => p.SupplierCode.Equals(supplier.SupplierCode)).FirstOrDefault<Supplier>();
 
                 em.Entry(supplier).State = sp1 == null ? EntityState.Added : EntityState.Modified;
 

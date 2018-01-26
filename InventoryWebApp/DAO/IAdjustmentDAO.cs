@@ -17,5 +17,8 @@ namespace InventoryWebApp.DAO
         string GetLastAdjustment();
         List<Adjustment> ListAllAdjustmentsByItemCode(string itemCode);
         List<Adjustment> ListAllAdjustmentsByItemCode(string itemCode,DateTime start);
+        int UpdateAdjustmentByStoreSupervisor(Adjustment adjustment);
+
+        Adjustment GetAdjustmentByAdjustmentCode(string adjustmentCode);
     }
 }
