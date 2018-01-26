@@ -14,12 +14,12 @@ namespace InventoryWebApp.WCF
     // NOTE: In order to launch WCF Test Client for testing this service, please select ClerkService.svc or ClerkService.svc.cs at the Solution Explorer and start debugging.
     public class ClerkService : IClerkService
     {
-        void IClerkService.UpdateRetrievalDetail(WCF_RetrievalDetail wrd)
+        void IClerkService.UpdateRetrievalDetail(RetrievalDetail rd)
         {
-            RetrievalDetail rd = sClerkCtrl.GetProcessingRetrievalDetailByItemCode(wrd.ItemCode);
-            rd.QuantityRetrieved = Int32.Parse(wrd.QuantityRetrieved);
-            rd.Notes = wrd.Notes;
-            sClerkCtrl.UpdateRetrievalDetail(rd);
+            RetrievalDetail rdCurrent = sClerkCtrl.GetProcessingRetrievalDetailByItemCode(rd.ItemCode);
+            rdCurrent.QuantityRetrieved = rd.QuantityRetrieved;
+            rdCurrent.Notes = rd.Notes;
+            sClerkCtrl.UpdateRetrievalDetail(rdCurrent);
         }
 
         StoreClerkController sClerkCtrl = new StoreClerkController();

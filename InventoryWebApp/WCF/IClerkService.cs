@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InventoryWebApp.Models.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -12,11 +13,12 @@ namespace InventoryWebApp.WCF
     [ServiceContract]
     public interface IClerkService
     {
+
         [OperationContract]
-        [WebInvoke(UriTemplate = "/ProcessingRetrievalDetail/Update", Method = "POST",
+        [WebInvoke(UriTemplate = "/UpdateRetrievalDetail", Method = "POST",
         RequestFormat = WebMessageFormat.Json,
         ResponseFormat = WebMessageFormat.Json)]
-        void UpdateRetrievalDetail(WCF_RetrievalDetail wrd);
+        void UpdateRetrievalDetail(RetrievalDetail rd);
 
         [OperationContract]
         [WebGet(UriTemplate = "/ProcessingRetrievalDetail/{id}", ResponseFormat = WebMessageFormat.Json)]
@@ -29,10 +31,8 @@ namespace InventoryWebApp.WCF
         [OperationContract]
         [WebGet(UriTemplate = "/OutstandingRequests", ResponseFormat = WebMessageFormat.Json)]
         List<WCF_Request> GetOutstandingRequests();
-
-        
-
     }
+
     [DataContract]
     public class WCF_RetrievalDetail
     {

@@ -33,7 +33,7 @@
     <asp:Button ID="btnReset" runat="server" Text="Reset" Style="float: right" OnClick="btnReset_Click" CssClass="btn btn-danger"/>
     <br />
     <br />
-    <asp:Label ID="lblNoData" runat="server"></asp:Label>
+    <asp:Label ID="lblNoData" runat="server" style="color:red"></asp:Label>
     <asp:Label ID="lblNotification" runat="server" Text="" Style="float: right; font-size:12px" class="label label-danger"></asp:Label>
     <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="true">
         <ContentTemplate>

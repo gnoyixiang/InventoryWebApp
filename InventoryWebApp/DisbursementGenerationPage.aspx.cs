@@ -53,7 +53,10 @@ namespace InventoryWebApp
         }
         protected override void OnPreRenderComplete(EventArgs e)
         {
-            lblCollectionDate.Text = DisplayDate(DateTime.Parse(tbxDate.Text));
+            if(sClerkCtrl.GetDisbursementsByStatus("allocating").FirstOrDefault() != null && sClerkCtrl.GetDisbursementsByStatus("disbursing").FirstOrDefault() != null)
+            {
+                lblCollectionDate.Text = DisplayDate(DateTime.Parse(tbxDate.Text));
+            }
             base.OnPreRenderComplete(e);
         }
 

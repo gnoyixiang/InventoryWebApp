@@ -20,6 +20,11 @@ namespace InventoryWebApp
 
             if (!IsPostBack)
             {
+                if (sClerkCtrl.GetDisbursementsByStatus("allocating").Count != 0)
+                {
+                    lvRetrievalList.Enabled = false;
+                    lblNoData.Text = "Retrieval has been confirmed, please proceed to allocation.";
+                }
                 retrieval = sClerkCtrl.GetCurrentRetrieval();
                 if (retrieval == null)
                 {
@@ -90,9 +95,14 @@ namespace InventoryWebApp
         {
             retrieval = sClerkCtrl.GetCurrentRetrieval();
 
-            if (retrieval == null){
+            if (retrieval == null )
+            {
                 Response.Redirect ("DisbursementGenerationPage.aspx");
-            }
+            } else if (sClerkCtrl.GetDisbursementsByStatus("allocating").Count != 0)
+            {
+                Response.Redirect("2AllocationPage.aspx");
+                
+            } else
             {
                 rdList = sClerkCtrl.GetCurrentRetrieval().RetrievalDetails.ToList<RetrievalDetail>();
 
