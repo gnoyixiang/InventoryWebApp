@@ -198,5 +198,12 @@ namespace InventoryWebApp.DAO
                     return 0;
             }
         }
+        public string GetDisbursementStatus(string disburseCode)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                return em.Disbursements.Where(x => x.DisbursementCode.Equals(disburseCode)).Select(p => p.Status).FirstOrDefault();
+            }
+        }
     }
 }

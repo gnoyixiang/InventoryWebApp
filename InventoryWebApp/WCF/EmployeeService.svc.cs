@@ -23,7 +23,8 @@ namespace InventoryWebApp.WCF
             {
                 if (d.Status == "disbursing")
                 {
-                    wcfDisbursement.Add(new WCF_Disbursement(d.DisbursementCode, d.Department.DepartmentName, d.Status, d.UserName));
+                    string deptName = ec.GetDeptNameByCode(d.DepartmentCode);
+                    wcfDisbursement.Add(new WCF_Disbursement(d.DisbursementCode, deptName, d.Status, d.UserName));
                 }
             }
             return wcfDisbursement;
@@ -34,11 +35,15 @@ namespace InventoryWebApp.WCF
             List<WCF_DisbursementDetails> wcfDisbursementDetails = new List<WCF_DisbursementDetails>();
             foreach (DisbursementDetail db in dDetailslist)
             {
-
-                wcfDisbursementDetails.Add(new WCF_DisbursementDetails(db.DisbursementCode, db.StationeryCatalogue.Description, Convert.ToString(db.ActualQuantity), Convert.ToString(db.Quantity),
-                    db.Disbursement.CollectionPoint.CollectionVenue,
-                    db.Disbursement.Department.DepartmentName,
-                    db.Disbursement.UserName, db.Disbursement.Status));
+                var stationery = ec.GetStationery(db.ItemCode);
+                var disbursCode = ec.GetDisbursementCode(db.DisbursementCode);
+                string deptName = ec.GetDeptNameByCode(disbursCode.DepartmentCode);
+                var collectionVenue = ec.GetCollectionPoint(deptName);
+                string userName = ec.GetEmployeeNameByUserName(disbursCode.UserName);
+                var status = ec.GetDisbursementStatus(disbursCode.Status);
+                wcfDisbursementDetails.Add(new WCF_DisbursementDetails(db.DisbursementCode, stationery.Description,
+                    Convert.ToString(db.ActualQuantity), Convert.ToString(db.Quantity),
+                    collectionVenue, deptName, userName, status));
             }
             return wcfDisbursementDetails;
             // Convert.ToString(db.Disbursement.CollectionPoint.CollectionTime)
@@ -80,7 +85,6 @@ namespace InventoryWebApp.WCF
                             }
                             ec.UpdateRequestDetails(rqDetails);
                         }
-
                     }
                 }
                 // Update the request status in the request table
