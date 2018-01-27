@@ -216,6 +216,8 @@
     <Content Include="Store\AdjustmentByStoreManager.aspx" />
     <Content Include="Store\AdjustmentByStoreSupervisor.aspx" />
     <Content Include="Store\AssigningAuthorityStoreDept.aspx" />
+    <Content Include="AddAuthorise.aspx" />
+    <Content Include="AuthoriseStaff.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -509,6 +511,13 @@
     </Compile>
     <Compile Include="Store\ChargeBackPage.aspx.designer.cs">
       <DependentUpon>ChargeBackPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AuthoriseStaff.aspx.cs">
+      <DependentUpon>AuthoriseStaff.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AuthoriseStaff.aspx.designer.cs">
+      <DependentUpon>AuthoriseStaff.aspx</DependentUpon>
     </Compile>
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>

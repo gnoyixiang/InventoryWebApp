@@ -53,6 +53,13 @@ namespace InventoryWebApp.DAO
             em.SaveChanges();
         }
 
+        public int UpdateEmployeeRole(string employeecode, string role)
+        {
+            Employee emp = em.Employees.Where(x => x.EmployeeCode == employeecode).First();
+            emp.CurrentRoleCode = role;
+            return em.SaveChanges();
+        }
+
         public List<Employee> ListEmployee()
         {
 
@@ -64,9 +71,9 @@ namespace InventoryWebApp.DAO
             Employee emp = em.Employees.Where(x => x.UserName == username).FirstOrDefault();
             return emp.EmployeeName;
         }
-
+       
         public List<Employee> SearchByRole(string role)
-        {
+        { 
             return em.Employees.Where(x => x.CurrentRoleCode.Equals(role.Trim())).ToList();
         }
 
@@ -74,7 +81,14 @@ namespace InventoryWebApp.DAO
         {
             return em.Employees.Where(x => x.Department.Equals(dept.Trim())).ToList();
         }
-
+        public List<Employee> SearchByEmployeeName(string employeename)
+        {
+            return em.Employees.Where(x => x.EmployeeName.Contains(employeename.Trim())).ToList();
+        }
+        public List<Employee> SearchByEmployeeCode(string employeecode)
+        {
+            return em.Employees.Where(x => x.EmployeeCode.Contains(employeecode.Trim())).ToList();
+        }
         public List<string> ListEmpName(string dept, string role)
         {
             return em.Employees.Where(x => x.DepartmentCode == dept && x.CurrentRoleCode == role).Select(x=>x.EmployeeName).ToList();

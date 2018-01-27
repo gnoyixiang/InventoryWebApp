@@ -64,6 +64,7 @@
     <Compile Include="TestUserDAO.cs" />
     <Compile Include="TestTenderDAO.cs" />
     <Compile Include="TestTenderDetailsDAO.cs" />
+    <Compile Include="TestUserRole.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
