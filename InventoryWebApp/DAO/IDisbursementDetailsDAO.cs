@@ -2,6 +2,7 @@
 using InventoryWebApp.Models.Entities;
 using System;
 
+
 namespace InventoryWebApp.DAO
 {
     public interface IDisbursementDetailsDAO
@@ -15,5 +16,6 @@ namespace InventoryWebApp.DAO
         List<DisbursementDetail> SearchDDByRequestAndItemCode(Request request, StationeryCatalogue item);
         List<DisbursementDetail> ListDDByItemCode(string ItemCode,DateTime start);
         List<DisbursementDetail> ListAllDisbursementDetails();
+        List<DisbursementDetail> SearchDDByCode(string code);
     }
 }

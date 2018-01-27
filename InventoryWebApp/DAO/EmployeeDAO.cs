@@ -70,6 +70,7 @@ namespace InventoryWebApp.DAO
         {
             Employee emp = em.Employees.Where(x => x.UserName == username).FirstOrDefault();
             return emp.EmployeeName;
+
         }
        
         public List<Employee> SearchByRole(string role)
@@ -115,6 +116,11 @@ namespace InventoryWebApp.DAO
                 return em.Employees.Where(x => x.EmployeeName.Contains(name.Trim())).Select(x => x.EmployeeCode).ToList<string>();
 
             }
+
+        public string GetUserName(string empName)
+        {
+            Employee emp = em.Employees.Where(x => x.EmployeeName==empName).FirstOrDefault();
+            return emp.UserName.ToString();
 
         }
 

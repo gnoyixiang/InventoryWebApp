@@ -88,5 +88,10 @@ namespace InventoryWebApp.DAO
                 return em.DisbursementDetails.ToList();
             }
         }
-    }
+
+        public List<DisbursementDetail> SearchDDByCode(string code)
+        {
+            em = new EntityModel();
+            return em.DisbursementDetails.Where(dd => dd.DisbursementCode == code).ToList();
+        }
 }

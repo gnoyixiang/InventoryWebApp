@@ -252,6 +252,14 @@
     <Content Include="Public.Master" />
     <Content Include="Department\Web.config" />
     <None Include="Properties\PublishProfiles\InventoryWCF.pubxml" />
+    <Content Include="Service1.svc" />
+    
+    <Content Include="ApproveRequest.aspx" />
+    <Content Include="HeadApproveDetail.aspx" />
+    <Content Include="HeadViewRequest.aspx" />
+    <Content Include="HeadRequestDetail.aspx" />
+    <Content Include="HeadDisbursement.aspx" />
+    <Content Include="WebForm6.aspx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
@@ -291,10 +299,6 @@
     <Content Include="Store\ViewStockCard.aspx" />
     <Content Include="Store\SupplierList.aspx" />
     <Content Include="ViewSwitcher.ascx" />
-    <Content Include="WCF\ClerkService.svc" />
-    <Content Include="WCF\DepartmentService.svc" />
-    <Content Include="WCF\EmployeeService.svc" />
-    <Content Include="WCF\SupervisorService.svc" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -605,6 +609,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="IService1.cs" />
     <Compile Include="Layout.Master.cs">
       <DependentUpon>Layout.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -650,6 +655,9 @@
     </Compile>
     <Compile Include="Store\RetrievalPage.aspx.designer.cs">
       <DependentUpon>RetrievalPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Service1.svc.cs">
+      <DependentUpon>Service1.svc</DependentUpon>
     </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
@@ -731,25 +739,55 @@
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
-    <Compile Include="WCF\ClerkService.svc.cs">
-      <DependentUpon>ClerkService.svc</DependentUpon>
+    <Compile Include="ApproveRequest.aspx.cs">
+      <DependentUpon>ApproveRequest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="WCF\DepartmentService.svc.cs">
-      <DependentUpon>DepartmentService.svc</DependentUpon>
+    <Compile Include="ApproveRequest.aspx.designer.cs">
+      <DependentUpon>ApproveRequest.aspx</DependentUpon>
     </Compile>
-    <Compile Include="WCF\EmployeeService.svc.cs">
-      <DependentUpon>EmployeeService.svc</DependentUpon>
+    <Compile Include="HeadApproveDetail.aspx.cs">
+      <DependentUpon>HeadApproveDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="WCF\IClerkService.cs" />
-    <Compile Include="WCF\IDepartmentService.cs" />
-    <Compile Include="WCF\IEmployeeService.cs" />
-    <Compile Include="WCF\ISupervisorService.cs" />
-    <Compile Include="WCF\SupervisorService.svc.cs">
-      <DependentUpon>SupervisorService.svc</DependentUpon>
+    <Compile Include="HeadApproveDetail.aspx.designer.cs">
+      <DependentUpon>HeadApproveDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HeadViewRequest.aspx.cs">
+      <DependentUpon>HeadViewRequest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HeadViewRequest.aspx.designer.cs">
+      <DependentUpon>HeadViewRequest.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HeadRequestDetail.aspx.cs">
+      <DependentUpon>HeadRequestDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HeadRequestDetail.aspx.designer.cs">
+      <DependentUpon>HeadRequestDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HeadDisbursement.aspx.cs">
+      <DependentUpon>HeadDisbursement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HeadDisbursement.aspx.designer.cs">
+      <DependentUpon>HeadDisbursement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForm6.aspx.cs">
+      <DependentUpon>WebForm6.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm6.aspx.designer.cs">
+      <DependentUpon>WebForm6.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="WCF\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

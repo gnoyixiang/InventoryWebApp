@@ -10,6 +10,7 @@ namespace InventoryWebApp.DAO
     public class RequestDAO : IRequestDAO
     {
         Request r;
+        EntityModel em=new EntityModel();
         public List<Request> ListAllRequest()
         {
             using (EntityModel e = new EntityModel())
@@ -90,6 +91,42 @@ namespace InventoryWebApp.DAO
             }
         }
 
+        public int UpdateRequestStatus(Request r)
+        {
+            Request req = em.Requests.Where(x => x.RequestCode == r.RequestCode).FirstOrDefault();
+
+            req.Status = r.Status;
+            req.DateApproved = r.DateApproved;
+            req.HeadRemarks = r.HeadRemarks;
+            req.ApprovedBy = r.ApprovedBy;
+            return em.SaveChanges();
+
+        }
+
+        public int UpdateRequestApproval(Request r)
+        {
+            Request req = em.Requests.Where(x => x.RequestCode == r.RequestCode).FirstOrDefault();
+            req.ApprovedBy = r.ApprovedBy;
+
+
+            return em.SaveChanges();
+
+        }
+
+        public List<Request> SearchPendingRequestByName(string username, string deptcode)
+        {
+            return em.Requests.Where(x => x.UserName.Contains(username) && x.Status == "pending" && x.DepartmentCode == deptcode).ToList();
+        }
+
+        public List<Request> SearchPendingRequestByDate(DateTime d, string deptcode)
+        {
+            return em.Requests.Where(x => x.DateCreated == d && x.Status == "pending" && x.DepartmentCode == deptcode).ToList();
+        }
+
+        public List<Request> SearchRequestbyDept(string dept)
+        {
+            return em.Requests.Where(b => b.DepartmentCode.ToUpper().Contains(dept.Trim().ToUpper())).ToList();
+        }
 
     }
 }
