@@ -226,6 +226,7 @@
     <Content Include="Images\edit.png" />
     <Content Include="Images\save.png" />
     <Content Include="Images\selecte.jpg" />
+    <Content Include="LoginTest.aspx" />
     <Content Include="PendingPO.aspx" />
     <Content Include="PendingPODetails.aspx" />
     <Content Include="PurchaseOrderDetail.aspx" />
@@ -505,6 +506,14 @@
     <Compile Include="Layout.Master.designer.cs">
       <DependentUpon>Layout.Master</DependentUpon>
     </Compile>
+    <Compile Include="LoginTest.aspx.cs">
+      <DependentUpon>LoginTest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LoginTest.aspx.designer.cs">
+      <DependentUpon>LoginTest.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Code\AuthenticationTest.cs" />
     <Compile Include="Models\Entities\Adjustment.cs" />
     <Compile Include="Models\Entities\AssignRole.cs" />
     <Compile Include="Models\Entities\Category.cs" />
@@ -598,6 +607,7 @@
     <Compile Include="StockCardSearch.aspx.designer.cs">
       <DependentUpon>StockCardSearch.aspx</DependentUpon>
     </Compile>
+    <Compile Include="TestLogin.cs" />
     <Compile Include="ViewPurchaseOrders.aspx.cs">
       <DependentUpon>ViewPurchaseOrders.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

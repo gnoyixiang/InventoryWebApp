@@ -7,6 +7,8 @@ using InventoryWebApp.Models.Entities;
 using InventoryWebApp.DAO;
 using InventoryWebApp.Controllers;
 using System.Globalization;
+using InventoryWebApp;
+using InventoryWebApp.WCF;
 
 namespace ConsoleTestApp
 {
@@ -85,16 +87,44 @@ namespace ConsoleTestApp
             //Console.ReadLine();
 
 
-         List<AssignRole> e =   s.ListOfEmployeeNameInAssignRole("e");
+            //List<AssignRole> e =   s.ListOfEmployeeNameInAssignRole("e");
 
-            foreach (AssignRole e2 in e)
-            {
-                Console.WriteLine(e2.EmployeeCode);
+            //   foreach (AssignRole e2 in e)
+            //   {
+            //       Console.WriteLine(e2.EmployeeCode);
 
-            }
+            //   }
 
-            Console.ReadLine();
+            //   Console.ReadLine();
+
+            // AuthenticationTest a = new AuthenticationTest();
+            //string msg =  a.LoginUser("xavi@gmail.com", "Amit!23");
+
+            // Console.WriteLine("Your msg is "+msg);
+            // Console.ReadLine();
+
+
+            //WCFAdjustment wc = new WCFAdjustment();
+            //wc.AdjustmentCode = "A01";
+            //wc.Status = "Approve";
+            //wc.Remark = "texting";
+            //wc.ApprovedBy = "yufei@logic.edu.sg";
+            //wc.DateOfApprove = "2018-01-26";
+
+            //SupervisorService sc = new SupervisorService();
+
+            //sc.UpdateAdjustmentBySupervisor(wc);
+
+
+           //Console.WriteLine("its wcfdate :"+ SupervisorService.wcfdate);
+           // Console.WriteLine("its adjustmentdate :" + SupervisorService.adjustmentdate);
+            
+           // Console.ReadLine();
         }
 
+        
+
+        
+        
     }
 }

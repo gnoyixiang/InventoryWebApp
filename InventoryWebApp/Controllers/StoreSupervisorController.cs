@@ -397,6 +397,12 @@ namespace InventoryWebApp.Controllers
             return pendingAdLdit;
         }
 
+
+        public Adjustment GetAdjustment(string adCode)
+        {
+           return adjustmentDao.GetAdjustmentByAdjustmentCode(adCode);
+        }
+
         //public List<Adjustment> ListOfPendingAdjustmentByManager()
         //{
 

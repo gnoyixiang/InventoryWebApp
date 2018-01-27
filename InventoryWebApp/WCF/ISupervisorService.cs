@@ -32,6 +32,30 @@ namespace InventoryWebApp.WCF
 
         List<WCFAdjustment> ListOfPendingRequestForManager();
 
+
+        [OperationContract]
+        [WebGet(UriTemplate = "/Adjustment/{adjustmentcode}", ResponseFormat = WebMessageFormat.Json)]
+
+        WCFAdjustment GetAdjustment(string adjustmentcode);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "/UpdateAdSupervisor", Method = "POST",
+        RequestFormat = WebMessageFormat.Json,
+        ResponseFormat = WebMessageFormat.Json)]
+        String UpdateAdjustmentBySupervisor(WCFAdjustment adjustment);
+
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "/UpdateMg", Method = "POST",
+        RequestFormat = WebMessageFormat.Json,
+        ResponseFormat = WebMessageFormat.Json)]
+        void UpdateAdjustmentByManager(WCFAdjustment adjustment);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "/Test", Method = "POST",
+       RequestFormat = WebMessageFormat.Json,
+       ResponseFormat = WebMessageFormat.Json)]
+        bool Test();
     }
     [DataContract]
     public class WCFPurchaseOrder
@@ -162,19 +186,25 @@ namespace InventoryWebApp.WCF
         string itemCode;
 
 
-        decimal price;
+        string price;
 
 
-        int adjustmentQuant;
+       string adjustmentQuant;
 
 
-        int stock;
+        string stock;
 
 
         string reason;
 
 
         string remark;
+
+        string status;
+
+        String dateOfApprove;
+
+        string approvedBy;
 
 
         [DataMember]
@@ -191,21 +221,21 @@ namespace InventoryWebApp.WCF
             set { itemCode = value; }
         }
         [DataMember]
-        public decimal Price
+        public string Price
         {
             get { return price; }
             set { price = value; }
         }
 
         [DataMember]
-        public int AdjustmentQuant
+        public string AdjustmentQuant
         {
             get { return adjustmentQuant; }
             set { adjustmentQuant = value; }
         }
 
         [DataMember]
-        public int Stock
+        public string Stock
         {
             get { return stock; }
             set { stock = value; }
@@ -224,8 +254,28 @@ namespace InventoryWebApp.WCF
             set { remark = value; }
         }
 
+        [DataMember]
+        public string Status
+        {
+            get { return status; }
+            set { status = value; }
+        }
 
-        public WCFAdjustment(string adjustmentCode, string itemCode, decimal price, int adjustmentQuant, int stock, string reason, string remark)
+        [DataMember]
+        public String DateOfApprove
+        {
+            get { return dateOfApprove; }
+            set { dateOfApprove = value; }
+        }
+
+        [DataMember]
+        public string ApprovedBy
+        {
+            get { return  approvedBy; }
+            set { approvedBy = value; }
+        }
+
+        public WCFAdjustment(string adjustmentCode, string itemCode, string price, string adjustmentQuant, string stock, string reason, string remark)
         {
             this.adjustmentCode = adjustmentCode;
 
@@ -237,6 +287,7 @@ namespace InventoryWebApp.WCF
             this.reason = reason;
             this.remark = remark;
         }
+        
 
         public WCFAdjustment()
         {
