@@ -44,7 +44,7 @@ namespace InventoryWebApp.DAO
                 return em.SaveChanges();
             }
         }
-        
+
         public List<DisbursementDetail> SearchDDByRequestAndItemCode(Request request, StationeryCatalogue item)
         {
             using (EntityModel em = new EntityModel())
@@ -91,7 +91,11 @@ namespace InventoryWebApp.DAO
 
         public List<DisbursementDetail> SearchDDByCode(string code)
         {
-            em = new EntityModel();
-            return em.DisbursementDetails.Where(dd => dd.DisbursementCode == code).ToList();
+            using (EntityModel em = new EntityModel())
+            {
+
+                return em.DisbursementDetails.Where(dd => dd.DisbursementCode == code).ToList();
+            }
         }
+    }
 }

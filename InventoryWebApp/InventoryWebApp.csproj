@@ -194,8 +194,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ErrorPages\403.aspx" />
+    <Content Include="ErrorPages\404.aspx" />
+    <Content Include="ErrorPages\Oops.aspx" />
     <Content Include="Store\2AllocationPage.aspx" />
-    <Content Include="401.aspx" />
+    <Content Include="ErrorPages\401.aspx" />
     <Content Include="About.aspx" />
     <Content Include="Account\AddPhoneNumber.aspx" />
     <Content Include="Account\Confirm.aspx" />
@@ -252,14 +255,11 @@
     <Content Include="Public.Master" />
     <Content Include="Department\Web.config" />
     <None Include="Properties\PublishProfiles\InventoryWCF.pubxml" />
-    <Content Include="Service1.svc" />
-    
-    <Content Include="ApproveRequest.aspx" />
-    <Content Include="HeadApproveDetail.aspx" />
-    <Content Include="HeadViewRequest.aspx" />
-    <Content Include="HeadRequestDetail.aspx" />
-    <Content Include="HeadDisbursement.aspx" />
-    <Content Include="WebForm6.aspx" />
+    <Content Include="Department\ApproveRequest.aspx" />
+    <Content Include="Department\HeadApproveDetail.aspx" />
+    <Content Include="Department\HeadViewRequest.aspx" />
+    <Content Include="Department\HeadRequestDetail.aspx" />
+    <Content Include="Department\HeadDisbursement.aspx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
@@ -316,11 +316,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="401.aspx.cs">
+    <Compile Include="ErrorPages\401.aspx.cs">
       <DependentUpon>401.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="401.aspx.designer.cs">
+    <Compile Include="ErrorPages\401.aspx.designer.cs">
       <DependentUpon>401.aspx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\DepartmentHeadController.cs" />
@@ -330,6 +330,27 @@
     </Compile>
     <Compile Include="Department\AddAuthorise.aspx.designer.cs">
       <DependentUpon>AddAuthorise.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorPages\403.aspx.cs">
+      <DependentUpon>403.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ErrorPages\403.aspx.designer.cs">
+      <DependentUpon>403.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorPages\404.aspx.cs">
+      <DependentUpon>404.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ErrorPages\404.aspx.designer.cs">
+      <DependentUpon>404.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorPages\Oops.aspx.cs">
+      <DependentUpon>Oops.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ErrorPages\Oops.aspx.designer.cs">
+      <DependentUpon>Oops.aspx</DependentUpon>
     </Compile>
     <Compile Include="Store\2AllocationPage.aspx.cs">
       <DependentUpon>2AllocationPage.aspx</DependentUpon>
@@ -609,7 +630,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="IService1.cs" />
     <Compile Include="Layout.Master.cs">
       <DependentUpon>Layout.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -655,9 +675,6 @@
     </Compile>
     <Compile Include="Store\RetrievalPage.aspx.designer.cs">
       <DependentUpon>RetrievalPage.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Service1.svc.cs">
-      <DependentUpon>Service1.svc</DependentUpon>
     </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
@@ -739,47 +756,40 @@
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
-    <Compile Include="ApproveRequest.aspx.cs">
+    <Compile Include="Department\ApproveRequest.aspx.cs">
       <DependentUpon>ApproveRequest.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ApproveRequest.aspx.designer.cs">
+    <Compile Include="Department\ApproveRequest.aspx.designer.cs">
       <DependentUpon>ApproveRequest.aspx</DependentUpon>
     </Compile>
-    <Compile Include="HeadApproveDetail.aspx.cs">
+    <Compile Include="Department\HeadApproveDetail.aspx.cs">
       <DependentUpon>HeadApproveDetail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="HeadApproveDetail.aspx.designer.cs">
+    <Compile Include="Department\HeadApproveDetail.aspx.designer.cs">
       <DependentUpon>HeadApproveDetail.aspx</DependentUpon>
     </Compile>
-    <Compile Include="HeadViewRequest.aspx.cs">
+    <Compile Include="Department\HeadViewRequest.aspx.cs">
       <DependentUpon>HeadViewRequest.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="HeadViewRequest.aspx.designer.cs">
+    <Compile Include="Department\HeadViewRequest.aspx.designer.cs">
       <DependentUpon>HeadViewRequest.aspx</DependentUpon>
     </Compile>
-    <Compile Include="HeadRequestDetail.aspx.cs">
+    <Compile Include="Department\HeadRequestDetail.aspx.cs">
       <DependentUpon>HeadRequestDetail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="HeadRequestDetail.aspx.designer.cs">
+    <Compile Include="Department\HeadRequestDetail.aspx.designer.cs">
       <DependentUpon>HeadRequestDetail.aspx</DependentUpon>
     </Compile>
-    <Compile Include="HeadDisbursement.aspx.cs">
+    <Compile Include="Department\HeadDisbursement.aspx.cs">
       <DependentUpon>HeadDisbursement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="HeadDisbursement.aspx.designer.cs">
+    <Compile Include="Department\HeadDisbursement.aspx.designer.cs">
       <DependentUpon>HeadDisbursement.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="WebForm6.aspx.cs">
-      <DependentUpon>WebForm6.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebForm6.aspx.designer.cs">
-      <DependentUpon>WebForm6.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

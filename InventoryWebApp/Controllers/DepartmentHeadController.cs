@@ -149,10 +149,6 @@ namespace InventoryWebApp.Controllers
             
             return rdao.GetRoleName(a);
         }
-        public string GetEmployeeName(string a)
-        {
-            return edao.GetEmployeeName(a);
-        }
 
         public List<AssignRole> ListAssignRole()
         {
@@ -233,7 +229,7 @@ namespace InventoryWebApp.Controllers
         {
             return udao.GetUserByUsername(username);
         }
-    }
+    
 
 
     //yf
@@ -245,10 +241,7 @@ namespace InventoryWebApp.Controllers
         IDisbursementDetailsDAO ddDAO = new DisbursementDetailsDAO();
         IDisbursementDAO dDAO = new DisbursementDAO();
 
-        public DepartmentHeadController()
-        {
-
-        }
+       
 
         public List<string> ListEmpName(string dept,string role)
         {

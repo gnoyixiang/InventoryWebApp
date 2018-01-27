@@ -127,6 +127,9 @@ namespace InventoryWebApp.DAO
         {
             return em.Requests.Where(b => b.DepartmentCode.ToUpper().Contains(dept.Trim().ToUpper())).ToList();
         }
-
+        public List<Request> SearchRequestbyStatus(string RequestStatus, string deptcode)
+        {
+            return em.Requests.Where(b => b.Status.ToUpper().Contains(RequestStatus.Trim().ToUpper()) && b.DepartmentCode == deptcode).ToList();
+        }
     }
 }

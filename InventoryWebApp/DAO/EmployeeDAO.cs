@@ -116,6 +116,7 @@ namespace InventoryWebApp.DAO
                 return em.Employees.Where(x => x.EmployeeName.Contains(name.Trim())).Select(x => x.EmployeeCode).ToList<string>();
 
             }
+        }
 
         public string GetUserName(string empName)
         {

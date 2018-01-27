@@ -18,10 +18,10 @@ namespace InventoryWebApp.Account
         {
             if (!Page.IsPostBack)
             {
-                if (Request.IsAuthenticated )
+                if (Request.IsAuthenticated)
                     if (!string.IsNullOrEmpty(Request.QueryString["ReturnUrl"]))
                     {
-                        Response.Redirect("~/401.aspx");
+                        Response.Redirect("~/ErrorPages/401.aspx");
                     }
                     else
                     {
