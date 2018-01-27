@@ -13,13 +13,13 @@ namespace InventoryWebApp.DAO
         List<AssignRole> ListAssignRole();
         List<AssignRole> SearchByEmployeeCode(string employeecode);
         int UpdateAssignRole(string assignrolecode, string temporaryrolecode, DateTime startdate, DateTime enddate);
+        int UpdateAssignRole(string assignrolecode, string temporaryrolecode, string empCode, DateTime startdate, DateTime enddate);
         int UpdateEndDate(string assignrolecode, DateTime enddate);
         int UpdateStartDate(string assignrolecode, DateTime startdate);
         int UpdateTemporaryRoleCode(string assignrolecode, string temporaryrolecode);
 
         string GetTemporaryRoleCode(string empcode);
-
-        List<AssignRole> SearchByEmployeeCode(string empCode);
+        
         int UpdateAssignRole(AssignRole role);
     }
 }

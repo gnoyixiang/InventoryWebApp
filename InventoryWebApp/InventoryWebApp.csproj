@@ -216,8 +216,8 @@
     <Content Include="Store\AdjustmentByStoreManager.aspx" />
     <Content Include="Store\AdjustmentByStoreSupervisor.aspx" />
     <Content Include="Store\AssigningAuthorityStoreDept.aspx" />
-    <Content Include="AddAuthorise.aspx" />
-    <Content Include="AuthoriseStaff.aspx" />
+    <Content Include="Department\AddAuthorise.aspx" />
+    <Content Include="Department\AuthoriseStaff.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -250,6 +250,7 @@
     <Content Include="Store\PurchaseOrderDetail.aspx" />
     <Content Include="Store\ViewPurchaseOrders.aspx" />
     <Content Include="Public.Master" />
+    <Content Include="Department\Web.config" />
     <None Include="Properties\PublishProfiles\InventoryWCF.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
@@ -317,6 +318,14 @@
     </Compile>
     <Compile Include="401.aspx.designer.cs">
       <DependentUpon>401.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\DepartmentHeadController.cs" />
+    <Compile Include="Department\AddAuthorise.aspx.cs">
+      <DependentUpon>AddAuthorise.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Department\AddAuthorise.aspx.designer.cs">
+      <DependentUpon>AddAuthorise.aspx</DependentUpon>
     </Compile>
     <Compile Include="Store\2AllocationPage.aspx.cs">
       <DependentUpon>2AllocationPage.aspx</DependentUpon>
@@ -512,11 +521,11 @@
     <Compile Include="Store\ChargeBackPage.aspx.designer.cs">
       <DependentUpon>ChargeBackPage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AuthoriseStaff.aspx.cs">
+    <Compile Include="Department\AuthoriseStaff.aspx.cs">
       <DependentUpon>AuthoriseStaff.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AuthoriseStaff.aspx.designer.cs">
+    <Compile Include="Department\AuthoriseStaff.aspx.designer.cs">
       <DependentUpon>AuthoriseStaff.aspx</DependentUpon>
     </Compile>
     <Compile Include="Contact.aspx.cs">

@@ -55,6 +55,16 @@ namespace InventoryWebApp.DAO
             return em.SaveChanges();
         }
 
+        public int UpdateAssignRole(string assignrolecode, string temporaryrolecode,
+           DateTime startdate, DateTime enddate)
+        {
+            AssignRole asrl = em.AssignRoles.Where(x => x.AssignRoleCode == assignrolecode).First();
+            asrl.TemporaryRoleCode = temporaryrolecode;
+            asrl.StartDate = (DateTime)startdate;
+            asrl.EndDate = (DateTime)enddate;
+            return em.SaveChanges();
+        }
+
         public int UpdateAssignRole(AssignRole role)
         {
             em.Entry(role).State = System.Data.Entity.EntityState.Modified;

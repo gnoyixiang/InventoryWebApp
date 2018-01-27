@@ -79,16 +79,9 @@ namespace InventoryWebApp.DAO
 
         public List<Employee> SearchByDept(string dept)
         {
-            return em.Employees.Where(x => x.Department.Equals(dept.Trim())).ToList();
+            return em.Employees.Where(x => x.DepartmentCode.Equals(dept.Trim())).ToList();
         }
-        public List<Employee> SearchByEmployeeName(string employeename)
-        {
-            return em.Employees.Where(x => x.EmployeeName.Contains(employeename.Trim())).ToList();
-        }
-        public List<Employee> SearchByEmployeeCode(string employeecode)
-        {
-            return em.Employees.Where(x => x.EmployeeCode.Contains(employeecode.Trim())).ToList();
-        }
+        
         public List<string> ListEmpName(string dept, string role)
         {
             return em.Employees.Where(x => x.DepartmentCode == dept && x.CurrentRoleCode == role).Select(x=>x.EmployeeName).ToList();
