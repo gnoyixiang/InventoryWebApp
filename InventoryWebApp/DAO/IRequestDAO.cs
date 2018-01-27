@@ -16,6 +16,5 @@ namespace InventoryWebApp.DAO
         int UpdateRequest(Request r);
         int UpdateRequestApproval(Request R, string ApprovedN);
         int UpdateRequestStatus(Request R, string newStatus);
-        int UpdateRequest(Request r);
     }
 }

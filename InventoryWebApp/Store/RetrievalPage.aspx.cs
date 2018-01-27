@@ -97,10 +97,10 @@ namespace InventoryWebApp
 
             if (retrieval == null )
             {
-                Response.Redirect ("DisbursementGenerationPage.aspx");
+                Response.Redirect ("/Store/DisbursementGenerationPage.aspx");
             } else if (sClerkCtrl.GetDisbursementsByStatus("allocating").Count != 0)
             {
-                Response.Redirect("2AllocationPage.aspx");
+                Response.Redirect("/Store/2AllocationPage.aspx");
                 
             } else
             {
@@ -125,7 +125,7 @@ namespace InventoryWebApp
                     rdList[i].Notes = tbxNotes.Text;
                     sClerkCtrl.UpdateRetrievalDetail(rdList[i]);
                 }
-                Response.Redirect("/2AllocationPage.aspx");
+                Response.Redirect("/Store/2AllocationPage.aspx");
             }
             
         }
@@ -133,7 +133,7 @@ namespace InventoryWebApp
 
         protected void btnBack_Click(object sender, EventArgs e)
         {
-            Response.Redirect("/RequisitionList.aspx");
+            Response.Redirect("/Store/RequisitionList.aspx");
         }
 
         protected void btnTickAll_Click(object sender, EventArgs e)

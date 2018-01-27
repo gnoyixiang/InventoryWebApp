@@ -26,6 +26,11 @@ namespace InventoryWebApp.Controllers
         IAdjustmentDAO adjustmentDAO = new AdjustmentDAO();
         ITenderDAO tenderDAO = new TenderDAO();
         ITenderDetailsDAO tenderDetailsDAO = new TenderDetailsDAO();
+        IDepartmentDAO departmentDAO = new DepartmentDAO();
+        IDisbursementDetailsDAO disbursementDetailsDAO = new DisbursementDetailsDAO();
+        IRetrievalDAO retrievalDAO = new RetrievalDAO();
+        IRetrievalDetailsDAO retrievalDetailsDAO = new RetrievalDetailsDAO();
+        ICollectionPointDAO collectionPointDAO = new CollectionPointDAO();
 
         internal int RecommendReorderQty(string itemCode)
         {
@@ -657,16 +662,6 @@ namespace InventoryWebApp.Controllers
 
         //Nat
 
-        IDepartmentDAO departmentDAO = new DepartmentDAO();
-        IDisbursementDetailsDAO disbursementDetailsDAO = new DisbursementDetailsDAO();
-        IDisbursementDAO disbursementDAO = new DisbursementDAO();
-        IEmployeeDAO employeeDAO = new EmployeeDAO();
-        IRequestDAO requestDAO = new RequestDAO();
-        IRequestDetailsDAO requestDetailsDAO = new RequestDetailsDAO();
-        IRetrievalDAO retrievalDAO = new RetrievalDAO();
-        IRetrievalDetailsDAO retrievalDetailsDAO = new RetrievalDetailsDAO();
-        IStationeryCatalogueDAO stationeryDAO = new StationeryCatalogueDAO();
-        ICollectionPointDAO collectionPointDAO = new CollectionPointDAO();
         public RetrievalDetail GetProcessingRetrievalDetailByItemCode(String itemCode)
         {
             List<RetrievalDetail> rdList = retrievalDetailsDAO.ListRetrievalDetailsByRetrievalCode(GetCurrentRetrieval().RetrievalCode);
@@ -1188,11 +1183,7 @@ namespace InventoryWebApp.Controllers
             return 0;
 
         }
-
-        public Request GetRequest(String requestCode)
-        {
-            return requestDAO.GetRequest(requestCode);
-        }
+        
 
         public Department GetDeptByCode(String deptCode)
         {

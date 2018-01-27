@@ -24,7 +24,7 @@ namespace InventoryWebApp.DAO
              emp.UserName = userName;*/
 
             em.Employees.Add(emp);
-            em.SaveChanges();
+            return em.SaveChanges();
 
         }
 

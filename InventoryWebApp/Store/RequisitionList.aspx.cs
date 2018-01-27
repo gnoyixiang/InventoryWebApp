@@ -66,7 +66,7 @@ namespace InventoryWebApp
 
         protected void btnNext_Click(object sender, EventArgs e)
         {
-            Response.Redirect("/RetrievalPage.aspx");
+            Response.Redirect("/Store/RetrievalPage.aspx");
         }
 
         protected StationeryCatalogue GetStationery(String itemCode)
@@ -93,7 +93,6 @@ namespace InventoryWebApp
             ListView listDetails = (ListView)listItem.FindControl("lvRequestDetails");
 
             listDetails.Visible = false;
-
         }
     }
 }

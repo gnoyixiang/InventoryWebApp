@@ -54,10 +54,12 @@
                             <td><%# Eval("Status") %></td>
                         </tr>
                         <tr>
-                            <td colspan="5">
+                            <td colspan="6" style="padding-left:0">
                                 <asp:ListView ID="lvRequestDetails" runat="server">
                                     <LayoutTemplate>
-                                        <tbody id="itemPlaceholder" runat="server"></tbody>
+                                        <table class="table">
+                                            <tbody id="itemPlaceholder" runat="server"></tbody>
+                                        </table>
                                     </LayoutTemplate>
                                     <ItemTemplate>
                                         <tbody>

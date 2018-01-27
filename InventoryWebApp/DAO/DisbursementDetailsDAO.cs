@@ -44,8 +44,7 @@ namespace InventoryWebApp.DAO
                 return em.SaveChanges();
             }
         }
-
-        public List<DisbursementDetail> ListDDByItemCode(string ItemCode,DateTime start)
+        
         public List<DisbursementDetail> SearchDDByRequestAndItemCode(Request request, StationeryCatalogue item)
         {
             using (EntityModel em = new EntityModel())

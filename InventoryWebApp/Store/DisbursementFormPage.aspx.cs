@@ -17,10 +17,12 @@ namespace InventoryWebApp
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
             if (!IsPostBack)
             {
-                BindDropDownList();
+                BindDropDownList();                 
             }
+            BindLvDisbursementDetails();
 
 
         }
@@ -111,9 +113,20 @@ namespace InventoryWebApp
         }
 
         protected void lvDisbursementDetails_ItemEditing(object sender, ListViewEditEventArgs e)
-        {
+        {            
             lvDisbursementDetails.EditIndex = e.NewEditIndex;
+            ddList = sClerkCtrl.GetDisbursingDisbDetailsByDeptCode(ddlDepartment.SelectedValue);
+
+            var dd = ddList[e.NewEditIndex];
+
+            var validQtyRange = (RangeValidator)lvDisbursementDetails.EditItem.FindControl("validQtyRange");
+            if (validQtyRange != null && dd!=null)
+            {
+                validQtyRange.MaximumValue = Convert.ToString(dd.Quantity);
+                validQtyRange.ErrorMessage = "Enter your between 0 and " + dd.Quantity;
+            }
             BindLvDisbursementDetails();
+                       
         }
 
         protected void lvDisbursementDetails_ItemUpdating(object sender, ListViewUpdateEventArgs e)
@@ -138,7 +151,7 @@ namespace InventoryWebApp
 
         protected override void OnPreRenderComplete(EventArgs e)
         {
-            BindLvDisbursementDetails();
+            
 
             if (deptList != null && deptList.Count != 0)
             {
@@ -187,6 +200,30 @@ namespace InventoryWebApp
         protected void btnNext_Click(object sender, EventArgs e)
         {
             Response.Redirect("ChargeBackPage.aspx");
+        }
+
+        protected void validQtyRange_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            if (source is CustomValidator && IsPostBack)
+            {
+                CustomValidator validator = (CustomValidator)source;
+                ListViewItem parentItem = (ListViewItem)validator.Parent;
+                var dd = sClerkCtrl.GetDisbursingDisbDetailsByDeptCode(ddlDepartment.SelectedValue)[lvDisbursementDetails.EditIndex];
+                
+                int num = Convert.ToInt32(args.Value);
+                args.IsValid = num <= dd.Quantity && num>=0;
+                var tbxActualQuantity = (TextBox)parentItem.FindControl("tbxActualQuantity");
+                if (!args.IsValid)
+                {
+                    tbxActualQuantity.CssClass = "control error";
+                }
+                else
+                {
+                    tbxActualQuantity.CssClass = "control";
+                }
+
+                validator.ErrorMessage = "Actual Quantity must be between 0 and " + dd.Quantity;
+            }
         }
     }
 

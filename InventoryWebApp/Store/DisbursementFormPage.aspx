@@ -48,7 +48,8 @@
             
                 <asp:Label ID="lblAlert" runat="server" Text=""></asp:Label>
             
-            <asp:ListView ID="lvDisbursementDetails" runat="server" OnItemEditing="lvDisbursementDetails_ItemEditing" OnItemCanceling="lvDisbursementDetails_ItemCanceling" OnItemUpdating="lvDisbursementDetails_ItemUpdating">
+            <asp:ListView ID="lvDisbursementDetails" runat="server" OnItemEditing="lvDisbursementDetails_ItemEditing" 
+                OnItemCanceling="lvDisbursementDetails_ItemCanceling"  OnItemUpdating="lvDisbursementDetails_ItemUpdating">
                 <LayoutTemplate>
                     <table class="table">
                         <thead>
@@ -94,22 +95,25 @@
                             </td>
                             <td><%# GetRequest(Eval("RequestCode").ToString()).Status %></td>
                             <td>
-                                <asp:LinkButton ID="lbtUpdate" runat="server" CommandName="Update"><span class="glyphicon glyphicon-ok" aria-hidden="true" style="font-size:1.5em;color:forestgreen"></span></asp:LinkButton>
-                                <asp:LinkButton ID="lbtCancel" runat="server" CommandName="Cancel"><span class="glyphicon glyphicon-remove" aria-hidden="true" style="font-size:1.5em;color:red"></span></asp:LinkButton>
+                                <asp:LinkButton ID="lbtUpdate" runat="server" CommandName="Update" CausesValidation="true">
+                                    <span class="glyphicon glyphicon-ok" aria-hidden="true" style="font-size:1.5em;color:forestgreen"></span></asp:LinkButton>
+                                <asp:LinkButton ID="lbtCancel" runat="server" CommandName="Cancel" CausesValidation="true">
+                                    <span class="glyphicon glyphicon-remove" aria-hidden="true" style="font-size:1.5em;color:red"></span></asp:LinkButton>
                             </td>
                         </tr>
-                        <tr style="background-color: #ffedef">
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                        <tr style="background-color: #ffedef">                            
                             <td style="text-align: right; padding-right: 20px">
                                 <asp:Label ID="lblNotes" runat="server" Text="Notes"></asp:Label>
                             </td>
-                            <td style="text-align: right; padding-right: 20px">
-                                <asp:TextBox ID="tbxNotes" runat="server" Text='<%# Bind("Notes") %>' MaxLength="200"></asp:TextBox>
+                            <td style="text-align: right; padding-right: 20px" colspan="3">
+                                <asp:TextBox ID="tbxNotes" runat="server" Text='<%# Bind("Notes") %>' MaxLength="200" Width="100%"></asp:TextBox>
                             </td>
-                            <td></td>
-                            <td></td>
+                            <td style="text-align: right; padding-right: 20px" colspan="3" >
+                                <asp:CustomValidator ID="validQtyRange" runat="server"
+                                        OnServerValidate="validQtyRange_ServerValidate"
+                                        ControlToValidate="tbxActualQuantity" ForeColor="Red" ErrorMessage="" Display="Dynamic">
+                                    </asp:CustomValidator>
+                            </td>
                         </tr>
                     </tbody>
                 </EditItemTemplate>
