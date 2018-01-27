@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using InventoryWebApp.Models;
 using InventoryWebApp.Models.Entities;
 
 namespace InventoryWebApp.DAO
 {
-    public class EmployeeDAO :  IEmployeeDAO
+    public class EmployeeDAO : IEmployeeDAO
     {
         EntityModel em = new EntityModel();
 
@@ -25,7 +24,7 @@ namespace InventoryWebApp.DAO
              emp.UserName = userName;*/
 
             em.Employees.Add(emp);
-            return em.SaveChanges();
+            em.SaveChanges();
 
         }
 
@@ -38,14 +37,20 @@ namespace InventoryWebApp.DAO
         }
         public Employee GetEmployeeInfo(string username)
         {
-            return em.Employees.Where(x => x.UserName.Contains(username)).FirstOrDefault();
+            return em.Employees.Where(x => x.UserName == username).FirstOrDefault();
         }
 
-        public int UpdateRole(string username, string role)
+        public Employee GetEmployeeByCode(String employeeCode)
+        {
+            em = new EntityModel();
+            return em.Employees.Where(e => e.EmployeeCode == employeeCode).First();
+        }
+
+        public void UpdateRole(string username, string role)
         {
             Employee emp = em.Employees.Where(x => x.UserName == username).First();
             emp.CurrentRoleCode = role;
-            return em.SaveChanges();
+            em.SaveChanges();
         }
 
         public List<Employee> ListEmployee()
@@ -67,12 +72,12 @@ namespace InventoryWebApp.DAO
 
         public List<Employee> SearchByDept(string dept)
         {
-            return em.Employees.Where(x => x.DepartmentCode.Equals(dept.Trim())).ToList();
+            return em.Employees.Where(x => x.Department.Equals(dept.Trim())).ToList();
         }
 
         public List<string> ListEmpName(string dept, string role)
         {
-            return em.Employees.Where(x => x.DepartmentCode == dept && x.CurrentRoleCode == role).Select(x => x.EmployeeName).ToList();
+            return em.Employees.Where(x => x.DepartmentCode == dept && x.CurrentRoleCode == role).Select(x=>x.EmployeeName).ToList();
         }
 
         public List<Employee> SearchByEmployeeName(string empName)
@@ -106,5 +111,9 @@ namespace InventoryWebApp.DAO
 
         }
 
+        int IEmployeeDAO.UpdateRole(string username, string role)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

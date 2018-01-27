@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using InventoryWebApp.Models.Entities;
+using System;
 
 namespace InventoryWebApp.DAO
 {
@@ -15,5 +16,6 @@ namespace InventoryWebApp.DAO
         int UpdateRequest(Request r);
         int UpdateRequestApproval(Request R, string ApprovedN);
         int UpdateRequestStatus(Request R, string newStatus);
+        int UpdateRequest(Request r);
     }
 }

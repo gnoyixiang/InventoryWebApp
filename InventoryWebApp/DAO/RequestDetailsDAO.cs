@@ -10,6 +10,13 @@ namespace InventoryWebApp.DAO
     public class RequestDetailsDAO : IRequestDetailsDAO
     {
         RequestDetail rd;
+       public List<RequestDetail> SearchOutstandingRequestDetails()
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                return em.RequestDetails.Where(rd =>rd.RemainingQuant!=0).ToList();
+            }
+        }
 
         public List<RequestDetail> ListRequestDetail(string RequestCode)
         {
@@ -27,6 +34,7 @@ namespace InventoryWebApp.DAO
             }
 
         }
+
 
         public int UpdateRequestDetailStatus(RequestDetail R, string newStatus)
         {
@@ -65,18 +73,17 @@ namespace InventoryWebApp.DAO
 
         }
 
-        public RequestDetail GetRequestDetail(string RequestC, string itemCode)
+        public RequestDetail GetRequestDetail(string requestCode, string itemCode)
         {
             using (EntityModel em = new EntityModel())
             {
                 return em.RequestDetails
-                    .Where(r => r.RequestCode == RequestC && r.ItemCode == itemCode)
+                    .Where(r => r.RequestCode == requestCode && r.ItemCode == itemCode)
                     .FirstOrDefault<RequestDetail>();
             }
         }
 
         public int UpdateRequestDetail(RequestDetail rDetail)
-
         {
             using (EntityModel em = new EntityModel())
             {

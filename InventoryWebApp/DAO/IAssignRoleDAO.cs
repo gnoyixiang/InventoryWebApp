@@ -6,7 +6,7 @@ namespace InventoryWebApp.DAO
 {
     public interface IAssignRoleDAO
     {
-        int AddAssignRole(string assignrolecode, string temporaryrolecode, string employeecode, DateTime startdate, DateTime enddate, string assignedby);
+        int AddAssignRole(int assignrolecode, string temporaryrolecode, string employeecode, DateTime startdate, DateTime enddate, string assignedby);
         void DeleteAssignRole(string assignrolecode);
         AssignRole GetAssignRoleInfo(string assignrolecode);
         List<AssignRole> ListAssignRole();

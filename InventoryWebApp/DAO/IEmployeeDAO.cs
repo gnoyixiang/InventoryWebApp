@@ -8,6 +8,7 @@ namespace InventoryWebApp.DAO
         int AddEmployee(Employee emp);
         void DeleteEmployee(string username);
         Employee GetEmployeeInfo(string username);
+        Employee GetEmployeeByCode(string employeeCode);
         string GetEmployeeName(string username);
         List<Employee> ListEmployee();
         List<string> ListEmpName(string dept, string role);

@@ -24,7 +24,6 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -195,6 +194,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="2AllocationPage.aspx" />
     <Content Include="401.aspx" />
     <Content Include="About.aspx" />
     <Content Include="Account\AddPhoneNumber.aspx" />
@@ -212,6 +212,7 @@
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
     <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
     <Content Include="Account\VerifyPhoneNumber.aspx" />
+    <Content Include="ChargeBackPage.aspx" />
     <Content Include="Store\AdjustmentByStoreManager.aspx" />
     <Content Include="Store\AdjustmentByStoreSupervisor.aspx" />
     <Content Include="Store\AssigningAuthorityStoreDept.aspx" />
@@ -221,6 +222,8 @@
     <Content Include="Content\custom.css" />
     <Content Include="Content\custom2.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="DisbursementFormPage.aspx" />
+    <Content Include="DisbursementGenerationPage.aspx" />
     <Content Include="Store\StoreEmployeeList.aspx" />
     <Content Include="Store\CreateNewOrder.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -234,6 +237,7 @@
     <Content Include="Store\QuotationPrint.aspx" />
     <Content Include="Store\QuotationView.aspx" />
     <Content Include="RequisitionList.aspx" />
+    <Content Include="RetrievalPage.aspx" />
     <Content Include="Scripts\fancy-sidebar-navigation.js" />
     <Content Include="Layout.Master" />
     <Content Include="Store\StockCardSearch.aspx" />
@@ -311,6 +315,13 @@
     </Compile>
     <Compile Include="401.aspx.designer.cs">
       <DependentUpon>401.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="2AllocationPage.aspx.cs">
+      <DependentUpon>2AllocationPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="2AllocationPage.aspx.designer.cs">
+      <DependentUpon>2AllocationPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Account\AddPhoneNumber.aspx.cs">
       <DependentUpon>AddPhoneNumber.aspx</DependentUpon>
@@ -491,6 +502,13 @@
     <Compile Include="Store\AssigningAuthorityStoreDept.aspx.designer.cs">
       <DependentUpon>AssigningAuthorityStoreDept.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ChargeBackPage.aspx.cs">
+      <DependentUpon>ChargeBackPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ChargeBackPage.aspx.designer.cs">
+      <DependentUpon>ChargeBackPage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -551,6 +569,20 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="DisbursementFormPage.aspx.cs">
+      <DependentUpon>DisbursementFormPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DisbursementFormPage.aspx.designer.cs">
+      <DependentUpon>DisbursementFormPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DisbursementGenerationPage.aspx.cs">
+      <DependentUpon>DisbursementGenerationPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DisbursementGenerationPage.aspx.designer.cs">
+      <DependentUpon>DisbursementGenerationPage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -592,6 +624,13 @@
     </Compile>
     <Compile Include="RequisitionList.aspx.designer.cs">
       <DependentUpon>RequisitionList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RetrievalPage.aspx.cs">
+      <DependentUpon>RetrievalPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RetrievalPage.aspx.designer.cs">
+      <DependentUpon>RetrievalPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
