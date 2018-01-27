@@ -137,9 +137,5 @@ namespace InventoryWebApp.Controllers
         {
             return Ird.ListRequestDetail(requestCode);
         }
-        public string GetDisbursementStatus(string disburseCode)
-        {
-            return Idbm.GetDisbursementStatus(disburseCode);
-        }
     }
 }

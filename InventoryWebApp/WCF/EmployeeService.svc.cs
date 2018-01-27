@@ -40,10 +40,9 @@ namespace InventoryWebApp.WCF
                 string deptName = ec.GetDeptNameByCode(disbursCode.DepartmentCode);
                 var collectionVenue = ec.GetCollectionPoint(deptName);
                 string userName = ec.GetEmployeeNameByUserName(disbursCode.UserName);
-                var status = ec.GetDisbursementStatus(disbursCode.Status);
                 wcfDisbursementDetails.Add(new WCF_DisbursementDetails(db.DisbursementCode, stationery.Description,
                     Convert.ToString(db.ActualQuantity), Convert.ToString(db.Quantity),
-                    collectionVenue, deptName, userName, status));
+                    collectionVenue, deptName, userName, disbursCode.Status));
             }
             return wcfDisbursementDetails;
             // Convert.ToString(db.Disbursement.CollectionPoint.CollectionTime)
@@ -51,7 +50,9 @@ namespace InventoryWebApp.WCF
         public void UpdateDisbursement(WCF_Disbursement wcfDisbursement)
         {
             // Check valid disbursement
-            if (wcfDisbursement != null && !string.IsNullOrEmpty(wcfDisbursement.DisbursementCode))
+            if (wcfDisbursement != null && !string.IsNullOrEmpty(wcfDisbursement.DisbursementCode)
+                 && !string.IsNullOrEmpty(wcfDisbursement.Status)
+                  && !string.IsNullOrEmpty(wcfDisbursement.RepName))
             {
                 Disbursement d = ec.GetDisbursementCode(wcfDisbursement.DisbursementCode);
                 //Update disbursement status
@@ -88,7 +89,7 @@ namespace InventoryWebApp.WCF
                     }
                 }
                 // Update the request status in the request table
-                foreach (DisbursementDetail disburseDetails in d.DisbursementDetails)
+                foreach (DisbursementDetail disburseDetails in db)
                 {
                     Request request = ec.GetRequestCode(disburseDetails.RequestCode);
                     List<RequestDetail> rqList = ec.ListRequestDetail(request.RequestCode);
@@ -98,11 +99,11 @@ namespace InventoryWebApp.WCF
                     if (imcompletedRequestDetails != null &&
                         imcompletedRequestDetails.Any())
                     {
-                        disburseDetails.Request.Status = "incompleted";
+                        request.Status = "incompleted";
                     }
                     else
                     {
-                        disburseDetails.Request.Status = "completed";
+                        request.Status = "completed";
                     }
                     ec.UpdateRequest(request);
                 }

@@ -147,6 +147,7 @@ namespace InventoryWebApp.DAO
                     disbursement.ReceivedBy = d.ReceivedBy;
                     disbursement.DateDisbursed = d.DateDisbursed;
                     disbursement.Notes = d.Notes;
+                    
                     em.SaveChanges();
                     return 1;
                 }
@@ -196,13 +197,6 @@ namespace InventoryWebApp.DAO
                 }
                 else
                     return 0;
-            }
-        }
-        public string GetDisbursementStatus(string disburseCode)
-        {
-            using (EntityModel em = new EntityModel())
-            {
-                return em.Disbursements.Where(x => x.DisbursementCode.Equals(disburseCode)).Select(p => p.Status).FirstOrDefault();
             }
         }
     }
