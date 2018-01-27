@@ -39,16 +39,16 @@ namespace InventoryWebApp.WCF
         private String approvedBy;
         private String supplierName;
         private String totalPrice;
-       
+        private String empName;
 
        
-        public WCFPurchaseOrder(String PurchaseOrderCode, String DateCreated, String SupplierName,
+        public WCFPurchaseOrder(String PurchaseOrderCode, String DateCreated, String SupplierName,String empName,
              String TotalPrice)
         {
 
             this.PurchaseOrderCode = PurchaseOrderCode;
             this.DateCreated = DateCreated;
-
+            this.empName = empName;
             this.SupplierName = SupplierName;
             this.TotalPrice = TotalPrice;
             
@@ -106,6 +106,12 @@ namespace InventoryWebApp.WCF
             set { this.supplierName = value; }
         }
         [DataMember]
+        public string EmpName
+        {
+            get { return empName; }
+            set { this.empName = value; }
+        }
+        [DataMember]
         public string TotalPrice
         {
             get { return totalPrice; }
@@ -126,11 +132,13 @@ namespace InventoryWebApp.WCF
         private String itemDescription;
         private string price;
         private String quantity;
-        public WCFPODetail(String itemDescription,String price,String quantity)
+        private String amount;
+        public WCFPODetail(String itemDescription,String price,String quantity,String amount)
         {
             this.itemDescription = itemDescription;
             this.price = price;
             this.quantity = quantity;
+            this.amount = amount;
         }
         [DataMember]
         public string ItemDescription
@@ -150,7 +158,12 @@ namespace InventoryWebApp.WCF
             get { return quantity; }
             set { this.quantity = value; }
         }
-
+        [DataMember]
+        public string Amount
+        {
+            get { return amount; }
+            set { this.amount = value; }
+        }
 
     }
 

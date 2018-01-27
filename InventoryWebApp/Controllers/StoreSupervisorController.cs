@@ -8,6 +8,7 @@ namespace InventoryWebApp.Controllers
 {
     public class StoreSupervisorController
     {
+        IEmployeeDAO empDao = new EmployeeDAO();
         IPurchaseOrderDAO poDAO = new PurchaseOrderDAO();
         IPODetailsDAO podDAO = new PODetailsDAO();
         ISupplierDAO sDAO = new SupplierDAO();
@@ -19,7 +20,10 @@ namespace InventoryWebApp.Controllers
         IDisbursementDAO dbDAO = new DisbursementDAO();
         IDisbursementDetailsDAO dbdDAO = new DisbursementDetailsDAO();
         IDepartmentDAO depDAO = new DepartmentDAO();
-
+        public string GetEmployeeName(string userName)
+        {
+            return empDao.GetEmployeeName(userName);
+        }
         public List<PurchaseOrder> ListAllPendingPO()
         {
             return poDAO.ListPurchaseOrdersByStatus("pending");

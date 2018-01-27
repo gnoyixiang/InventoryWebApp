@@ -23,7 +23,8 @@ namespace InventoryWebApp.WCF
             {
                 if (d.Status == "disbursing")
                 {
-                    wcfDisbursement.Add(new WCF_Disbursement(d.DisbursementCode, "DepartmentName", d.Status, d.UserName));
+                    String depName = ec.GetDeptNameByCode(d.DepartmentCode);
+                    wcfDisbursement.Add(new WCF_Disbursement(d.DisbursementCode, depName,d.Status, d.UserName));
                 }
             }
             return wcfDisbursement;
@@ -34,11 +35,11 @@ namespace InventoryWebApp.WCF
             List<WCF_DisbursementDetails> wcfDisbursementDetails = new List<WCF_DisbursementDetails>();
             foreach (DisbursementDetail db in dDetailslist)
             {
-
-                wcfDisbursementDetails.Add(new WCF_DisbursementDetails(db.DisbursementCode, "Description", Convert.ToString(db.ActualQuantity), Convert.ToString(db.Quantity),
-                    db.Disbursement.CollectionPoint.CollectionVenue,
-                    db.Disbursement.Department.DepartmentName,
-                    db.Disbursement.UserName, db.Disbursement.Status));
+                Disbursement d=ec.GetDisbursementCode(db.DisbursementCode);
+                wcfDisbursementDetails.Add(new WCF_DisbursementDetails(db.DisbursementCode, ec.GetStationery(db.ItemCode).Description, Convert.ToString(db.ActualQuantity), Convert.ToString(db.Quantity),
+                    ec.GetCollectionPointnameByCode(d.CollectionPointCode),
+                    ec.GetDeptNameByCode(d.DepartmentCode),
+                    d.UserName,d.Status));
             }
             return wcfDisbursementDetails;
             // Convert.ToString(db.Disbursement.CollectionPoint.CollectionTime)

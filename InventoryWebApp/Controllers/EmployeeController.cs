@@ -34,6 +34,7 @@ namespace InventoryWebApp.Controllers
         public int UpdateDisbursement(Disbursement d)
         {
             return Idbm.UpdateDbmStatus(d);
+
         }
          public Disbursement GetDisbursementCode(string disbursementCode)
          {
@@ -54,6 +55,18 @@ namespace InventoryWebApp.Controllers
         public int UpdateRequest(Request rq)
         {
             return Ir.UpdateRequest(rq);
+        }
+        public string GetDeptNameByCode(string deptCode)
+        {
+            return Idpt.GetDeptNameByCode(deptCode);
+        }
+        public StationeryCatalogue GetStationery(string itemcode)
+        {
+            return Isc.GetStationery(itemcode);
+        }
+        public string GetCollectionPointnameByCode(string collectionCode)
+        {
+            return Icp.GetCollectionPointNameByCode(collectionCode);
         }
     }
 }

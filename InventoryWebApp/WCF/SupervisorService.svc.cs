@@ -25,13 +25,16 @@ namespace InventoryWebApp.WCF
             decimal? totalPrice=0;
             foreach (PurchaseOrder p in plist)
             {
+                totalPrice = 0;
                 string supName = controller.GetSupplier(p.SupplierCode).SupplierName;
+                string empName = controller.GetEmployeeName(p.UserName);
                 List<PODetail> pdList = controller.ListPODetailsByPOCode(p.PurchaseOrderCode);
                 foreach(PODetail pd in pdList)
                 {
                      totalPrice += pd.Price * (decimal?)pd.Quantity;
                 }
-                wcfPoList.Add(new WCFPurchaseOrder(p.PurchaseOrderCode, string.Format("{0:dd/MM/yyyy}", p.DateCreated),supName,"$"+totalPrice.ToString()) );
+                
+                wcfPoList.Add(new WCFPurchaseOrder(p.PurchaseOrderCode, string.Format("{0:dd/MM/yyyy}", p.DateCreated),supName,empName,"$"+totalPrice.ToString()) );
             }
             return wcfPoList;
         }
@@ -43,8 +46,7 @@ namespace InventoryWebApp.WCF
             foreach (PODetail p in poDetail)
             {
                 string des = controller.GetStationeryCatalogue(p.ItemCode).Description;
-
-                wpoDetail.Add(new WCFPODetail(des,"$"+p.Price.ToString(),p.Quantity.ToString()));
+                wpoDetail.Add(new WCFPODetail(des,"$"+p.Price.ToString(),p.Quantity.ToString(), (p.Price * (decimal?)p.Quantity).ToString()));
             }
             return wpoDetail;
         }
@@ -52,15 +54,15 @@ namespace InventoryWebApp.WCF
 
         public void UpdatePendingPO(WCFPurchaseOrder po)
         {
-            PurchaseOrder purchaseOrder = new PurchaseOrder
-            {
-                PurchaseOrderCode=po.PurchaseOrderCode,
-                Status =po.Status ,
-                DateApproved = Convert.ToDateTime(po.DateApproved),
-                ApprovedBy = po.ApprovedBy,
+
+            PurchaseOrder p = controller.GetPOByPOCode(po.PurchaseOrderCode);
+
+            p.Status = po.Status;
+            p.DateApproved = Convert.ToDateTime(po.DateApproved);
+            p.ApprovedBy = po.ApprovedBy;
                
-            };
-            controller.updatePOStatus(purchaseOrder);
+            ;
+            controller.updatePOStatus(p);
         }
     }
 }

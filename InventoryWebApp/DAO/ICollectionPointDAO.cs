@@ -12,5 +12,6 @@ namespace InventoryWebApp.DAO
         int UpdateCollectionPoint(CollectionPoint c);
         CollectionPoint GetCollectionPoint(string collectionPointCode);
         List<CollectionPoint> ListAllCollectionPoint();
+        string GetCollectionPointNameByCode(string collectionPointCode);
     }
 }

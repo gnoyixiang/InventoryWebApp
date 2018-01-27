@@ -60,5 +60,9 @@ namespace InventoryWebApp.DAO
             CollectionPoint cp = em.CollectionPoints.Where(x => x.CollectionPointCode == collectionPointCode).FirstOrDefault();
             return cp;
         }
+        public string GetCollectionPointNameByCode(string collectionPointCode)
+        {
+            return em.CollectionPoints.Where(x => x.CollectionPointCode.Equals(collectionPointCode)).Select(p => p.CollectionVenue).FirstOrDefault();
+        }
     }
 }
