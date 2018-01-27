@@ -59,7 +59,14 @@ namespace InventoryWebApp.DAO
             a = em.SaveChanges();
             return a;
         }
-
+        public int UpdateRequest(Request r)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                em.Entry(r).State = EntityState.Modified;
+                return em.SaveChanges();
+            }
+        }
 
     }
 }

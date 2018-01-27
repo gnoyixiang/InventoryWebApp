@@ -40,7 +40,8 @@ namespace InventoryWebApp.DAO
             return a;
         }
 
-        private int CancelRequestDetail(RequestDetail rd)
+        
+        public int CancelRequestDetail(RequestDetail rd)
         {
             rd.Status = "CANCELLED";
             int changes = 0;
@@ -50,5 +51,22 @@ namespace InventoryWebApp.DAO
 
         }
 
+        public RequestDetail GetRequestDetail(string RequestC, string itemCode)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                return em.RequestDetails
+                    .Where(r => r.RequestCode == RequestC && r.ItemCode == itemCode)
+                    .FirstOrDefault<RequestDetail>();
+            }
+        }
+        public int UpdateRequestDetail(RequestDetail rDetail)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                em.Entry(rDetail).State = EntityState.Modified;
+                return em.SaveChanges();
+            }
+        }
     }
 }

@@ -40,6 +40,14 @@ namespace InventoryWebApp.Models.Entities
         [StringLength(256)]
         public string ReceivedBy { get; set; }
 
+        [StringLength(20)]
+        public string CollectionPointCode { get; set; }
+
+        [Column(TypeName = "date")]
+        public DateTime? DatePlanToCollect { get; set; }
+
+        public virtual CollectionPoint CollectionPoint { get; set; }
+
         public virtual Department Department { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -38,5 +38,13 @@ namespace InventoryWebApp.DAO
             }
             return ddListAfterStartDate;
         }
+        
+        public List<DisbursementDetail> GetDisbursementDetails(string disbursementCode)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                return em.DisbursementDetails.Where(x => x.DisbursementCode == disbursementCode).ToList();
+            }
+        }
     }
 }

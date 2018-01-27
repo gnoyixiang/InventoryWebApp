@@ -501,6 +501,7 @@
     <Compile Include="Models\Entities\UserLogin.cs" />
     <Compile Include="Models\Entities\Util.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\RequestDTO.cs" />
     <Compile Include="PendingPO.aspx.cs">
       <DependentUpon>PendingPO.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
