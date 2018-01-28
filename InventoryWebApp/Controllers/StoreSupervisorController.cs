@@ -20,6 +20,41 @@ namespace InventoryWebApp.Controllers
         IDisbursementDAO dbDAO = new DisbursementDAO();
         IDisbursementDetailsDAO dbdDAO = new DisbursementDetailsDAO();
         IDepartmentDAO depDAO = new DepartmentDAO();
+        IAdjustmentDAO adjustmentDao = new AdjustmentDAO();
+        private readonly string statusOfAdjustment = "Pending";
+
+        public Adjustment GetAdjustment(string adCode)
+        {
+            return adjustmentDao.GetAdjustmentByAdjustmentCode(adCode);
+        }
+        public List<Adjustment> ListOfPendingAdjustmentBySupervisor()
+        {
+            List<Adjustment> pendingAdLdit = new List<Adjustment>();
+            List<Adjustment> adjustmentList = adjustmentDao.ListAllAdjustments();
+
+
+            foreach (Adjustment ad in adjustmentList)
+            {
+                if (ad.Status.ToLower().Equals(statusOfAdjustment.ToLower()))
+                {
+                    StationeryCatalogue tempst = GetStationeryCatalogue(ad.ItemCode);
+                    if ((ad.AdjustmentQuant * tempst.Price) < 250)
+                    {
+                        pendingAdLdit.Add(ad);
+                    }
+                }
+
+            }
+
+            return pendingAdLdit;
+        }
+        public int UpdateAdjustmentBySupervisor(Adjustment adjustment)
+        {
+
+            int adUpdate = adjustmentDao.UpdateAdjustmentByStoreSupervisor(adjustment);
+
+            return adUpdate;
+        }
         public string GetEmployeeName(string userName)
         {
             return empDao.GetEmployeeName(userName);

@@ -15,6 +15,13 @@ namespace InventoryWebApp.WCF
         //[WebGet(UriTemplate = "/login", ResponseFormat =WebMessageFormat.Json)]
         [WebInvoke(Method = "POST", UriTemplate = "/Login", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         LoginResult Login(LoginDetails details);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "/Validate", Method = "POST",
+        RequestFormat = WebMessageFormat.Json,
+        ResponseFormat = WebMessageFormat.Json)]
+        LoginResult Validate(LoginDetails details);
+
     }
     [DataContract]
     public class LoginDetails

@@ -26,6 +26,37 @@ namespace InventoryWebApp.WCF
         ResponseFormat = WebMessageFormat.Json)]
         void UpdatePendingPO(WCFPurchaseOrder po);
 
+        [OperationContract]
+        [WebGet(UriTemplate = "/PendingAdjustmentSupervisor", ResponseFormat = WebMessageFormat.Json)]
+        List<WCFAdjustment> ListOfPendingRequestForSupervisor();
+
+
+        [OperationContract]
+        [WebGet(UriTemplate = "/PendingAdjustmentManager", ResponseFormat = WebMessageFormat.Json)]
+
+        List<WCFAdjustment> ListOfPendingRequestForManager();
+
+
+        [OperationContract]
+        [WebGet(UriTemplate = "/Adjustment/{adjustmentcode}", ResponseFormat = WebMessageFormat.Json)]
+
+        WCFAdjustment GetAdjustment(string adjustmentcode);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "/UpdateAdjustmentSupervisor", Method = "POST",
+        RequestFormat = WebMessageFormat.Json,
+        ResponseFormat = WebMessageFormat.Json)]
+        String UpdateAdjustmentBySupervisor(WCFAdjustment adjustment);
+
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "/UpdateAdjustmentManager", Method = "POST",
+        RequestFormat = WebMessageFormat.Json,
+        ResponseFormat = WebMessageFormat.Json)]
+        void UpdateAdjustmentByManager(WCFAdjustment adjustment);
+
+        
+
     }
     [DataContract]
     public class WCFPurchaseOrder
@@ -166,6 +197,118 @@ namespace InventoryWebApp.WCF
         }
 
     }
+    [DataContract]
+    public class WCFAdjustment
+    {
+        string adjustmentCode;
+        string itemCode;
+        string itemDescription;
+        string price;
+        string adjustmentQuant;
+        string stock;
+        string reason;
+        string remark;
+        string status;
+        String dateOfApprove;
+        string approvedBy;
+
+        [DataMember]
+        public string AdjustmentCode
+        {
+            get { return adjustmentCode; }
+            set { adjustmentCode = value; }
+        }
+
+        [DataMember]
+        public string ItemCode
+        {
+            get { return itemCode; }
+            set { itemCode = value; }
+        }
+        [DataMember]
+        public string ItemDescription
+        {
+            get { return itemDescription; }
+            set { itemDescription = value; }
+        }
+        [DataMember]
+        public string Price
+        {
+            get { return price; }
+            set { price = value; }
+        }
+
+        [DataMember]
+        public string AdjustmentQuant
+        {
+            get { return adjustmentQuant; }
+            set { adjustmentQuant = value; }
+        }
+
+        [DataMember]
+        public string Stock
+        {
+            get { return stock; }
+            set { stock = value; }
+        }
+
+        [DataMember]
+        public string Reason
+        {
+            get { return reason; }
+            set { reason = value; }
+        }
+        [DataMember]
+        public string Remark
+        {
+            get { return remark; }
+            set { remark = value; }
+        }
+
+        [DataMember]
+        public string Status
+        {
+            get { return status; }
+            set { status = value; }
+        }
+
+        [DataMember]
+        public String DateOfApprove
+        {
+            get { return dateOfApprove; }
+            set { dateOfApprove = value; }
+        }
+
+        [DataMember]
+        public string ApprovedBy
+        {
+            get { return approvedBy; }
+            set { approvedBy = value; }
+        }
+
+        public WCFAdjustment(string adjustmentCode, string itemCode, string price, string adjustmentQuant, string stock, string reason, string remark,string itemDescription)
+        {
+            this.adjustmentCode = adjustmentCode;
+
+            this.itemCode = itemCode;
+            this.price = price;
+            this.adjustmentQuant = adjustmentQuant;
+
+            this.stock = stock;
+            this.reason = reason;
+            this.remark = remark;
+            this.ItemDescription = itemDescription;
+        }
+
+
+        public WCFAdjustment()
+        {
+
+        }
+    }
+
+
+
 
       
 }

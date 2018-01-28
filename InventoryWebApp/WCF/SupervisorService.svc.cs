@@ -16,7 +16,8 @@ namespace InventoryWebApp.WCF
     public class SupervisorService : ISupervisorService
     {
         StoreSupervisorController controller = new StoreSupervisorController();
-
+        StoreManagerController managerController = new StoreManagerController();
+      
 
         public List<WCFPurchaseOrder> GetAllPendingPO()
         {
@@ -50,8 +51,6 @@ namespace InventoryWebApp.WCF
             }
             return wpoDetail;
         }
-
-
         public void UpdatePendingPO(WCFPurchaseOrder po)
         {
 
@@ -60,9 +59,122 @@ namespace InventoryWebApp.WCF
             p.Status = po.Status;
             p.DateApproved = Convert.ToDateTime(po.DateApproved);
             p.ApprovedBy = po.ApprovedBy;
-               
+
             ;
             controller.updatePOStatus(p);
         }
+
+
+        public List<WCFAdjustment> ListOfPendingRequestForManager()
+        {
+            List<WCFAdjustment> listOfWcfAdjustmwnt = new List<WCFAdjustment>();
+            WCFAdjustment wcfAdjustment = new WCFAdjustment();
+
+            List<Adjustment> adList = managerController.ListOfPendingAdjustmentByManager();
+            foreach (Adjustment a in adList)
+            {
+                StationeryCatalogue tempst = controller.GetStationeryCatalogue(a.ItemCode);
+
+                string price = tempst.Price.ToString();
+                string stock = tempst.Stock.ToString();
+
+                listOfWcfAdjustmwnt.Add(new WCFAdjustment(a.AdjustmentCode, a.ItemCode, price, a.AdjustmentQuant.ToString(), stock, a.Reason, a.HeadRemarks, tempst.Description.ToString()));
+
+            }
+
+            return listOfWcfAdjustmwnt;
+
+        }
+
+        public List<WCFAdjustment> ListOfPendingRequestForSupervisor()
+        {
+            List<WCFAdjustment> listOfWcfAdjustmwnt = new List<WCFAdjustment>();
+            WCFAdjustment wcfAdjustment = new WCFAdjustment();
+            List<Adjustment> adList = controller.ListOfPendingAdjustmentBySupervisor();
+            foreach (Adjustment a in adList)
+            {
+                StationeryCatalogue tempst = controller.GetStationeryCatalogue(a.ItemCode);
+
+                string price = tempst.Price.ToString();
+                string stock = tempst.Stock.ToString();
+
+                listOfWcfAdjustmwnt.Add(new WCFAdjustment(a.AdjustmentCode, a.ItemCode, price, a.AdjustmentQuant.ToString(), stock, a.Reason, a.HeadRemarks,tempst.Description));
+
+            }
+
+
+            return listOfWcfAdjustmwnt;
+
+        }
+
+        public void UpdateAdjustmentByManager(WCFAdjustment adjustment)
+        {
+            if (adjustment.Status.Equals("Approve"))
+            {
+                Adjustment adApprove = new Adjustment()
+                {
+                    AdjustmentCode = adjustment.AdjustmentCode,
+                    Status = "Approve",
+                    DateApproved = DateTime.Parse(adjustment.DateOfApprove),
+                    ApprovedBy = adjustment.ApprovedBy,
+                    HeadRemarks = adjustment.Remark
+
+                };
+
+                controller.UpdateAdjustmentBySupervisor(adApprove);
+            }
+            else
+            {
+                Adjustment adReject = new Adjustment()
+                {
+                    AdjustmentCode = adjustment.AdjustmentCode,
+                    Status = "Reject",
+                    DateApproved = DateTime.Parse(adjustment.DateOfApprove),
+                    ApprovedBy = adjustment.ApprovedBy,
+                    HeadRemarks = adjustment.Remark
+
+                };
+                controller.UpdateAdjustmentBySupervisor(adReject);
+
+            }
+        }
+        public WCFAdjustment GetAdjustment(string adjustmentcode)
+        {
+            Adjustment ad = controller.GetAdjustment(adjustmentcode);
+
+            StationeryCatalogue tempst = controller.GetStationeryCatalogue(ad.ItemCode);
+
+            string price = tempst.Price.ToString();
+            string stock = tempst.Stock.ToString();
+
+            return new WCFAdjustment(ad.AdjustmentCode, ad.ItemCode, price, ad.AdjustmentQuant.ToString(), stock, ad.Reason, ad.HeadRemarks,tempst.Description);
+
+        }
+        public string UpdateAdjustmentBySupervisor(WCFAdjustment wcfAdjustment)
+        {
+            try
+            {
+                  Adjustment ad = new Adjustment()
+                    {
+                        AdjustmentCode = wcfAdjustment.AdjustmentCode,
+                        Status = wcfAdjustment.Status,
+                        DateApproved = Convert.ToDateTime(wcfAdjustment.DateOfApprove),
+                        ApprovedBy = wcfAdjustment.ApprovedBy,
+                        HeadRemarks = wcfAdjustment.Remark
+
+                    };
+
+                    controller.UpdateAdjustmentBySupervisor(ad);
+               
+                return "amit";
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
+
+        
+
     }
 }
