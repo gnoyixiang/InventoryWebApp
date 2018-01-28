@@ -24,7 +24,6 @@ namespace InventoryWebApp
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
         }
 
         protected override void OnPreRenderComplete(EventArgs e)
@@ -36,6 +35,25 @@ namespace InventoryWebApp
                 ddlSearch.Items.Clear();
                 ddlSearch.DataSource = SEARCH_ITEMS;
                 ddlSearch.DataBind();
+
+                if (Session["CreatedPO"] != null)
+                {
+                    if ((bool)Session["CreatedPO"])
+                    {                        
+                        if (!(bool)Session["SendCreatePOEmail"])
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                                "alertMessage", "alert('Purchase orders have been successfully created! However an error has occurred when sending email!')", true);
+                        }
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                           "alertMessage", "alert('Purchase orders have been successfully created! Email notifications have been sent successfully!')", true);
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                   "alertMessage", "alert('An error has occurred when creating purchase orders!')", true);
+                    }
+                }
             }
 
             poList = scController.GetAllPurchaseOrders();

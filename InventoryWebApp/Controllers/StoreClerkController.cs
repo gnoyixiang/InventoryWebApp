@@ -8,6 +8,7 @@ using InventoryWebApp.DAO;
 using System.Text;
 using System.Data;
 
+
 namespace InventoryWebApp.Controllers
 {
     public class StoreClerkController
@@ -68,7 +69,14 @@ namespace InventoryWebApp.Controllers
                 {
                     if (qtyToReorderToRequiredLevel > item.ReorderQuantity)
                     {
-                        recommendQty = qtyToReorderToRequiredLevel;
+                        if (qtyToReorderToRequiredLevel - qtyInPendingAndApprovedOrders > item.ReorderQuantity)
+                        {
+                            recommendQty = qtyToReorderToRequiredLevel;
+                        }
+                        else
+                        {
+                            recommendQty = Convert.ToInt32(item.ReorderQuantity);
+                        }
                     }
                     else
                     {
@@ -79,6 +87,7 @@ namespace InventoryWebApp.Controllers
                 {
                     if (outstandingRequestQty - qtyInPendingAndApprovedOrders > item.ReorderQuantity)
                     {
+                        
                         recommendQty = outstandingRequestQty - qtyInPendingAndApprovedOrders;
                     }
                     else
@@ -334,7 +343,7 @@ namespace InventoryWebApp.Controllers
             return stationeryDAO.GetStationeriesBelowReorderLevel();
         }
 
-        internal int CreatePurchaseOrders(List<PurchaseItem> purchaseItems)
+        internal List<PurchaseOrder> CreatePurchaseOrders(List<PurchaseItem> purchaseItems, string username)
         {
             int rows = 0;
             var purchaseOrders = new List<PurchaseOrder>();
@@ -376,12 +385,23 @@ namespace InventoryWebApp.Controllers
             }
             foreach (PurchaseOrder po in purchaseOrders)
             {
-                purchaseOrderDAO.AddPurchaseOrder(po);
-                rows++;
+                try
+                {
+                    purchaseOrderDAO.AddPurchaseOrder(po);
+                    rows++;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
-            return rows;
+            return purchaseOrders;
         }
 
+        private void SendEmail(List<PurchaseOrder> purchaseOrders)
+        {
+            throw new NotImplementedException();
+        }
 
         internal bool IsPurchaseOrderEditable(PurchaseOrder po)
         {

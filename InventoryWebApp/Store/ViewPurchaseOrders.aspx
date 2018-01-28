@@ -13,7 +13,7 @@
         <div class="col-md-3 col-sm-4">
             <% if (Context.User.IsInRole("Store Clerk"))
                 { %>
-            <a href="/CreateNewOrder" class="btn btn-success btn-lg" role="button" style="margin: 20px 0; width: 100%;">Create New</a>
+            <a href="/Store/CreateNewOrder" class="btn btn-success btn-lg" role="button" style="margin: 20px 0; width: 100%;">Create New</a>
             <% } %>
         </div>
     </div>
