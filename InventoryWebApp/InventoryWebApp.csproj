@@ -217,6 +217,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Properties\PublishProfiles\InventoryWCF.pubxml.user" />
     <Content Include="PurchaseOrderDetail.aspx" />
     <Content Include="RequisitionList.aspx" />
     <Content Include="Scripts\fancy-sidebar-navigation.js" />
@@ -228,7 +229,12 @@
     <Content Include="HeadViewRequest.aspx" />
     <Content Include="HeadRequestDetail.aspx" />
     <Content Include="HeadDisbursement.aspx" />
+    <Content Include="WCF\ClerkService.svc" />
+    <Content Include="WCF\DepartmentService.svc" />
+    <Content Include="WCF\EmployeeService.svc" />
+    <Content Include="WCF\SupervisorService.svc" />
     <Content Include="WebForm6.aspx" />
+    <None Include="Properties\PublishProfiles\InventoryWCF.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
@@ -580,6 +586,22 @@
     <Compile Include="HeadDisbursement.aspx.designer.cs">
       <DependentUpon>HeadDisbursement.aspx</DependentUpon>
     </Compile>
+    <Compile Include="WCF\ClerkService.svc.cs">
+      <DependentUpon>ClerkService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="WCF\DepartmentService.svc.cs">
+      <DependentUpon>DepartmentService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="WCF\EmployeeService.svc.cs">
+      <DependentUpon>EmployeeService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="WCF\IClerkService.cs" />
+    <Compile Include="WCF\IDepartmentService.cs" />
+    <Compile Include="WCF\IEmployeeService.cs" />
+    <Compile Include="WCF\ISupervisorService.cs" />
+    <Compile Include="WCF\SupervisorService.svc.cs">
+      <DependentUpon>SupervisorService.svc</DependentUpon>
+    </Compile>
     <Compile Include="WebForm6.aspx.cs">
       <DependentUpon>WebForm6.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -590,10 +612,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="WCF\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

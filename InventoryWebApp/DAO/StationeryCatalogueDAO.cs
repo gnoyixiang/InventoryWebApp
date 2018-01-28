@@ -31,6 +31,9 @@ namespace InventoryWebApp.DAO
             StationeryCatalogue stationery = em.StationeryCatalogues.Where(x => x.ItemCode == itemcode).FirstOrDefault();
             return stationery;
         }
+
+        
+
         public int AddStationery(StationeryCatalogue st)
         {
             try

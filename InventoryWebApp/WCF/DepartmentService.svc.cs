@@ -4,6 +4,8 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using InventoryWebApp.Controllers;
+using InventoryWebApp.Models.Entities;
 
 namespace InventoryWebApp.WCF
 {
@@ -11,8 +13,52 @@ namespace InventoryWebApp.WCF
     // NOTE: In order to launch WCF Test Client for testing this service, please select DepartmentService.svc or DepartmentService.svc.cs at the Solution Explorer and start debugging.
     public class DepartmentService : IDepartmentService
     {
-        public void DoWork()
+        DepartmentHeadController dCon = new DepartmentHeadController();
+
+        public List<WCFRequest> ListAllPendingRequest()
         {
+            List<WCFRequest> wcfReqList = new List<WCFRequest>();
+            List<Request> rlist = dCon.ListPendingRequest();
+            foreach (Request r in rlist)
+            {
+                string empName = dCon.GetEmployeeName(r.UserName);
+                wcfReqList.Add(new WCFRequest(r.RequestCode, r.DepartmentCode,string.Format("{0:dd/MM/yyyy}", r.DateCreated)
+                    , r.Status,r.Notes,r.UserName,empName));
+            }
+            return wcfReqList;
         }
+
+        public List<WCFRequestDetail> ListRequestDetail(string code)
+        {
+            List<WCFRequestDetail> wcfReqDetailList = new List<WCFRequestDetail>();
+            List<RequestDetail> rqlist = dCon.ListRequestDetail(code);
+            foreach(RequestDetail rq in rqlist)
+            {
+
+                StationeryCatalogue s = dCon.GetStationeryCatalogue(rq.ItemCode);
+                string category = s.CategoryCode;
+                string description = s.Description;
+                //string description = dCon.GetDescription(rq.ItemCode);
+                wcfReqDetailList.Add(new WCFRequestDetail(rq.ItemCode, rq.Quantity.ToString(),category,description));
+
+            }
+            return wcfReqDetailList;
+
+        }
+
+       public void Update(WCFRequest r)
+        {
+            Request req = new Request
+            {
+                RequestCode = r.RequestCode,
+                Status = r.Status,
+                ApprovedBy = r.ApprovedBy,
+                HeadRemarks = r.HeadRemark,
+                DateApproved=DateTime.Now
+
+            };
+            dCon.UpdateRequest(req, req.Status);
+        }
+
     }
 }

@@ -32,10 +32,7 @@ namespace InventoryWebApp.Controllers
             return rDAO.SearchRequestbyStatus("pending","ISS1");
         }
 
-        public string GetEmployeeName(string username)
-        {
-            return eDAO.GetEmployeeName(username);
-        }
+       
 
         public List<Request> ListAllRequest()
         {
@@ -76,6 +73,14 @@ namespace InventoryWebApp.Controllers
         {
             return scDAO.GetStationery(code);
         }
+
+        
+
+        public string GetEmployeeName(string username)
+        {
+            return eDAO.GetEmployeeName(username);
+        }
+        
 
         public int UpdateRequest(Request r,string status)
         {                               
