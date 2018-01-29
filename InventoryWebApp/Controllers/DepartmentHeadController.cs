@@ -11,18 +11,22 @@ namespace InventoryWebApp.Controllers
 
     public class DepartmentHeadController
     {
-        public DepartmentHeadController()
-        {
+        IAssignRoleDAO assignRoleDAO = new AssignRoleDAO();
+        IEmployeeDAO employeeDAO = new EmployeeDAO();
+        IRoleDAO roleDAO = new RoleDAO();
+        IUserDAO userDAO = new UserDAO();
+        
+        IRequestDAO requestDAO = new RequestDAO();
+        IRequestDetailsDAO requestDetailDAO = new RequestDetailsDAO();
+        IStationeryCatalogueDAO stationeryDAO = new StationeryCatalogueDAO();
+        IDisbursementDetailsDAO disbursementDetailDAO = new DisbursementDetailsDAO();
+        IDisbursementDAO disbursementDAO = new DisbursementDAO();
+        IDepartmentDAO departmentDAO = new DepartmentDAO();
 
-        }
-        IAssignRoleDAO adao = new AssignRoleDAO();
-        IEmployeeDAO edao = new EmployeeDAO();
-        IRoleDAO rdao = new RoleDAO();
-        IUserDAO udao = new UserDAO();
         public List<Employee> ListOfEmployeeNameInDepartment(string empName)
         {
             List<Employee> empList = new List<Employee>();
-            List<Employee> empSearchList = edao.SearchByEmployeeName(empName);
+            List<Employee> empSearchList = employeeDAO.SearchByEmployeeName(empName);
             foreach(Employee e in empSearchList)
             {
                 if(e.DepartmentCode=="CPSC")
@@ -35,12 +39,12 @@ namespace InventoryWebApp.Controllers
 
         public Role GetRoleInfo(string id)
         {
-            return rdao.GetRoleInfo(id);
+            return roleDAO.GetRoleInfo(id);
         }
         public List<Employee> ListOfEmployeeCodeInDepartment(string empCode)
         {
             List<Employee> empList = new List<Employee>();
-            List<Employee> empSearchList = edao.SearchByEmployeeCode(empCode);
+            List<Employee> empSearchList = employeeDAO.SearchByEmployeeCode(empCode);
             foreach (Employee e in empSearchList)
             {
                 if (e.DepartmentCode == "CPSC")
@@ -52,12 +56,12 @@ namespace InventoryWebApp.Controllers
         }
         public List<AssignRole> ListOfAssignRoleInDepartment(string deptCode)
         {
-            List<Employee> empList = edao.SearchByDept(deptCode);
+            List<Employee> empList = employeeDAO.SearchByDept(deptCode);
             List<AssignRole> assignList = new List<AssignRole>();
             
             foreach(Employee e in empList)
             {
-                List<AssignRole> assList = adao.SearchByEmployeeCode(e.EmployeeCode);
+                List<AssignRole> assList = assignRoleDAO.SearchByEmployeeCode(e.EmployeeCode);
                 foreach(AssignRole a in assList)
                 {
                     assignList.Add(a);
@@ -68,7 +72,7 @@ namespace InventoryWebApp.Controllers
     
         public bool CheckTemporaryRole(string temporaryrole)
         {
-            List<AssignRole> listOfAssignRole = adao.ListAssignRole();
+            List<AssignRole> listOfAssignRole = assignRoleDAO.ListAssignRole();
             if (listOfAssignRole.Count == 0)
             {
                 return true;
@@ -89,7 +93,7 @@ namespace InventoryWebApp.Controllers
         
         public bool CheckTemporaryRoleAndDates(string temporaryrole, DateTime startdate, DateTime enddate)
         {
-            List<AssignRole> listOfAssignRole = adao.ListAssignRole();
+            List<AssignRole> listOfAssignRole = assignRoleDAO.ListAssignRole();
             if (listOfAssignRole.Count == 0)
             {
                 return true;
@@ -124,7 +128,7 @@ namespace InventoryWebApp.Controllers
         }
         public bool CheckEmployee(string employeecode)
         {
-            List<AssignRole> listOfAssignRole = adao.ListAssignRole();
+            List<AssignRole> listOfAssignRole = assignRoleDAO.ListAssignRole();
             if (listOfAssignRole.Count == 0)
             {
                 return true;
@@ -147,73 +151,73 @@ namespace InventoryWebApp.Controllers
         public string GetRoleName(string a)
         {
             
-            return rdao.GetRoleName(a);
+            return roleDAO.GetRoleName(a);
         }
 
         public List<AssignRole> ListAssignRole()
         {
-            return adao.ListAssignRole();
+            return assignRoleDAO.ListAssignRole();
         }
 
         public int UpdatePermanentRole(AssignRole role)
         {
-            return adao.UpdateAssignRole(role);
+            return assignRoleDAO.UpdateAssignRole(role);
         }
 
         public int UpdateAssignRole(string assignrolecode, string temporaryrolecode,
            DateTime startdate, DateTime enddate)
         {
-            return adao.UpdateAssignRole(assignrolecode,  temporaryrolecode,
+            return assignRoleDAO.UpdateAssignRole(assignrolecode,  temporaryrolecode,
             startdate,  enddate);
         }
         public int UpdateTemporaryRoleCode(string assignrolecode, string temporaryrolecode)
         {
-            return adao.UpdateTemporaryRoleCode(assignrolecode, temporaryrolecode);
+            return assignRoleDAO.UpdateTemporaryRoleCode(assignrolecode, temporaryrolecode);
 
         }
         public int AddTemporaryRole(string assignrolecode, string temporaryrolecode,string employeecode)
         {
-            return adao.AddTemporaryRole( assignrolecode,  temporaryrolecode,employeecode);
+            return assignRoleDAO.AddTemporaryRole( assignrolecode,  temporaryrolecode,employeecode);
 
         }
 
         public void DeleteAssignRole(string assignrolecode)
         {
-             adao.DeleteAssignRole(assignrolecode);
+             assignRoleDAO.DeleteAssignRole(assignrolecode);
         }
         public List<Role> ListRole()
         {
 
-            return rdao.ListRole();
+            return roleDAO.ListRole();
         }
 
         public int UpdateEmployeeRole(string employeecode, string role)
         {
 
-            return edao.UpdateEmployeeRole(employeecode, role);
+            return employeeDAO.UpdateEmployeeRole(employeecode, role);
         }
 
         public AssignRole GetAssignRoleInfo(string assignrolecode)
         {
 
-            return adao.GetAssignRoleInfo(assignrolecode);
+            return assignRoleDAO.GetAssignRoleInfo(assignrolecode);
         }
         
         public List<Role> ListAllDepartmentRoles()
         {
-            return rdao.ListAllDepartmentRole();
+            return roleDAO.ListAllDepartmentRole();
         }
         public int AddAssignRole(string assignrolecode, string temporaryrolecode, string employeecode,
            DateTime startdate, DateTime enddate, string assignedby)
         {
-            return adao.AddAssignRole(assignrolecode, temporaryrolecode, employeecode,
+            return assignRoleDAO.AddAssignRole(assignrolecode, temporaryrolecode, employeecode,
             startdate, enddate, assignedby);
 
         }
 
         public Employee GetEmployeeInfo(string empCode)
         {
-            return edao.GetEmployeeByCode(empCode);
+            return employeeDAO.GetEmployeeByCode(empCode);
         }
 
        
@@ -222,100 +226,97 @@ namespace InventoryWebApp.Controllers
         public Role getRoleNameByUsername(string username)
         {
 
-            return udao.getRoleNameByUsername(username);
+            return userDAO.getRoleNameByUsername(username);
             
         }
         public User GetUserByUsername(string username)
         {
-            return udao.GetUserByUsername(username);
+            return userDAO.GetUserByUsername(username);
         }
     
-
-
-    //yf
-
-        IEmployeeDAO eDAO = new EmployeeDAO();
-        IRequestDAO rDAO = new RequestDAO();
-        IRequestDetailsDAO rdDAO = new RequestDetailsDAO();
-        IStationeryCatalogueDAO scDAO = new StationeryCatalogueDAO();
-        IDisbursementDetailsDAO ddDAO = new DisbursementDetailsDAO();
-        IDisbursementDAO dDAO = new DisbursementDAO();
-
-       
-
         public List<string> ListEmpName(string dept,string role)
         {
-            return eDAO.ListEmpName(dept, role);
+            return employeeDAO.ListEmpName(dept, role);
 
+        }
+
+        public Employee GetEmployeeByUsername(string username)
+        {
+            return employeeDAO.GetEmployeeInfo(username);
+        }
+
+        public Department GetDepartmentByEmployee(Employee e)
+        {
+            return departmentDAO.GetDepartmentInfo(e.DepartmentCode);
         }
 
         public List<Request> ListPendingRequest()
         {
-            return rDAO.SearchRequestbyStatus("pending","ISS1");
+            return requestDAO.SearchRequestbyStatus("pending","ISS1");
         }
 
         public string GetEmployeeName(string username)
         {
-            return eDAO.GetEmployeeName(username);
+            return employeeDAO.GetEmployeeName(username);
         }
 
         public Employee GetEmployeeByCode(string employeeCode)
         {
-            return eDAO.GetEmployeeByCode(employeeCode);
+            return employeeDAO.GetEmployeeByCode(employeeCode);
         }
 
         public List<Request> ListAllRequest()
         {
-            return rDAO.SearchRequestbyDept("ISS1");
+            return requestDAO.SearchRequestbyDept("ISS1");
         }
 
         public List<Request> SearchRequestByName(string name)
         {
-            string username = eDAO.GetUserName(name);
-            return rDAO.SearchPendingRequestByName(username,"ISS1");
+            string username = employeeDAO.GetUserName(name);
+            return requestDAO.SearchPendingRequestByName(username,"ISS1");
         }
 
         public List<Request> SearchRequestByDate(DateTime d)
         {
 
-            return rDAO.SearchPendingRequestByDate(d,"ISS1");
+            return requestDAO.SearchPendingRequestByDate(d,"ISS1");
         }
 
         public List<Request> SearchRequestByStatus(string status)
         {
 
-            return rDAO.SearchRequestbyStatus(status,"ISS1");
+            return requestDAO.SearchRequestbyStatus(status,"ISS1");
         }
 
 
 
         public Request GetRequest(string code)
         {
-            return rDAO.GetRequest(code);
+            return requestDAO.GetRequest(code);
         }
 
         public List<RequestDetail> ListRequestDetail(string code)
         {
-            return rdDAO.ListRequestDetail(code);
+            return requestDetailDAO.ListRequestDetail(code);
         }
 
         public StationeryCatalogue GetStationeryCatalogue(string code)
         {
-            return scDAO.GetStationery(code);
+            return stationeryDAO.GetStationery(code);
         }
 
         public int UpdateRequest(Request r,string status)
         {                               
                
-                List<RequestDetail> rdlist= rdDAO.ListRequestDetail(r.RequestCode);
+                List<RequestDetail> rdlist= requestDetailDAO.ListRequestDetail(r.RequestCode);
                 
                 foreach(RequestDetail rd in rdlist)
                 {
-                    rdDAO.UpdateRequestDetailStatus(rd, status);
+                    requestDetailDAO.UpdateRequestDetailStatus(rd, status);
                 }
 
-                rDAO.UpdateRequestApproval(r);
-                return rDAO.UpdateRequestStatus(r);          
+                requestDAO.UpdateRequestApproval(r);
+                return requestDAO.UpdateRequestStatus(r);          
                    
                     
            
@@ -323,17 +324,17 @@ namespace InventoryWebApp.Controllers
 
        public List<DisbursementDetail> ListDisbursementDetail(Request r)
         {
-            return ddDAO.SearchDDByRequest(r);
+            return disbursementDetailDAO.SearchDDByRequest(r);
         }
 
         public Disbursement GetDisbursement(string code)
         {
-            return dDAO.GetDisbursementByCode(code);
+            return disbursementDAO.GetDisbursementByCode(code);
         }
 
         public List<DisbursementDetail> ListDisbursementDetailByCode(string code)
         {
-            return ddDAO.SearchDDByCode(code);
+            return disbursementDetailDAO.SearchDDByCode(code);
         }
 
     }

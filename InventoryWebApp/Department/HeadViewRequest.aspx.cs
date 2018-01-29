@@ -14,10 +14,15 @@ namespace InventoryWebApp
         DepartmentHeadController dCon = new DepartmentHeadController();
         private void BindGrid()
         {
+
             gvRequest.DataSource = dCon.ListAllRequest();
             gvRequest.DataBind();
         }
 
+        //protected Employee GetEmployeeByUserName(string username)
+        //{
+            
+        //}
         
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -33,6 +38,8 @@ namespace InventoryWebApp
             }
 
         }
+
+
 
         protected void ddlSelect_SelectedIndexChanged(object sender, EventArgs e)
         {

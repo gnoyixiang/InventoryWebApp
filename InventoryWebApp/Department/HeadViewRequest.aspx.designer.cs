@@ -13,24 +13,6 @@ namespace InventoryWebApp {
     public partial class WebForm3 {
         
         /// <summary>
-        /// lblEmpName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEmpName;
-        
-        /// <summary>
-        /// lblSearch control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSearch;
-        
-        /// <summary>
         /// ddlSelect control.
         /// </summary>
         /// <remarks>
