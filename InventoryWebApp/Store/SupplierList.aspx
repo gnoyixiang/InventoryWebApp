@@ -7,6 +7,6 @@
                 <li class="active"><a href="#">Supplier List</a></li>
                
             </ul>
-    <asp:GridView ID="gvSupplierList" runat="server"></asp:GridView>
+    <asp:GridView ID="gvSupplierList" runat="server" CssClass="table" CellSpacing="-1" GridLines="None"></asp:GridView>
 
 </asp:Content>
