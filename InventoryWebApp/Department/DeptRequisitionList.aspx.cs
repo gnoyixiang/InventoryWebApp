@@ -32,7 +32,7 @@ namespace InventoryWebApp
         }
         private void LoadGridData()
         {
-            ListView1.DataSource = ec.ListAllRequest();
+            ListView1.DataSource = ec.ListAllRequest().Where(r=>r.DepartmentCode==this.Master.userDepartmentCode).ToList();
             ListView1.DataBind();
             
         }
@@ -40,7 +40,7 @@ namespace InventoryWebApp
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            List<Request> RList = ec.SearchRequest(DropDownList1.SelectedItem.ToString(), txtBxSearchRequisition.Text);
+            List<Request> RList = ec.SearchRequest(DropDownList1.SelectedItem.ToString(), txtBxSearchRequisition.Text).Where(r=>r.DepartmentCode==Master.userDepartmentCode).ToList();
             ListView1.DataSource = RList;            
             ListView1.DataBind();
         }

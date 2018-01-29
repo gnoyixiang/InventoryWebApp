@@ -3,14 +3,13 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="container-fluid" id="printableArea">
+   
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/RequisitionList">View Requisition</a></li>
+                <li class="breadcrumb-item"><a href="DeptRequisitionList">View Requisition</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Requisition Details</li>
             </ol>
         </nav>
-        <div class="container-fluid">
             <h1>Requisition Details</h1>
             <asp:Panel ID="Panel2" runat="server" Visible="false">No Request Details found!</asp:Panel>
             <asp:Panel ID="Panel1" runat="server">
@@ -121,6 +120,7 @@
                     { %><asp:Button ID="btnAddItem" runat="server" Text="Add Item" OnClick="btnAddItem_Click" />
                 <br />
                 <% } %>
+                <h3>Disbursements</h3>
                 <asp:ListView ID="ListView2" runat="server">
                     <LayoutTemplate>
                         <table class="table">
@@ -167,10 +167,9 @@
                 </div>
             </div>
             <asp:Button ID="PrintButton" runat="server" Text="Print" OnClientClick='printDiv("printableArea")' />
-        </div>
+  
 
-    </div>
-    <script language="javascript">
+    <script type="text/javascript">
         function printDiv(divName) {
             var printContents = document.getElementById(divName).innerHTML;
             var originalContents = document.body.innerHTML;

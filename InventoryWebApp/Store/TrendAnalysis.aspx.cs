@@ -40,7 +40,7 @@ namespace InventoryWebApp
         JavaScriptSerializer jss = new JavaScriptSerializer();
 
         static private readonly string[] SEARCH_ITEMS = { "Department and Item Requisition", "Supplier and Item Price" };
-
+        public List<DateTime> monthList = new List<DateTime>();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -84,7 +84,7 @@ namespace InventoryWebApp
                 cvalidDept.Enabled = true;
                 cvMonth.Enabled = true;
                 PanelSupplier.Enabled = false;
-                PanelDept.Enabled = true;
+
 
 
                 if (ddlmonthsCount.SelectedIndex >= 0)
@@ -148,13 +148,8 @@ namespace InventoryWebApp
                 ddlYear.Visible = true;
                 ddlYear.DataSource = Year;
                 ddlYear.DataBind();
-                //ddlItemCode.DataSource = tc.ListAllItemCode();
-                ddlItemCode.Items.Clear();
-                foreach (string s in tc.ListAllItemCode())
-                {
-                    ddlItemCode.Items.Add(new ListItem(s + ": " + sc.GetStationeryByCode(s).Description, s));                        
-                }
-                //ddlItemCode.DataBind();
+                ddlItemCode.DataSource = tc.ListAllItemCode();
+                ddlItemCode.DataBind();
 
 
                 if (ddlmonthsCount.SelectedIndex >= 0)
@@ -203,7 +198,7 @@ namespace InventoryWebApp
 
             }
             btnGenerateGraph.Visible = true;
-
+            PanelTable.Visible = false;
         }
 
         private void PropogateDeptGraph()
@@ -212,12 +207,6 @@ namespace InventoryWebApp
 
         }
 
-        private void ClearSeriesData()
-        {
-            SeriesData1.Clear();
-            SeriesData2.Clear();
-            SeriesData3.Clear();
-        }
         protected void btnGenerateGraph_Click(object sender, EventArgs e)
         {
             if (!Page.IsValid)
@@ -225,14 +214,14 @@ namespace InventoryWebApp
                 return;
             }
 
-            ClearSeriesData();
 
             if (rblAnalysisType.SelectedValue == "Department and Item Requisition")
             {
                 DateTime month1 = Convert.ToDateTime(tbMonth.Text);
                 DateTime month2 = Convert.ToDateTime(tbMonth2.Text);
 
-                List<DateTime> monthList = new List<DateTime>();
+                PanelTable.Visible = true;
+
                 monthList.Add(month1);
                 monthList.Add(month2);
                 if (ddlmonthsCount.SelectedIndex == 1)
@@ -244,28 +233,28 @@ namespace InventoryWebApp
 
                 TrendTitle = "Analysis of Department's Category Requisition";
                 MonthData.Add(/*tbMonth.Text*/monthList[0].ToString("yyyy-MM"));
-                SeriesData1.Add(ec.GetCategoryQuantityByDept(ddlDept.SelectedValue, ddlCatCode.SelectedValue,
+                SeriesData1.Add(ec.GetCategoryQuantityByDept(ddlDept.SelectedValue, ddlItemCode.SelectedValue,
                     (/*Convert.ToDateTime(tbMonth.Text)*/monthList[0].Month), (/*Convert.ToDateTime(tbMonth.Text)*/monthList[0].Year)));
                 SeriesTitle1 = ddlDept.SelectedValue;
                 if (ddlCount.SelectedIndex == 0)
                 {
-                    SeriesData2.Add(ec.GetCategoryQuantityByDept(ddlDept2.SelectedValue, ddlCatCode.SelectedValue,
+                    SeriesData2.Add(ec.GetCategoryQuantityByDept(ddlDept2.SelectedValue, ddlItemCode.SelectedValue,
                         (/*Convert.ToDateTime(tbMonth.Text)*/monthList[0].Month), (/*Convert.ToDateTime(tbMonth.Text)*/monthList[0].Year)));
                     SeriesTitle2 = ddlDept2.SelectedValue;
 
                     if (ddlmonthsCount.SelectedIndex >= 0)
                     {
-                        SeriesData1.Add(ec.GetCategoryQuantityByDept(ddlDept.SelectedValue, ddlCatCode.SelectedValue,
+                        SeriesData1.Add(ec.GetCategoryQuantityByDept(ddlDept.SelectedValue, ddlItemCode.SelectedValue,
                             (/*Convert.ToDateTime(tbMonth2.Text)*/monthList[1].Month), (/*Convert.ToDateTime(tbMonth2.Text)*/monthList[1].Year)));
-                        SeriesData2.Add(ec.GetCategoryQuantityByDept(ddlDept2.SelectedValue, ddlCatCode.SelectedValue,
+                        SeriesData2.Add(ec.GetCategoryQuantityByDept(ddlDept2.SelectedValue, ddlItemCode.SelectedValue,
                             (/*Convert.ToDateTime(tbMonth2.Text)*/monthList[1].Month), (/*Convert.ToDateTime(tbMonth2.Text)*/monthList[1].Year)));
                         MonthData.Add(/*tbMonth2.Text*/monthList[1].ToString("yyyy-MM"));
 
                         if (ddlmonthsCount.SelectedIndex >= 1)
                         {
-                            SeriesData1.Add(ec.GetCategoryQuantityByDept(ddlDept.SelectedValue, ddlCatCode.SelectedValue,
+                            SeriesData1.Add(ec.GetCategoryQuantityByDept(ddlDept.SelectedValue, ddlItemCode.SelectedValue,
                                 (/*Convert.ToDateTime(tbMonth3.Text)*/monthList[2].Month), (/*Convert.ToDateTime(tbMonth3.Text)*/monthList[2].Year)));
-                            SeriesData2.Add(ec.GetCategoryQuantityByDept(ddlDept2.SelectedValue, ddlCatCode.SelectedValue,
+                            SeriesData2.Add(ec.GetCategoryQuantityByDept(ddlDept2.SelectedValue, ddlItemCode.SelectedValue,
                                 (/*Convert.ToDateTime(tbMonth3.Text)*/monthList[2].Month), (/*Convert.ToDateTime(tbMonth3.Text)*/monthList[2].Year)));
                             MonthData.Add(/*tbMonth3.Text*/monthList[2].ToString("yyyy-MM"));
 
@@ -277,29 +266,29 @@ namespace InventoryWebApp
 
                 else if (ddlCount.SelectedIndex == 1)
                 {
-                    SeriesData2.Add(ec.GetCategoryQuantityByDept(ddlDept2.SelectedValue, ddlCatCode.SelectedValue,
+                    SeriesData2.Add(ec.GetCategoryQuantityByDept(ddlDept2.SelectedValue, ddlItemCode.SelectedValue,
                         (monthList[0].Month), (monthList[0].Year)));
-                    SeriesData3.Add(ec.GetCategoryQuantityByDept(ddlDept3.SelectedValue, ddlCatCode.SelectedValue,
+                    SeriesData3.Add(ec.GetCategoryQuantityByDept(ddlDept3.SelectedValue, ddlItemCode.SelectedValue,
                        (monthList[0].Month), (monthList[0].Year)));
                     SeriesTitle2 = ddlDept2.SelectedValue;
                     SeriesTitle3 = ddlDept3.SelectedValue;
                     if (ddlmonthsCount.SelectedIndex >= 0)
                     {
-                        SeriesData1.Add(ec.GetCategoryQuantityByDept(ddlDept.SelectedValue, ddlCatCode.SelectedValue,
+                        SeriesData1.Add(ec.GetCategoryQuantityByDept(ddlDept.SelectedValue, ddlItemCode.SelectedValue,
                             (monthList[1].Month), (monthList[1].Year)));
-                        SeriesData2.Add(ec.GetCategoryQuantityByDept(ddlDept2.SelectedValue, ddlCatCode.SelectedValue,
+                        SeriesData2.Add(ec.GetCategoryQuantityByDept(ddlDept2.SelectedValue, ddlItemCode.SelectedValue,
                             (monthList[1].Month), (monthList[1].Year)));
-                        SeriesData3.Add(ec.GetCategoryQuantityByDept(ddlDept3.SelectedValue, ddlCatCode.SelectedValue,
+                        SeriesData3.Add(ec.GetCategoryQuantityByDept(ddlDept3.SelectedValue, ddlItemCode.SelectedValue,
                             (monthList[1].Month), (monthList[1].Year)));
                         MonthData.Add(monthList[1].ToString("yyyy-MM"));
 
                         if (ddlmonthsCount.SelectedIndex >= 1)
                         {
-                            SeriesData1.Add(ec.GetCategoryQuantityByDept(ddlDept.SelectedValue, ddlCatCode.SelectedValue,
+                            SeriesData1.Add(ec.GetCategoryQuantityByDept(ddlDept.SelectedValue, ddlItemCode.SelectedValue,
                                 (monthList[2].Month), (monthList[2].Year)));
-                            SeriesData2.Add(ec.GetCategoryQuantityByDept(ddlDept2.SelectedValue, ddlCatCode.SelectedValue,
+                            SeriesData2.Add(ec.GetCategoryQuantityByDept(ddlDept2.SelectedValue, ddlItemCode.SelectedValue,
                                 (monthList[2].Month), (monthList[2].Year)));
-                            SeriesData3.Add(ec.GetCategoryQuantityByDept(ddlDept3.SelectedValue, ddlCatCode.SelectedValue,
+                            SeriesData3.Add(ec.GetCategoryQuantityByDept(ddlDept3.SelectedValue, ddlItemCode.SelectedValue,
                                 (monthList[2].Month), (monthList[2].Year)));
                             MonthData.Add(monthList[2].ToString("yyyy-MM"));
 

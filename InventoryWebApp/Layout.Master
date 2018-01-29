@@ -21,6 +21,7 @@
 </head>
 <body>
     <form runat="server">
+    <asp:HiddenField runat="server" ID="hfDepartmentCode" />
     <div class="wrapper">
         <!-- Sidebar Holder -->
         <nav id="sidebar">

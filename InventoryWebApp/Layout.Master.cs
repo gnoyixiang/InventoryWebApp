@@ -7,12 +7,16 @@ using System.Web.UI.WebControls;
 using System.Web.Security;
 using Microsoft.AspNet.Identity;
 using InventoryWebApp.Controllers;
+using InventoryWebApp.Models.Entities;
 
 namespace InventoryWebApp
 {
     public partial class Layout : System.Web.UI.MasterPage
     {
         LoginController loginController = new LoginController();
+        EmployeeController employeeController = new EmployeeController();
+
+        public string userDepartmentCode;
 
         private const string AntiXsrfTokenKey = "__AntiXsrfToken";
         private const string AntiXsrfUserNameKey = "__AntiXsrfUserName";
@@ -52,19 +56,7 @@ namespace InventoryWebApp
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Session["UserRole"] = "storeClerk";
-            //Session["UserRole"] = "storeSupervisor";
-            //Session["UserRole"] = "employee";
-            //Session["UserRole"] = "departmentHead";
-
-            //Session["ChangeRole"] = "actingStoreSupervisor";
-            //Session["ChangeRole"] = "actingDepartmentHead";
-            //Session["ChangeRole"] = "departmentRep";
-
-            // The code below helps to protect against XSRF attacks
-
-
-            
+            userDepartmentCode = employeeController.GetDeptCodeByUserName(Context.User.Identity.Name);               
         }
 
         protected void master_Page_PreLoad(object sender, EventArgs e)

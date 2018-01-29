@@ -65,5 +65,17 @@ namespace InventoryWebApp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ListView ListView1;
+        
+        /// <summary>
+        /// Master property.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated property.
+        /// </remarks>
+        public new InventoryWebApp.Layout Master {
+            get {
+                return ((InventoryWebApp.Layout)(base.Master));
+            }
+        }
     }
 }

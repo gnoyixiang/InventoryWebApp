@@ -418,21 +418,12 @@ namespace InventoryWebApp {
         protected global::System.Web.UI.WebControls.Button btnGenerateGraph;
         
         /// <summary>
-        /// PanelGraph control.
+        /// PanelTable control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PanelGraph;
-        
-        /// <summary>
-        /// tblAnalysis control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Table tblAnalysis;
+        protected global::System.Web.UI.WebControls.Panel PanelTable;
     }
 }
