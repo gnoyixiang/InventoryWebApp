@@ -131,5 +131,13 @@ namespace InventoryWebApp.DAO
         {
             return em.Requests.Where(b => b.Status.ToUpper().Contains(RequestStatus.Trim().ToUpper()) && b.DepartmentCode == deptcode).ToList();
         }
+        public List<Request> SearchRequestByDeptCode(string deptCode)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                return em.Requests.Where(b => b.DepartmentCode == deptCode)
+                .ToList();
+            }
+        }
     }
 }

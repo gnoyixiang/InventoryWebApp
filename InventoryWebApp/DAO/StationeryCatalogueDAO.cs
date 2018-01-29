@@ -78,5 +78,10 @@ namespace InventoryWebApp.DAO
         {
             return em.StationeryCatalogues.Where(s => s.Stock <= s.ReorderLevel).ToList<StationeryCatalogue>();
         }
+        public List<string> ListAllItemCode()
+        {
+            em = new EntityModel();
+            return em.StationeryCatalogues.Select(x => x.ItemCode).ToList();
+        }
     }
 }

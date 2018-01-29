@@ -12,5 +12,10 @@ namespace InventoryWebApp.DAO
         int UpdateCollectionPoint(string deptCode, string point);
         int UpdateDepartment(string deptCode, string phone, string fax, string head);
         int UpdateRep(string deptCode, string rep);
+        int UpdateCollectionPoint(Department dpt);
+        string GetCollectionPoint(string deptName);
+        string GetDepartCodeByName(string deptName);
+        string GetDeptNameByCode(string deptCode);
+
     }
 }

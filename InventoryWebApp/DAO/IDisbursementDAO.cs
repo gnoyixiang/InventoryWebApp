@@ -21,5 +21,7 @@ namespace InventoryWebApp.DAO
         int UpdateDbmDisbursementDetail(Disbursement d);
         int UpdateDbmStatus(Disbursement d);
         int UpdateDisbursement(Disbursement d);
+        List<Disbursement> SearchDbmByDatePlanToCollect(DateTime date, string deptcode);
+        int UpdateDbmCollectionPoint(string depcode, string newCLP);
     }
 }

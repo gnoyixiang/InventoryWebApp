@@ -40,5 +40,16 @@ namespace InventoryWebApp.DAO
             }
         }
 
+        public string GetSupplierCodeBySupplierName(string supplierName)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                Supplier s = em.Suppliers.Where(p => p.SupplierName.Contains(supplierName)).FirstOrDefault<Supplier>();
+                return s.SupplierCode;
+
+            }
+
+        }
+
     }
 }

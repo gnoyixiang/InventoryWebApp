@@ -14,5 +14,7 @@ namespace InventoryWebApp.DAO
         int UpdateRequestDetailItemQuantity(RequestDetail R, int qtyChanged);
         int UpdateRequestDetailStatus(RequestDetail R, string newStatus);
         RequestDetail GetRequestDetail(string requestCode, string itemCode);
+        int DeleteRequestDetail(RequestDetail rDetail);
+        int AddRequestDetail(RequestDetail rd);
     }
 }

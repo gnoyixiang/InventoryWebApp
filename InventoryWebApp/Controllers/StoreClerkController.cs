@@ -1224,6 +1224,15 @@ namespace InventoryWebApp.Controllers
         {
             return requestDetailsDAO.ListRequestDetail(requestCode);
         }
+        public List<string> ListAllDepartmentName()
+        {
+            List<string> strList = new List<string>();
+            foreach (var i in departmentDAO.ListDepartment())
+            {
+                strList.Add(i.DepartmentName);
+            }
+            return strList;
+        }
 
 
     }

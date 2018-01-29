@@ -70,5 +70,34 @@ namespace InventoryWebApp.DAO
         {
             return em.Departments.Where(x => x.CollectionPointCode == point).ToList<Department>();
         }
+
+        public int UpdateCollectionPoint(Department dpt)
+        {
+            Department depart = em.Departments.Where(x => x.DepartmentCode == dpt.DepartmentCode).FirstOrDefault();
+            if (depart != null)
+            {
+                depart.CollectionPointCode = dpt.CollectionPointCode;
+                return em.SaveChanges();
+            }
+            else
+                return 0;
+            //string deptCode, string point
+            //Department dept = em.Departments.Where(x => x.DepartmentCode == deptCode).FirstOrDefault();
+            //dept.CollectionPointCode = point;
+            //return em.SaveChanges();
+        }
+
+        public string GetCollectionPoint(string deptName)
+        {
+            return em.Departments.Where(x => x.DepartmentName.Equals(deptName)).Select(p => p.CollectionPointCode).FirstOrDefault();
+        }
+        public string GetDepartCodeByName(string deptName)
+        {
+            return em.Departments.Where(x => x.DepartmentName.Equals(deptName)).Select(p => p.DepartmentCode).FirstOrDefault();
+        }
+        public string GetDeptNameByCode(string deptCode)
+        {
+            return em.Departments.Where(x => x.DepartmentCode.Equals(deptCode)).Select(x => x.DepartmentName).FirstOrDefault();
+        }
     }
 }

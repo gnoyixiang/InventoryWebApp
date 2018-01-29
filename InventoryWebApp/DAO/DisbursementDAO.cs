@@ -10,8 +10,7 @@ namespace InventoryWebApp.DAO
 
     public class DisbursementDAO : IDisbursementDAO
     {
-
-
+        EntityModel em;
         //Create
         public int AddDisbursement(Disbursement disbursement)
         {
@@ -170,6 +169,32 @@ namespace InventoryWebApp.DAO
                 else
                     return 0;
             }
+        }
+        public int UpdateDbmCollectionPoint(string depcode, string newCLP)
+        {
+            em = new EntityModel();
+            Disbursement disbursement = em.Disbursements.Where(d => d.DepartmentCode == depcode).FirstOrDefault();
+            if (disbursement != null)
+            {
+                var collectionDateGreaterthanToday = SearchDbmByDatePlanToCollect(DateTime.Now.Date, depcode);
+                if (collectionDateGreaterthanToday != null)
+                {
+                    foreach (Disbursement dbm in collectionDateGreaterthanToday)
+                    {
+                        dbm.CollectionPointCode = newCLP;
+                    }
+                    em.SaveChanges();
+                }
+                return 1;
+            }
+            else
+                return 0;
+        }
+
+        public List<Disbursement> SearchDbmByDatePlanToCollect(DateTime date, string deptcode)
+        {
+            em = new EntityModel();
+            return em.Disbursements.Where(d => d.DatePlanToCollect > date && d.DepartmentCode == deptcode).ToList();
         }
 
 
