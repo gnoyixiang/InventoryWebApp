@@ -11,7 +11,6 @@ namespace InventoryWebApp
 {
     public partial class AuthoriseStaff : System.Web.UI.Page
     {
-        EntityModel em = new EntityModel();
         DepartmentHeadController dCon = new DepartmentHeadController();
         String assignrolecode;
 
@@ -39,7 +38,7 @@ namespace InventoryWebApp
         {
             string assignrolecode = (string)gv.SelectedDataKey.Value;
             AssignRole a = dCon.GetAssignRoleInfo(assignrolecode);
-            lblEmpName.Text = dCon.GetEmployeeName(a.EmployeeCode);
+            lblEmpName.Text = dCon.GetEmployeeByCode(a.EmployeeCode).EmployeeName;
             lblEmpCode.Text = a.EmployeeCode;
             //string rolename=dCon.GetRoleName(a.TemporaryRoleCode);
             tbxStartDate.Text = a.StartDate.ToString();
@@ -53,7 +52,7 @@ namespace InventoryWebApp
                 string assignrolecode = assignrole.AssignRoleCode.ToString();
 
                 string employeecode = assignrole.EmployeeCode.ToString();
-                string employeename = dCon.GetEmployeeName(employeecode);
+                string employeename = dCon.GetEmployeeByCode(employeecode).EmployeeName;
                 Label employeelabel = (e.Row.FindControl("lblEmployeeName") as Label);
                 if (employeelabel != null)
                 {
@@ -100,7 +99,7 @@ namespace InventoryWebApp
                     {
                         dCon.UpdateAssignRole(assignrolecode, rolecodeselected, startdateselected, enddateselected);
                         
-                        lblSuccessMsg.Text = "AssignRole update";
+                        lblSuccessMsg.Text = "Assign Role updated";
                         lblErrorMsg.Text = "";
                     }
                     else
@@ -113,7 +112,7 @@ namespace InventoryWebApp
                 else
                 {
                     lblSuccessMsg.Text = "";
-                    lblErrorMsg.Text = "Can't update,there's no temporaryrole";
+                    lblErrorMsg.Text = "Can't update, there's no temporaryrole";
                 }
             }
             else
@@ -144,7 +143,7 @@ namespace InventoryWebApp
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
-            Response.Redirect("AddAuthorise.aspx");
+            Response.Redirect("/Department/AddAuthorise.aspx");
         }
     }
 }

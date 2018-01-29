@@ -22,6 +22,15 @@ namespace InventoryWebApp {
         protected global::System.Web.UI.WebControls.TextBox tbxSearch;
         
         /// <summary>
+        /// btnSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSearch;
+        
+        /// <summary>
         /// gvEmployee control.
         /// </summary>
         /// <remarks>
@@ -31,22 +40,31 @@ namespace InventoryWebApp {
         protected global::System.Web.UI.WebControls.GridView gvEmployee;
         
         /// <summary>
-        /// lblEmployeeCode control.
+        /// panelForm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEmployeeCode;
+        protected global::System.Web.UI.WebControls.Panel panelForm;
         
         /// <summary>
-        /// lblRoleCode2 control.
+        /// hfEmployeeCode control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRoleCode2;
+        protected global::System.Web.UI.WebControls.HiddenField hfEmployeeCode;
+        
+        /// <summary>
+        /// lblEmployeeName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEmployeeName;
         
         /// <summary>
         /// ddlRolecodelist control.
@@ -56,15 +74,6 @@ namespace InventoryWebApp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlRolecodelist;
-        
-        /// <summary>
-        /// lblStartDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblStartDate;
         
         /// <summary>
         /// tbxStartDate control.
@@ -83,15 +92,6 @@ namespace InventoryWebApp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator CompareStartTodayValidator;
-        
-        /// <summary>
-        /// lblEndDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEndDate;
         
         /// <summary>
         /// tbxEndDate control.

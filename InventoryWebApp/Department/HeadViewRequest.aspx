@@ -15,34 +15,42 @@
         .pager-style a{
 
         }
+        .row{
+            margin-bottom:10px;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-   
-     <p>
-        <br />
-    </p>
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Requisition List</h1>
+        </div>
+    </div>
+    <div class="row form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-md-2" for="lblEmpName">Employee Name:</label>
+            <div class="col-md-4">
+                <asp:Label ID="lblEmpName" runat="server" Text="" CssClass="form-control disabled"></asp:Label>
+            </div>
+        </div>
+    </div>
     
-        <h1>Requisition List</h1>
-    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
-    <p>&nbsp;</p>
-    <p> <asp:Label ID="lblSearch" runat="server" ForeColor="Black" Text="Search By"></asp:Label>
-&nbsp;<asp:DropDownList ID="ddlSelect" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlSelect_SelectedIndexChanged">
+    <asp:Label ID="lblSearch" runat="server" ForeColor="Black" Text="Search By"></asp:Label>
+<asp:DropDownList ID="ddlSelect" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlSelect_SelectedIndexChanged">
             <asp:ListItem>Employee Name</asp:ListItem>
             <asp:ListItem>Date</asp:ListItem>
             <asp:ListItem>Satus</asp:ListItem>
         </asp:DropDownList>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:DropDownList ID="ddlEmpName" runat="server" Visible="False">
         </asp:DropDownList>
-&nbsp;
+
         <asp:Button ID="btnSearch" runat="server" class="btn-primary" Text="Search" OnClick="btnSearch_Click"  />
-        &nbsp;&nbsp;&nbsp; &nbsp;<asp:Button ID="btnAll" runat="server" class="btn-primary" OnClick="btnAll_Click" background-color=#008CBA color=white Text="All Requisition" />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<asp:Button ID="btnAll" runat="server" class="btn-primary" OnClick="btnAll_Click" background-color=#008CBA color=white Text="All Requisition" />
+
         <asp:Calendar ID="calSearch" runat="server" Visible="False"></asp:Calendar>
     </p>
-    <p> &nbsp;<asp:Label ID="lblNull" runat="server" Font-Bold="True" Font-Size="X-Large" ForeColor="#006600" Text="label" Visible="False"></asp:Label>
-        &nbsp;&nbsp;&nbsp;&nbsp;</p>
+    <p><asp:Label ID="lblNull" runat="server" Font-Bold="True" Font-Size="X-Large" ForeColor="#006600" Text="label" Visible="False"></asp:Label>
+</p>
     <p>
         <asp:GridView ID="gvRequest" runat="server" Width="69%" AutoGenerateColumns="False" OnRowDataBound="OnRowDataBound" CellPadding="4" CssClass="table table-striped table-bordered table-hover" ForeColor="#333333" GridLines="None"  Font-Size="Larger"  OnRowCommand="gvRequest_RowCommand" DataKeyNames="RequestCode" style="margin-right: 0px" AllowPaging="True" OnPageIndexChanging="gvRequest_PageIndexChanging" PageSize="10">
             
