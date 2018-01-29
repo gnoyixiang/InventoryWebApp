@@ -256,13 +256,13 @@
     <Content Include="bin\System.Web.Providers.dll" />
     <Content Include="bin\System.Web.Providers.xml" />
     <Content Include="bin\WebGrease.dll" />
-    <Content Include="Department\CreateRequest.aspx" />
-    <Content Include="Department\ItemDetails.aspx" />
-    <Content Include="Department\RequisitionDetails.aspx" />
-    <Content Include="Department\DeptRequisitionList.aspx" />
+    <Content Include="Dept\CreateRequest.aspx" />
+    <Content Include="Dept\ItemDetails.aspx" />
+    <Content Include="Dept\RequisitionDetails.aspx" />
+    <Content Include="Dept\DeptRequisitionList.aspx" />
     <Content Include="Store\TrendAnalysis.aspx" />
-    <Content Include="Department\ViewCatalogue.aspx" />
-    <Content Include="Department\ViewDisbursement.aspx" />
+    <Content Include="Dept\ViewCatalogue.aspx" />
+    <Content Include="Dept\ViewDisbursement.aspx" />
     <Content Include="ErrorPages\403.aspx" />
     <Content Include="ErrorPages\404.aspx" />
     <Content Include="ErrorPages\Oops.aspx" />
@@ -288,8 +288,8 @@
     <Content Include="Store\AdjustmentByStoreManager.aspx" />
     <Content Include="Store\AdjustmentByStoreSupervisor.aspx" />
     <Content Include="Store\AssigningAuthorityStoreDept.aspx" />
-    <Content Include="Department\AddAuthorise.aspx" />
-    <Content Include="Department\AuthoriseStaff.aspx" />
+    <Content Include="Dept\AddAuthorise.aspx" />
+    <Content Include="Dept\AuthoriseStaff.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -322,15 +322,15 @@
     <Content Include="Store\PurchaseOrderDetail.aspx" />
     <Content Include="Store\ViewPurchaseOrders.aspx" />
     <Content Include="Public.Master" />
-    <Content Include="Department\Web.config" />
+    <Content Include="Dept\Web.config" />
     <Content Include="bin\ApplicationInsights.config" />
     <Content Include="bin\InventoryWebApp.dll.config" />
     <None Include="Properties\PublishProfiles\InventoryWCF.pubxml" />
-    <Content Include="Department\ApproveRequest.aspx" />
-    <Content Include="Department\HeadApproveDetail.aspx" />
-    <Content Include="Department\HeadViewRequest.aspx" />
-    <Content Include="Department\HeadRequestDetail.aspx" />
-    <Content Include="Department\HeadDisbursement.aspx" />
+    <Content Include="Dept\ApproveRequest.aspx" />
+    <Content Include="Dept\HeadApproveDetail.aspx" />
+    <Content Include="Dept\HeadViewRequest.aspx" />
+    <Content Include="Dept\HeadRequestDetail.aspx" />
+    <Content Include="Dept\HeadDisbursement.aspx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
@@ -391,32 +391,32 @@
     <Compile Include="Controllers\TrendAnalysisController.cs" />
     <Compile Include="DAO\CategoryDAO.cs" />
     <Compile Include="DAO\ICategoryDAO.cs" />
-    <Compile Include="Department\CreateRequest.aspx.cs">
+    <Compile Include="Dept\CreateRequest.aspx.cs">
       <DependentUpon>CreateRequest.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Department\CreateRequest.aspx.designer.cs">
+    <Compile Include="Dept\CreateRequest.aspx.designer.cs">
       <DependentUpon>CreateRequest.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Department\ItemDetails.aspx.cs">
+    <Compile Include="Dept\ItemDetails.aspx.cs">
       <DependentUpon>ItemDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Department\ItemDetails.aspx.designer.cs">
+    <Compile Include="Dept\ItemDetails.aspx.designer.cs">
       <DependentUpon>ItemDetails.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Department\RequisitionDetails.aspx.cs">
+    <Compile Include="Dept\RequisitionDetails.aspx.cs">
       <DependentUpon>RequisitionDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Department\RequisitionDetails.aspx.designer.cs">
+    <Compile Include="Dept\RequisitionDetails.aspx.designer.cs">
       <DependentUpon>RequisitionDetails.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Department\DeptRequisitionList.aspx.cs">
+    <Compile Include="Dept\DeptRequisitionList.aspx.cs">
       <DependentUpon>DeptRequisitionList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Department\DeptRequisitionList.aspx.designer.cs">
+    <Compile Include="Dept\DeptRequisitionList.aspx.designer.cs">
       <DependentUpon>DeptRequisitionList.aspx</DependentUpon>
     </Compile>
     <Compile Include="Store\TrendAnalysis.aspx.cs">
@@ -426,18 +426,18 @@
     <Compile Include="Store\TrendAnalysis.aspx.designer.cs">
       <DependentUpon>TrendAnalysis.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Department\ViewCatalogue.aspx.cs">
+    <Compile Include="Dept\ViewCatalogue.aspx.cs">
       <DependentUpon>ViewCatalogue.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Department\ViewCatalogue.aspx.designer.cs">
+    <Compile Include="Dept\ViewCatalogue.aspx.designer.cs">
       <DependentUpon>ViewCatalogue.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Department\ViewDisbursement.aspx.cs">
+    <Compile Include="Dept\ViewDisbursement.aspx.cs">
       <DependentUpon>ViewDisbursement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Department\ViewDisbursement.aspx.designer.cs">
+    <Compile Include="Dept\ViewDisbursement.aspx.designer.cs">
       <DependentUpon>ViewDisbursement.aspx</DependentUpon>
     </Compile>
     <Compile Include="ErrorPages\401.aspx.cs">
@@ -448,11 +448,11 @@
       <DependentUpon>401.aspx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\DepartmentHeadController.cs" />
-    <Compile Include="Department\AddAuthorise.aspx.cs">
+    <Compile Include="Dept\AddAuthorise.aspx.cs">
       <DependentUpon>AddAuthorise.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Department\AddAuthorise.aspx.designer.cs">
+    <Compile Include="Dept\AddAuthorise.aspx.designer.cs">
       <DependentUpon>AddAuthorise.aspx</DependentUpon>
     </Compile>
     <Compile Include="ErrorPages\403.aspx.cs">
@@ -674,11 +674,11 @@
     <Compile Include="Store\ChargeBackPage.aspx.designer.cs">
       <DependentUpon>ChargeBackPage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Department\AuthoriseStaff.aspx.cs">
+    <Compile Include="Dept\AuthoriseStaff.aspx.cs">
       <DependentUpon>AuthoriseStaff.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Department\AuthoriseStaff.aspx.designer.cs">
+    <Compile Include="Dept\AuthoriseStaff.aspx.designer.cs">
       <DependentUpon>AuthoriseStaff.aspx</DependentUpon>
     </Compile>
     <Compile Include="Contact.aspx.cs">
@@ -884,39 +884,39 @@
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Department\ApproveRequest.aspx.cs">
+    <Compile Include="Dept\ApproveRequest.aspx.cs">
       <DependentUpon>ApproveRequest.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Department\ApproveRequest.aspx.designer.cs">
+    <Compile Include="Dept\ApproveRequest.aspx.designer.cs">
       <DependentUpon>ApproveRequest.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Department\HeadApproveDetail.aspx.cs">
+    <Compile Include="Dept\HeadApproveDetail.aspx.cs">
       <DependentUpon>HeadApproveDetail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Department\HeadApproveDetail.aspx.designer.cs">
+    <Compile Include="Dept\HeadApproveDetail.aspx.designer.cs">
       <DependentUpon>HeadApproveDetail.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Department\HeadViewRequest.aspx.cs">
+    <Compile Include="Dept\HeadViewRequest.aspx.cs">
       <DependentUpon>HeadViewRequest.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Department\HeadViewRequest.aspx.designer.cs">
+    <Compile Include="Dept\HeadViewRequest.aspx.designer.cs">
       <DependentUpon>HeadViewRequest.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Department\HeadRequestDetail.aspx.cs">
+    <Compile Include="Dept\HeadRequestDetail.aspx.cs">
       <DependentUpon>HeadRequestDetail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Department\HeadRequestDetail.aspx.designer.cs">
+    <Compile Include="Dept\HeadRequestDetail.aspx.designer.cs">
       <DependentUpon>HeadRequestDetail.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Department\HeadDisbursement.aspx.cs">
+    <Compile Include="Dept\HeadDisbursement.aspx.cs">
       <DependentUpon>HeadDisbursement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Department\HeadDisbursement.aspx.designer.cs">
+    <Compile Include="Dept\HeadDisbursement.aspx.designer.cs">
       <DependentUpon>HeadDisbursement.aspx</DependentUpon>
     </Compile>
   </ItemGroup>

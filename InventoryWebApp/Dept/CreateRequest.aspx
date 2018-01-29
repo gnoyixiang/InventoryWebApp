@@ -27,8 +27,8 @@
     <h3>New Requisition Details</h3>
     <table>
         <tr>
-            <td>
-                <asp:Label ID="lblDept" runat="server" Text="Department Name"></asp:Label>
+            <td style="padding-right:5px">
+                <asp:Label ID="lblDept" runat="server" Text="Department Name:"></asp:Label>
                 <br />
                 <br />
             </td>
@@ -39,8 +39,8 @@
             </td>
         </tr>
         <tr>
-            <td>
-                <asp:Label ID="lblEmp" runat="server" Text="Employee Name"></asp:Label>
+            <td style="padding-right:5px">
+                <asp:Label ID="lblEmp" runat="server" Text="Employee Name:"></asp:Label>
                 <br />
                 <br />
             </td>

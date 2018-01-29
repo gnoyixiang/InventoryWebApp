@@ -13,7 +13,7 @@
         <div class="col-md-3 col-sm-4">
             <% if (Context.User.IsInRole("Store Clerk"))
                 { %>
-            <a href="/Store/CreateNewOrder" class="btn btn-success btn-lg" role="button" style="margin: 20px 0; width: 100%;">Create New</a>
+            <a href="CreateNewOrder" class="btn btn-success btn-lg" role="button" style="margin: 20px 0; width: 100%;">Create New</a>
             <% } %>
         </div>
     </div>
@@ -74,7 +74,7 @@
                     <ItemTemplate>
                         <tr>
                             <td><%# Container.DataItemIndex + 1 %></td>
-                            <td><a href="/Store/PurchaseOrderDetail?PO=<%#Eval("PurchaseOrderCode") %>" style="color: #337ab7"><%# Eval("PurchaseOrderCode") %></a></td>
+                            <td><a href="PurchaseOrderDetail?PO=<%#Eval("PurchaseOrderCode") %>" style="color: #337ab7"><%# Eval("PurchaseOrderCode") %></a></td>
                             <td><%# Eval("SupplierCode") %></td>
                             <td><%# Eval("DateCreated") %></td>
                             <td><%# Eval("Username") %></td>

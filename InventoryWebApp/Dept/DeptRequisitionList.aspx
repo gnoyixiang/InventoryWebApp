@@ -50,7 +50,7 @@
             </LayoutTemplate>
             <ItemTemplate>
                 <tr>
-                    <td><a href="/RequisitionDetails?REQUESTCODE=<%#Eval("RequestCode") %>" style="color: #337ab7"><%# Eval("RequestCode") %></a></td>
+                    <td><a href="RequisitionDetails?REQUESTCODE=<%#Eval("RequestCode") %>" style="color: #337ab7"><%# Eval("RequestCode") %></a></td>
                     <td><%# Eval("DepartmentCode") %></td>
                     <td><%# Eval("DateCreated","{0:MMM dd, yyyy}") %></td>
                     <td><%# Eval("DateApproved","{0:MMM dd, yyyy}") %></td>

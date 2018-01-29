@@ -13,11 +13,13 @@ namespace InventoryWebApp
 {
     public partial class Layout : System.Web.UI.MasterPage
     {
-        LoginController loginController = new LoginController();
         EmployeeController employeeController = new EmployeeController();
+        DepartmentHeadController deptHeadController = new DepartmentHeadController();
+        StoreClerkController storeClerkController = new StoreClerkController();
 
-        public string userDepartmentCode;
-
+        public string userDepartmentCode = "";
+        public string tempRoleCode = "";
+        
         private const string AntiXsrfTokenKey = "__AntiXsrfToken";
         private const string AntiXsrfUserNameKey = "__AntiXsrfUserName";
         private string _antiXsrfTokenValue;
@@ -52,12 +54,22 @@ namespace InventoryWebApp
             }
 
             Page.PreLoad += master_Page_PreLoad;
+            userDepartmentCode = employeeController.GetDeptCodeByUserName(Context.User.Identity.Name);
+            Department department = storeClerkController.GetDeptByCode(userDepartmentCode);
+            Employee employee = employeeController.GetEmployeeByUsername(Context.User.Identity.Name);
+            AssignRole assignRole = deptHeadController.ListAssignRole().Where(ar => ar.EmployeeCode == employee.EmployeeCode).FirstOrDefault();
+            if (assignRole != null)
+            {
+                tempRoleCode = assignRole.TemporaryRoleCode;
+            }
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            userDepartmentCode = employeeController.GetDeptCodeByUserName(Context.User.Identity.Name);               
+              
         }
+
+        
 
         protected void master_Page_PreLoad(object sender, EventArgs e)
         {
@@ -85,8 +97,18 @@ namespace InventoryWebApp
 
         protected string GetEmployeeName(string username)
         {
-            return loginController.GetEmployeeNameByUsername(username);
+            return employeeController.GetEmployeeNameByUserName(username);
         }
+
+        protected bool IsTempRoleCode(string tempRoleCode)
+        {
+            if (this.tempRoleCode == tempRoleCode)
+            {
+                return true;
+            }
+            return false;
+        }
+        
     }
 
 

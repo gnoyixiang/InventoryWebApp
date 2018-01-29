@@ -21,8 +21,7 @@ namespace InventoryWebApp
         {
             if (!IsPostBack)
             {
-                //TODO: change back to userName to session["userName"]
-                string userName = "suriya@logic.edu.sg";
+                string userName = Context.User.Identity.Name;
                 lblEmpName.Text = ec.GetEmployeeNameByUserName(userName);
                 string deptCode = ec.GetDeptCodeByUserName(userName);
                 string deptName = ec.GetDeptNameByCode(deptCode);
@@ -37,7 +36,7 @@ namespace InventoryWebApp
         }
         protected void btnAddItem_Click(object sender, EventArgs e)
         {
-            Response.Redirect("/ViewCatalogue.aspx");
+            Response.Redirect("ViewCatalogue.aspx");
         }
         protected void btnSubmit_Click(object sender, EventArgs e)
         {

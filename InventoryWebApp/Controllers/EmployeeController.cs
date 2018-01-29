@@ -24,6 +24,11 @@ namespace InventoryWebApp.Controllers
         IDisbursementDetailsDAO IdbmDetails = new DisbursementDetailsDAO();
         IDisbursementDAO Idbm = new DisbursementDAO();
 
+        public Employee GetEmployeeByUsername(string username)
+        {
+            return Iempl.GetEmployeeInfo(username);
+        }
+
         public List<StationeryCatalogue> Gridview()
         {
             List<StationeryCatalogue> list = Isc.ListAllStationery();

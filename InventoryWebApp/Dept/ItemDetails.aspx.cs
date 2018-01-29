@@ -179,7 +179,7 @@ namespace InventoryWebApp
             
             if (IsRedirect() && Session["ItemDetails"] != null)
             {
-                Response.Redirect("/RequisitionDetails.aspx?REQUESTCODE=" + requestcode);
+                Response.Redirect("RequisitionDetails.aspx?REQUESTCODE=" + requestcode);
             }
             else
                 //show success message

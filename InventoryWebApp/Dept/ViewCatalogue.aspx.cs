@@ -97,12 +97,12 @@ namespace InventoryWebApp
                 itcode = HyperLink1.Text;
                 if (IsRedirect())
                 {
-                    HyperLink1.NavigateUrl = "/ItemDetails.aspx?ItemCode=" +
+                    HyperLink1.NavigateUrl = "ItemDetails.aspx?ItemCode=" +
                          itcode + "&REQUESTCODE=" + RequestC;
                 }
                 else
                 {
-                    HyperLink1.NavigateUrl = "/ItemDetails.aspx?ItemCode=" +
+                    HyperLink1.NavigateUrl = "ItemDetails.aspx?ItemCode=" +
                          itcode;
                 }
 
