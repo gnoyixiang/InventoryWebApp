@@ -40,7 +40,7 @@ namespace InventoryWebApp
         JavaScriptSerializer jss = new JavaScriptSerializer();
 
         static private readonly string[] SEARCH_ITEMS = { "Department and Item Requisition", "Supplier and Item Price" };
-
+        public List<DateTime> monthList = new List<DateTime>();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -198,7 +198,7 @@ namespace InventoryWebApp
 
             }
             btnGenerateGraph.Visible = true;
-
+            PanelTable.Visible = false;
         }
 
         private void PropogateDeptGraph()
@@ -220,7 +220,8 @@ namespace InventoryWebApp
                 DateTime month1 = Convert.ToDateTime(tbMonth.Text);
                 DateTime month2 = Convert.ToDateTime(tbMonth2.Text);
 
-                List<DateTime> monthList = new List<DateTime>();
+                PanelTable.Visible = true;
+                
                 monthList.Add(month1);
                 monthList.Add(month2);
                 if (ddlmonthsCount.SelectedIndex == 1)

@@ -112,12 +112,40 @@
         </div>
     </div>
     <br />
-    <asp:Panel ID="PanelGraph" runat="server" Visible="true">
-   <asp:Table id="tblAnalysis" 
-       class="table"
-        GridLines="Both" 
-        HorizontalAlign="Center" 
-        Runat="server"/>
+    <asp:Panel ID="PanelTable" runat="server" Visible="false">
+        <table class="table">
+            <tr>
+               <th></th>
+                <% for (int i = 0; i < monthList.Count; i++)
+                    {  %>
+                <th> <%= monthList[i].ToString("yyyy-MM") %></th>
+                <%} %>               
+            </tr>
+            <tr>
+                <td><%= SeriesTitle1  %></td>
+                <% for (int i = 0; i < SeriesData1.Count; i++)
+                    { %>
+                <td> <%= SeriesData1[i] %></td>
+                <%} %>
+            </tr>
+            <tr>
+                <td><%= SeriesTitle2  %></td>
+                <% for (int i = 0; i < SeriesData2.Count; i++)
+                    { %>
+                <td> <%= SeriesData2[i] %></td>
+                <%} %>
+            </tr>
+            <% if (count == 3)
+                     {%>
+            <tr>
+                <td><%= SeriesTitle3  %></td>
+                <% for (int i = 0; i < SeriesData3.Count; i++)
+                     { %>
+                <td> <%= SeriesData3[i] %></td>
+                <%} %>
+            </tr>
+            <%} %>
+        </table>
     </asp:Panel>
     <br />
 

@@ -170,7 +170,7 @@
         </div>
 
     </div>
-    <script language="javascript">
+    <script type="text/javascript">
         function printDiv(divName) {
             var printContents = document.getElementById(divName).innerHTML;
             var originalContents = document.body.innerHTML;
