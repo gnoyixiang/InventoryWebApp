@@ -46,5 +46,23 @@ namespace InventoryWebApp.DAO
             }
         }
 
+        public int AddSupplierDetail(SupplierDetail sd)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                em.SupplierDetails.Add(sd);
+                return em.SaveChanges();
+            }
+        }
+
+        public List<SupplierDetail> ListAllSupplierDetail()
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                return em.SupplierDetails.ToList();
+
+            }
+        }
+
     }
 }

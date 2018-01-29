@@ -48,5 +48,12 @@ namespace InventoryWebApp.DAO
             Category category = em.Categories.Where(x => x.CategoryCode == categoryCode).ToList<Category>()[0];
             return category;
         }
+        public List<string> ListAllCategoryCode()
+        {
+            using (em = new EntityModel())
+            {
+                return em.Categories.Select(x => x.CategoryCode).ToList<string>();
+            }
+        }
     }
 }

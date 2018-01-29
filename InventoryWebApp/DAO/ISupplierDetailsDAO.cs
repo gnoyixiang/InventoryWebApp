@@ -8,5 +8,7 @@ namespace InventoryWebApp.DAO
         SupplierDetail GetSupplierDetailsById(string supplierCode);
         List<SupplierDetail> ListOfSupplierByItemCode(string itemcode);
         int UpdateSupplierDetails(SupplierDetail sp);
+        int AddSupplierDetail(SupplierDetail sd);
+        List<SupplierDetail> ListAllSupplierDetail();
     }
 }

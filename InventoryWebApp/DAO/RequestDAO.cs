@@ -90,6 +90,15 @@ namespace InventoryWebApp.DAO
             }
         }
 
+        public List<Request> SearchRequestByDeptCode(string deptCode)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                return em.Requests.Where(b => b.DepartmentCode == deptCode)
+                .ToList();
+            }
+        }
+
 
     }
 }

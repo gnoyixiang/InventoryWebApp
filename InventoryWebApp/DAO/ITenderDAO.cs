@@ -14,5 +14,6 @@ namespace InventoryWebApp.DAO
         List<Tender> ListTendersBySupplierCode(string supplierCode);
         List<Tender> ListTendersByUsername(string username);
         int UpdateTender(Tender tender);
+        
     }
 }

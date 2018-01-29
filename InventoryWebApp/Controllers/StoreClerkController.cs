@@ -20,6 +20,8 @@ namespace InventoryWebApp.Controllers
         IRetrievalDetailsDAO retrievalDetailsDAO = new RetrievalDetailsDAO();
         IStationeryCatalogueDAO stationeryDAO = new StationeryCatalogueDAO();
         ICollectionPointDAO collectionPointDAO = new CollectionPointDAO();
+        ISupplierDAO supplierDAO = new SupplierDAO();
+        ISupplierDetailsDAO supplierDetailsDAO = new SupplierDetailsDAO();
 
         public void UpdateActualQuantity(String deptCode, String itemCode)
         {
@@ -431,7 +433,6 @@ namespace InventoryWebApp.Controllers
                 return rd.RemainingQuant;
             }
             return 0;
-
         }
 
         public Request GetRequest(String requestCode)
@@ -458,6 +459,19 @@ namespace InventoryWebApp.Controllers
         {
             return requestDetailsDAO.ListRequestDetail(requestCode);
         }
+
+        public List<string> ListAllDepartmentName()
+        {
+            List<string> strList = new List<string>();
+            foreach(var i in departmentDAO.ListDepartment())
+            {
+                strList.Add(i.DepartmentName);
+            }           
+            return strList;
+        }
+
+        
+
 
 
     }

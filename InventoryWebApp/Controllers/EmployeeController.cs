@@ -7,9 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using InventoryWebApp.Models.Entities;
 using System.Web.SessionState;
-using InventoryWebApp.Models;
+
 
 
 namespace InventoryWebApp.Controllers
@@ -26,6 +25,7 @@ namespace InventoryWebApp.Controllers
         private static IRequestDAO Ir = new RequestDAO();
         private static ICollectionPointDAO Icp = new CollectionPointDAO();
         private static IEmployeeDAO Iempl = new EmployeeDAO();
+        private static ICategoryDAO cDAO = new CategoryDAO();
         //list catalogue to gridview
         public List<StationeryCatalogue> Gridview()
         {
@@ -79,6 +79,13 @@ namespace InventoryWebApp.Controllers
             rDAO.AddRequest(request);
             return requestCode;
         }
+
+        internal List<string> ListAllStationeryCategory()
+        {
+            return cDAO.ListAllCategoryCode();
+
+        }
+
         public string AddRequestDetailtoCurrentRequest(string requestcode, List<RequestDTO> stationaries)
         {
             Request R = GetRequestbyRequestCode(requestcode);
@@ -88,12 +95,12 @@ namespace InventoryWebApp.Controllers
             foreach (var stationary in stationaries)
             {
                 rd.Add(new RequestDetail()
-                { RequestCode=requestcode, ItemCode = stationary.ItemCode, Quantity = stationary.Quantity, RemainingQuant = stationary.Quantity, Notes = "" });
+                { RequestCode = requestcode, ItemCode = stationary.ItemCode, Quantity = stationary.Quantity, RemainingQuant = stationary.Quantity, Notes = "" });
             }
             exrd = rd.FirstOrDefault();
             if (rdDAO.GetRequestDetail(requestcode, exrd.ItemCode) == null)
             {
-                
+
             }
             else
             {
@@ -101,8 +108,8 @@ namespace InventoryWebApp.Controllers
                 rdDAO.GetRequestDetail(requestcode, exrd.ItemCode).RemainingQuant = exrd.RemainingQuant;
 
             }
-                
-          
+
+
             return R.RequestCode;
         }
         public List<Request> ListAllRequest()
@@ -135,7 +142,7 @@ namespace InventoryWebApp.Controllers
 
         public bool CheckStatusToEdit(Request R)
         {
-            if (R.Status.ToLower()=="pending")
+            if (R.Status.ToLower() == "pending")
             {
                 return true;
             }
@@ -149,11 +156,11 @@ namespace InventoryWebApp.Controllers
             foreach (var c in ddDAO.SearchDDByRequest(R))
             {
                 Disbursement d = dDAO.SearchDisbursementByCode(c.DisbursementCode).FirstOrDefault();
-                if(d != null)
+                if (d != null)
                 {
                     dlist.Add(d);
                 }
-                
+
             }
 
             return dlist;
@@ -218,17 +225,69 @@ namespace InventoryWebApp.Controllers
         {
             return Idpt.GetDeptNameByCode(deptCode);
         }
+        public int GetCategoryQuantityByDept(string deptName, string catCode, int month, int year)
+        {
+            List<Request> rlist = new List<Request>();
+
+            foreach (var r in rDAO.SearchRequestByDeptCode(GetDeptCodeByName(deptName)))
+            {
+                if (r.DateApproved != null)
+                {
+                    DateTime rDate = Convert.ToDateTime(r.DateApproved);
+                    if (rDate.Month == month && rDate.Year==year)
+                    {
+                        rlist.Add(r);
+                    }
+                }
+
+
+            }
+            List<RequestDetail> rdlist = new List<RequestDetail>();
+            List<StationeryCatalogue> sList = Isc.SearchByCategory(catCode);
+            List<string> iteminCat = new List<string>();
+
+            int itemsum = 0;
+            foreach (var s in sList)
+            {
+                iteminCat.Add(s.ItemCode);
+            }
+
+            foreach (var r in rlist)
+            {
+                foreach (var rdl in rdDAO.ListRequestDetail(r.RequestCode))
+                {
+                    foreach (string s in iteminCat)
+                    {
+                        if (rdl.ItemCode == s)
+                        {
+                            itemsum += (int)rdl.Quantity;
+                        }
+
+                    }
+
+                }
+            }
+            return itemsum;
+        }
+
+
+
+
+
+
 
     }
 
 
 }
-        
-       
-       
 
 
 
-  
-        
- 
+
+
+
+
+
+
+
+

@@ -309,6 +309,7 @@
     <Content Include="Scripts\WebForms\WebForms.js" />
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
+    <Content Include="TrendAnalysis.aspx" />
     <Content Include="UpdateCollectionPoint.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\custom.css" />
@@ -474,9 +475,9 @@
     <Compile Include="Controllers\StoreClerkController.cs" />
     <Compile Include="Controllers\StoreManagerController.cs" />
     <Compile Include="Controllers\StoreSupervisorController.cs" />
+    <Compile Include="Controllers\TrendAnalysisController.cs" />
     <Compile Include="DAO\AdjustmentDAO.cs" />
     <Compile Include="DAO\AssignRoleDAO.cs" />
-    <Compile Include="DAO\CatagoryDAO.cs" />
     <Compile Include="DAO\CategoryDAO.cs" />
     <Compile Include="DAO\CollectionPointDAO.cs" />
     <Compile Include="DAO\DepartmentDAO.cs" />
@@ -485,7 +486,6 @@
     <Compile Include="DAO\EmployeeDAO.cs" />
     <Compile Include="DAO\IAdjustmentDAO.cs" />
     <Compile Include="DAO\IAssignRoleDAO.cs" />
-    <Compile Include="DAO\ICatagoryDAO.cs" />
     <Compile Include="DAO\ICategoryDAO.cs" />
     <Compile Include="DAO\ICollectionPointDAO.cs" />
     <Compile Include="DAO\IDepartmentDAO.cs" />
@@ -568,6 +568,13 @@
     </Compile>
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
+    </Compile>
+    <Compile Include="TrendAnalysis.aspx.cs">
+      <DependentUpon>TrendAnalysis.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TrendAnalysis.aspx.designer.cs">
+      <DependentUpon>TrendAnalysis.aspx</DependentUpon>
     </Compile>
     <Compile Include="UpdateCollectionPoint.aspx.cs">
       <DependentUpon>UpdateCollectionPoint.aspx</DependentUpon>

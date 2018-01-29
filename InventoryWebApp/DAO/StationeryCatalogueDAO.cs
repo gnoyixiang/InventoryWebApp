@@ -77,5 +77,11 @@ namespace InventoryWebApp.DAO
             em.StationeryCatalogues.Remove(stationery);
             em.SaveChanges();
         }
+
+        public List<string> ListAllItemCode()
+        {
+            em = new EntityModel();
+            return em.StationeryCatalogues.Select(x => x.ItemCode).ToList();
+        }
     }
 }

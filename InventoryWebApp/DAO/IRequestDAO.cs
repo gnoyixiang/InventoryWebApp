@@ -15,5 +15,6 @@ namespace InventoryWebApp.DAO
         int UpdateRequestApproval(Request R, string ApprovedN);
         int UpdateRequestStatus(Request R, string newStatus);
         int UpdateRequest(Request r);
+        List<Request> SearchRequestByDeptCode(string deptCode);
     }
 }

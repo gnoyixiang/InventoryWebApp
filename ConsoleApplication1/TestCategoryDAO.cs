@@ -12,7 +12,7 @@ namespace ConsoleTestApp
     {
         public static void Main(String[] args)
         {
-            ICatagoryDAO ICT = new CatagoryDAO();
+            ICategoryDAO ICT = new CategoryDAO();
             // Get Category
             var ct = ICT.GetCategory("Pencil");
             Console.WriteLine(ct.CategoryName);
