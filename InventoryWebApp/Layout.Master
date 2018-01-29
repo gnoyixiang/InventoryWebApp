@@ -92,13 +92,21 @@
                         <li>
                             <a href="/Store/ViewPurchaseOrders?search=5&q=pending">Pending PO</a>
                         </li>
-                        <% if (!IsTempRoleCode("ActSSup")) { %>
+                        <% if (!IsTempRoleCode("ActSSup") && !Context.User.IsInRole("Store Manager") ) { %>
                         <li>
                             <a href="/Store/AssigningAuthorityStoreDept">Assigning Authority</a>
                         </li>
                         <%} %>
+                        
                         <li>
+                            <% if (Context.User.IsInRole("Store Supervisor"))
+                                { %>
                             <a href="/Store/AdjustmentByStoreSupervisor">Adjust Stock</a>
+                            <% } %>
+                            <% if (Context.User.IsInRole("Store Manager"))
+                                { %>
+                            <a href="/Store/AdjustmentByStoreManager">Adjust Stock</a>
+                            <% } %>
                         </li>
                         <li>
                             <a href="/Store/TrendAnalysis">Generate Trend Analysis</a>
@@ -110,7 +118,7 @@
                             <a href="/Store/SupplierList">View Supplier</a>
                         </li>
                         <li>
-                            <a href="/Store/ViewStockCard">View Stock Card</a>
+                            <a href="/Store/StockCardSearch">View Stock Card</a>
                         </li>
 
                     <%} %>
