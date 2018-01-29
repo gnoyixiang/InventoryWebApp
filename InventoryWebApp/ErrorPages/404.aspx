@@ -6,5 +6,5 @@
     <p>
         The page you have requested could not be found.
     </p>
-    <a href="Default.aspx">Return to Home</a>
+    <a href="../Default.aspx">Return to Home</a>
 </asp:Content>

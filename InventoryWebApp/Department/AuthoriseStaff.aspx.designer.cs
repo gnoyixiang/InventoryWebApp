@@ -22,15 +22,6 @@ namespace InventoryWebApp {
         protected global::System.Web.UI.WebControls.GridView gv;
         
         /// <summary>
-        /// Label1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
-        
-        /// <summary>
         /// lblEmpName control.
         /// </summary>
         /// <remarks>
@@ -40,15 +31,6 @@ namespace InventoryWebApp {
         protected global::System.Web.UI.WebControls.Label lblEmpName;
         
         /// <summary>
-        /// Label3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
-        
-        /// <summary>
         /// lblEmpCode control.
         /// </summary>
         /// <remarks>
@@ -56,15 +38,6 @@ namespace InventoryWebApp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblEmpCode;
-        
-        /// <summary>
-        /// lblStartDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblStartDate;
         
         /// <summary>
         /// tbxStartDate control.
@@ -83,15 +56,6 @@ namespace InventoryWebApp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator CompareStartTodayValidator;
-        
-        /// <summary>
-        /// lblEndDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEndDate;
         
         /// <summary>
         /// tbxEndDate control.

@@ -9,5 +9,5 @@
     <p>
         If you have any questions, please contact the site administrator.
     </p>
-    <a href="Default.aspx">Return to Home</a>
+    <a href="../Default.aspx">Return to Home</a>
 </asp:Content>

@@ -211,9 +211,9 @@ namespace InventoryWebApp.Controllers
 
         }
 
-        public Employee GetEmployeeInfo(string a)
+        public Employee GetEmployeeInfo(string empCode)
         {
-            return edao.GetEmployeeInfo(a);
+            return edao.GetEmployeeByCode(empCode);
         }
 
        
@@ -257,6 +257,11 @@ namespace InventoryWebApp.Controllers
         public string GetEmployeeName(string username)
         {
             return eDAO.GetEmployeeName(username);
+        }
+
+        public Employee GetEmployeeByCode(string employeeCode)
+        {
+            return eDAO.GetEmployeeByCode(employeeCode);
         }
 
         public List<Request> ListAllRequest()

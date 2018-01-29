@@ -35,10 +35,11 @@ namespace InventoryWebApp
 
         protected void gv_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string employeecode = (string)gvEmployee.SelectedDataKey.Value;
-            lblEmployeeCode.Text = employeecode;
+            string employeecode = (string)gvEmployee.SelectedDataKey.Value;            
             Employee emp = dCon.GetEmployeeInfo(employeecode);
-
+            hfEmployeeCode.Value = employeecode;
+            lblEmployeeName.Text = emp.EmployeeName;
+            panelForm.Enabled = true;
         }
 
         protected void btnAssign_Click(object sender, EventArgs e)
@@ -51,10 +52,10 @@ namespace InventoryWebApp
                 DateTime enddateselected = Convert.ToDateTime(tbxEndDate.Text);
             
                 bool checkvalue = dCon.CheckTemporaryRoleAndDates(rolecodeselected, startdateselected, enddateselected);
-                bool checkemployee = dCon.CheckEmployee(lblEmployeeCode.Text);
+                bool checkemployee = dCon.CheckEmployee(hfEmployeeCode.Value);
                     if (checkvalue&&checkemployee)
                     {
-                    dCon.AddAssignRole(assignrolecode, rolecodeselected,lblEmployeeCode.Text,startdateselected, enddateselected,null);
+                    dCon.AddAssignRole(assignrolecode, rolecodeselected,hfEmployeeCode.Value, startdateselected, enddateselected,null);
                     lblmessage.Text = "AssignRole Add";
                     Response.Redirect("AuthoriseStaff.aspx");
                 }
@@ -66,10 +67,10 @@ namespace InventoryWebApp
             else
             {
                 bool checkvalue = dCon.CheckTemporaryRole(rolecodeselected);
-                bool checkemployee = dCon.CheckEmployee(lblEmployeeCode.Text);
+                bool checkemployee = dCon.CheckEmployee(hfEmployeeCode.Value);
                 if (checkvalue&& checkemployee)
                 {
-                    dCon.AddTemporaryRole(assignrolecode, rolecodeselected,lblEmployeeCode.Text);
+                    dCon.AddTemporaryRole(assignrolecode, rolecodeselected,hfEmployeeCode.Value);
                     lblmessage.Text = "TemporaryRole add";
                     /*EntityModel em = new EntityModel();
                     AssignRole ass = dCon.GetAssignRoleInfo(assignrolecode);
@@ -111,6 +112,7 @@ namespace InventoryWebApp
             }
             gvEmployee.DataSource = empList;
             gvEmployee.DataBind();
+            panelForm.Enabled = false;
         }
 
     }
