@@ -176,14 +176,20 @@ namespace InventoryWebApp
                     }
                 }
             }
-            
+
             if (IsRedirect() && Session["ItemDetails"] != null)
             {
                 Response.Redirect("RequisitionDetails.aspx?REQUESTCODE=" + requestcode);
             }
             else
+            {
                 //show success message
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "$('#myModal').modal('show');", true);
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                sb.Append(@"<script type='text/javascript'>");
+                sb.Append("$('#myModal').modal('show');");
+                sb.Append(@"</script>");
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "none", sb.ToString(), false);
+            }
 
 
         }

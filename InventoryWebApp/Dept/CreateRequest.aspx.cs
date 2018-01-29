@@ -52,7 +52,13 @@ namespace InventoryWebApp
                 Session["ItemDetails"] = null;
                 BindGrid();
                 //show success message and Request Code
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", $"$('#lblRequestCode').text('{requestcode}'); $('#myModal').modal('show');", true);
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                sb.Append(@"<script type='text/javascript'>");
+                sb.Append("$('#myModal').modal('show');");
+                sb.Append("$('#lblRequestCode').text('"+ requestcode +"');");
+                sb.Append(@"</script>");
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "none", sb.ToString(), false);
+               
             }
         }
         protected void btnClear_Click(object sender, EventArgs e)

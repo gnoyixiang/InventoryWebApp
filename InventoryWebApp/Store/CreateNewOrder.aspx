@@ -166,7 +166,8 @@
                                             CommandArgument=<%# Eval("Stationery.ItemCode") %>>
                                                                 View Breakdown</asp:LinkButton>
                                         <!-- Modal -->
-                                        <div class="modal fade" id=<%# "modalBreakdown" + Eval("Stationery.ItemCode") %> tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal fade" id=<%# "modalBreakdown" + Eval("Stationery.ItemCode") %> tabindex="-1" role="dialog" 
+                                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                             <div class="modal-dialog" role="document" style="width: 90%">
                                                 <div class="modal-content">
                                                     <div class="modal-header">

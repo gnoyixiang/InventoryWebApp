@@ -14,6 +14,7 @@
     <%--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">--%>
     <!-- FontsAwesome -->
     <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
+    
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title></title>
 
@@ -134,7 +135,7 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="/Dept/AuthoriseStaff">Authorise Staff</a>
+                            <a href="/Dept/AddAuthorise">Authorise Staff</a>
                         </li>
                     <%} %>
 
@@ -180,12 +181,6 @@
                         </li>--%>
                     </div>
                 </nav>
-                <%--<ul class="breadcrumb">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Manage Requests</a></li>
-                <li class="active">View Requests</li>
-            </ul>--%>
-
                 <!-- Fill Content Here -->
 
                 <div>
@@ -198,10 +193,12 @@
         </div>
     </form>
 
+
     <!-- jQuery CDN -->
     <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
     <!-- Bootstrap Js CDN -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 
     <%-- <script>
         $(document).ready(function () {

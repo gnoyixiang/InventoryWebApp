@@ -17,12 +17,21 @@ namespace InventoryWebApp
         DepartmentHeadController deptHeadController = new DepartmentHeadController();
         StoreClerkController storeClerkController = new StoreClerkController();
 
-        public string userDepartmentCode = "";
-        public string tempRoleCode = "";
+        private string userDepartmentCode = "";
+        private string tempRoleCode = "";
         
         private const string AntiXsrfTokenKey = "__AntiXsrfToken";
         private const string AntiXsrfUserNameKey = "__AntiXsrfUserName";
         private string _antiXsrfTokenValue;
+
+        public string UserDepartmentCode
+        {
+            get { return userDepartmentCode; }
+        }
+        public string TempRoleCode
+        {
+            get { return tempRoleCode; }
+        }
 
         protected void Page_Init(object sender, EventArgs e)
         {

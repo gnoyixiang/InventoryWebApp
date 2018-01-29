@@ -10,81 +10,87 @@
 namespace InventoryWebApp {
     
     
-    public partial class HeadViewRequest {
+    public partial class ChangeCollectionPoint {
         
         /// <summary>
-        /// ddlSelect control.
+        /// lblDeptName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSelect;
+        protected global::System.Web.UI.WebControls.Label lblDeptName;
         
         /// <summary>
-        /// ddlEmpName control.
+        /// lblInfoDeptName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlEmpName;
+        protected global::System.Web.UI.WebControls.Label lblInfoDeptName;
         
         /// <summary>
-        /// calSearch control.
+        /// ScriptManager1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Calendar calSearch;
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
-        /// btnSearch control.
+        /// UpdatePanelAddItem control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSearch;
+        protected global::System.Web.UI.UpdatePanel UpdatePanelAddItem;
         
         /// <summary>
-        /// btnAll control.
+        /// lblCCP control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAll;
+        protected global::System.Web.UI.WebControls.Label lblCCP;
         
         /// <summary>
-        /// lblNull control.
+        /// tbxCCP control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNull;
+        protected global::System.Web.UI.WebControls.TextBox tbxCCP;
         
         /// <summary>
-        /// gvRequest control.
+        /// lblNewCCP control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvRequest;
+        protected global::System.Web.UI.WebControls.Label lblNewCCP;
         
         /// <summary>
-        /// Master property.
+        /// ddlCP control.
         /// </summary>
         /// <remarks>
-        /// Auto-generated property.
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        public new InventoryWebApp.Layout Master {
-            get {
-                return ((InventoryWebApp.Layout)(base.Master));
-            }
-        }
+        protected global::System.Web.UI.WebControls.DropDownList ddlCP;
+        
+        /// <summary>
+        /// btnUpdate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUpdate;
     }
 }

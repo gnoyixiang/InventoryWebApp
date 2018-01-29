@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 
 namespace InventoryWebApp
 {
-    public partial class WebForm3 : System.Web.UI.Page
+    public partial class HeadViewRequest : System.Web.UI.Page
     {
         DepartmentHeadController dCon = new DepartmentHeadController();
         private void BindGrid()
@@ -24,7 +24,7 @@ namespace InventoryWebApp
 
             if (!IsPostBack)
             {
-                ddlEmpName.DataSource = dCon.ListEmpName("ISS1", "Empl");
+                ddlEmpName.DataSource = dCon.ListEmpName(Master.UserDepartmentCode, "Empl");
 
                 ddlEmpName.DataBind();
                 ddlEmpName.Visible = true;
@@ -38,7 +38,7 @@ namespace InventoryWebApp
         {
             if (ddlSelect.SelectedIndex == 0)
             {
-                ddlEmpName.DataSource = dCon.ListEmpName("ISS1", "Empl");
+                ddlEmpName.DataSource = dCon.ListEmpName(Master.UserDepartmentCode, "Empl");
 
                 ddlEmpName.DataBind();
                 ddlEmpName.Visible = true;
@@ -88,7 +88,7 @@ namespace InventoryWebApp
             if (ddlSelect.SelectedIndex == 0)
             {
                
-                string emp = ddlEmpName.SelectedItem.ToString();
+                string emp = ddlEmpName.SelectedValue;
 
                 List<Request> rlist = dCon.SearchRequestByName(emp);
                 if (rlist.Count == 0)
