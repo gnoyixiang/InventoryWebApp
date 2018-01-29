@@ -39,27 +39,27 @@
                         <li id="menu-RequestClerk">
                             <a href="#RequestClerkSubmenu" data-toggle="collapse" aria-expanded="false">Manage Requests</a>
                             <ul class="collapse list-unstyled submenu" id="RequestClerkSubmenu">
-                                <li><a href="Store/RequisitionList">View Requests</a></li>
-                                <li><a href="Store/RetrievalPage">Retrieve Items</a></li>
-                                <li><a href="Store/2AllocationPage">Allocate Items</a></li>
-                                <li><a href="Store/DisbursementFormPage">Disburse Items</a></li>
+                                <li><a href="/Store/RequisitionList">View Requests</a></li>
+                                <li><a href="/Store/RetrievalPage">Retrieve Items</a></li>
+                                <li><a href="/Store/2AllocationPage">Allocate Items</a></li>
+                                <li><a href="/Store/DisbursementFormPage">Disburse Items</a></li>
                             </ul>
                         </li>
                         <li class="active" id="menu-Reorder">
                             <a href="#ReorderSubmenu" data-toggle="collapse" aria-expanded="false">Manage Re-order</a>
                             <ul class="collapse list-unstyled submenu" id="ReorderSubmenu">
-                                <li><a href="Store/ViewPurchaseOrders">View All Orders</a></li>
-                                <li class="active"><a href="Store/CreateNewOrder">Create New Order</a></li>
+                                <li><a href="/Store/ViewPurchaseOrders">View All Orders</a></li>
+                                <li class="active"><a href="/Store/CreateNewOrder">Create New Order</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="Store/StockAdjustmentList.aspx">Stock Adjustment</a>
+                            <a href="/Store/StockAdjustmentList.aspx">Stock Adjustment</a>
                         </li>
                         <li>
-                            <a href="Store/ViewStockCard.aspx">Stock Card</a>
+                            <a href="/Store/ViewStockCard.aspx">Stock Card</a>
                         </li>
                         <li>
-                            <a href="Store/QuotationView.aspx">View / Print Quotation</a>
+                            <a href="/Store/QuotationView.aspx">View / Print Quotation</a>
                         </li>
                     <% } %>
 
@@ -72,10 +72,10 @@
                         <li id="menu-RequestEmployee" class="active">
                             <a href="#RequestEmployeeSubmenu" data-toggle="collapse" aria-expanded="false">Manage Requests</a>
                             <ul class="collapse list-unstyled submenu" id="RequestEmployeeSubmenu">
-                                <li><a href="Dept/DeptRequisitionList">View Requests</a></li>
-                                <li><a href="Dept/CreateRequest">Create Request</a></li>
+                                <li><a href="/Dept/DeptRequisitionList">View Requests</a></li>
+                                <li><a href="/Dept/CreateRequest">Create Request</a></li>
                                 <% if (IsTempRoleCode("ActHead")){ %>
-                                    <li class="active"><a href="Dept/ApproveRequest">Approve Requests</a></li>
+                                    <li class="active"><a href="/Dept/ApproveRequest">Approve Requests</a></li>
                                 <%} %>
                             </ul>
                         </li>
@@ -90,27 +90,27 @@
                         <% if (Context.User.IsInRole("Store Supervisor") || Context.User.IsInRole("Store Manager") || IsTempRoleCode("ActSMan") || IsTempRoleCode("ActSSup"))
                             {%>
                         <li>
-                            <a href="Store/ViewPurchaseOrders?search=5&q=pending">Pending PO</a>
+                            <a href="/Store/ViewPurchaseOrders?search=5&q=pending">Pending PO</a>
                         </li>
                         <% if (!IsTempRoleCode("ActSSup")) { %>
                         <li>
-                            <a href="Store/AssigningAuthorityStoreDept">Assigning Authority</a>
+                            <a href="/Store/AssigningAuthorityStoreDept">Assigning Authority</a>
                         </li>
                         <%} %>
                         <li>
-                            <a href="Store/AdjustmentByStoreSupervisor">Adjust Stock</a>
+                            <a href="/Store/AdjustmentByStoreSupervisor">Adjust Stock</a>
                         </li>
                         <li>
-                            <a href="Store/TrendAnalysis">Generate Trend Analysis</a>
+                            <a href="/Store/TrendAnalysis">Generate Trend Analysis</a>
                         </li>
                         <li>
-                            <a href="Store/StoreEmployeeList">View Employees</a>
+                            <a href="/Store/StoreEmployeeList">View Employees</a>
                         </li>
                         <li>
-                            <a href="Store/SupplierList">View Supplier</a>
+                            <a href="/Store/SupplierList">View Supplier</a>
                         </li>
                         <li>
-                            <a href="Store/ViewStockCard">View Stock Card</a>
+                            <a href="/Store/ViewStockCard">View Stock Card</a>
                         </li>
 
                     <%} %>
@@ -121,12 +121,12 @@
                         <li id="menu-RequestDepartmentHead">
                             <a href="#RequestDepartmentHead" data-toggle="collapse" aria-expanded="false">Manage Requests</a>
                             <ul class="collapse list-unstyled submenu" id="RequestDepartmentHead">
-                                <li><a href="Dept/DeptRequisitionList">View Requests</a></li>
-                                <li><a href="Dept/ApproveRequest">Approve Requests</a></li>
+                                <li><a href="/Dept/DeptRequisitionList">View Requests</a></li>
+                                <li><a href="/Dept/ApproveRequest">Approve Requests</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="Dept/AuthoriseStaff">Authorise Staff</a>
+                            <a href="/Dept/AuthoriseStaff">Authorise Staff</a>
                         </li>
                     <%} %>
 
