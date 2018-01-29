@@ -260,7 +260,7 @@
     <Content Include="Department\ItemDetails.aspx" />
     <Content Include="Department\RequisitionDetails.aspx" />
     <Content Include="Department\DeptRequisitionList.aspx" />
-    <Content Include="Department\TrendAnalysis.aspx" />
+    <Content Include="Store\TrendAnalysis.aspx" />
     <Content Include="Department\ViewCatalogue.aspx" />
     <Content Include="Department\ViewDisbursement.aspx" />
     <Content Include="ErrorPages\403.aspx" />
@@ -419,11 +419,11 @@
     <Compile Include="Department\DeptRequisitionList.aspx.designer.cs">
       <DependentUpon>DeptRequisitionList.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Department\TrendAnalysis.aspx.cs">
+    <Compile Include="Store\TrendAnalysis.aspx.cs">
       <DependentUpon>TrendAnalysis.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Department\TrendAnalysis.aspx.designer.cs">
+    <Compile Include="Store\TrendAnalysis.aspx.designer.cs">
       <DependentUpon>TrendAnalysis.aspx</DependentUpon>
     </Compile>
     <Compile Include="Department\ViewCatalogue.aspx.cs">
