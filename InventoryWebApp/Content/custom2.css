@@ -54,9 +54,6 @@ h1, h2, h3, h4, h5 {
     font-weight:600;
 }
 
-.btn {
-    font-size: 12px;
-}
 
 /* ---------------------------------------------------
     SIDEBAR STYLE
@@ -95,6 +92,10 @@ h1, h2, h3, h4, h5 {
         padding: 10px 20px;
         display: block;
         font-weight:500;
+    }
+
+    #sidebar ul li a i {
+         padding-right:10px;
     }
 
         #sidebar ul li a:hover {
@@ -139,6 +140,8 @@ h1, h2, h3, h4, h5 {
     padding-left: 30px !important;
     background: #4e546b;
 }
+
+
 
 ul.CTAs {
     padding: 20px;

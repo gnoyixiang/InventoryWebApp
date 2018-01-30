@@ -156,10 +156,13 @@
                             <% if (Context.User.IsInRole("Department Head"))
                                 { %>
                             <li><a href="/Dept/DeptRequisitionList?search=Status&q=pending">
-                                <i class="fa fa-pencil" aria-hidden="true" style="padding-right:10px"></i>View Pending Requests</a>
+                                <i class="fa fa-pencil" aria-hidden="true"></i>View Pending Requests</a>
+                            <li>
+                            <li><a href="/Dept/DeptRequisitionList">
+                                <i class="fa fa-newspaper-o" aria-hidden="true"></i>View All Requests</a>
                             <li>
                                 <a href="/Dept/AddAuthorise">
-                                    <i class="fa fa-key" aria-hidden="true" style="padding-right:10px"></i>Authorise Staff</a>
+                                    <i class="fa fa-key" aria-hidden="true"></i>Authorise Staff</a>
                             </li>
                             <%} %>
 
