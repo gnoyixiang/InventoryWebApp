@@ -13,12 +13,57 @@ namespace InventoryWebApp.WCF
     [ServiceContract]
     public interface IClerkService
     {
+        [OperationContract]
+        [WebInvoke(UriTemplate = "/MarkAsNotCollected", Method = "POST",
+        RequestFormat = WebMessageFormat.Json,
+        ResponseFormat = WebMessageFormat.Json)]
+        void MarkAsNotCollected(WCF_DisbursementDetail wdd);
+        [OperationContract]
+        [WebInvoke(UriTemplate = "/UpdateDisbursementDetail", Method = "POST",
+        RequestFormat = WebMessageFormat.Json,
+        ResponseFormat = WebMessageFormat.Json)]
+        void UpdateDisbursementDetail(WCF_DisbursementDetail wdd);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "/DisbursementDetail/{departmentCode}/{requestCode}/{itemCode}", ResponseFormat = WebMessageFormat.Json)]
+        WCF_DisbursementDetail GetConfirmedDisburDetail(string departmentCode, string requestCode, string itemCode);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "/ConfirmedDisbursementDetails/{departmentCode}", ResponseFormat = WebMessageFormat.Json)]
+        List<WCF_DisbursementDetail> GetConfirmedDisburDetailsByDepartment(string departmentCode);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "/ConfirmedDisbursement/{departementCode}", ResponseFormat = WebMessageFormat.Json)]
+        WCF_ConfirmedDisbursement GetConfirmedDisbursementByDeptCode(string departementCode);
+        [OperationContract]
+        [WebGet(UriTemplate = "/ConfirmedDisbursements", ResponseFormat = WebMessageFormat.Json)]
+        List<WCF_ConfirmedDisbursement> GetConfirmedDisbursementList();
+
+        [OperationContract]
+        [WebGet(UriTemplate = "/GetCollectionDate", ResponseFormat = WebMessageFormat.Json)]
+        WCF_CollectionDate GetCollectionDate();
+
+        [OperationContract]
+        [WebGet(UriTemplate = "/AllocatingDisbursementDetails/{itemCode}/{deparmentName}", ResponseFormat = WebMessageFormat.Json)]
+        WCF_DisbursementDetail GetAllocatingDisbursementDetail(string itemCode, string deparmentName);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "/AllocatingDisbursementDetails/{itemCode}", ResponseFormat = WebMessageFormat.Json)]
+        List<WCF_DisbursementDetail> GetAllocatingDisbursementDetails(string itemCode);
 
         [OperationContract]
         [WebInvoke(UriTemplate = "/UpdateRetrievalDetail", Method = "POST",
         RequestFormat = WebMessageFormat.Json,
         ResponseFormat = WebMessageFormat.Json)]
-        void UpdateRetrievalDetail(RetrievalDetail rd);
+        void UpdateRetrievalDetail(WCF_RetrievalDetail wrd);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "/AllocatingRetrievalDetail/{itemCode}", ResponseFormat = WebMessageFormat.Json)]
+        WCF_RetrievalDetail GetAllocatingRetrievalDetail(string itemCode);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "/AllocatingRetrievalDetails", ResponseFormat = WebMessageFormat.Json)]
+        List<WCF_RetrievalDetail> GetAllocatingRetrievalDetails();
 
         [OperationContract]
         [WebGet(UriTemplate = "/ProcessingRetrievalDetail/{id}", ResponseFormat = WebMessageFormat.Json)]
@@ -31,8 +76,394 @@ namespace InventoryWebApp.WCF
         [OperationContract]
         [WebGet(UriTemplate = "/OutstandingRequests", ResponseFormat = WebMessageFormat.Json)]
         List<WCF_Request> GetOutstandingRequests();
+
     }
 
+    [DataContract]
+    public class WCF_ConfirmedDisbursement
+    {
+        private string collectionPoint;
+        private string collectionTime;
+        private string departmentCode;
+        private string departmentName;
+        private string clerkInCharge;
+        private string representative;
+        private string disbursementDate;
+        private string notes;
+        private string status;
+        private string disbursementCode;
+        public WCF_ConfirmedDisbursement(string collectionPoint, string time, string departmentCode, string departmentName, string clerkInCharge, string representative, string disbursementDate)
+        {
+            this.CollectionPoint = collectionPoint;
+            this.CollectionTime = time;
+            this.DepartmentCode = departmentCode;
+            this.DepartmentName = departmentName;
+            this.ClerkInCharge = clerkInCharge;
+            this.Representative = representative;
+            this.DisbursementDate = disbursementDate;
+        }
+        public WCF_ConfirmedDisbursement() { }
+        [DataMember]
+        public string CollectionPoint
+        {
+            get
+            {
+                return collectionPoint;
+            }
+
+            set
+            {
+                collectionPoint = value;
+            }
+        }
+
+        [DataMember]
+        public string CollectionTime
+        {
+            get
+            {
+                return collectionTime;
+            }
+
+            set
+            {
+                collectionTime = value;
+            }
+        }
+
+        [DataMember]
+        public string DepartmentCode
+        {
+            get
+            {
+                return departmentCode;
+            }
+
+            set
+            {
+                departmentCode = value;
+            }
+        }
+
+        [DataMember]
+        public string DepartmentName
+        {
+            get
+            {
+                return departmentName;
+            }
+
+            set
+            {
+                departmentName = value;
+            }
+        }
+
+        [DataMember]
+        public string ClerkInCharge
+        {
+            get
+            {
+                return clerkInCharge;
+            }
+
+            set
+            {
+                clerkInCharge = value;
+            }
+        }
+
+        [DataMember]
+        public string Representative
+        {
+            get
+            {
+                return representative;
+            }
+
+            set
+            {
+                representative = value;
+            }
+        }
+
+        [DataMember]
+        public string DisbursementDate
+        {
+            get
+            {
+                return disbursementDate;
+            }
+
+            set
+            {
+                disbursementDate = value;
+            }
+        }
+
+        [DataMember]
+        public string Notes
+        {
+            get
+            {
+                return notes;
+            }
+
+            set
+            {
+                notes = value;
+            }
+        }
+
+        [DataMember]
+        public string Status
+        {
+            get
+            {
+                return status;
+            }
+
+            set
+            {
+                status = value;
+            }
+        }
+
+        [DataMember]
+        public string DisbursementCode
+        {
+            get
+            {
+                return disbursementCode;
+            }
+
+            set
+            {
+                disbursementCode = value;
+            }
+        }
+    }
+
+    [DataContract]
+    public class WCF_CollectionDate
+    {
+        private string datePlanToCollect;
+        private string status;
+
+        public WCF_CollectionDate() { }
+
+        public WCF_CollectionDate(string datePlanToCollect, string status)
+        {
+            DatePlanToCollect = datePlanToCollect;
+            this.Status = status;
+        }
+        [DataMember]
+        public string DatePlanToCollect
+        {
+            get
+            {
+                return datePlanToCollect;
+            }
+
+            set
+            {
+                datePlanToCollect = value;
+            }
+        }
+        [DataMember]
+        public string Status
+        {
+            get
+            {
+                return status;
+            }
+
+            set
+            {
+                status = value;
+            }
+        }
+    }
+
+    [DataContract]
+    public class WCF_DisbursementDetail
+    {
+        private string disbursementCode;
+        private string departmentName;
+        private string departmentCode;
+        private string itemName;
+        private string itemCode;
+        private string quantityNeeded;
+        private string quantityRetrieved;
+        private string quantityActual;
+        private string status;
+        private string notes;
+        private string requestCode;
+        
+        public WCF_DisbursementDetail() { }
+        public WCF_DisbursementDetail(string disbursementCode, string departmentName, string departmentCode, string itemName, string itemCode, string quantityNeeded, string quantityRetrieved, string status)
+        {
+            this.disbursementCode = disbursementCode;
+            this.departmentName = departmentName;
+            this.departmentCode = departmentCode;
+            this.itemName = itemName;
+            this.itemCode = itemCode;
+            this.quantityNeeded = quantityNeeded;
+            this.quantityRetrieved = quantityRetrieved;
+            this.status = status;
+        }
+        [DataMember]
+        public string DisbursementCode
+        {
+            get
+            {
+                return disbursementCode;
+            }
+
+            set
+            {
+                disbursementCode = value;
+            }
+        }
+
+        [DataMember]
+        public string DepartmentName
+        {
+            get
+            {
+                return departmentName;
+            }
+
+            set
+            {
+                departmentName = value;
+            }
+        }
+
+        [DataMember]
+        public string DepartmentCode
+        {
+            get
+            {
+                return departmentCode;
+            }
+
+            set
+            {
+                departmentCode = value;
+            }
+        }
+
+        [DataMember]
+        public string ItemName
+        {
+            get
+            {
+                return itemName;
+            }
+
+            set
+            {
+                itemName = value;
+            }
+        }
+
+        [DataMember]
+        public string ItemCode
+        {
+            get
+            {
+                return itemCode;
+            }
+
+            set
+            {
+                itemCode = value;
+            }
+        }
+
+        [DataMember]
+        public string QuantityNeeded
+        {
+            get
+            {
+                return quantityNeeded;
+            }
+
+            set
+            {
+                quantityNeeded = value;
+            }
+        }
+
+        [DataMember]
+        public string QuantityRetrieved
+        {
+            get
+            {
+                return quantityRetrieved;
+            }
+
+            set
+            {
+                quantityRetrieved = value;
+            }
+        }
+
+        [DataMember]
+        public string Status
+        {
+            get
+            {
+                return status;
+            }
+
+            set
+            {
+                status = value;
+            }
+        }
+        [DataMember]
+        public string Notes
+        {
+            get
+            {
+                return notes;
+            }
+
+            set
+            {
+                notes = value;
+            }
+        }
+
+        [DataMember]
+        public string QuantityActual
+        {
+            get
+            {
+                return quantityActual;
+            }
+
+            set
+            {
+                quantityActual = value;
+            }
+        }
+        [DataMember]
+        public string RequestCode
+        {
+            get
+            {
+                return requestCode;
+            }
+
+            set
+            {
+                requestCode = value;
+            }
+        }
+    }
     [DataContract]
     public class WCF_RetrievalDetail
     {

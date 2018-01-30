@@ -126,6 +126,10 @@ namespace InventoryWebApp
             dd.Notes = tbxNotes.Text;
             sClerkCtrl.UpdateDisbursementDetail(dd);
 
+            StationeryCatalogue sc = sClerkCtrl.GetStationeryByCode(dd.ItemCode);
+            sc.Stock += dd.Quantity - dd.ActualQuantity;
+            sClerkCtrl.UpdateStationeryCatalogue(sc);
+
             lvDisbursementDetails.EditIndex = -1;
             BindLvDisbursementDetails();
         }
@@ -175,9 +179,10 @@ namespace InventoryWebApp
                     sClerkCtrl.UpdateDisbursementDetail(item);
                     sClerkCtrl.UpdateStationeryCatalogue(sc);
                     RequestDetail rd = sClerkCtrl.GetRequestDetail(item.RequestCode, item.ItemCode);
-                    sClerkCtrl.UpdateDisbursement(d);
-                    BindDropDownList();
+                    
                 }
+                sClerkCtrl.UpdateDisbursement(d);
+                BindDropDownList();
             }
             else
                 btnNotCollected.Enabled = false;

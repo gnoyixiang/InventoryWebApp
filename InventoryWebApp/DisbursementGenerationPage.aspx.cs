@@ -23,6 +23,7 @@ namespace InventoryWebApp
                 {
                     disbursementStatus = "allocating";
                     tbxDate.Text = GetPlanToCollectDate(disbursementStatus);
+                    lblCollectionDate.Text = DisplayDate(DateTime.Parse(tbxDate.Text));
                     lblFixedCollectionPoint.Visible = false;
                     ddlCollectionPoint.Visible = false;
                 }
@@ -31,11 +32,12 @@ namespace InventoryWebApp
                     disbursementStatus = "disbursing";
                     tbxDate.Text = GetPlanToCollectDate(disbursementStatus);
                     BindDropDownList(disbursementStatus);
-                    //lblCollectionDate.Text = DisplayDate(DateTime.Parse(tbxDate.Text));
+                    lblCollectionDate.Text = DisplayDate(DateTime.Parse(tbxDate.Text));
                     lblConfirmDate.Text = "Disbursements have been confirmed. Please proceed to Disbursement Form.";
                     lvCollectionPointList.DataSource = sClerkCtrl.GetDisbursementsByStatus(disbursementStatus);
                     lvCollectionPointList.DataBind();
-
+                    btnNext.Enabled = true;
+                    //lblCollectionDate.Visible = true;
                 }
                 else
                 {
@@ -126,7 +128,7 @@ namespace InventoryWebApp
             btnNext.Enabled = true;
             GetPlanToCollectDate("disbursing");
             BindDropDownList(disbursementStatus);
-            //lblCollectionDate.Text = DisplayDate(DateTime.Parse(tbxDate.Text));
+            lblCollectionDate.Text = DisplayDate(DateTime.Parse(tbxDate.Text));
             lblConfirmDate.Text = "Disbursements have been confirmed. Please proceed to Disbursement Form.";
             disbursementStatus = "disbursing";
             BindDropDownList(disbursementStatus);

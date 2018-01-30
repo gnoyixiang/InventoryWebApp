@@ -11,6 +11,14 @@ namespace InventoryWebApp.DAO
     {
 
         //Read
+
+        public DisbursementDetail GetDisbursementDetail(String disbursementCode, String requestCode, String itemCode)
+        {
+            using(EntityModel em = new EntityModel())
+            {
+                return em.DisbursementDetails.Where(dd => dd.DisbursementCode == disbursementCode && dd.RequestCode == requestCode && dd.ItemCode == itemCode).FirstOrDefault();
+            }
+        }
         public List<DisbursementDetail> SearchDDByItem(StationeryCatalogue item)
         {
             using (EntityModel em = new EntityModel())

@@ -38,7 +38,28 @@ namespace InventoryWebApp.DAO
         {
             return em.Employees.Where(x => x.UserName == username).FirstOrDefault();
         }
-
+        public Employee GetRepresentative(string departmentCode)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                List<Employee> eList = em.Employees.Where(x => x.DepartmentCode == departmentCode).ToList();
+                foreach(var item in eList)
+                {
+                    if (item.AssignRoles == null)
+                    {
+                        break;
+                    }
+                    foreach (var item2 in item.AssignRoles)
+                    {
+                        if (item2.TemporaryRoleCode == "Rep")
+                        {
+                            return item;
+                        }
+                    }
+                }
+            }
+            return null;
+        }
         public Employee GetEmployeeByCode(String employeeCode)
         {
             em = new EntityModel();

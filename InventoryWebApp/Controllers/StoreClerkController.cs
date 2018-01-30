@@ -19,6 +19,15 @@ namespace InventoryWebApp.Controllers
         IRetrievalDetailsDAO retrievalDetailsDAO = new RetrievalDetailsDAO();
         IStationeryCatalogueDAO stationeryDAO = new StationeryCatalogueDAO();
         ICollectionPointDAO collectionPointDAO = new CollectionPointDAO();
+
+        public DisbursementDetail GetDisbursementDetail(String disbursementCode, String requestCode, String itemCode)
+        {
+            return disbursementDetailsDAO.GetDisbursementDetail(disbursementCode, requestCode, itemCode);
+        }
+        public Employee GetRepresentative(String departmentCode)
+        {
+            return employeeDAO.GetRepresentative(departmentCode);
+        }
         public RetrievalDetail GetProcessingRetrievalDetailByItemCode(String itemCode)
         {
             List<RetrievalDetail> rdList = retrievalDetailsDAO.ListRetrievalDetailsByRetrievalCode(GetCurrentRetrieval().RetrievalCode);
@@ -87,7 +96,7 @@ namespace InventoryWebApp.Controllers
         {
             return requestDetailsDAO.GetRequestDetail(RequestC, itemCode);
         }
-        public List<DisbursementDetail> GetDisbursingDisbursementDetail()
+        public List<DisbursementDetail> GetDisbursingDisbursementDetails()
         {
             List<DisbursementDetail> ddList = new List<DisbursementDetail>();
             foreach (var item in GetDisbursingDisbursements())
@@ -501,7 +510,7 @@ namespace InventoryWebApp.Controllers
             {
                 if (retrievalList.ContainsKey(rd.ItemCode))
                 {
-                    retrievalList[rd.ItemCode].QuantityNeeded += rd.Quantity;
+                    retrievalList[rd.ItemCode].QuantityNeeded += rd.RemainingQuant;
                 }
                 else
                 {

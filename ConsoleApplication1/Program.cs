@@ -5,16 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using InventoryWebApp.DAO;
 using InventoryWebApp.Models.Entities;
-
+using InventoryWebApp.WCF;
 
 namespace ConsoleTestApp
 {
     class Program
     {
         static IRetrievalDAO re = new RetrievalDAO();
+        static IClerkService cs = new ClerkService();
         public static void Main(String[] args)
         {
-            re.ListRetrievalByStatus("processing");
+            IClerkService cs = new ClerkService();
+            cs.MarkAsNotCollected("DBM1801290310175173");
+
+
         }   
      }
 }

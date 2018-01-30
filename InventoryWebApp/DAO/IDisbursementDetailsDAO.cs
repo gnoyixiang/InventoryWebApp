@@ -6,6 +6,7 @@ namespace InventoryWebApp.DAO
 {
     public interface IDisbursementDetailsDAO
     {
+        DisbursementDetail GetDisbursementDetail(String disbursementCode, String requestCode, String itemCode);
         List<DisbursementDetail> SearchDDByItem(StationeryCatalogue item);
         List<DisbursementDetail> SearchDDByRequest(Request request);
         List<DisbursementDetail> SearchDDByDCode(string disbursementCode);
