@@ -2,14 +2,21 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    
-    <div class="container-fluid">
-        <h1>Disbursement List</h1>
-        <h3><small class="text-muted">View all past and present disbursement lists</small></h3>
+    <ul class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li class="active">View Disbursements</li>
+    </ul>
+    <div class="container-fluid" id="mainContainer">
+    <div class="row">
+        <div class="col-md-10">
+            <h3>Disbursement List</h3>
+        </div>
+    </div>
+        <p><small class="text-muted">View all past and present disbursement lists</small></p>
         <asp:ListView ID="lvDisbursement" runat="server">
          <LayoutTemplate>
-                    <table class="table">
-                        <tr>
+                    <table class="table table-striped">
+                        <tr style="background-color:#cfd8dc">
                             <th>DisbursementCode</th>
                             <th>DateCreated</th>
                             <th>Status</th>

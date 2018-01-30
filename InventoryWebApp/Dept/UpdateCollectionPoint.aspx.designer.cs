@@ -13,15 +13,6 @@ namespace InventoryWebApp.Dept {
     public partial class ChangeCollectionPoint {
         
         /// <summary>
-        /// lblDeptName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDeptName;
-        
-        /// <summary>
         /// lblInfoDeptName control.
         /// </summary>
         /// <remarks>
@@ -40,15 +31,6 @@ namespace InventoryWebApp.Dept {
         protected global::System.Web.UI.UpdatePanel UpdatePanelUpdateCollectionPt;
         
         /// <summary>
-        /// lblCCP control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCCP;
-        
-        /// <summary>
         /// tbxCCP control.
         /// </summary>
         /// <remarks>
@@ -56,15 +38,6 @@ namespace InventoryWebApp.Dept {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbxCCP;
-        
-        /// <summary>
-        /// lblNewCCP control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNewCCP;
         
         /// <summary>
         /// ddlCP control.

@@ -5,10 +5,22 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <ul class="breadcrumb">
         <li><a href="#">Home</a></li>
-        <li><a href="#">View Catalogue</a></li>
+        <li><a href="ViewCatalogue">View Catalogue</a></li>
         <li class="active">Item Details</li>
     </ul>
-    <h3>Item Details</h3>
+    <div class="container-fluid" id="mainContainer">
+    <div class="row">
+        <div class="col-md-10">
+            <h3>Item Details</h3>
+        </div>
+    </div>
+    <asp:Panel runat="server" ID="panelNoItem">
+        <div class="row">
+        <div class="col-md-10">
+            <p>No Item Selected. Return to <a href="ViewCatalogue">View Catalogue</a></p>
+        </div>
+    </div>
+    </asp:Panel>
     <asp:UpdatePanel ID="UpdatePanelListView"
         runat="server" UpdateMode="Always">
         <ContentTemplate>
@@ -100,5 +112,5 @@
                 </div>
             </div>
         </ContentTemplate>
-    </asp:UpdatePanel>
+    </asp:UpdatePanel></div>
 </asp:Content>

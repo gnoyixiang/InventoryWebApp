@@ -36,8 +36,8 @@
         <div class="col-md-12">
             <asp:ListView ID="ListView1" runat="server">
                 <LayoutTemplate>
-                    <table class="table">
-                        <tr>
+                    <table class="table table-striped">
+                        <tr style="background-color:#cfd8dc">
                             <th>Request Code</th>
                             <th>Employee Name</th>
                             <th>Date Created</th>
@@ -45,6 +45,7 @@
                             <th>Status</th>
                             <th>Notes</th>
                         </tr>
+                            </thead>
                         <tr id="itemPlaceholder" runat="server">
                         </tr>
                     </table>

@@ -9,13 +9,16 @@
         <li class="breadcrumb-item active">Requisition Details</li>
     </ul>
     <div class="container-fluid" id="mainContainer">
+        <div>
+            <div style="text-align: right; ">
+                    <a href="#" onclick='printDiv("printableArea")'><i class="fa fa-print fa-2x" aria-hidden="true"></i></a>
+                </div>
+        </div>
 <div id="printableArea">
     <div class="row">
         <div class="col-md-10">
             <h3>Requisition Details</h3>
         </div>
-        <div class="col-md-2">
-        <asp:Button style="float:right" ID="PrintButton" runat="server" Text="Print" OnClientClick='printDiv("printableArea")'  /></div>
     </div>
     
     <asp:Panel ID="Panel2" runat="server" Visible="false">No Request Details found!</asp:Panel>

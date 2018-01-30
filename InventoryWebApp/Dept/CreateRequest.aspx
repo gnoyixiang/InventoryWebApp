@@ -27,10 +27,15 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <ul class="breadcrumb">
         <li><a href="#">Home</a></li>
-        <li><a href="#">Manage Requests</a></li>
+        <li class="active">Manage Requests</li>
         <li class="active">Create Request</li>
     </ul>
-    <h3>New Requisition Details</h3>
+    <div class="container-fluid" id="mainContainer">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>New Request</h3>
+        </div>
+        </div>    
     <table>
         <tr>
             <td style="padding-right: 5px">
@@ -116,7 +121,7 @@
             <table>
                 <tr>
                     <td>
-                        <asp:Button ID="btnAddItem" runat="server" Text="Add Item" OnClick="btnAddItem_Click" Class="btn btn-default" />
+                        <asp:Button ID="btnAddItem" runat="server" Text="Add Item" OnClick="btnAddItem_Click" Class="btn btn-primary" />
                         <br />
                         <br />
                     </td>
@@ -149,4 +154,5 @@
             </div>
         </ContentTemplate>
     </asp:UpdatePanel>
+        </div>
 </asp:Content>

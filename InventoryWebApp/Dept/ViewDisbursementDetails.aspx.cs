@@ -40,15 +40,15 @@ namespace InventoryWebApp.Dept
                 lblDisbursementCode.Text = dCode;
                 lvDisbursementDetails.DataSource = sc.GetDisbursementDetails(dCode);
                 lvDisbursementDetails.DataBind();
-                if (rCode != null)
-                {
-                    lblRequestCode.Enabled = true;
-                    lblRequestCode.Text = rCode;
-                }
-                else
-                    lblRequestCode.Text = "-";
-                                           
-                lblStatus.Text = sc.GetDisbursement(dCode).Status;
+                //if (rCode != null)
+                //{
+                //    lblRequestCode.Enabled = true;
+                //    lblRequestCode.Text = rCode;
+                //}
+                //else
+                //    lblRequestCode.Text = "-";
+
+                lblStatus.Text = ((string)sc.GetDisbursement(dCode).Status).ToUpper() ;
             }
         }
 

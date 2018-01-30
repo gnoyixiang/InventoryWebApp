@@ -329,7 +329,6 @@
     <Content Include="bin\InventoryWebApp.dll.config" />
     <Content Include="LayoutWithoutAjax.Master" />
     <None Include="Properties\PublishProfiles\InventoryWCF.pubxml" />
-    <Content Include="Dept\HeadApproveDetail.aspx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
@@ -911,13 +910,6 @@
     </Compile>
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Dept\HeadApproveDetail.aspx.cs">
-      <DependentUpon>HeadApproveDetail.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Dept\HeadApproveDetail.aspx.designer.cs">
-      <DependentUpon>HeadApproveDetail.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

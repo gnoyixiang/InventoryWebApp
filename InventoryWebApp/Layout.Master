@@ -72,7 +72,7 @@
                                     <li><a href="/Store/DisbursementFormPage">Disburse Items</a></li>
                                 </ul>
                             </li>
-                            <li class="active" id="menu-Reorder">
+                            <li id="menu-Reorder">
                                 <a href="#ReorderSubmenu" data-toggle="collapse" aria-expanded="false">Manage Re-order</a>
                                 <ul class="collapse list-unstyled submenu" id="ReorderSubmenu">
                                     <li><a href="/Store/ViewPurchaseOrders">View All Orders</a></li>
@@ -96,7 +96,7 @@
                             <li>
                                 <a href="/Dept/ViewCatalogue">View Catalog</a>
                             </li>
-                            <li id="menu-RequestEmployee" class="active">
+                            <li id="menu-RequestEmployee">
                                 <a href="#RequestEmployeeSubmenu" data-toggle="collapse" aria-expanded="false">Manage Requests</a>
                                 <ul class="collapse list-unstyled submenu" id="RequestEmployeeSubmenu">
                                     <li><a href="/Dept/DeptRequisitionList">View Requests</a></li>
@@ -107,11 +107,11 @@
                                     <%} %>
                                 </ul>
                             </li>
-                            <li><a href="#">View Disbursements</a></li>
-                            <% if (IsTempRoleCode("Rep"))
-                                { %>
-                            <li><a href="#">Update Collection Point</a></li>
-                            <%} %>
+                            <li><a href="/Dept/ViewDisbursement">View Disbursements</a></li>
+                            <%--<% if (IsTempRoleCode("Rep"))
+                                { %>--%>
+                            <li><a href="/Dept/UpdateCollectionPoint">Update Collection Point</a></li>
+                            <%--<%} %>--%>
                             <% } %>
 
                             <!-- Store Supervisor -->

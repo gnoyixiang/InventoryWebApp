@@ -54,7 +54,11 @@ h1, h2, h3, h4, h5 {
     font-weight:600;
 }
 
-
+@media print {
+  a[href]:after {
+    content: none !important;
+  }
+}
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */
@@ -99,13 +103,13 @@ h1, h2, h3, h4, h5 {
     }
 
         #sidebar ul li a:hover {
-            color: #4e546b;
+            color: #5e68af;
             background: #fff;
         }
 
     #sidebar a[aria-expanded="true"] {
         color: #fff;
-        background: #4e546b;
+        background: #5e68af;
     }
 
     #sidebar ul li.active > a {
@@ -138,7 +142,7 @@ h1, h2, h3, h4, h5 {
 .submenu li a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #4e546b;
+    background: #5e68af;
 }
 
 
@@ -300,3 +304,4 @@ a.article, a.article:hover {
     border-radius: 5px;
     background-color: #fff;
 }
+

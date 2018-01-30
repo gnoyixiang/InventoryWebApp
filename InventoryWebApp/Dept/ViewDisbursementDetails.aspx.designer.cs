@@ -40,15 +40,6 @@ namespace InventoryWebApp.Dept {
         protected global::System.Web.UI.WebControls.Label lblDisbursementCode;
         
         /// <summary>
-        /// lblRequestCode control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRequestCode;
-        
-        /// <summary>
         /// lblStatus control.
         /// </summary>
         /// <remarks>
@@ -65,14 +56,5 @@ namespace InventoryWebApp.Dept {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ListView lvDisbursementDetails;
-        
-        /// <summary>
-        /// PrintButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button PrintButton;
     }
 }

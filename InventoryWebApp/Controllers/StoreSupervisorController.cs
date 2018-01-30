@@ -345,9 +345,8 @@ namespace InventoryWebApp.Controllers
             {
                 foreach (AssignRole ar in listOfAssignRole)
                 {
-                    if (ar.TemporaryRoleCode.Equals("SSupervisor") && ar.StartDate.Equals(startDate) && ar.EndDate.Equals(endDate))
+                    if (ar.StartDate.Equals(startDate) || ar.EndDate.Equals(endDate))
                     {
-
                         return false;
                     }
 

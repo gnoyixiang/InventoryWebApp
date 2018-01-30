@@ -33,9 +33,16 @@ namespace InventoryWebApp.Dept
                     var itemInfo = ec.GetStationery(itemcode);
                     if (itemInfo != null)
                     {
+                        panelNoItem.Visible = false;
+                        UpdatePanelListView.Visible = true;    
                         lblItemCode.Text = Request.QueryString["ItemCode"].ToString();
                         lblCategory.Text = itemInfo.CategoryCode;
                         lblDescription.Text = itemInfo.Description;
+                    }
+                    else
+                    {
+                        panelNoItem.Visible = true;
+                        UpdatePanelListView.Visible = false;
                     }
                 }
                 catch (Exception ex)
