@@ -31,24 +31,6 @@ namespace InventoryWebApp.Store {
         protected global::System.Web.UI.WebControls.Panel panelItem;
         
         /// <summary>
-        /// Label1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
-        
-        /// <summary>
-        /// btnPrint control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPrint;
-        
-        /// <summary>
         /// tbxStart control.
         /// </summary>
         /// <remarks>
@@ -58,24 +40,6 @@ namespace InventoryWebApp.Store {
         protected global::System.Web.UI.WebControls.TextBox tbxStart;
         
         /// <summary>
-        /// tbxEnd control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbxEnd;
-        
-        /// <summary>
-        /// btnSearch control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSearch;
-        
-        /// <summary>
         /// RequiredFieldValidator control.
         /// </summary>
         /// <remarks>
@@ -83,6 +47,15 @@ namespace InventoryWebApp.Store {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator;
+        
+        /// <summary>
+        /// tbxEnd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbxEnd;
         
         /// <summary>
         /// valDateRange control.
@@ -103,6 +76,15 @@ namespace InventoryWebApp.Store {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
         
         /// <summary>
+        /// btnSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSearch;
+        
+        /// <summary>
         /// lblItemCode control.
         /// </summary>
         /// <remarks>
@@ -119,42 +101,6 @@ namespace InventoryWebApp.Store {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblItemCodeValue;
-        
-        /// <summary>
-        /// lblDes control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDes;
-        
-        /// <summary>
-        /// lblDesValue control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDesValue;
-        
-        /// <summary>
-        /// lblUOM control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUOM;
-        
-        /// <summary>
-        /// lblUOMValue control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUOMValue;
         
         /// <summary>
         /// lblfirstSupplier control.
@@ -175,6 +121,24 @@ namespace InventoryWebApp.Store {
         protected global::System.Web.UI.WebControls.Label lblfirstSupplierValue;
         
         /// <summary>
+        /// lblDes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDes;
+        
+        /// <summary>
+        /// lblDesValue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDesValue;
+        
+        /// <summary>
         /// lblsecondSupplier control.
         /// </summary>
         /// <remarks>
@@ -191,6 +155,24 @@ namespace InventoryWebApp.Store {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblsecondSupplierValue;
+        
+        /// <summary>
+        /// lblUOM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblUOM;
+        
+        /// <summary>
+        /// lblUOMValue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblUOMValue;
         
         /// <summary>
         /// lblthirdSupplier control.
@@ -227,5 +209,17 @@ namespace InventoryWebApp.Store {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel panelStockCard;
+        
+        /// <summary>
+        /// Master property.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated property.
+        /// </remarks>
+        public new InventoryWebApp.Layout Master {
+            get {
+                return ((InventoryWebApp.Layout)(base.Master));
+            }
+        }
     }
 }

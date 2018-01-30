@@ -1,4 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="StoreEmployeeList.aspx.cs" Inherits="InventoryWebApp.Store.StoreEmployeeList" %>
+
+<%@ MasterType VirtualPath="~/Layout.Master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     <style>
@@ -22,83 +24,78 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
     <ul class="breadcrumb">
-                <li><a href="#">Home</a></li>
-                <li class="active"><a href="#">Store Employee List</a></li>
-            </ul>
+        <li><a href="#">Home</a></li>
+        <li class="active">Store Employee List</li>
+    </ul>
+    <div class="container-fluid" id="mainContainer">
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Store Employee List</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-7">
+                <asp:TextBox ID="tbxSearch" runat="server" CssClass="form-control" placeholder="Search Employee Name or Code"> </asp:TextBox>                
+            </div>
+            <div class="col-md-2">
+                <asp:Button ID="btnSearch" runat="server" Text="Search" OnClick="SearchButton_Click" CssClass="btn btn-primary" Width="100%" />
+            </div>
+            <div class="col-md-3">
+                <asp:Button ID="btnStoreEmployeeList" runat="server" Text="View All Employees" OnClick="btnStoreEmployeeList_Click" CssClass="btn btn-basic" Width="100%" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <asp:Label ID="lblNoresultFound" runat="server" ForeColor="Red" ViewStateMode="Disabled"></asp:Label>
+            </div>
+        </div>
 
-    <div class="row">
-        <div class="col-xs-12 col-md-2">
-    <asp:TextBox ID="tbxSearch" runat="server" Height="30px" Width="150px"> </asp:TextBox>
-            <asp:Label ID="lblNoresultFound" runat="server" ForeColor="Red" ViewStateMode="Disabled" Width="400px"></asp:Label>
-           </div> 
-      <div class="col-xs-12 col-md-2">
-    <asp:Button ID="btnSearch" runat="server" Text="Search" Height="30px" Width="70px" OnClick="SearchButton_Click"  CssClass="btn btn-primary"/><br />
-    
-    </div>
-   <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator" runat="server" ErrorMessage="SeachBox cann't be Empty" ControlToValidate="tbxSearch" ForeColor="Red">
-    </asp:RequiredFieldValidator>--%>
+        <asp:GridView ID="gvEmployeeList" runat="server" CellPadding="4" GridLines="None" AutoGenerateColumns="false" Width="100%"
+            OnRowDataBound="gvEmployeeList_RowDataBound" OnPageIndexChanging="gvEmployeeList_PageIndexChanging" DataKeyNames="EmployeeCode"
+            CssClass="table table-striped" HeaderStyle-BackColor="#cfd8dc" ShowHeaderWhenEmpty="True" AllowPaging="True" PageSize="10">
 
-    
-    <div class="col-xs-12 col-md-2">
-    <asp:Button ID="btnStoreEmployeeList" runat="server" Text="Store Employee List" OnClick="btnStoreEmployeeList_Click" Height="30px" Width="200px" />
-    </div>
-    </div>
-
-    <asp:GridView ID="gvEmployeeList" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" AutoGenerateColumns="false" Width="100%" 
-       OnRowDataBound="gvEmployeeList_RowDataBound" OnPageIndexChanging="gvEmployeeList_PageIndexChanging" DataKeyNames="EmployeeCode" ShowHeaderWhenEmpty="True" AllowPaging="True" PageSize="10">
-        <AlternatingRowStyle BackColor="White" />
-        <EditRowStyle />
-        <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-        <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-       <PagerSettings Mode="NumericFirstLast" FirstPageText="First" LastPageText="Last" PreviousPageText="Previous" NextPageText="Next" />
-        <PagerStyle ForeColor="Black" HorizontalAlign="Center" CssClass="pager-style" />
-        <RowStyle BackColor="#EFF3FB" />
-        <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-        <SortedAscendingCellStyle BackColor="#F5F7FB" />
-        <SortedAscendingHeaderStyle BackColor="#6D95E1" />
-        <SortedDescendingCellStyle BackColor="#E9EBEF" />
-        <SortedDescendingHeaderStyle BackColor="#4870BE" />
-
-        <Columns>
-                <asp:TemplateField HeaderText="Employee Code" SortExpression="EmployeeCode" >
+            <PagerSettings Mode="NumericFirstLast" FirstPageText="First" LastPageText="Last" PreviousPageText="Previous" NextPageText="Next" />
+            <PagerStyle ForeColor="Black" HorizontalAlign="Center" CssClass="pager-style" />
+            <Columns>
+                <asp:TemplateField HeaderText="Employee Code" SortExpression="Employee Code">
                     <ItemTemplate>
                         <asp:Label ID="lblEmployeeCode" runat="server" Text='<%# Bind("EmployeeCode") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
 
-                <asp:TemplateField HeaderText="EmployeeName" SortExpression="EmployeeName" >
+                <asp:TemplateField HeaderText="EmployeeName" SortExpression="Employee Name">
                     <ItemTemplate>
                         <asp:Label ID="lblEmployeeName" runat="server" Text='<%# Bind("EmployeeName") %>'>></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
 
-                <asp:TemplateField HeaderText="Employee Role" SortExpression="EmployeeRole" >
+                <asp:TemplateField HeaderText="Employee Role" SortExpression="Employee Role">
                     <ItemTemplate>
-                        <asp:Label ID="lblEmployeeRole"  ItemStyle-HorizontalAlign="center" runat="server"  ></asp:Label>
+                        <asp:Label ID="lblEmployeeRole" ItemStyle-HorizontalAlign="center" runat="server"></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
 
-                <asp:TemplateField HeaderText="Temporary Role" SortExpression="TemporaryRole" >
-                    
+                <asp:TemplateField HeaderText="Temporary Role" SortExpression="Temporary Role">
+
                     <ItemTemplate>
-                        <asp:Label ID="lblTemporaryRole" runat="server" ></asp:Label>
+                        <asp:Label ID="lblTemporaryRole" runat="server"></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
 
-                <asp:TemplateField HeaderText="ReportTo" SortExpression="ReportTo" >
-                    
+                <asp:TemplateField HeaderText="ReportTo" SortExpression="Report To">
+
                     <ItemTemplate>
-                        <asp:Label ID="lblReportTo" runat="server" Text='<%# Bind("ReportTo") %>' ></asp:Label>
+                        <asp:Label ID="lblReportTo" runat="server" Text='<%# Bind("ReportTo") %>'></asp:Label>
                     </ItemTemplate>
 
                 </asp:TemplateField>
 
             </Columns>
 
-    </asp:GridView>
+        </asp:GridView>
 
-    <br />
-    <asp:Label ID="lblSuccessMsg" Text="" runat="server" ForeColor="Green"></asp:Label>
-    <asp:Label ID="lblErrorMsg" Text="" runat="server" ForeColor="Red"></asp:Label>
-
+        <br />
+        <asp:Label ID="lblSuccessMsg" Text="" runat="server" ForeColor="Green"></asp:Label>
+        <asp:Label ID="lblErrorMsg" Text="" runat="server" ForeColor="Red"></asp:Label>
+    </div>
 </asp:Content>

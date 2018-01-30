@@ -9,7 +9,7 @@ body {
     font-family: 'Poppins', sans-serif;
     background: #fafafa;
     font-size: 14px;
-    font-weight:400;
+    font-weight: 400;
 }
 
 p {
@@ -49,15 +49,15 @@ p {
 }
 
 h1, h2, h3, h4, h5 {
-    margin-top:10px;
-    margin-bottom:  20px;
-    font-weight:600;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-weight: 600;
 }
 
 @media print {
-  a[href]:after {
-    content: none !important;
-  }
+    a[href]:after {
+        content: none !important;
+    }
 }
 /* ---------------------------------------------------
     SIDEBAR STYLE
@@ -67,12 +67,12 @@ h1, h2, h3, h4, h5 {
     align-items: stretch;
     /*perspective: 1500px;*/
 }
-    
+
 #sidebar {
     min-width: 250px;
     max-width: 250px;
     /*background: #7386D5;*/
-        background: linear-gradient(to bottom, #253161 , #7386d59e);
+    background: linear-gradient(to bottom, #253161, #7386d59e);
     color: #fff;
 }
 
@@ -95,26 +95,26 @@ h1, h2, h3, h4, h5 {
     #sidebar ul li a {
         padding: 10px 20px;
         display: block;
-        font-weight:500;
+        font-weight: 500;
     }
 
-    #sidebar ul li a i {
-         padding-right:10px;
-    }
+        #sidebar ul li a i {
+            padding-right: 10px;
+        }
 
         #sidebar ul li a:hover {
-            color: #5e68af;
+            color: #28366d91;
             background: #fff;
         }
 
     #sidebar a[aria-expanded="true"] {
         color: #fff;
-        background: #5e68af;
+        background: #28366d91;
     }
 
     #sidebar ul li.active > a {
         color: #fff;
-        background: #5e68af;
+        background: #28366d91;
     }
 
     #sidebar a[data-toggle="collapse"] {
@@ -136,13 +136,13 @@ h1, h2, h3, h4, h5 {
 
     #sidebar a.active {
         color: #fff;
-        background: #5e68af;
+        background: #28366d91;
     }
 
 .submenu li a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #5e68af;
+    background: #28366d91;
 }
 
 
@@ -286,22 +286,25 @@ a.article, a.article:hover {
 #mainContainer {
     background-color: #fff;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-    padding: 10px 30px;
+    padding: 10px 20px;
     border-radius: 10px;
-    min-height:69vh;
+    min-height: 69vh;
 }
 
 .row {
     margin-bottom: 10px;
 }
 
+.error {
+    border: 1px solid red;
+}
+
 .disabled {
     background-color: #eee;
 }
 
-.breadcrumb{
+.breadcrumb {
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     background-color: #fff;
 }
-

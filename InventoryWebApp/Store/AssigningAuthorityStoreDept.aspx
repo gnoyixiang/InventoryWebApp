@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="AssigningAuthorityStoreDept.aspx.cs" 
     Inherits="InventoryWebApp.Store.AssigningAuthorityStoreDept" %>
-
+<%@ MasterType VirtualPath="~/Layout.Master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
         .pager-style {
@@ -27,41 +27,39 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <ul class="breadcrumb">
         <li><a href="#">Home</a></li>
-        <li class="active"><a href="#">Assigning Authority</a></li>
+        <li class="active">Assign Authority</li>
     </ul>
+    <div class="container-fluid" id="mainContainer">
     <div class="row">
-        <div class="col-md-2">
-            <asp:TextBox ID="tbxSearch" runat="server" CssClass="form-control"> </asp:TextBox>
-            <asp:Label ID="lblNoresultFound" runat="server" ForeColor="Red" ViewStateMode="Disabled"></asp:Label><br />
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator" runat="server" ErrorMessage="SeachBox cann't be Empty" ControlToValidate="tbxSearch" ForeColor="Red">
-            </asp:RequiredFieldValidator>
+        <div class="col-md-12">
+            <h3>Assign Authority</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <asp:TextBox ID="tbxSearch" runat="server" CssClass="form-control" placeholder="Search Employee Name or Code"> </asp:TextBox>            
         </div>
         <div class="col-md-2">
-            <asp:Button ID="btnSearch" runat="server" Text="Search" OnClick="SearchButton_Click" CssClass="btn btn-primary" />
+            <asp:Button ID="btnSearch" runat="server" Text="Search" OnClick="SearchButton_Click" CssClass="btn btn-primary" Width="100%"/>
+        </div>
+        <div class="col-md-4">
+            <asp:Label ID="lblNoresultFound" runat="server" ForeColor="Red" ViewStateMode="Disabled"></asp:Label><br />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator" runat="server" ErrorMessage="SeachBox cannot be Empty" ControlToValidate="tbxSearch" ForeColor="Red">
+            </asp:RequiredFieldValidator>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
-            <asp:GridView ID="gvSearchResult" runat="server" CellSpacing="-1" CssClass="table" GridLines="None" AutoGenerateColumns="false"
+            <asp:GridView ID="gvSearchResult" runat="server" CellSpacing="-1" CssClass="table table-striped" GridLines="None" AutoGenerateColumns="false"
                 DataKeyNames="EmployeeCode"
                 OnRowEditing="gvSearchResult_RowEditing" OnRowDataBound="gvSearchResult_OnRowDataBound" OnRowUpdating="gvSearchResult_RowUpdating"
-                OnRowCancelingEdit="gvSearchResult_RowCancelingEdit"
+                OnRowCancelingEdit="gvSearchResult_RowCancelingEdit" HeaderStyle-BackColor="#cfd8dc"
                 AllowPaging="True" OnPageIndexChanging="gvSearchResult_PageIndexChanging" OnSelectedIndexChanged="gvSearchResult_SelectedIndexChanged"
                 OnRowCommand="gvSearchResult_RowCommand"
                 OnRowDeleting="gvSearchResult_RowDeleting" PageSize="4" ShowFooter="True" ShowHeaderWhenEmpty="True">
-                <%--<AlternatingRowStyle BackColor="White" />--%>
-                <%--<EditRowStyle />
-                <FooterStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-                
-                <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />--%>
                 <PagerSettings Mode="NumericFirstLast" FirstPageText="First" LastPageText="Last" PreviousPageText="Previous" NextPageText="Next" />
                 <PagerStyle ForeColor="Black" HorizontalAlign="Center" CssClass="pager-style" />
-                <%--<RowStyle BackColor="#EFF3FB" />
-                <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-                <SortedAscendingCellStyle BackColor="#F5F7FB" />
-                <SortedAscendingHeaderStyle BackColor="#6D95E1" />
-                <SortedDescendingCellStyle BackColor="#E9EBEF" />
-                <SortedDescendingHeaderStyle BackColor="#4870BE" />--%>
 
                 <Columns>
 
@@ -252,6 +250,6 @@
             <asp:Label ID="lblErrorMsg" Text="" runat="server" ForeColor="Red" ViewStateMode="Disabled"></asp:Label>
         </div>
     </div>
-
+        </div>
 
 </asp:Content>

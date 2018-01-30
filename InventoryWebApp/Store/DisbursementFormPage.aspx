@@ -1,10 +1,21 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="DisbursementFormPage.aspx.cs" 
     Inherits="InventoryWebApp.Store.DisbursementFormPage" %>
-
+<%@ MasterType VirtualPath="~/Layout.Master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h3>Disbursement Form</h3>
+    <ul class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li class="active">Manage Requests</li>
+        <li class="active">Disburse Items</li>
+    </ul>
+    <div class="container-fluid" id="mainContainer">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Disbursement Form</h3>
+        </div>
+    </div>
+
     <asp:Button ID="btnBack" runat="server" Text="<Back" Style="float: left" CssClass="btn btn-success" OnClick="btnBack_Click" />
 
     <%--<asp:Button ID="btnNext" runat="server" Text="Proceed to Charge Back>" Style="float: right" CssClass="btn btn-success" OnClick="btnNext_Click1" />--%>
@@ -21,7 +32,8 @@
                 <tr style="padding-right: 0px">
                     <td>Select A Collection Point</td>
                     <td>
-                        <asp:DropDownList ID="ddlCollectionPoint" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlCollectionPoint_SelectedIndexChanged"></asp:DropDownList></td>
+                        <asp:DropDownList ID="ddlCollectionPoint" runat="server" AutoPostBack="True" Width="100%"
+                            OnSelectedIndexChanged="ddlCollectionPoint_SelectedIndexChanged"></asp:DropDownList></td>
                     <td>Planned Disbursement Date</td>
                     <td>
                         <asp:TextBox ID="tbxDisbursementDate" runat="server" Enabled="false" Text="<%#GetPlanToCollectDate() %>"></asp:TextBox></td>
@@ -29,7 +41,7 @@
                 <tr>
                     <td>Department</td>
                     <td>
-                        <asp:DropDownList ID="ddlDepartment" runat="server" AutoPostBack="true"></asp:DropDownList></td>
+                        <asp:DropDownList ID="ddlDepartment" runat="server" AutoPostBack="true" Width="100%"></asp:DropDownList></td>
                     <td>Disbursement Time</td>
                     <td>
                         <asp:TextBox ID="tbxDisbursementTime" runat="server" Enabled="false"></asp:TextBox></td>
@@ -121,4 +133,5 @@
         </ContentTemplate>
 
     </asp:UpdatePanel>
+        </div>
 </asp:Content>

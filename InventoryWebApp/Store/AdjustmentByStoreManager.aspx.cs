@@ -146,8 +146,8 @@ namespace InventoryWebApp.Store
                     storeSpController.UpdateAdjustmentBySupervisor(adOFReject);
 
                     PopulateGridViewForSupervisor();
-                    lblSuccessMsg.Text = "Adjustment request rejected";
-                    lblErrorMsg.Text = "";
+                    lblSuccessMsg.Text = "";
+                    lblErrorMsg.Text = "Adjustment request rejected";
 
                 }
             }

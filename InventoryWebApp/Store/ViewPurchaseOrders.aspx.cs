@@ -209,6 +209,8 @@ namespace InventoryWebApp.Store
             return scController.GetPurchaseOrdersBySearchText(searchIndex, searchText);            
 
         }        
+
+        
         
         protected void lisPOPager_PreRender(object sender, EventArgs e)
         {

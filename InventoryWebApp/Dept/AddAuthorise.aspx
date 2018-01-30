@@ -18,13 +18,6 @@
             .pager-style a {
             }
 
-        .row {
-            margin-bottom: 10px;
-        }
-
-        .disabled {
-            background-color: #eee;
-        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">

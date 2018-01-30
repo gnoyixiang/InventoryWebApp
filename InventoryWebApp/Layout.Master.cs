@@ -107,7 +107,7 @@ namespace InventoryWebApp
             Context.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
         }
 
-        protected string GetEmployeeName(string username)
+        public string GetEmployeeName(string username)
         {
             return employeeController.GetEmployeeNameByUserName(username);
         }

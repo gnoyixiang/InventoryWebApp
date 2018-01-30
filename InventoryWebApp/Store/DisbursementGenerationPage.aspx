@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="DisbursementGenerationPage.aspx.cs" 
     Inherits="InventoryWebApp.Store.DisbursementGenerationPage" %>
-
+<%@ MasterType VirtualPath="~/Layout.Master" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title></title>
@@ -37,7 +37,6 @@
     <cc1:ModalPopupExtender ID="mp1" runat="server" PopupControlID="pnlPopUp" TargetControlID="btnPopUp"
         BackgroundCssClass="Background">
     </cc1:ModalPopupExtender>
-
     <asp:Panel ID="pnlPopUp" runat="server" CssClass="Popup" align="center" Style="display: none">
         <h5>Change collection date to</h5>
         <table>
@@ -66,8 +65,19 @@
         <br />
     </asp:Panel>
 
+    <ul class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li>Manage Requests</li>
+        <li class="active">Generate Disbursement</li>
+    </ul>
+    <div class="container-fluid" id="mainContainer">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Disbursement Overview</h3>
+        </div>
+    </div>
 
-    <h3>Disbursement Overview</h3>
+    
     <asp:Button ID="btnBack" runat="server" Text="<Back to Allocation" Style="float: left" CssClass="btn btn-success" OnClick="btnBack_Click" />
     <asp:Button ID="btnNext" runat="server" Text="Proceed to Disbursement Form>" Enabled="false" Style="float: right" CssClass="btn btn-success" OnClick="btnNext_Click"/>
     <br />
@@ -139,6 +149,6 @@
 
     </asp:ListView>
 
-
+        </div>
 
 </asp:Content>

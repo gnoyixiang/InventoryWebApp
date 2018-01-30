@@ -29,7 +29,7 @@ namespace InventoryWebApp.Store
             List<Adjustment> adjustment =  storeSpController.ListOfPendingAdjustmentBySupervisor();
             if (adjustment.Count == 0)
             {
-                lblErrorMsg.Text = "No pending Adjustment request";
+                lblErrorMsg.Text = "No pending adjustment request!";
 
             }
             gvPendingAdjutment.DataSource = adjustment;
@@ -148,8 +148,8 @@ namespace InventoryWebApp.Store
                     storeSpController.UpdateAdjustmentBySupervisor(adOFReject);
 
                     PopulateGridViewForSupervisor();
-                    lblSuccessMsg.Text = "Adjustment request rejected";
-                    lblErrorMsg.Text = "";
+                    lblSuccessMsg.Text = "";
+                    lblErrorMsg.Text = "Adjustment request rejected";
 
                 }
             }

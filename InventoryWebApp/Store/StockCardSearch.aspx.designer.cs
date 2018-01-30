@@ -13,15 +13,6 @@ namespace InventoryWebApp.Store {
     public partial class StockCardSearch {
         
         /// <summary>
-        /// Label1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
-        
-        /// <summary>
         /// ddlStockCardSearch control.
         /// </summary>
         /// <remarks>
@@ -56,5 +47,17 @@ namespace InventoryWebApp.Store {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvItem;
+        
+        /// <summary>
+        /// Master property.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated property.
+        /// </remarks>
+        public new InventoryWebApp.Layout Master {
+            get {
+                return ((InventoryWebApp.Layout)(base.Master));
+            }
+        }
     }
 }

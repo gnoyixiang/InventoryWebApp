@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="PurchaseOrderDetail.aspx.cs" 
      MaintainScrollPositionOnPostback="true" Inherits="InventoryWebApp.Store.PurchaseOrderDetail" %>
-
+<%@ MasterType VirtualPath="~/Layout.Master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
         .row {
@@ -17,6 +17,13 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <ul class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li class="active">Manage Orders</li>
+        <li><a href="ViewPurchaseOrders">Purchase Orders</a></li>
+        <li class="active">Purchase Order Details</li>
+    </ul>
+    <div class="container-fluid" id="mainContainer">
     <asp:Panel ID="panelError" runat="server" Visible="false">
         <div class="row">
             <div class="col-sm-12">
@@ -33,15 +40,10 @@
         </div>
     </asp:Panel>
     <asp:Panel ID="panelDetails" runat="server">
-        <div class="row">
+         <div class="row">
             <div class="col-sm-10">
                 <h3>Purchase Order #<asp:Label runat="server" ID="lblOrderID"></asp:Label></h3>
-                
-            </div>
-            <div class="col-sm-2">
-                <a href="#"><i title="Print to PDF" style="margin: 20px 0 10px 0; float: right;" class="fa fa-print fa-2x" aria-hidden="true"></i></a>
-            </div>
-        </div>
+                </div></div>
         <div class="row">
             <div class="col-sm-4">
                 <asp:Label runat="server" ID="lblStatus" Text="Status: " Font-Bold="true"></asp:Label>
@@ -85,12 +87,12 @@
                     OnItemCanceling="listDetails_ItemCanceling" DataKeyNames="ItemCode, PurchaseOrderCode">
                     <LayoutTemplate>
                         <table class="table">
-                            <tr>
+                            <tr style="background-color:#cfd8dc">
                                 <th>Description</th>
                                 <td align="right" style="width: 20%"><b>Quantity</b></td>
                                 <td align="right" style="width: 20%"><b>Price</b></td>
                                 <td align="right" style="width: 20%"><b>Amount</b></td>
-                                
+                                <td></td>
                             </tr>
                             <tbody id="itemPlaceholder" runat="server"></tbody>
                             <tr>
@@ -98,7 +100,7 @@
                                 <td></td>
                                 <td align="right">Grand Total</td>
                                 <td align="right"><span>$&nbsp;&nbsp;</span><asp:Label ID="lblGrandTotal" runat="server" Style="float: right"></asp:Label></td>
-
+                                <td></td>
                             </tr>
                         </table>
                     </LayoutTemplate>
@@ -111,7 +113,7 @@
                                 <td align="right"><span>$&nbsp;&nbsp;</span><%# GetAmount(Eval("Quantity"), Eval("Price")) %></td>
                                 <% if (IsEditable() && Context.User.IsInRole("Store Clerk"))                    
                                     { %>
-                                <td align="center" style="width: 3%">
+                                <td align="center" style="width: 3%;">
                                     <asp:LinkButton ID="EditButton" runat="server" CommandName="Edit" title="Edit">
                                     <i class="fa fa-pencil-square" style="font-size:1.5em;color:darkorange" aria-hidden="true"></i>
                                     </asp:LinkButton>
@@ -122,7 +124,7 @@
                                 <td colspan="4" style="border-top: none;">Notes 
                                 <asp:TextBox ID="txtNotes" runat="server" Rows="2" AutoPostBack="true"
                                     resize="none" CausesValidation="true" ReadOnly="true"
-                                    TextMode="MultiLine" Width="100%" Text='<%# Eval("Notes") %>'></asp:TextBox>
+                                    TextMode="MultiLine" Width="100%" Text='<%# Eval("Notes") %>' style="resize:none"></asp:TextBox>
                                 </td>
                             </tr>
                         </tbody>
@@ -147,7 +149,7 @@
                                 <td align="right"><span>$&nbsp;&nbsp;</span>
                                     <asp:Label ID="lblAmount" runat="server"><%# GetAmount(Eval("Quantity"), Eval("Price")) %></asp:Label></td>
 
-                                <td align="center">
+                                <td align="center"">
                                     <asp:LinkButton ID="UpdateButton" runat="server" CommandName="Update" CausesValidation="true"
                                         title="Update" ValidationGroup="ValidGroupEdit">
                                             <i class="fa fa-check-square" style="font-size:1.5em;color:forestgreen" aria-hidden="true"></i>
@@ -161,16 +163,13 @@
                             
                             <tr>
                                 <td colspan="4" style="border-top: none;">Notes
-                                    <%--<asp:RegularExpressionValidator ControlToValidate="txtNotes" ForeColor="Red"
-                                        ID="validNotes" ValidationExpression="^[\s\S]{0,200}$" runat="server" ValidationGroup="ValidGroupEdit"
-                                        ErrorMessage="Maximum 200 characters allowed."></asp:RegularExpressionValidator>--%>
                                     <asp:CustomValidator ID="ValidNotes" runat="server"
                                         OnServerValidate="ValidNotes_ServerValidate" ValidationGroup="ValidGroupEdit"
                                         ControlToValidate="txtNotes" ForeColor="Red" ErrorMessage="Maximum 200 characters allowed." 
                                         Display="Dynamic">
                                     </asp:CustomValidator>
                                     <asp:TextBox ID="txtNotes" runat="server" Rows="2" CssClass="control"
-                                        resize="none" TextMode="MultiLine" Width="100%" Text='<%# Bind("Notes") %>'></asp:TextBox>
+                                        resize="none" TextMode="MultiLine" Width="100%" Text='<%# Bind("Notes") %>' style="resize:none"></asp:TextBox>
                                 </td>
                             </tr>
                         </tbody>
@@ -264,5 +263,5 @@
         </div>
 
     </asp:Panel>
-
+        </div>
 </asp:Content>

@@ -322,6 +322,7 @@
     <Content Include="Store\StockAdjustmentNew.aspx" />
     <Content Include="Store\StockAdjustmentView.aspx" />
     <Content Include="Store\PurchaseOrderDetail.aspx" />
+    <Content Include="Store\ViewDisbursementDetails.aspx" />
     <Content Include="Store\ViewPurchaseOrders.aspx" />
     <Content Include="Public.Master" />
     <Content Include="Dept\Web.config" />
@@ -882,6 +883,13 @@
     </Compile>
     <Compile Include="Store\StockAdjustmentView.aspx.designer.cs">
       <DependentUpon>StockAdjustmentView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Store\ViewDisbursementDetails.aspx.cs">
+      <DependentUpon>ViewDisbursementDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Store\ViewDisbursementDetails.aspx.designer.cs">
+      <DependentUpon>ViewDisbursementDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="Store\ViewPurchaseOrders.aspx.cs">
       <DependentUpon>ViewPurchaseOrders.aspx</DependentUpon>

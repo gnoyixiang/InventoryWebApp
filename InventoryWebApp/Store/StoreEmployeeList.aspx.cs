@@ -16,18 +16,23 @@ namespace InventoryWebApp.Store
         List<Employee> empListInEMployee = null;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                List<Employee> empList = storeSpController.EmployeeList();
 
+                gvEmployeeList.DataSource = empList;
+                gvEmployeeList.DataBind();
+            }
         }
         public List<Employee> PopulateGridViewFromEmp(string searchValue)
         {
+           
 
             int result = 0;
-
             bool searchcondition = Int32.TryParse(searchValue, out result);
 
             if (searchcondition)
             {
-
                 empListInEMployee = storeSpController.ListOfEmployeeCode(searchValue);
                 if (empListInEMployee.Count == 0)
                 {
@@ -48,7 +53,6 @@ namespace InventoryWebApp.Store
             }
             else
             {
-
                 empListInEMployee = storeSpController.ListOfEmployeeName(searchValue);
                 if (empListInEMployee.Count == 0)
                 {
@@ -62,8 +66,6 @@ namespace InventoryWebApp.Store
                 }
                 else
                 {
-
-
                     gvEmployeeList.DataSource = empListInEMployee;
                     gvEmployeeList.DataBind();
 
@@ -80,6 +82,7 @@ namespace InventoryWebApp.Store
             if (searchCriteria == "")
             {
                 lblNoresultFound.Text = "SearchBox cann't be Empty";
+
             }
             else
             {

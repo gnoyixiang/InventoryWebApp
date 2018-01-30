@@ -140,7 +140,6 @@ namespace InventoryWebApp.Controllers
 
             foreach (Employee emp in empSearchList)
             {
-
                 userRoleName = GetUserRoleName(emp.UserName);
                 if (userRoleName.Equals("SSupervisor"))
                 {

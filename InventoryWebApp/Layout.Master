@@ -20,7 +20,17 @@
 
     <style>
     </style>
+        <script type="text/javascript">
+        function printDiv(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            var originalContents = document.body.innerHTML;
 
+            document.body.innerHTML = printContents;
+
+            window.print();
+
+            document.body.innerHTML = originalContents;
+        }</script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -69,7 +79,9 @@
                                     <li><a href="/Store/RequisitionList">View Requests</a></li>
                                     <li><a href="/Store/RetrievalPage">Retrieve Items</a></li>
                                     <li><a href="/Store/2AllocationPage">Allocate Items</a></li>
+                                    <li><a href="/Store/DisbursementGenerationPage">Generate Disbursement</a></li>
                                     <li><a href="/Store/DisbursementFormPage">Disburse Items</a></li>
+                                    <li><a href="/Store/ChargeBackPage">Charge Back</a></li>
                                 </ul>
                             </li>
                             <li id="menu-Reorder">
@@ -123,18 +135,18 @@
                             <% if (!IsTempRoleCode("ActSSup") && !Context.User.IsInRole("Store Manager"))
                                 { %>
                             <li>
-                                <a href="/Store/AssigningAuthorityStoreDept">Assigning Authority</a>
+                                <a href="/Store/AssigningAuthorityStoreDept">Assign Authority</a>
                             </li>
                             <%} %>
 
                             <li>
                                 <% if (Context.User.IsInRole("Store Supervisor"))
                                     { %>
-                                <a href="/Store/AdjustmentByStoreSupervisor">Adjust Stock</a>
+                                <a href="/Store/AdjustmentByStoreSupervisor">Stock Adjustment</a>
                                 <% } %>
                                 <% if (Context.User.IsInRole("Store Manager"))
                                     { %>
-                                <a href="/Store/AdjustmentByStoreManager">Adjust Stock</a>
+                                <a href="/Store/AdjustmentByStoreManager">Stock Adjustment</a>
                                 <% } %>
                             </li>
                             <li>

@@ -1,11 +1,23 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="RequisitionList.aspx.cs" Inherits="InventoryWebApp.Store.RequisitionList" %>
-
+<%@ MasterType VirtualPath="~/Layout.Master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>View Outstanding Requests</title>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <ul class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li class="active">Manage Requests</li>
+        <li class="active">View Requests</li>
 
-    <h3>Stationery Requests</h3>
+    </ul>
+    <div class="container-fluid" id="mainContainer">
+    <div class="row">
+        <div class="col-md-12">
+             <h3>Stationery Requests</h3>
+        </div>
+    </div>
+
+   
     <p>
         Total item quantity need to be processed: 
     <asp:Label ID="lblTotalQuant" runat="server" Text="TotalQuant"></asp:Label>
@@ -81,6 +93,6 @@
             </asp:ListView>
         </ContentTemplate>
     </asp:UpdatePanel>
-
+        </div>
 </asp:Content>
 <%--  --%>

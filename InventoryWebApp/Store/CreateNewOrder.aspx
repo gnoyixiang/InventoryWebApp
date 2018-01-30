@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="CreateNewOrder.aspx.cs"
     Inherits="InventoryWebApp.Store.CreateNewOrder" MaintainScrollPositionOnPostback="true" %>
-
+<%@ MasterType VirtualPath="~/Layout.Master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
         .row {
@@ -66,7 +66,12 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    
+    <ul class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li class="active">Manage Orders</li>
+        <li class="active">Create New Order</li>
+    </ul>
+    <div class="container-fluid" id="mainContainer">
             <div class="row">
                 <div class="col-sm-12">
                     <h3>New Purchase Order</h3>
@@ -395,5 +400,5 @@
                         OnClick="btnCancel_Click" OnClientClick="return confirm('All changes made to this purchase order will be lost.');" />
                 </div>
             </div>
-
+        </div>
 </asp:Content>

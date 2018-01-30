@@ -56,5 +56,17 @@ namespace InventoryWebApp.Store {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ListView lvRequestList;
+        
+        /// <summary>
+        /// Master property.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated property.
+        /// </remarks>
+        public new InventoryWebApp.Layout Master {
+            get {
+                return ((InventoryWebApp.Layout)(base.Master));
+            }
+        }
     }
 }

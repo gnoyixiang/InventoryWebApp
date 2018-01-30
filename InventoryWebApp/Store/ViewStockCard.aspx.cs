@@ -131,10 +131,11 @@ namespace InventoryWebApp.Store
                 gvStockCard.Columns[2].ItemStyle.Width = Unit.Percentage(15);
                 gvStockCard.Columns[3].ItemStyle.Width = Unit.Percentage(15);
 
+                gvStockCard.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(207,216,220);
                 //gvStockCard.HeaderRow.CssClass = "header";
                 //gvStockCard.RowStyle.CssClass = "rowstyle";
-                gvStockCard.CssClass = "table";
-                gvStockCard.GridLines =Both;
+                gvStockCard.CssClass = "table table-striped";
+                gvStockCard.GridLines = Both;
                 panelStockCard.Controls.Add(gvStockCard);
                
             }

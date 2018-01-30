@@ -10,52 +10,52 @@
 namespace InventoryWebApp.Store {
     
     
-    public partial class _2AllocationPage {
+    public partial class ViewDisbursementDetails {
         
         /// <summary>
-        /// btnBack control.
+        /// Panel2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnBack;
+        protected global::System.Web.UI.WebControls.Panel Panel2;
         
         /// <summary>
-        /// btnNext control.
+        /// Panel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnNext;
+        protected global::System.Web.UI.WebControls.Panel Panel1;
         
         /// <summary>
-        /// lblNotification control.
+        /// lblDisbursementCode control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNotification;
+        protected global::System.Web.UI.WebControls.Label lblDisbursementCode;
         
         /// <summary>
-        /// UpdatePanel1 control.
+        /// lblStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        protected global::System.Web.UI.WebControls.Label lblStatus;
         
         /// <summary>
-        /// lvAllocation control.
+        /// lvDisbursementDetails control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListView lvAllocation;
+        protected global::System.Web.UI.WebControls.ListView lvDisbursementDetails;
         
         /// <summary>
         /// Master property.

@@ -13,6 +13,15 @@ namespace InventoryWebApp.Store {
     public partial class StockAdjustmentList {
         
         /// <summary>
+        /// btnNewStockAdjustment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnNewStockAdjustment;
+        
+        /// <summary>
         /// gvAdjustmentStatus control.
         /// </summary>
         /// <remarks>
@@ -22,12 +31,15 @@ namespace InventoryWebApp.Store {
         protected global::System.Web.UI.WebControls.GridView gvAdjustmentStatus;
         
         /// <summary>
-        /// btnNewStockAdjustment control.
+        /// Master property.
         /// </summary>
         /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
+        /// Auto-generated property.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnNewStockAdjustment;
+        public new InventoryWebApp.Layout Master {
+            get {
+                return ((InventoryWebApp.Layout)(base.Master));
+            }
+        }
     }
 }
