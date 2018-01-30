@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="ViewDisbursementDetails.aspx.cs" Inherits="InventoryWebApp.Dept.ViewDisbursementDetails" %>
+<%@ MasterType VirtualPath="~/Layout.Master" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>

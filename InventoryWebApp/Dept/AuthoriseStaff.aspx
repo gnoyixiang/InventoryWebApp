@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="AuthoriseStaff.aspx.cs" 
     Inherits="InventoryWebApp.Dept.AuthoriseStaff" %>
-
+<%@ MasterType VirtualPath="~/Layout.Master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
         .pager-style {

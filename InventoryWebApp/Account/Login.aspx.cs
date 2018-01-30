@@ -21,11 +21,11 @@ namespace InventoryWebApp.Account
                 if (Request.IsAuthenticated)
                     if (!string.IsNullOrEmpty(Request.QueryString["ReturnUrl"]))
                     {
-                        Response.Redirect("~/ErrorPages/401.aspx");
+                        Response.Redirect("/ErrorPages/401.aspx");
                     }
                     else
                     {
-                        Response.Redirect("~/");
+                        Response.Redirect("/");
                     }
             }
 

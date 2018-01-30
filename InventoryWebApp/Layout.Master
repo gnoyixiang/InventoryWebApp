@@ -108,10 +108,10 @@
                                 </ul>
                             </li>
                             <li><a href="/Dept/ViewDisbursement">View Disbursements</a></li>
-                            <%--<% if (IsTempRoleCode("Rep"))
-                                { %>--%>
+                            <% if (IsTempRoleCode("Rep"))
+                                { %>
                             <li><a href="/Dept/UpdateCollectionPoint">Update Collection Point</a></li>
-                            <%--<%} %>--%>
+                            <%} %>
                             <% } %>
 
                             <!-- Store Supervisor -->

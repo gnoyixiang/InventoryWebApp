@@ -69,7 +69,10 @@ namespace InventoryWebApp
             AssignRole assignRole = deptHeadController.ListAssignRole().Where(ar => ar.EmployeeCode == employee.EmployeeCode).FirstOrDefault();
             if (assignRole != null)
             {
-                tempRoleCode = assignRole.TemporaryRoleCode;
+                if (DateTime.Now >= assignRole.StartDate && DateTime.Now <= assignRole.EndDate)
+                {
+                    tempRoleCode = assignRole.TemporaryRoleCode;
+                }
             }
         }
 
@@ -109,7 +112,7 @@ namespace InventoryWebApp
             return employeeController.GetEmployeeNameByUserName(username);
         }
 
-        protected bool IsTempRoleCode(string tempRoleCode)
+        public bool IsTempRoleCode(string tempRoleCode)
         {
             if (this.tempRoleCode == tempRoleCode)
             {
