@@ -13,35 +13,28 @@
             <asp:Panel ID="Panel1" runat="server">
                 <div class="row">
                     <div class="col-md-4">
-                        <label>Request Code: </label>
-                        <asp:Label ID="lblRequestCode" runat="server" Text="Label"></asp:Label>
+                        <label>Disbursement Code: </label>
+                        <asp:Label ID="lblDisbursementCode" runat="server" Text="Label"></asp:Label>
                     </div>
                     <div class="col-md-5">
-                        <label>Employee Name: </label>
-                        <asp:Label ID="lblEmployeeName" runat="server" Text="Label"></asp:Label>
+                        <label>Request Code: </label>
+                        <asp:Label ID="lblRequestCode" runat="server" Text="Label"></asp:Label>
                     </div>
                 </div>
                 <br />
                 <div class="row">
                     <div class="col-md-4">
-                        <label>Department Name: </label>
-                        <asp:Label ID="lblDepartmentName" runat="server" Text="Label"></asp:Label>
-                    </div>
-                    <div class="col-md-5">
-                        <label>Requisition Status: </label>
+                        <label>Disbursment Status: </label>
                         <asp:Label ID="lblStatus" runat="server" Text="Label"></asp:Label>
                     </div>
                 </div>
                 <br />
-                <asp:ListView ID="ListView1" runat="server" OnItemEditing="listDetails_ItemEditing"
-                    OnItemCanceling="ListView1_ItemCanceling" OnItemUpdating="ListView1_ItemUpdating" OnItemDeleting="ListView1_ItemDeleting">
+                <asp:ListView ID="lvDisbursementDetails" runat="server">
                     <LayoutTemplate>
                         <table class="table">
                             <tr>
                                 <th>Request Code</th>
                                 <th>Item Code</th>
-                                <th>Status</th>
-                                <th>Remaining Quantity</th>
                                 <th>Quantity</th>
                                 <th>Notes</th>
 
@@ -51,31 +44,18 @@
                         </table>
                     </LayoutTemplate>
                     <ItemTemplate>
-                        <tr>
-                            <td><%# Eval("RequestCode") %></a></td>
+                        <tr>                           
+                            <td><%# Eval("RequestCode") %></td>
                             <td><%# Eval("ItemCode") %></td>
-                            <td><%# Eval("Status") %></td>
-                            <td><%# Eval("RemainingQuant") %></td>
                             <td><%# Eval("Quantity") %></td>
-                            <td><%# Eval("Notes") %></td>
-                            <% if (IsEditable())
-                                { %>
-                            <td align="center" style="width: 3%">
-                                <asp:LinkButton ID="lbEdit" runat="server" CommandName="Edit" Title="Edit">
-                                    <i class="fa fa-pencil-square" style="font-size:1.5em;color:darkorange" aria-hidden="true"></i>
-                                </asp:LinkButton>
-                            </td>
-                            <td align="center" style="width: 3%">
-                                <asp:LinkButton ID="lbDelete" runat="server" CommandName="Delete" Title="Delete">
-                        <i class="fa fa-trash-o" style="font-size:1.5em;color:hotpink" aria-hidden="true"></i></asp:LinkButton>
-                            </td>
-                            <% } %>
+                            <td><%# Eval("Notes") %></td>          
                         </tr>
                     </ItemTemplate>
-                    <EditItemTemplate>
-                        <tr>
+                    
+                    <%--<EditItemTemplate>--%>
+                       <%-- <tr>--%>
                             <%--<asp:HiddenField ID="hfMinReorderQty" runat="server" />--%>
-                            <td>
+                           <%-- <td>
                                 <asp:Label ID="lblEditRequisitionCode" runat="server"><%# Eval("RequestCode") %></asp:Label></td>
                             <td>
                                 <asp:Label ID="lblEditItemCode" runat="server"><%# Eval("ItemCode") %></asp:Label></td>
@@ -103,7 +83,7 @@
                             <asp:RequiredFieldValidator ID="quantityRequiredValidator" runat="server"
                                 ErrorMessage="Empty Quantity" ForeColor="Red" ControlToValidate="txtOrderQuantity"></asp:RequiredFieldValidator></td>
                         </tr>
-                        
+                        --%>
                         <%--                        <tr>
                             <td colspan="12" style="border-top: none;">
                                 <asp:CustomValidator ID="validOrderQuantity" runat="server"
@@ -112,9 +92,10 @@
                                 </asp:CustomValidator>
                             </td>
                         </tr>--%>
-                    </EditItemTemplate>
+                    <%--</EditItemTemplate>--%>
                 </asp:ListView>
-                <% if (IsEditable())
+                </asp:Panel>
+               <%-- <% if (IsEditable())
                     { %><asp:Button ID="btnAddItem" runat="server" Text="Add Item" OnClick="btnAddItem_Click" />
                 <br />
                 <% } %>
@@ -143,10 +124,10 @@
 
                 </asp:ListView>
             </asp:Panel>
-        </div>
+        </div>--%>
 
         <!-- Modal -->
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <%--<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -163,7 +144,7 @@
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Confirm</button>
                     </div>
                 </div>
-            </div>
+            </div>--%>
             <asp:Button ID="PrintButton" runat="server" Text="Print" OnClientClick='printDiv("printableArea")' />
   
 

@@ -136,7 +136,7 @@
                     </LayoutTemplate>
                     <ItemTemplate>
                         <tr>
-                            <td><%# Eval("DisbursementCode") %></a></td>
+                            <td><a href="ViewDisbursementDetails?DISBURSEMENTCODE=<%#Eval("DisbursementCode") %>" style="color: #337ab7"><%# Eval("DisbursementCode") %></a></td>
                             <td><%# Eval("Status") %></td>
                             <td><%# Eval("DateDisbursed","{0:MMM dd, yyyy}") %></td>
                             <td><%# Eval("ReceivedBy") %></td>

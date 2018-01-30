@@ -369,7 +369,7 @@
     <Content Include="Site.Master" />
     <Content Include="Store\ViewStockCard.aspx" />
     <Content Include="Store\SupplierList.aspx" />
-    <Content Include="ViewDisbursementDetails.aspx" />
+    <Content Include="Dept\ViewDisbursementDetails.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -878,11 +878,11 @@
     <Compile Include="Store\ViewStockCard.aspx.designer.cs">
       <DependentUpon>ViewStockCard.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewDisbursementDetails.aspx.cs">
+    <Compile Include="Dept\ViewDisbursementDetails.aspx.cs">
       <DependentUpon>ViewDisbursementDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewDisbursementDetails.aspx.designer.cs">
+    <Compile Include="Dept\ViewDisbursementDetails.aspx.designer.cs">
       <DependentUpon>ViewDisbursementDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">

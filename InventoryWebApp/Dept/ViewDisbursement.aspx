@@ -23,10 +23,10 @@
                 </LayoutTemplate>
                 <ItemTemplate>
                     <tr>
-                        <td><%# Eval("DisbursementCode") %></a></td>
-                        <td><%# Eval("DateCreated") %></td>
+                        <td><a href="ViewDisbursementDetails?DISBURSEMENTCODE=<%#Eval("DisbursementCode") %>" style="color: #337ab7"><%# Eval("DisbursementCode") %></a></td>
+                        <td><%# Eval("DateCreated","{0:MMM dd, yyyy}") %></td>
                         <td><%# Eval("Status") %></td>
-                        <td><%# Eval("DateDisbursed") %></td>
+                        <td><%# Eval("DateDisbursed","{0:MMM dd, yyyy}") %></td>
                         <td><%# Eval("Notes") %></td>   
                         <td><%# Eval("ReceivedBy") %></td>                  
                     </tr>
