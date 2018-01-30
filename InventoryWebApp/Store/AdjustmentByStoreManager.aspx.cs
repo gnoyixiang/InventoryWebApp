@@ -19,6 +19,14 @@ namespace InventoryWebApp.Store
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Context.User.IsInRole("Store Supervisor"))
+            {
+                if (!Master.IsTempRoleCode("ActSMan"))
+                {
+                    Response.Redirect("/ErrorPages/401");
+                }
+            }
+
             if (!IsPostBack)
             {
                 PopulateGridViewForSupervisor();
