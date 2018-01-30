@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using InventoryWebApp.Controllers;
 using InventoryWebApp.Models.Entities;
 
-namespace InventoryWebApp
+namespace InventoryWebApp.Dept
 {
     public partial class ViewDisbursementDetails : System.Web.UI.Page
     {
