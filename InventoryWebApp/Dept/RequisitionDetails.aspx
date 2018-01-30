@@ -3,13 +3,14 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-   
+   <div id="printableArea">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="DeptRequisitionList">View Requisition</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Requisition Details</li>
             </ol>
         </nav>
+    
             <h1>Requisition Details</h1>
             <asp:Panel ID="Panel2" runat="server" Visible="false">No Request Details found!</asp:Panel>
             <asp:Panel ID="Panel1" runat="server">
@@ -145,7 +146,7 @@
 
                 </asp:ListView>
             </asp:Panel>
-        </div>
+        </div>  
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -166,6 +167,8 @@
                     </div>
                 </div>
             </div>
+            </div>
+   
             <asp:Button ID="PrintButton" runat="server" Text="Print" OnClientClick='printDiv("printableArea")' />
   
 
