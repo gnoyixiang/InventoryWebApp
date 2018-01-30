@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="CreateNewOrder.aspx.cs"
-    Inherits="InventoryWebApp.CreateNewOrder" MaintainScrollPositionOnPostback="true" %>
+    Inherits="InventoryWebApp.Store.CreateNewOrder" MaintainScrollPositionOnPostback="true" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
@@ -234,7 +234,7 @@
                                                                             <ItemTemplate>
                                                                                 <tbody>
                                                                                     <tr>
-                                                                                        <td><%# Eval("RequestCode") %></td>
+                                                                                        <td><a href='RequisitionDetails?REQUESTCODE=<%# Eval("RequestCode") %>' target="_blank"><%# Eval("RequestCode") %></a></td>
                                                                                         <td class="right">
                                                                                             <asp:Label runat="server" ID="lblRemainingQty"></asp:Label></td>
                                                                                         <td class="right">
@@ -273,7 +273,7 @@
                                                                             <ItemTemplate>
                                                                                 <tbody>
                                                                                     <tr>
-                                                                                        <td><%# Eval("PurchaseOrderCode") %></td>
+                                                                                        <td><a href='PurchaseOrderDetail?PO=<%# Eval("PurchaseOrderCode") %>' target="_blank"><%# Eval("PurchaseOrderCode") %></td>
                                                                                         <td class="right">
                                                                                             <asp:Label runat="server" ID="lblOrderStatus"></asp:Label></td>
                                                                                         <td class="right">

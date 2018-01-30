@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using InventoryWebApp.Controllers;
 
-namespace InventoryWebApp
+namespace InventoryWebApp.Store
 {
     public partial class QuotationView : System.Web.UI.Page
     {

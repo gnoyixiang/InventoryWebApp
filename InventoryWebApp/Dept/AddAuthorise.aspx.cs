@@ -8,7 +8,7 @@ using InventoryWebApp.Controllers;
 using InventoryWebApp.Models.Entities;
 using InventoryWebApp.DAO;
 
-namespace InventoryWebApp
+namespace InventoryWebApp.Dept
 {
     public partial class AddAuthorise : System.Web.UI.Page
     {

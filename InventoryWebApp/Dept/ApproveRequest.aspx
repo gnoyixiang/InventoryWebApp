@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="ApproveRequest.aspx.cs" Inherits="InventoryWebApp.WebForm1" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="ApproveRequest.aspx.cs" Inherits="InventoryWebApp.Dept.ApproveRequest" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
         .pager-style{

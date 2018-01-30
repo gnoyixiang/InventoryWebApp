@@ -7,9 +7,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace InventoryWebApp
+namespace InventoryWebApp.Dept
 {
-    public partial class WebForm1 : System.Web.UI.Page
+    public partial class ApproveRequest : System.Web.UI.Page
     {
         
         DepartmentHeadController dCon = new DepartmentHeadController();

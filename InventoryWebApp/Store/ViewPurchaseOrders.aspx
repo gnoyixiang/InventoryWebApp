@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="ViewPurchaseOrders.aspx.cs"
-    Inherits="InventoryWebApp.ViewPurchaseOrders" %>
+    Inherits="InventoryWebApp.Store.ViewPurchaseOrders" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>

@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 using InventoryWebApp.Controllers;
 using InventoryWebApp.Models.Classes;
 
-namespace InventoryWebApp
+namespace InventoryWebApp.Store
 {
     public partial class ViewPurchaseOrders : System.Web.UI.Page
     {

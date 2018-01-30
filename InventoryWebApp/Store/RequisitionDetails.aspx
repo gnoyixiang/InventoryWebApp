@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="RequisitionDetails.aspx.cs" Inherits="InventoryWebApp.Dept.RequisitionDetails" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="RequisitionDetails.aspx.cs" Inherits="InventoryWebApp.Store.RequisitionDetails" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -6,13 +6,11 @@
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="DeptRequisitionList">View Requisition</a></li>
+            <li class="breadcrumb-item"><a href="RequisitionList">View Requisition</a></li>
             <li class="breadcrumb-item active" aria-current="page">Requisition Details</li>
         </ol>
     </nav>
-    <div id="printableArea">
     <h3>Requisition Details</h3>
-    <asp:Button style="float:right" ID="PrintButton" runat="server" Text="Print" OnClientClick='printDiv("printableArea")'  /></div>
     <asp:Panel ID="Panel2" runat="server" Visible="false">No Request Details found!</asp:Panel>
     <asp:Panel ID="Panel1" runat="server">
         <div class="row">
@@ -62,7 +60,7 @@
                     <td><%# Eval("RemainingQuant") %></td>
                     <td><%# Eval("Quantity") %></td>
                     <td><%# Eval("Notes") %></td>
-                    <% if (IsEditable() && IsEmployee())
+                    <% if (IsEditable())
                         { %>
                     <td align="center" style="width: 3%">
                         <asp:LinkButton ID="lbEdit" runat="server" CommandName="Edit" Title="Edit">
@@ -119,11 +117,11 @@
                         </tr>--%>
             </EditItemTemplate>
         </asp:ListView>
-        <% if (IsEditable() && IsEmployee())
-            { %><asp:Button ID="btnAddItem" runat="server" Text="Add Item" OnClick="btnAddItem_Click" CssClass="btn btn-primary" />
+        <% if (IsEditable())
+            { %><asp:Button ID="btnAddItem" runat="server" Text="Add Item" OnClick="btnAddItem_Click" />
         <br />
         <% } %>
-        <h4>Disbursements</h4>
+        <h3>Disbursements</h3>
         <asp:ListView ID="ListView2" runat="server">
             <LayoutTemplate>
                 <table class="table">
@@ -139,7 +137,7 @@
             </LayoutTemplate>
             <ItemTemplate>
                 <tr>
-                    <td><a href="ViewDisbursementDetails?DISBURSEMENTCODE=<%#Eval("DisbursementCode") %>" style="color: #337ab7"><%# Eval("DisbursementCode") %></a></td>
+                    <td><%# Eval("DisbursementCode") %></a></td>
                     <td><%# Eval("Status") %></td>
                     <td><%# Eval("DateDisbursed","{0:MMM dd, yyyy}") %></td>
                     <td><%# Eval("ReceivedBy") %></td>
@@ -149,29 +147,27 @@
         </asp:ListView>
     </asp:Panel>
 
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Delete Confirmation</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Are you Sure You Want To Remove Entry
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Confirm</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Confirm</button>
-                    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Delete Confirmation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you Sure You Want To Remove Entry
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Confirm</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Confirm</button>
                 </div>
             </div>
-            </div>
-   
-            <asp:Button ID="PrintButton" runat="server" Text="Print" OnClientClick='printDiv("printableArea")' />
-  
+        </div>
+        <asp:Button ID="PrintButton" runat="server" Text="Print" OnClientClick='printDiv("printableArea")' />
+
 
         <script type="text/javascript">
             function printDiv(divName) {

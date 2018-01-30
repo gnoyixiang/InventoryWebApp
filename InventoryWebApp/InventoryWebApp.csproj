@@ -258,9 +258,10 @@
     <Content Include="bin\WebGrease.dll" />
     <Content Include="Dept\CreateRequest.aspx" />
     <Content Include="Dept\ItemDetails.aspx" />
-    <Content Include="Dept\RequisitionDetails.aspx" />
     <Content Include="Dept\DeptRequisitionList.aspx" />
+    <Content Include="Dept\RequisitionDetails.aspx" />
     <Content Include="Dept\UpdateCollectionPoint.aspx" />
+    <Content Include="Store\RequisitionDetails.aspx" />
     <Content Include="Store\TrendAnalysis.aspx" />
     <Content Include="Dept\ViewCatalogue.aspx" />
     <Content Include="Dept\ViewDisbursement.aspx" />
@@ -408,19 +409,19 @@
     <Compile Include="Dept\ItemDetails.aspx.designer.cs">
       <DependentUpon>ItemDetails.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Dept\RequisitionDetails.aspx.cs">
-      <DependentUpon>RequisitionDetails.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Dept\RequisitionDetails.aspx.designer.cs">
-      <DependentUpon>RequisitionDetails.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Dept\DeptRequisitionList.aspx.cs">
       <DependentUpon>DeptRequisitionList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Dept\DeptRequisitionList.aspx.designer.cs">
       <DependentUpon>DeptRequisitionList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dept\RequisitionDetails.aspx.cs">
+      <DependentUpon>RequisitionDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dept\RequisitionDetails.aspx.designer.cs">
+      <DependentUpon>RequisitionDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="Dept\UpdateCollectionPoint.aspx.cs">
       <DependentUpon>UpdateCollectionPoint.aspx</DependentUpon>
@@ -435,6 +436,13 @@
     </Compile>
     <Compile Include="LayoutWithoutAjax.Master.designer.cs">
       <DependentUpon>LayoutWithoutAjax.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Store\RequisitionDetails.aspx.cs">
+      <DependentUpon>RequisitionDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Store\RequisitionDetails.aspx.designer.cs">
+      <DependentUpon>RequisitionDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="Store\TrendAnalysis.aspx.cs">
       <DependentUpon>TrendAnalysis.aspx</DependentUpon>

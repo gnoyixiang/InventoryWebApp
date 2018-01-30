@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace InventoryWebApp
+namespace InventoryWebApp.Dept
 {
     public partial class HeadViewRequest : System.Web.UI.Page
     {

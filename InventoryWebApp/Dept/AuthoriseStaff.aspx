@@ -1,4 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="AuthoriseStaff.aspx.cs" Inherits="InventoryWebApp.AuthoriseStaff" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="AuthoriseStaff.aspx.cs" 
+    Inherits="InventoryWebApp.Dept.AuthoriseStaff" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>

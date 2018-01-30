@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="RequisitionList.aspx.cs" Inherits="InventoryWebApp.RequisitionList" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="RequisitionList.aspx.cs" Inherits="InventoryWebApp.Store.RequisitionList" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>View Outstanding Requests</title>
@@ -45,7 +45,8 @@
 
                             </td>
                             <td>
-                                <asp:Label ID="lblRequestCode" runat="server" Text='<%# Eval("RequestCode") %>'></asp:Label></td>
+                                <a href='RequisitionDetails?REQUESTCODE=<%# Eval("RequestCode") %>' target="_blank">
+                                <asp:Label ID="lblRequestCode" runat="server" Text='<%# Eval("RequestCode") %>'></asp:Label></a></td>
                             <td><%# GetDeptByCode(Eval("DepartmentCode").ToString()).DepartmentName %></td>
                             <td style="text-align: right; padding-right: 50px"><%# GetTotalQuantOfRequest(Eval("RequestCode").ToString()) %></td>
                             <td style="text-align: left; padding-left: 20px"><%# Eval("DateApproved", "{0:dd MMM yyyy}") %></td>

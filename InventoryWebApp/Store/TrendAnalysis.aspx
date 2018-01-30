@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/LayoutWithoutAjax.Master" AutoEventWireup="true" CodeBehind="TrendAnalysis.aspx.cs"
-    Inherits="InventoryWebApp.TrendAnalysis" %>
+    Inherits="InventoryWebApp.Store.TrendAnalysis" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>

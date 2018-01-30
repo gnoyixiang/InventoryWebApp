@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="ViewStockCard.aspx.cs" Inherits="InventoryWebApp.ViewStockCard" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="ViewStockCard.aspx.cs" Inherits="InventoryWebApp.Store.ViewStockCard" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style type="text/css">
@@ -31,12 +31,11 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <ul class="breadcrumb">
         <li><a href="#">Home</a></li>
-        <li><a href="/StockCardSearch.aspx">Search Item</a></li>
+        <li><a href="StockCardSearch.aspx">Search Item</a></li>
         <li class="active">View StockCard</li>
     </ul>
 
     <asp:Panel ID="panelNoItem" runat="server">
-
         <h4>No stock card selected!</h4>
         <a href="/Store/StockCardSearch.aspx">Return to select stock card</a>
     </asp:Panel>

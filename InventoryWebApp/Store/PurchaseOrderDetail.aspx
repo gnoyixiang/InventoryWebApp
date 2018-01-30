@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="PurchaseOrderDetail.aspx.cs" 
-     MaintainScrollPositionOnPostback="true" Inherits="InventoryWebApp.PurchaseOrderDetail" %>
+     MaintainScrollPositionOnPostback="true" Inherits="InventoryWebApp.Store.PurchaseOrderDetail" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>

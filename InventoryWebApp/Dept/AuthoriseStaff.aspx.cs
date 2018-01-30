@@ -7,7 +7,8 @@ using System.Web.UI.WebControls;
 using InventoryWebApp.Controllers;
 using InventoryWebApp.DAO;
 using InventoryWebApp.Models.Entities;
-namespace InventoryWebApp
+
+namespace InventoryWebApp.Dept
 {
     public partial class AuthoriseStaff : System.Web.UI.Page
     {

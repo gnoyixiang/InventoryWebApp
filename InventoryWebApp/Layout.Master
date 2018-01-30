@@ -153,9 +153,9 @@
                             <h3 style="text-align: center;">Stationary Store</h3>
                             <h4 style="text-align: center;">Inventory System</h4>
                         </div>
-
-
+                                               
                         <ul class="list-unstyled components">
+                            <li role="separator" class="divider"></li>
                             <!-- Store Clerk -->
                             <% if (Context.User.IsInRole("Store Clerk"))
                                 { %>
@@ -179,7 +179,7 @@
                                 <a href="/Store/StockAdjustmentList.aspx">Stock Adjustment</a>
                             </li>
                             <li>
-                                <a href="/Store/ViewStockCard.aspx">Stock Card</a>
+                                <a href="/Store/StockCardSearch.aspx">Stock Card</a>
                             </li>
                             <li>
                                 <a href="/Store/QuotationView.aspx">View / Print Quotation</a>
@@ -190,7 +190,7 @@
                             <% if (Context.User.IsInRole("Employee"))
                                 { %>
                             <li>
-                                <a href="Dept/ViewCatalogue">View Catalog</a>
+                                <a href="/Dept/ViewCatalogue">View Catalog</a>
                             </li>
                             <li id="menu-RequestEmployee" class="active">
                                 <a href="#RequestEmployeeSubmenu" data-toggle="collapse" aria-expanded="false">Manage Requests</a>
@@ -264,7 +264,7 @@
                             <%} %>
 
 
-                            <li role="separator" class="divider"></li>
+                            
                         </ul>
 
 

@@ -10,7 +10,7 @@ using System.Collections;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 
-namespace InventoryWebApp
+namespace InventoryWebApp.Store
 {
     public partial class AssigningAuthorityStoreDept : System.Web.UI.Page
     {

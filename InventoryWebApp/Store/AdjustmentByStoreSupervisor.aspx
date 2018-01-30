@@ -1,4 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="AdjustmentByStoreSupervisor.aspx.cs" Inherits="InventoryWebApp.AdjustmentByStoreSupervisor" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="AdjustmentByStoreSupervisor.aspx.cs" 
+    Inherits="InventoryWebApp.Store.AdjustmentByStoreSupervisor" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>

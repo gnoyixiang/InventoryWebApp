@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="AddAuthorise.aspx.cs" Inherits="InventoryWebApp.AddAuthorise" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="AddAuthorise.aspx.cs" Inherits="InventoryWebApp.Dept.AddAuthorise" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
@@ -46,9 +46,7 @@
             <asp:GridView ID="gvEmployee" runat="server" AutoGenerateColumns="False"
                 OnSelectedIndexChanged="gv_SelectedIndexChanged" CssClass="table"
                 DataKeyNames="EmployeeCode" CellPadding="4" CellSpacing="-1" GridLines="None">
-
                 <Columns>
-
                     <asp:BoundField DataField="EmployeeName" HeaderText="Employee Name" SortExpression="EmployeeName" />
 
                     <asp:CommandField HeaderText="Select" ShowSelectButton="True" />
