@@ -187,7 +187,7 @@
                                     </AnonymousTemplate>
                                     <LoggedInTemplate>
                                         <ul class="nav navbar-nav navbar-right">
-                                            <li><a runat="server" href="~/Account/Manage" title="Manage your account">Hello, <%: GetEmployeeName(Context.User.Identity.GetUserName())  %> !</a></li>
+                                            <li><a>Hello, <%: GetEmployeeName(Context.User.Identity.GetUserName())  %> !</a></li>
                                             <li>
                                                 <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
                                             </li>
