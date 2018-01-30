@@ -83,7 +83,8 @@ namespace InventoryWebApp.WCF
     [DataContract]
     public class WCF_DisbursementDetails
     {
-       
+        private string requestCode; 
+
         private string disbursementCode;
         
         private string itemDescription;
@@ -101,9 +102,10 @@ namespace InventoryWebApp.WCF
         private string repName;
       
         private string status;
-        public WCF_DisbursementDetails(string _disbursementCode, string _itemDescription,
+        public WCF_DisbursementDetails(string _requestCode ,string _disbursementCode, string _itemDescription,
             string _actualQuantity, string _neededQuantity, string _collectionPointName, string _deparmentName, string _repName, string _status)
         {
+            this.requestCode = _requestCode;
             this.disbursementCode = _disbursementCode;
             this.itemDescription = _itemDescription;
             this.actualQuantity = _actualQuantity;
@@ -115,6 +117,12 @@ namespace InventoryWebApp.WCF
             this.status = _status;
         }
         //string _collectionTime,
+        [DataMember]
+        public string RequestCode
+        {
+            get { return requestCode; }
+            set { requestCode = value; }
+        }
         [DataMember]
         public string DisbursementCode
         {

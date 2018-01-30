@@ -16,7 +16,7 @@ namespace InventoryWebApp
     public partial class CreateRequest : System.Web.UI.Page
     {
         EmployeeController ec = new EmployeeController();
-        //TODO: change back to userName to session["userName"]
+        //TODO: change back userName to session["userName"]
         string userName = "empl1@logic.edu.sg";
         protected void Page_Load(object sender, EventArgs e)
         {

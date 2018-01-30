@@ -40,7 +40,7 @@ namespace InventoryWebApp.WCF
                 string deptName = ec.GetDeptNameByCode(disbursCode.DepartmentCode);
                 var collectionVenue = ec.GetCollectionPoint(deptName);
                 string userName = ec.GetEmployeeNameByUserName(disbursCode.UserName);
-                wcfDisbursementDetails.Add(new WCF_DisbursementDetails(db.DisbursementCode, stationery.Description,
+                wcfDisbursementDetails.Add(new WCF_DisbursementDetails(db.RequestCode, db.DisbursementCode, stationery.Description,
                     Convert.ToString(db.ActualQuantity), Convert.ToString(db.Quantity),
                     collectionVenue, deptName, userName, disbursCode.Status));
             }

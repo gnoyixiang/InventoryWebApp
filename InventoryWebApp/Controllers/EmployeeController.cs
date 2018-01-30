@@ -63,7 +63,11 @@ namespace InventoryWebApp.Controllers
             foreach (var stationary in stationaries)
             {
                 request.RequestDetails.Add(new RequestDetail()
-                { ItemCode = stationary.ItemCode, Quantity = stationary.Quantity, RemainingQuant= stationary.Quantity, Notes = "" });
+                {
+                    ItemCode = stationary.ItemCode,
+                    Quantity = stationary.Quantity,
+                    RemainingQuant = stationary.Quantity,
+                    Notes = "" });
             }
             Ir.AddRequest(request);
             return requestCode;
