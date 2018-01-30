@@ -63,7 +63,7 @@ h1, h2, h3, h4, h5 {
     align-items: stretch;
     /*perspective: 1500px;*/
 }
-
+    
 #sidebar {
     min-width: 250px;
     max-width: 250px;
