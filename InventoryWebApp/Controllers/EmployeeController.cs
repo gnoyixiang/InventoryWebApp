@@ -135,6 +135,10 @@ namespace InventoryWebApp.Controllers
             {
                 return rDAO.SearchRequestbyStatus(SearchString);
             }
+            if (SearchParam == "EmployeeName" && !String.IsNullOrEmpty(SearchString))
+            {
+                return rDAO.ListAllRequest().Where(r=> GetEmployeeNameByUserName(r.UserName).ToUpper().Contains(SearchString.ToUpper())).ToList();
+            }
             if (String.IsNullOrEmpty(SearchString))
             {
                 return rDAO.ListAllRequest();

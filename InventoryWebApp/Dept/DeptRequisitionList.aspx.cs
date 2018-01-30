@@ -14,21 +14,47 @@ namespace InventoryWebApp
     public partial class DeptRequisitionList : System.Web.UI.Page
     {
         public static EmployeeController ec = new EmployeeController();
-        static private string searchParam;
-        static private string searchString;
 
-        static private readonly string[] SEARCH_ITEMS = { "--Select Category--", "RequestCode",  "Status" };
+        static private readonly string[] SEARCH_ITEMS = { "--Select Category--", "RequestCode",  "Status", "EmployeeName" };
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                LoadGridData();
                 DropDownList1.DataSource = SEARCH_ITEMS;
                 DropDownList1.DataBind();
 
+                if (!String.IsNullOrEmpty(Request.QueryString["search"]))
+                {
+                    string search = Request.QueryString["search"];
+                    if (!String.IsNullOrEmpty(Request.QueryString["q"]))
+                    {
+                        string q = Request.QueryString["q"];
+                        List<Request> RList = ec.SearchRequest(search, q)
+                        .Where(r => r.DepartmentCode == Master.UserDepartmentCode).ToList();
+                        ListView1.DataSource = RList;
+                        ListView1.DataBind();
+                        switch (search)
+                        {
+                            case "RequestCode":
+                                DropDownList1.SelectedIndex = 1;
+                                break;
+                            case "Status":
+                                DropDownList1.SelectedIndex = 2;                                
+                                break;
+                            case "EmployeeName":
+                                DropDownList1.SelectedIndex = 3;
+                                break;
+                        }
+                        txtBxSearchRequisition.Text = q;
+                    }
+                }
+                else
+                {
+                    LoadGridData();
+                    DropDownList1.SelectedIndex = -1;
+                }             
             }
-
         }
         private void LoadGridData()
         {
@@ -40,23 +66,23 @@ namespace InventoryWebApp
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            List<Request> RList = ec.SearchRequest(DropDownList1.SelectedItem.ToString(), txtBxSearchRequisition.Text)
-                .Where(r=>r.DepartmentCode==Master.UserDepartmentCode).ToList();
-            ListView1.DataSource = RList;            
-            ListView1.DataBind();
+            string search = DropDownList1.SelectedValue;
+            string q = txtBxSearchRequisition.Text;
+            Response.Redirect("DeptRequisitionList.aspx?search=" + search + "&q=" + q);
         }
 
         protected void btnRefresh_Click(object sender, EventArgs e)
         {
-            Response.Redirect("RequisitionList.aspx");
+            Response.Redirect("DeptRequisitionList.aspx");
             txtBxSearchRequisition.Text = null;
+            DropDownList1.SelectedIndex = -1;
         }
 
-        //protected void dpList_PreRender(object sender, EventArgs e)
-        //{
-        //    ListView1.DataSource = ec.ListAllRequest();
-        //    ListView1.DataBind();
-        //}
+        protected string GetEmployeeName(string username)
+        {
+            return ec.GetEmployeeNameByUserName(username);
+        }
+        
     }
 
 

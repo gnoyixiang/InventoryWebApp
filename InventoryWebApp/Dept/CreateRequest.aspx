@@ -140,7 +140,7 @@
                      Proceed to View Request?
                         </div>
                         <div class="modal-footer">
-                            <a href="RequisitionList.aspx" class="btn btn-default" data-dismiss="modal" aria-label="Close">OK</a>
+                            <a href="DeptRequisitionList.aspx" class="btn btn-default" data-dismiss="modal" aria-label="Close">OK</a>
                             <a href="CreateRequest.aspx" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Back to Create Request </a>
                         </div>
                     </div>

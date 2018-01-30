@@ -8,8 +8,6 @@ namespace InventoryWebApp.DAO
 {
     public class SupplierDetailsDAO : ISupplierDetailsDAO
     {
-        EntityModel em = null;
-
         public int UpdateSupplierDetails(SupplierDetail sp)
         {
             using (EntityModel em = new EntityModel())
