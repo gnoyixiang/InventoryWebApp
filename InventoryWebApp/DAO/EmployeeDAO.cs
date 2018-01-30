@@ -8,10 +8,6 @@ namespace InventoryWebApp.DAO
 {
     public class EmployeeDAO : IEmployeeDAO
     {
-        EntityModel em = new EntityModel();
-
-
-
         public int AddEmployee(Employee emp)
         {
             /* Employee emp = new Employee();
@@ -23,69 +19,98 @@ namespace InventoryWebApp.DAO
              emp.EmployeeTitle = empTitle;
              emp.UserName = userName;*/
 
-            em.Employees.Add(emp);
-            return em.SaveChanges();
+            using (EntityModel em = new EntityModel())
+            {
+                return em.SaveChanges();
+            }
 
         }
 
         public void DeleteEmployee(string username)
         {
-
-            Employee emp = em.Employees.Where(x => x.UserName == username).First();
-            em.Employees.Remove(emp);
-            em.SaveChanges();
+            using (EntityModel em = new EntityModel())
+            {
+                Employee emp = em.Employees.Where(x => x.UserName == username).First();
+                em.Employees.Remove(emp);
+                em.SaveChanges();
+            }
         }
         public Employee GetEmployeeInfo(string username)
         {
-            return em.Employees.Where(x => x.UserName == username).FirstOrDefault();
+            using (EntityModel em = new EntityModel())
+            {
+                return em.Employees.Where(x => x.UserName == username).FirstOrDefault();
+            }
         }
 
         public Employee GetEmployeeByCode(String employeeCode)
         {
-            em = new EntityModel();
-            return em.Employees.Where(e => e.EmployeeCode == employeeCode).First();
+            using (EntityModel em = new EntityModel())
+            {
+                return em.Employees.Where(e => e.EmployeeCode == employeeCode).First();
+            }
         }
 
         public void UpdateRole(string username, string role)
         {
-            Employee emp = em.Employees.Where(x => x.UserName == username).First();
-            emp.CurrentRoleCode = role;
-            em.SaveChanges();
+            using (EntityModel em = new EntityModel())
+            {
+                Employee emp = em.Employees.Where(x => x.UserName == username).First();
+                emp.CurrentRoleCode = role;
+                em.SaveChanges();
+            }
         }
 
         public int UpdateEmployeeRole(string employeecode, string role)
         {
-            Employee emp = em.Employees.Where(x => x.EmployeeCode == employeecode).First();
-            emp.CurrentRoleCode = role;
-            return em.SaveChanges();
+            using (EntityModel em = new EntityModel())
+            {
+                Employee emp = em.Employees.Where(x => x.EmployeeCode == employeecode).First();
+                emp.CurrentRoleCode = role;
+                return em.SaveChanges();
+            }
         }
 
         public List<Employee> ListEmployee()
         {
-
-            return em.Employees.ToList();
+            using (EntityModel em = new EntityModel())
+            {
+                return em.Employees.ToList();
+            }
         }
 
         public string GetEmployeeName(string username)
         {
-            Employee emp = em.Employees.Where(x => x.UserName == username).FirstOrDefault();
-            return emp.EmployeeName;
+            using (EntityModel em = new EntityModel())
+            {
+                Employee emp = em.Employees.Where(x => x.UserName == username).FirstOrDefault();
+                return emp.EmployeeName;
+            }
 
         }
        
         public List<Employee> SearchByRole(string role)
-        { 
-            return em.Employees.Where(x => x.CurrentRoleCode.Equals(role.Trim())).ToList();
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                return em.Employees.Where(x => x.CurrentRoleCode.Equals(role.Trim())).ToList();
+            }
         }
 
         public List<Employee> SearchByDept(string dept)
         {
-            return em.Employees.Where(x => x.DepartmentCode.Equals(dept.Trim())).ToList();
+            using (EntityModel em = new EntityModel())
+            {
+                return em.Employees.Where(x => x.DepartmentCode.Equals(dept.Trim())).ToList();
+            }
         }
         
         public List<string> ListEmpName(string dept, string role)
         {
-            return em.Employees.Where(x => x.DepartmentCode == dept && x.CurrentRoleCode == role).Select(x=>x.EmployeeName).ToList();
+            using (EntityModel em = new EntityModel())
+            {
+                return em.Employees.Where(x => x.DepartmentCode == dept && x.CurrentRoleCode == role).Select(x => x.EmployeeName).ToList();
+            }
         }
 
         public List<Employee> SearchByEmployeeName(string empName)
@@ -120,19 +145,20 @@ namespace InventoryWebApp.DAO
 
         public string GetUserName(string empName)
         {
-            Employee emp = em.Employees.Where(x => x.EmployeeName==empName).FirstOrDefault();
-            return emp.UserName.ToString();
+            using (EntityModel em = new EntityModel())
+            {
+                Employee emp = em.Employees.Where(x => x.EmployeeName == empName).FirstOrDefault();
+                return emp.UserName.ToString();
+            }
 
-        }
-
-        int IEmployeeDAO.UpdateRole(string username, string role)
-        {
-            throw new NotImplementedException();
         }
 
         public string GetDeptCodeByUserName(string userName)
         {
-            return em.Employees.Where(x => x.UserName.Equals(userName)).Select(p => p.DepartmentCode).FirstOrDefault();
+            using (EntityModel em = new EntityModel())
+            {
+                return em.Employees.Where(x => x.UserName.Equals(userName)).Select(p => p.DepartmentCode).FirstOrDefault();
+            }
         }
     }
 }

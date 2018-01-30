@@ -260,6 +260,7 @@
     <Content Include="Dept\ItemDetails.aspx" />
     <Content Include="Dept\RequisitionDetails.aspx" />
     <Content Include="Dept\DeptRequisitionList.aspx" />
+    <Content Include="Dept\UpdateCollectionPoint.aspx" />
     <Content Include="Store\TrendAnalysis.aspx" />
     <Content Include="Dept\ViewCatalogue.aspx" />
     <Content Include="Dept\ViewDisbursement.aspx" />
@@ -325,6 +326,7 @@
     <Content Include="Dept\Web.config" />
     <Content Include="bin\ApplicationInsights.config" />
     <Content Include="bin\InventoryWebApp.dll.config" />
+    <Content Include="LayoutWithoutAjax.Master" />
     <None Include="Properties\PublishProfiles\InventoryWCF.pubxml" />
     <Content Include="Dept\ApproveRequest.aspx" />
     <Content Include="Dept\HeadApproveDetail.aspx" />
@@ -419,6 +421,20 @@
     </Compile>
     <Compile Include="Dept\DeptRequisitionList.aspx.designer.cs">
       <DependentUpon>DeptRequisitionList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dept\UpdateCollectionPoint.aspx.cs">
+      <DependentUpon>UpdateCollectionPoint.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dept\UpdateCollectionPoint.aspx.designer.cs">
+      <DependentUpon>UpdateCollectionPoint.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="LayoutWithoutAjax.Master.cs">
+      <DependentUpon>LayoutWithoutAjax.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LayoutWithoutAjax.Master.designer.cs">
+      <DependentUpon>LayoutWithoutAjax.Master</DependentUpon>
     </Compile>
     <Compile Include="Store\TrendAnalysis.aspx.cs">
       <DependentUpon>TrendAnalysis.aspx</DependentUpon>

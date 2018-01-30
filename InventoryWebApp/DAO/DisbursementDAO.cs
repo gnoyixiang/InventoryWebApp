@@ -10,7 +10,6 @@ namespace InventoryWebApp.DAO
 
     public class DisbursementDAO : IDisbursementDAO
     {
-        EntityModel em;
         //Create
         public int AddDisbursement(Disbursement disbursement)
         {
@@ -172,29 +171,33 @@ namespace InventoryWebApp.DAO
         }
         public int UpdateDbmCollectionPoint(string depcode, string newCLP)
         {
-            em = new EntityModel();
-            Disbursement disbursement = em.Disbursements.Where(d => d.DepartmentCode == depcode).FirstOrDefault();
-            if (disbursement != null)
+            using (EntityModel em = new EntityModel())
             {
-                var collectionDateGreaterthanToday = SearchDbmByDatePlanToCollect(DateTime.Now.Date, depcode);
-                if (collectionDateGreaterthanToday != null)
+                Disbursement disbursement = em.Disbursements.Where(d => d.DepartmentCode == depcode).FirstOrDefault();
+                if (disbursement != null)
                 {
-                    foreach (Disbursement dbm in collectionDateGreaterthanToday)
+                    var collectionDateGreaterthanToday = SearchDbmByDatePlanToCollect(DateTime.Now.Date, depcode);
+                    if (collectionDateGreaterthanToday != null)
                     {
-                        dbm.CollectionPointCode = newCLP;
+                        foreach (Disbursement dbm in collectionDateGreaterthanToday)
+                        {
+                            dbm.CollectionPointCode = newCLP;
+                        }
+                        em.SaveChanges();
                     }
-                    em.SaveChanges();
+                    return 1;
                 }
-                return 1;
+                else
+                    return 0;
             }
-            else
-                return 0;
         }
 
         public List<Disbursement> SearchDbmByDatePlanToCollect(DateTime date, string deptcode)
         {
-            em = new EntityModel();
-            return em.Disbursements.Where(d => d.DatePlanToCollect > date && d.DepartmentCode == deptcode).ToList();
+            using (EntityModel em = new EntityModel())
+            {
+                return em.Disbursements.Where(d => d.DatePlanToCollect > date && d.DepartmentCode == deptcode).ToList();
+            }
         }
 
 

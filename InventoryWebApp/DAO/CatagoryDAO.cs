@@ -9,48 +9,65 @@ namespace InventoryWebApp.DAO
 {
     public class CatagoryDAO : ICatagoryDAO
     {
-        EntityModel em = new EntityModel();
         public List<Category> SearchByCategory(string keyword)
         {
-            return em.Categories.Where(x => x.CategoryCode.Contains(keyword)).ToList();
+            using (EntityModel em = new EntityModel())
+            {
+                return em.Categories.Where(x => x.CategoryCode.Contains(keyword)).ToList();
+            }
         }
         public List<Category> ListAllCategory()
         {
-            return em.Categories.ToList();
+            using (EntityModel em = new EntityModel())
+            {
+                return em.Categories.ToList();
+            }
         }
         public int AddCategory(Category c)
         {
-            try
+            using (EntityModel em = new EntityModel())
             {
-                em.Categories.Add(c);
-                return em.SaveChanges();
-            }
-            catch (Exception e)
-            {
-                return 0;
+                try
+                {
+                    em.Categories.Add(c);
+                    return em.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    return 0;
+                }
             }
         }
         public int UpdateCategory(Category c)
         {
-            Category category = em.Categories.Where(x => x.CategoryCode == c.CategoryCode).FirstOrDefault();
-            if( category != null)
+            using (EntityModel em = new EntityModel())
             {
-                category.CategoryName = c.CategoryName;
-                return em.SaveChanges();
+                Category category = em.Categories.Where(x => x.CategoryCode == c.CategoryCode).FirstOrDefault();
+                if (category != null)
+                {
+                    category.CategoryName = c.CategoryName;
+                    return em.SaveChanges();
+                }
+                else
+                    return 0;
             }
-            else
-                return 0;
         }
         public void DeleteCategory(string categoryCode)
         {
-            Category category = em.Categories.Where(x => x.CategoryCode == categoryCode).FirstOrDefault();
-            em.Categories.Remove(category);
-            em.SaveChanges();
+            using (EntityModel em = new EntityModel())
+            {
+                Category category = em.Categories.Where(x => x.CategoryCode == categoryCode).FirstOrDefault();
+                em.Categories.Remove(category);
+                em.SaveChanges();
+            }
         }
         public Category GetCategory(string categoryCode)
         {
-            Category category = em.Categories.Where(x => x.CategoryCode == categoryCode).ToList<Category>()[0];
-            return category;
+            using (EntityModel em = new EntityModel())
+            {
+                Category category = em.Categories.Where(x => x.CategoryCode == categoryCode).ToList<Category>()[0];
+                return category;
+            }
         }
     }
 }

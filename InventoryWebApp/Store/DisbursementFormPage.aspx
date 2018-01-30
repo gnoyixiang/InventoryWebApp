@@ -3,7 +3,6 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:ScriptManager ID="ScriptManager1" runat="server" />
     <h3>Disbursement Form</h3>
     <asp:Button ID="btnBack" runat="server" Text="<Back" Style="float: left" CssClass="btn btn-success" OnClick="btnBack_Click" />
 

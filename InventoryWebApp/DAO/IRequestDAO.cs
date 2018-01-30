@@ -20,6 +20,7 @@ namespace InventoryWebApp.DAO
         List<Request> SearchRequestbyStatus(string RequestStatus,string deptcode);
         List<Request> SearchRequestbyDept(string dept);
         List<Request> SearchRequestbyStatus(string RequestStatus);
+        List<Request> SearchRequestbyUsername(string username);
         int UpdateRequest(Request r);
         int UpdateRequestApproval(Request R, string ApprovedN);
         int UpdateRequestStatus(Request R, string newStatus);

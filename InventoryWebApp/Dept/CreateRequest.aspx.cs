@@ -19,6 +19,8 @@ namespace InventoryWebApp
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            btnSubmit.Visible = false;
+            btnClear.Visible = false;
             if (!IsPostBack)
             {
                 string userName = Context.User.Identity.Name;
@@ -28,7 +30,16 @@ namespace InventoryWebApp
                 lblDeptName.Text = deptName;
                 BindGrid();
             }
-        }
+            if ((List<RequestDTO>)Session["ItemDetails"] != null)
+            {
+                var itemDetails = (List<RequestDTO>)Session["ItemDetails"];
+                if (itemDetails.Count != 0)
+                {
+                    btnSubmit.Visible = true;
+                    btnClear.Visible = true;
+                }
+            }
+        }   
         private void BindGrid()
         {
             gvNewRequest.DataSource = (List<RequestDTO>)Session["ItemDetails"];
@@ -44,7 +55,7 @@ namespace InventoryWebApp
             {
                 var stationaries = (List<RequestDTO>)Session["ItemDetails"];
                 //TODO: change back to userName to session["userName"]
-                string userName = "suriya@logic.edu.sg";
+                string userName = Context.User.Identity.Name;
                 string deptCode = ec.GetDeptCodeByUserName(userName);
                 string requestcode = ec.AddRequest(userName, deptCode, stationaries);
                
@@ -52,7 +63,13 @@ namespace InventoryWebApp
                 Session["ItemDetails"] = null;
                 BindGrid();
                 //show success message and Request Code
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", $"$('#lblRequestCode').text('{requestcode}'); $('#myModal').modal('show');", true);
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                sb.Append(@"<script type='text/javascript'>");
+                sb.Append("$('#myModal').modal('show');");
+                sb.Append("$('#lblRequestCode').text('"+ requestcode +"');");
+                sb.Append(@"</script>");
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "none", sb.ToString(), false);
+               
             }
         }
         protected void btnClear_Click(object sender, EventArgs e)

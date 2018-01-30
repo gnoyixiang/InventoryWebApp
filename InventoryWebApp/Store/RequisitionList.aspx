@@ -4,7 +4,6 @@
     <title>View Outstanding Requests</title>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:ScriptManager ID="ScriptManager1" runat="server" />
 
     <h3>Stationery Requests</h3>
     <p>

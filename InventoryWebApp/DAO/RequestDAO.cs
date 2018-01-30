@@ -10,7 +10,6 @@ namespace InventoryWebApp.DAO
     public class RequestDAO : IRequestDAO
     {
         Request r;
-        EntityModel em=new EntityModel();
         public List<Request> ListAllRequest()
         {
             using (EntityModel e = new EntityModel())
@@ -31,6 +30,13 @@ namespace InventoryWebApp.DAO
             using (EntityModel e = new EntityModel())
             {
                 return e.Requests.Where(b => b.Status.ToUpper().Contains(RequestStatus.Trim().ToUpper())).ToList();
+            }
+        }
+        public List<Request> SearchRequestbyUsername(string username)
+        {
+            using (EntityModel e = new EntityModel())
+            {
+                return e.Requests.Where(b => b.UserName.ToUpper().Contains(username.Trim().ToUpper())).ToList();
             }
         }
         public List<Request> SearchRequestbyDate(DateTime RequestDate)
@@ -93,43 +99,62 @@ namespace InventoryWebApp.DAO
 
         public int UpdateRequestStatus(Request r)
         {
-            Request req = em.Requests.Where(x => x.RequestCode == r.RequestCode).FirstOrDefault();
+            using (EntityModel em = new EntityModel())
+            {
+                Request req = em.Requests.Where(x => x.RequestCode == r.RequestCode).FirstOrDefault();
 
-            req.Status = r.Status;
-            req.DateApproved = r.DateApproved;
-            req.HeadRemarks = r.HeadRemarks;
-            req.ApprovedBy = r.ApprovedBy;
-            return em.SaveChanges();
+                req.Status = r.Status;
+                req.DateApproved = r.DateApproved;
+                req.HeadRemarks = r.HeadRemarks;
+                req.ApprovedBy = r.ApprovedBy;
+                return em.SaveChanges();
+
+            }
 
         }
 
         public int UpdateRequestApproval(Request r)
         {
-            Request req = em.Requests.Where(x => x.RequestCode == r.RequestCode).FirstOrDefault();
-            req.ApprovedBy = r.ApprovedBy;
+            using (EntityModel em = new EntityModel())
+            {
+                Request req = em.Requests.Where(x => x.RequestCode == r.RequestCode).FirstOrDefault();
+                req.ApprovedBy = r.ApprovedBy;
 
 
-            return em.SaveChanges();
+                return em.SaveChanges();
+            }
 
         }
 
         public List<Request> SearchPendingRequestByName(string username, string deptcode)
         {
-            return em.Requests.Where(x => x.UserName.Contains(username) && x.Status == "pending" && x.DepartmentCode == deptcode).ToList();
+            using (EntityModel em = new EntityModel())
+            {
+                return em.Requests.Where(x => x.UserName.Contains(username) && x.Status == "pending" && x.DepartmentCode == deptcode).ToList();
+            }
         }
 
         public List<Request> SearchPendingRequestByDate(DateTime d, string deptcode)
         {
-            return em.Requests.Where(x => x.DateCreated == d && x.Status == "pending" && x.DepartmentCode == deptcode).ToList();
+            using (EntityModel em = new EntityModel())
+            {
+                return em.Requests.Where(x => x.DateCreated == d && x.Status == "pending" && x.DepartmentCode == deptcode).ToList();
+            }
         }
 
         public List<Request> SearchRequestbyDept(string dept)
         {
-            return em.Requests.Where(b => b.DepartmentCode.ToUpper().Contains(dept.Trim().ToUpper())).ToList();
+            using (EntityModel em = new EntityModel())
+            {
+                return em.Requests.Where(b => b.DepartmentCode.ToUpper().Contains(dept.Trim().ToUpper())).ToList();
+            }
         }
         public List<Request> SearchRequestbyStatus(string RequestStatus, string deptcode)
         {
-            return em.Requests.Where(b => b.Status.ToUpper().Contains(RequestStatus.Trim().ToUpper()) && b.DepartmentCode == deptcode).ToList();
+            using (EntityModel em = new EntityModel())
+            {
+                return em.Requests.Where(b => b.Status.ToUpper().Contains(RequestStatus.Trim().ToUpper()) && b.DepartmentCode == deptcode).ToList();
+            }
         }
         public List<Request> SearchRequestByDeptCode(string deptCode)
         {

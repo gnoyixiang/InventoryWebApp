@@ -9,60 +9,83 @@ namespace InventoryWebApp.DAO
 {
     public class CollectionPointDAO : ICollectionPointDAO
     {
-        EntityModel em = new EntityModel();
         public List<CollectionPoint> SearchByCollectionPointCode(string keyword)
         {
-            return em.CollectionPoints.Where(x => x.CollectionPointCode.Contains(keyword)).ToList();
+            using (EntityModel em = new EntityModel())
+            {
+                return em.CollectionPoints.Where(x => x.CollectionPointCode.Contains(keyword)).ToList();
+            }
         }
         public List<CollectionPoint> SearchByCollectionVenue(string keyword)
         {
-            return em.CollectionPoints.Where(x => x.CollectionVenue.Contains(keyword)).ToList();
+            using (EntityModel em = new EntityModel())
+            {
+                return em.CollectionPoints.Where(x => x.CollectionVenue.Contains(keyword)).ToList();
+            }
         }
         public List<CollectionPoint> ListAllCollectionPoint()
         {
-            return em.CollectionPoints.ToList();
+            using (EntityModel em = new EntityModel())
+            {
+                return em.CollectionPoints.ToList();
+            }
         }
         public int AddCollectionPoint(CollectionPoint c)
         {
-            int result = -1;
-            try
+            using (EntityModel em = new EntityModel())
             {
-                em.CollectionPoints.Add(c);
-                result = em.SaveChanges();
-                return 1;
-            }
-            catch(Exception e)
-            {
-                return 0;
+                int result = -1;
+                try
+                {
+                    em.CollectionPoints.Add(c);
+                    result = em.SaveChanges();
+                    return 1;
+                }
+                catch (Exception e)
+                {
+                    return 0;
+                }
             }
         }
         public int UpdateCollectionPoint(CollectionPoint c)
         {
-            CollectionPoint collectionPoint = em.CollectionPoints.Where(x => x.CollectionPointCode == c.CollectionPointCode).FirstOrDefault();
-            if( collectionPoint != null)
+            using (EntityModel em = new EntityModel())
             {
-                collectionPoint.CollectionVenue = c.CollectionVenue;
-                collectionPoint.CollectionTime = c.CollectionTime;
-                collectionPoint.SClerkInCharge = c.SClerkInCharge;
-                return em.SaveChanges();
+                CollectionPoint collectionPoint = em.CollectionPoints.Where(x => x.CollectionPointCode == c.CollectionPointCode).FirstOrDefault();
+                if (collectionPoint != null)
+                {
+                    collectionPoint.CollectionVenue = c.CollectionVenue;
+                    collectionPoint.CollectionTime = c.CollectionTime;
+                    collectionPoint.SClerkInCharge = c.SClerkInCharge;
+                    return em.SaveChanges();
+                }
+                else
+                    return 0;
             }
-            else
-                return 0;
         }
         public void DeleteCollectionPoint(string collectionPointCode)
         {
-            CollectionPoint collectionPoint = em.CollectionPoints.Where(x => x.CollectionPointCode == collectionPointCode).FirstOrDefault();
-            em.CollectionPoints.Remove(collectionPoint);
-            em.SaveChanges();
+            using (EntityModel em = new EntityModel())
+            {
+                CollectionPoint collectionPoint = em.CollectionPoints.Where(x => x.CollectionPointCode == collectionPointCode).FirstOrDefault();
+                em.CollectionPoints.Remove(collectionPoint);
+                em.SaveChanges();
+            }
         }
         public CollectionPoint GetCollectionPoint(string collectionPointCode)
         {
-            CollectionPoint cp = em.CollectionPoints.Where(x => x.CollectionPointCode == collectionPointCode).FirstOrDefault();
-            return cp;
+            using (EntityModel em = new EntityModel())
+            {
+                CollectionPoint cp = em.CollectionPoints.Where(x => x.CollectionPointCode == collectionPointCode).FirstOrDefault();
+                return cp;
+            }
         }
         public string GetCollectionPointNameByCode(string collectionPointCode)
         {
-            return em.CollectionPoints.Where(x => x.CollectionPointCode.Equals(collectionPointCode)).Select(p => p.CollectionVenue).FirstOrDefault();
+            using (EntityModel em = new EntityModel())
+            {
+                return em.CollectionPoints.Where(x => x.CollectionPointCode.Equals(collectionPointCode)).Select(p => p.CollectionVenue).FirstOrDefault();
+            }
         }
     }
 }

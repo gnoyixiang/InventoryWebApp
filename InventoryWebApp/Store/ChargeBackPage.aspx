@@ -4,7 +4,6 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h3>Charge Back</h3>
-    <asp:ScriptManager ID="ScriptManager1" runat="server" />
     
     <asp:Button ID="btnBack" runat="server" Text="<Back To Disbursement Form" Style="float: left" CssClass="btn btn-success" OnClick="btnBack_Click" />
     <br />

@@ -11,7 +11,7 @@ using InventoryWebApp.Models.Entities;
 
 namespace InventoryWebApp
 {
-    public partial class Layout : System.Web.UI.MasterPage
+    public partial class LayoutWithoutAjax : System.Web.UI.MasterPage
     {
         EmployeeController employeeController = new EmployeeController();
         DepartmentHeadController deptHeadController = new DepartmentHeadController();
@@ -19,7 +19,7 @@ namespace InventoryWebApp
 
         private string userDepartmentCode = "";
         private string tempRoleCode = "";
-        
+
         private const string AntiXsrfTokenKey = "__AntiXsrfToken";
         private const string AntiXsrfUserNameKey = "__AntiXsrfUserName";
         private string _antiXsrfTokenValue;
@@ -75,10 +75,10 @@ namespace InventoryWebApp
 
         protected void Page_Load(object sender, EventArgs e)
         {
-              
+
         }
 
-        
+
 
         protected void master_Page_PreLoad(object sender, EventArgs e)
         {
@@ -117,7 +117,7 @@ namespace InventoryWebApp
             }
             return false;
         }
-        
+
     }
 
 

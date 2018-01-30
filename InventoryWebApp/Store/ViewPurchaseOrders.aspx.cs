@@ -53,6 +53,8 @@ namespace InventoryWebApp
                         ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
                    "alertMessage", "alert('An error has occurred when creating purchase orders!')", true);
                     }
+                    Session["CreatedPO"] = null;
+                    Session["SendCreatePOEmail"] = null;
                 }
             }
 
