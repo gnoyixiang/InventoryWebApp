@@ -9,6 +9,7 @@
         <li class="breadcrumb-item active">Requisition Details</li>
     </ul>
     <div class="container-fluid" id="mainContainer">
+<div id="printableArea">
     <div class="row">
         <div class="col-md-10">
             <h3>Requisition Details</h3>
@@ -165,7 +166,7 @@
             </LayoutTemplate>
             <ItemTemplate>
                 <tr>
-                    <td><%# Eval("DisbursementCode") %></a></td>
+                    <td><a href="ViewDisbursementDetails?DISBURSEMENTCODE=<%#Eval("DisbursementCode") %>" style="color: #337ab7"><%# Eval("DisbursementCode") %></a></td>
                     <td><%# Eval("Status") %></td>
                     <td><%# Eval("DateDisbursed","{0:MMM dd, yyyy}") %></td>
                     <td><%# Eval("ReceivedBy") %></td>
@@ -195,7 +196,7 @@
             </div>
         </div>
    </div>
-            
+            </div>
         </div>
 
         <script type="text/javascript">

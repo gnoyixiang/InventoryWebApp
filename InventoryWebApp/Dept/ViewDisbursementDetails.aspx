@@ -8,6 +8,7 @@
                 <li class="breadcrumb-item active" aria-current="page">Disbursement Details</li>
             </ol>
         </nav>
+    <div id="printableArea">
             <h1>Disbursement Details</h1>
             <asp:Panel ID="Panel2" runat="server" Visible="false">No Disbursement Details found!</asp:Panel>
             <asp:Panel ID="Panel1" runat="server">
@@ -145,6 +146,7 @@
                     </div>
                 </div>
             </div>--%>
+        </div>
             <asp:Button ID="PrintButton" runat="server" Text="Print" OnClientClick='printDiv("printableArea")' />
   
 
