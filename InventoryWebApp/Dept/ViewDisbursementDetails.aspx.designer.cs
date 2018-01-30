@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace InventoryWebApp {
+namespace InventoryWebApp.Dept {
     
     
     public partial class ViewDisbursementDetails {
@@ -31,6 +31,15 @@ namespace InventoryWebApp {
         protected global::System.Web.UI.WebControls.Panel Panel1;
         
         /// <summary>
+        /// lblDisbursementCode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDisbursementCode;
+        
+        /// <summary>
         /// lblRequestCode control.
         /// </summary>
         /// <remarks>
@@ -38,24 +47,6 @@ namespace InventoryWebApp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblRequestCode;
-        
-        /// <summary>
-        /// lblEmployeeName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEmployeeName;
-        
-        /// <summary>
-        /// lblDepartmentName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDepartmentName;
         
         /// <summary>
         /// lblStatus control.
@@ -67,31 +58,13 @@ namespace InventoryWebApp {
         protected global::System.Web.UI.WebControls.Label lblStatus;
         
         /// <summary>
-        /// ListView1 control.
+        /// lvDisbursementDetails control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListView ListView1;
-        
-        /// <summary>
-        /// btnAddItem control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddItem;
-        
-        /// <summary>
-        /// ListView2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ListView ListView2;
+        protected global::System.Web.UI.WebControls.ListView lvDisbursementDetails;
         
         /// <summary>
         /// PrintButton control.
