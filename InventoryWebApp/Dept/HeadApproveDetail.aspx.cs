@@ -16,15 +16,25 @@ namespace InventoryWebApp.Dept
         {
             if (!IsPostBack)
             {
-                Request r=(Request) Session["request"];
-                string name = dCon.GetEmployeeName(r.UserName);
-                lblEmp.Text = name;
-                DateTime d = (DateTime)r.DateCreated;
-                lblDc.Text = d.ToShortDateString();
-                string code = r.RequestCode;
-                gvDetail.DataSource = dCon.ListRequestDetail(code);
-                gvDetail.DataBind();
-
+                if (String.IsNullOrEmpty(Request.QueryString["REQUESTCODE"]))
+                {
+                    panelRequest.Visible = true;
+                    panelNoRequest.Visible = false;
+                    string requestCode = Request.QueryString["REQUESTCODE"];
+                    Request r = dCon.GetRequest(requestCode);
+                    string name = dCon.GetEmployeeName(r.UserName);
+                    lblEmp.Text = name;
+                    DateTime d = (DateTime)r.DateCreated;
+                    lblDc.Text = d.ToShortDateString();
+                    string code = r.RequestCode;
+                    gvDetail.DataSource = dCon.ListRequestDetail(code);
+                    gvDetail.DataBind();
+                }
+                else
+                {
+                    panelRequest.Visible = false;
+                    panelNoRequest.Visible = true;
+                }
             }
             
             
@@ -59,7 +69,7 @@ namespace InventoryWebApp.Dept
             }
 
             r.DateApproved = DateTime.Now;
-            r.ApprovedBy = "liong@logic.edu.sg";
+            r.ApprovedBy = Context.User.Identity.Name;
 
             int i = dCon.UpdateRequest(r, "processing");
 
@@ -87,7 +97,8 @@ namespace InventoryWebApp.Dept
 
         protected void btnReject_Click(object sender, EventArgs e)
         {
-            Request r = (Request)Session["request"];
+            string requestCode = Request.QueryString["REQUESTCODE"];
+            Request r = dCon.GetRequest(requestCode);
             r.Status = "rejected";
             string remark = tbxCom.Text;
             if (tbxCom.Text.Length!=0)
@@ -112,7 +123,6 @@ namespace InventoryWebApp.Dept
             else
             {
                 lblSuccess.Text = "Sorry ,the requisition cannot be rejected!";
-
                 lblSuccess.Visible = true;
             }
 

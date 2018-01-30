@@ -28,6 +28,16 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+     <ul class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li class="active">Add Authorise</li>
+    </ul>
+    <div class="container-fluid" id="mainContainer">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Authorise Staff</h3>
+        </div>
+    </div>
     <div class="row form-horizontal">
         <div class="form-group">
             <label class="control-label col-md-2" for="tbxSearch">Search Employee:</label>
@@ -35,7 +45,7 @@
                 <asp:TextBox ID="tbxSearch" CssClass="form-control" runat="server" Width="100%" AutoPostBack="True" OnTextChanged="selectedTextChange">
                 </asp:TextBox>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-1">
                 <asp:Button id="btnSearch" runat="server" Text="Search" CssClass="btn btn-primary"/>
             </div>
         </div>
@@ -113,4 +123,5 @@
         </div>
     </div>
     </asp:Panel>
+        </div>
 </asp:Content>

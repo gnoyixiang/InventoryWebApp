@@ -19,103 +19,6 @@
     <title></title>
 
     <style>
-        .loading {
-            position: fixed;
-            display: block;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(40, 127, 184, 0.5);
-            z-index: 2;
-            cursor: pointer;
-        }
-
-        .sk-cube-grid {
-            width: 60px;
-            height: 60px;
-            margin: 300px auto;
-        }
-
-            .sk-cube-grid .sk-cube {
-                width: 33%;
-                height: 33%;
-                background-color: #fff;
-                float: left;
-                -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
-                animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
-            }
-
-            .sk-cube-grid .sk-cube1 {
-                -webkit-animation-delay: 0.2s;
-                animation-delay: 0.2s;
-            }
-
-            .sk-cube-grid .sk-cube2 {
-                -webkit-animation-delay: 0.3s;
-                animation-delay: 0.3s;
-            }
-
-            .sk-cube-grid .sk-cube3 {
-                -webkit-animation-delay: 0.4s;
-                animation-delay: 0.4s;
-            }
-
-            .sk-cube-grid .sk-cube4 {
-                -webkit-animation-delay: 0.1s;
-                animation-delay: 0.1s;
-            }
-
-            .sk-cube-grid .sk-cube5 {
-                -webkit-animation-delay: 0.2s;
-                animation-delay: 0.2s;
-            }
-
-            .sk-cube-grid .sk-cube6 {
-                -webkit-animation-delay: 0.3s;
-                animation-delay: 0.3s;
-            }
-
-            .sk-cube-grid .sk-cube7 {
-                -webkit-animation-delay: 0s;
-                animation-delay: 0s;
-            }
-
-            .sk-cube-grid .sk-cube8 {
-                -webkit-animation-delay: 0.1s;
-                animation-delay: 0.1s;
-            }
-
-            .sk-cube-grid .sk-cube9 {
-                -webkit-animation-delay: 0.2s;
-                animation-delay: 0.2s;
-            }
-
-        @-webkit-keyframes sk-cubeGridScaleDelay {
-            0%, 70%, 100% {
-                -webkit-transform: scale3D(1, 1, 1);
-                transform: scale3D(1, 1, 1);
-            }
-
-            35% {
-                -webkit-transform: scale3D(0, 0, 1);
-                transform: scale3D(0, 0, 1);
-            }
-        }
-
-        @keyframes sk-cubeGridScaleDelay {
-            0%, 70%, 100% {
-                -webkit-transform: scale3D(1, 1, 1);
-                transform: scale3D(1, 1, 1);
-            }
-
-            35% {
-                -webkit-transform: scale3D(0, 0, 1);
-                transform: scale3D(0, 0, 1);
-            }
-        }
     </style>
 
     <asp:ContentPlaceHolder ID="head" runat="server">
@@ -150,12 +53,13 @@
                     <!-- Sidebar Holder -->
                     <nav id="sidebar">
                         <div class="sidebar-header">
-                            <h3 style="text-align: center;">Stationary Store</h3>
-                            <h4 style="text-align: center;">Inventory System</h4>
+                            <div style="text-align:center"><i class="fa fa-cubes fa-3x" aria-hidden="true"></i>
+                                <br />
+                                <div style="font-size:1.5em; font-weight:600;padding-top:10px"><span >SSIS</span></div>
+                            </div>
                         </div>
                                                
                         <ul class="list-unstyled components">
-                            <li role="separator" class="divider"></li>
                             <!-- Store Clerk -->
                             <% if (Context.User.IsInRole("Store Clerk"))
                                 { %>
@@ -251,15 +155,11 @@
                             <!-- Department Head -->
                             <% if (Context.User.IsInRole("Department Head"))
                                 { %>
-                            <li id="menu-RequestDepartmentHead">
-                                <a href="#RequestDepartmentHead" data-toggle="collapse" aria-expanded="false">Manage Requests</a>
-                                <ul class="collapse list-unstyled submenu" id="RequestDepartmentHead">
-                                    <li><a href="/Dept/DeptRequisitionList">View Requests</a></li>
-                                    <li><a href="/Dept/ApproveRequest">Approve Requests</a></li>
-                                </ul>
-                            </li>
+                            <li><a href="/Dept/DeptRequisitionList?search=Status&q=pending">
+                                <i class="fa fa-pencil" aria-hidden="true" style="padding-right:10px"></i>View Pending Requests</a>
                             <li>
-                                <a href="/Dept/AddAuthorise">Authorise Staff</a>
+                                <a href="/Dept/AddAuthorise">
+                                    <i class="fa fa-key" aria-hidden="true" style="padding-right:10px"></i>Authorise Staff</a>
                             </li>
                             <%} %>
 

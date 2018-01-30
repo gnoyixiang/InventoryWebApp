@@ -329,11 +329,7 @@
     <Content Include="bin\InventoryWebApp.dll.config" />
     <Content Include="LayoutWithoutAjax.Master" />
     <None Include="Properties\PublishProfiles\InventoryWCF.pubxml" />
-    <Content Include="Dept\ApproveRequest.aspx" />
     <Content Include="Dept\HeadApproveDetail.aspx" />
-    <Content Include="Dept\HeadViewRequest.aspx" />
-    <Content Include="Dept\HeadRequestDetail.aspx" />
-    <Content Include="Dept\HeadDisbursement.aspx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
@@ -916,40 +912,12 @@
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Dept\ApproveRequest.aspx.cs">
-      <DependentUpon>ApproveRequest.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Dept\ApproveRequest.aspx.designer.cs">
-      <DependentUpon>ApproveRequest.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Dept\HeadApproveDetail.aspx.cs">
       <DependentUpon>HeadApproveDetail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Dept\HeadApproveDetail.aspx.designer.cs">
       <DependentUpon>HeadApproveDetail.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Dept\HeadViewRequest.aspx.cs">
-      <DependentUpon>HeadViewRequest.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Dept\HeadViewRequest.aspx.designer.cs">
-      <DependentUpon>HeadViewRequest.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Dept\HeadRequestDetail.aspx.cs">
-      <DependentUpon>HeadRequestDetail.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Dept\HeadRequestDetail.aspx.designer.cs">
-      <DependentUpon>HeadRequestDetail.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Dept\HeadDisbursement.aspx.cs">
-      <DependentUpon>HeadDisbursement.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Dept\HeadDisbursement.aspx.designer.cs">
-      <DependentUpon>HeadDisbursement.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

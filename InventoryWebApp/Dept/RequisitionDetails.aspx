@@ -3,16 +3,20 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="DeptRequisitionList">View Requisition</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Requisition Details</li>
-        </ol>
-    </nav>
-    <div>
-    <h3>Requisition Details</h3>
-    <asp:Button style="float:right" ID="PrintButton" runat="server" Text="Print" OnClientClick='printDiv("printableArea")'  /></div>
+    <ul class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li class="breadcrumb-item"><a href="DeptRequisitionList">View Requisition</a></li>
+        <li class="breadcrumb-item active">Requisition Details</li>
+    </ul>
+    <div class="container-fluid" id="mainContainer">
+    <div class="row">
+        <div class="col-md-10">
+            <h3>Requisition Details</h3>
+        </div>
+        <div class="col-md-2">
+        <asp:Button style="float:right" ID="PrintButton" runat="server" Text="Print" OnClientClick='printDiv("printableArea")'  /></div>
+    </div>
+    
     <asp:Panel ID="Panel2" runat="server" Visible="false">No Request Details found!</asp:Panel>
     <asp:Panel ID="Panel1" runat="server">
         <div class="row">
@@ -119,10 +123,32 @@
                         </tr>--%>
             </EditItemTemplate>
         </asp:ListView>
+        <div class="row">
+            
         <% if (IsEditable() && IsEmployee())
-            { %><asp:Button ID="btnAddItem" runat="server" Text="Add Item" OnClick="btnAddItem_Click" CssClass="btn btn-primary" />
-        <br />
+            { %><div class="col-md-2">
+                <asp:Button ID="btnAddItem" runat="server" Text="Add Item" OnClick="btnAddItem_Click" CssClass="btn btn-primary" /></div>
+
         <% } %>
+         <% if (IsEditable() && !IsEmployee())
+             { %> 
+            <div class="row">
+                <div class="col-md-2">
+                    <asp:Button ID="btnApprove" runat="server" CssClass="btn btn-success" OnClientClick="return confirm('Are you sure to approve the requisition?');"
+                        OnClick="btnApprove_Click" Text="Approve" Width="100%" />
+                </div>
+                <div class="col-md-2">
+                    <asp:Button ID="btnReject" runat="server" CssClass="btn btn-warning" Text="Reject" Width="100%"
+                        OnClientClick="return confirm('Are you sure to REJECT the requisition?');" OnClick="btnReject_Click" />
+                </div>
+                <div class="col-md-8">
+                    <asp:Label ID="lblCom" runat="server" Text="Comment: " Width="100%"></asp:Label>
+                    <asp:TextBox ID="tbxCom" runat="server" Width="100%" CssClass="form-control"></asp:TextBox>
+                </div>
+            </div>
+        <% } %>
+        <% if (!IsEditable())
+            { %></div>
         <h4>Disbursements</h4>
         <asp:ListView ID="ListView2" runat="server">
             <LayoutTemplate>
@@ -145,8 +171,8 @@
                     <td><%# Eval("ReceivedBy") %></td>
                 </tr>
             </ItemTemplate>
-
         </asp:ListView>
+        <% } %>
     </asp:Panel>
 
     <!-- Modal -->
@@ -170,7 +196,7 @@
         </div>
    </div>
             
-
+        </div>
 
         <script type="text/javascript">
             function printDiv(divName) {

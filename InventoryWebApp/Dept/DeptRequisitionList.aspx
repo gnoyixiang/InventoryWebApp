@@ -4,15 +4,17 @@
 <%@ MasterType VirtualPath="~/Layout.Master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
-        .row {
-            margin-bottom: 10px;
-        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <ul class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li class="active">Requisition List</li>
+    </ul>
+    <div class="container-fluid" id="mainContainer">
     <div class="row">
-        <div class="col-md-4">
-            <h1>Requisition List</h1>
+        <div class="col-md-12">
+            <h3>Requisition List</h3>
         </div>
     </div>
     <div class="row">
@@ -49,7 +51,10 @@
                 </LayoutTemplate>
                 <ItemTemplate>
                     <tr>
-                        <td><a href="RequisitionDetails?REQUESTCODE=<%#Eval("RequestCode") %>" style="color: #337ab7"><%# Eval("RequestCode") %></a></td>
+                        <td>
+                            <a href="RequisitionDetails?REQUESTCODE=<%#Eval("RequestCode") %>" style="color: #337ab7"><%# Eval("RequestCode") %></a>
+
+                        </td>
                         <td><%# GetEmployeeName((string)Eval("UserName")) %></td>
                         <td><%# Eval("DateCreated","{0:MMM dd, yyyy}") %></td>
                         <td><%# Eval("DateApproved","{0:MMM dd, yyyy}") %></td>
@@ -65,5 +70,5 @@
             </Fields>
         </asp:DataPager>--%>
         </div>
-    </div>
+    </div></div>
 </asp:Content>

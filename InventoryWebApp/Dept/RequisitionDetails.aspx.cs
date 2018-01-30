@@ -16,6 +16,7 @@ namespace InventoryWebApp.Dept
         string RequestC;
         Request RO;
         EmployeeController ec = new EmployeeController();
+        DepartmentHeadController dCon = new DepartmentHeadController();
         string ItCode;
         
         
@@ -32,6 +33,7 @@ namespace InventoryWebApp.Dept
                     ec.AddRequestDetailtoCurrentRequest(RequestC, (List<RequestDTO>)rd);
                     Session["ItemDetails"] = null;
                 }
+
             }
             else
             {
@@ -39,7 +41,7 @@ namespace InventoryWebApp.Dept
                 Panel1.Visible = false;
                 return;
             }
-
+            
             if (!IsPostBack)
             {
                 FillFields();
@@ -52,11 +54,19 @@ namespace InventoryWebApp.Dept
             }
         }
 
+        private void RefillFields()
+        {
+            RequestC = Request.QueryString["REQUESTCODE"];
+            RO = ec.GetRequestbyRequestCode(RequestC);
+            FillFields();
+        }
+
         private void FillFields()
         {
             lblRequestCode.Text = RO.RequestCode.ToString();
-            lblStatus.Text = RO.Status.ToString();
+            lblStatus.Text = RO.Status.ToUpper().ToString();
             lblDepartmentName.Text = RO.DepartmentCode.ToString();
+            lblEmployeeName.Text = GetEmployeeName(RO.UserName);
         }
 
         protected bool IsEditable()
@@ -113,12 +123,74 @@ namespace InventoryWebApp.Dept
 
         protected void btnAddItem_Click(object sender, EventArgs e)
         {
-            Response.Redirect("/ViewCatalogue.aspx?REQUESTCODE=" + RO.RequestCode);
+            Response.Redirect("ViewCatalogue.aspx?REQUESTCODE=" + RO.RequestCode);
         }
 
         protected bool IsEmployee()
         {
             return Context.User.IsInRole("Employee");
         }
+        protected string GetEmployeeName(string username)
+        {
+            return ec.GetEmployeeNameByUserName(username);
+        }
+
+        protected void btnApprove_Click(object sender, EventArgs e)
+        {
+            RO.Status = "processing";
+            if (tbxCom.Text.Length != 0)
+            {
+                RO.HeadRemarks = tbxCom.Text;
+            }
+
+            RO.DateApproved = DateTime.Now;
+            RO.ApprovedBy = Context.User.Identity.Name;
+
+            int i = dCon.UpdateRequest(RO, "processing");
+
+            if (i == 1)
+            {
+                btnApprove.Visible = false;
+                btnReject.Visible = false;
+                tbxCom.Visible = false;
+                lblCom.Visible = false;
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "none", "alert('The requisition is approved successfully!');", true);
+
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "none", "alert('Sorry ,the requisition cannot be approved!');", true);
+            }
+            
+            RefillFields();
+
+        }
+
+        protected void btnReject_Click(object sender, EventArgs e)
+        {
+            RO.Status = "rejected";
+            string remark = tbxCom.Text;
+            if (tbxCom.Text.Length != 0)
+            {
+                RO.HeadRemarks = tbxCom.Text;
+            }
+
+            int i = dCon.UpdateRequest(RO, "rejected");
+
+            if (i == 1)
+            {
+                btnApprove.Visible = false;
+                btnReject.Visible = false;
+                tbxCom.Visible = false;
+                lblCom.Visible = false;
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "none", "alert('The requisition has been rejected!');", true);                
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "none", "alert('Sorry ,the requisition cannot be rejected!');", true);
+            }
+            RefillFields();
+        }
+
     }
 }

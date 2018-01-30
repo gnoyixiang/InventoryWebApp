@@ -82,7 +82,10 @@ namespace InventoryWebApp.Dept
         {
             return ec.GetEmployeeNameByUserName(username);
         }
-        
+        protected bool IsEmployee()
+        {
+            return Context.User.IsInRole("Employee");
+        }
     }
 
 
