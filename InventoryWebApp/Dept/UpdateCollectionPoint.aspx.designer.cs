@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace InventoryWebApp {
+namespace InventoryWebApp.Dept {
     
     
     public partial class ChangeCollectionPoint {
@@ -31,22 +31,13 @@ namespace InventoryWebApp {
         protected global::System.Web.UI.WebControls.Label lblInfoDeptName;
         
         /// <summary>
-        /// ScriptManager1 control.
+        /// UpdatePanelUpdateCollectionPt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager ScriptManager1;
-        
-        /// <summary>
-        /// UpdatePanelAddItem control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanelAddItem;
+        protected global::System.Web.UI.UpdatePanel UpdatePanelUpdateCollectionPt;
         
         /// <summary>
         /// lblCCP control.

@@ -8,7 +8,7 @@ using InventoryWebApp.Controllers;
 using InventoryWebApp.DAO;
 using InventoryWebApp.Models.Entities;
 
-namespace InventoryWebApp
+namespace InventoryWebApp.Store
 {
     public partial class StoreEmployeeList : System.Web.UI.Page
     {

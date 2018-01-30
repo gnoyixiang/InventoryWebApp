@@ -8,7 +8,7 @@ using InventoryWebApp.Models.Entities;
 using System.Text;
 using InventoryWebApp.Controllers;
 
-namespace InventoryWebApp
+namespace InventoryWebApp.Store
 {
     public partial class StockAdjustmentNew : System.Web.UI.Page
     {

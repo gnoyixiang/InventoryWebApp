@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace InventoryWebApp {
+namespace InventoryWebApp.Dept {
     
     
-    public partial class WebForm1 {
+    public partial class ApproveRequest {
         
         /// <summary>
         /// lblSearch control.

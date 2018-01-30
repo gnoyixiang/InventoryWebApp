@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace InventoryWebApp {
+namespace InventoryWebApp.Store {
     
     
     public partial class PurchaseOrderDetail {

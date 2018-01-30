@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace InventoryWebApp {
+namespace InventoryWebApp.Dept {
     
     
-    public partial class WebForm2 {
+    public partial class HeadApproveDetail {
         
         /// <summary>
         /// lblName control.

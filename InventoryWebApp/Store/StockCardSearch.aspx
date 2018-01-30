@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="StockCardSearch.aspx.cs" Inherits="InventoryWebApp.StockCardSearch" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="StockCardSearch.aspx.cs" Inherits="InventoryWebApp.Store.StockCardSearch" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
@@ -26,13 +26,11 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <ul class="breadcrumb">
         <li><a href="#">Home</a></li>
-        <li class="active">Search Item</li>
+        <li class="active">Search Stock Card</li>
     </ul>
-    <div class="row">
         <h3>
             <asp:Label ID="Label1" runat="server" Text="Stock Card"></asp:Label>
         </h3>
-    </div>
     <div class="row">
         <div class="col-md-1" style="padding-left: 0; padding-top: 6px">
             Search By:
@@ -48,7 +46,7 @@
         <div class="col-md-12" style="padding-left: 0; padding-top: 6px">
             <asp:Repeater ID="Repeater1" runat="server" OnItemCommand="Repeater1_ItemCommand">
                 <ItemTemplate>
-                    <asp:Button ID="btnCategory" runat="server" Text='<%# Eval("CategoryCode") %>' CommandName="Category" CssClass="btn btn-default" />
+                    <asp:Button ID="btnCategory" runat="server" Text='<%# Eval("CategoryCode") %>' CommandName="Category" CssClass="btn btn-default" style="margin-bottom:10px" />
                 </ItemTemplate>
             </asp:Repeater>
         </div>
@@ -59,7 +57,7 @@
             <Columns>
                 <asp:BoundField DataField="ItemCode" HeaderText="ItemCode" SortExpression="ItemCode" />
                 <asp:BoundField DataField="Description" HeaderText="Item Description" SortExpression="Description" />
-                <asp:BoundField DataField="MeasureUnit" HeaderText="UOM" SortExpression="MeasureUnit" />
+                <asp:BoundField DataField="MeasureUnit" HeaderText="Unit of Measure" SortExpression="MeasureUnit" />
                 <asp:BoundField DataField="Price" HeaderText="Price" SortExpression="Price" />
                 <asp:BoundField DataField="Stock" HeaderText="Stock" SortExpression="Stock" />
 

@@ -9,7 +9,7 @@ using System.Data.Entity;
 using InventoryWebApp.Models.Entities;
 using InventoryWebApp.DAO;
 using InventoryWebApp.Controllers;
-namespace InventoryWebApp
+namespace InventoryWebApp.Dept
 {
     public partial class DeptRequisitionList : System.Web.UI.Page
     {

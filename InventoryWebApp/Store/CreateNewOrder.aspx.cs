@@ -9,7 +9,7 @@ using System.Web.UI.HtmlControls;
 using InventoryWebApp.Controllers;
 using InventoryWebApp.Models.Classes;
 
-namespace InventoryWebApp
+namespace InventoryWebApp.Store
 {
     public partial class CreateNewOrder : System.Web.UI.Page
     {

@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using InventoryWebApp.Controllers;
 
-namespace InventoryWebApp
+namespace InventoryWebApp.Dept
 {
     public partial class ViewDisbursement : System.Web.UI.Page
     {

@@ -8,7 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using InventoryWebApp.Models.Entities;
 
-namespace InventoryWebApp
+namespace InventoryWebApp.Dept
 {
     public partial class ItemDetails : System.Web.UI.Page
     {

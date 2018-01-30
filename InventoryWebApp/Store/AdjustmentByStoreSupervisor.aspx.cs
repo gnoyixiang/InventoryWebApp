@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
 
-namespace InventoryWebApp
+namespace InventoryWebApp.Store
 {
     public partial class AdjustmentByStoreSupervisor : System.Web.UI.Page
     {

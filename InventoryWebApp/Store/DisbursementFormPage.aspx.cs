@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace InventoryWebApp
+namespace InventoryWebApp.Store
 {
     public partial class DisbursementFormPage : System.Web.UI.Page
     {

@@ -10,7 +10,7 @@ using InventoryWebApp.Models.Entities;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
 
-namespace InventoryWebApp
+namespace InventoryWebApp.Store
 {
     public partial class AdjustmentByStoreManager : System.Web.UI.Page
     {

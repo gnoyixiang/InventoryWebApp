@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="RequisitionDetails.aspx.cs" Inherits="InventoryWebApp.Dept.RequisitionDetails" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="RequisitionDetails.aspx.cs" Inherits="InventoryWebApp.Store.RequisitionDetails" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -6,13 +6,11 @@
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="DeptRequisitionList">View Requisition</a></li>
+            <li class="breadcrumb-item"><a href="RequisitionList">View Requisition</a></li>
             <li class="breadcrumb-item active" aria-current="page">Requisition Details</li>
         </ol>
     </nav>
-    <div>
     <h3>Requisition Details</h3>
-    <asp:Button style="float:right" ID="PrintButton" runat="server" Text="Print" OnClientClick='printDiv("printableArea")'  /></div>
     <asp:Panel ID="Panel2" runat="server" Visible="false">No Request Details found!</asp:Panel>
     <asp:Panel ID="Panel1" runat="server">
         <div class="row">
@@ -62,7 +60,7 @@
                     <td><%# Eval("RemainingQuant") %></td>
                     <td><%# Eval("Quantity") %></td>
                     <td><%# Eval("Notes") %></td>
-                    <% if (IsEditable() && IsEmployee())
+                    <% if (IsEditable())
                         { %>
                     <td align="center" style="width: 3%">
                         <asp:LinkButton ID="lbEdit" runat="server" CommandName="Edit" Title="Edit">
@@ -119,11 +117,11 @@
                         </tr>--%>
             </EditItemTemplate>
         </asp:ListView>
-        <% if (IsEditable() && IsEmployee())
-            { %><asp:Button ID="btnAddItem" runat="server" Text="Add Item" OnClick="btnAddItem_Click" CssClass="btn btn-primary" />
+        <% if (IsEditable())
+            { %><asp:Button ID="btnAddItem" runat="server" Text="Add Item" OnClick="btnAddItem_Click" />
         <br />
         <% } %>
-        <h4>Disbursements</h4>
+        <h3>Disbursements</h3>
         <asp:ListView ID="ListView2" runat="server">
             <LayoutTemplate>
                 <table class="table">
@@ -168,8 +166,7 @@
                 </div>
             </div>
         </div>
-   </div>
-            
+        <asp:Button ID="PrintButton" runat="server" Text="Print" OnClientClick='printDiv("printableArea")' />
 
 
         <script type="text/javascript">

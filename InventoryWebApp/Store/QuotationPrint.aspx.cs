@@ -9,7 +9,7 @@ using InventoryWebApp.Models.Entities;
 using System.Data;
 using InventoryWebApp.Controllers;
 
-namespace InventoryWebApp
+namespace InventoryWebApp.Store
 {
     public partial class QuotationPrint : System.Web.UI.Page
     {

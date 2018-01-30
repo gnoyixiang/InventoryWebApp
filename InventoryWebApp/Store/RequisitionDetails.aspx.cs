@@ -9,7 +9,7 @@ using InventoryWebApp.Models.Entities;
 using InventoryWebApp.Controllers;
 using InventoryWebApp.Models;
 
-namespace InventoryWebApp.Dept
+namespace InventoryWebApp.Store
 {
     public partial class RequisitionDetails : System.Web.UI.Page
     {
@@ -114,11 +114,6 @@ namespace InventoryWebApp.Dept
         protected void btnAddItem_Click(object sender, EventArgs e)
         {
             Response.Redirect("/ViewCatalogue.aspx?REQUESTCODE=" + RO.RequestCode);
-        }
-
-        protected bool IsEmployee()
-        {
-            return Context.User.IsInRole("Employee");
         }
     }
 }

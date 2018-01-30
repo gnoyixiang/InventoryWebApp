@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace InventoryWebApp {
+namespace InventoryWebApp.Dept {
     
     
-    public partial class WebForm5 {
+    public partial class HeadDisbursement {
         
         /// <summary>
         /// lblCode control.

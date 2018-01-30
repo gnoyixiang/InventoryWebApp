@@ -8,7 +8,7 @@ using InventoryWebApp.DAO;
 using InventoryWebApp.Models.Entities;
 using InventoryWebApp.Controllers;
 
-namespace InventoryWebApp
+namespace InventoryWebApp.Store
 {
     public partial class SupplierList : System.Web.UI.Page
     {
