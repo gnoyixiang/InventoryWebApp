@@ -4,8 +4,6 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:ScriptManager ID="ScriptManager1"
-        runat="server" />
     <div class="row">
         <div class="col-md-9 col-sm-8">
             <h3>Purchase Orders </h3>

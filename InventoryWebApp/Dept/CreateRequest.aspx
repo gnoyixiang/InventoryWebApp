@@ -56,9 +56,7 @@
             </td>
         </tr>
     </table>
-    <asp:ScriptManager ID="ScriptManager1"
-        runat="server" />
-    <asp:UpdatePanel ID="UpdatePanelAddItem"
+    <asp:UpdatePanel ID="UpdatePanelAddRequest"
         runat="server" UpdateMode="Always">
         <ContentTemplate>
             <asp:GridView ID="gvNewRequest" runat="server" AutoGenerateColumns="False"

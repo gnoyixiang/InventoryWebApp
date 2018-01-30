@@ -17,7 +17,6 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <asp:ScriptManager ID="ScriptManager1" runat="server" />
     <h3>Stationery Allocation</h3>
     <p>The allocation is prioritized based on date of approval.</p>
     <asp:Button ID="btnBack" runat="server" Text="<Back to Retrieval" Style="float: left" OnClick="btnBack_Click" CssClass="btn btn-success" />

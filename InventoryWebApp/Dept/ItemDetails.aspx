@@ -9,8 +9,6 @@
         <li class="active">Item Details</li>
     </ul>
     <h3>Item Details</h3>
-    <asp:ScriptManager ID="ScriptManager1"
-        runat="server" />
     <asp:UpdatePanel ID="UpdatePanelListView"
         runat="server" UpdateMode="Always">
         <ContentTemplate>

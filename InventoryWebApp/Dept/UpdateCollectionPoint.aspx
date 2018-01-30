@@ -16,9 +16,7 @@
     </div>
     <br />
     <br />
-    <asp:ScriptManager ID="ScriptManager1"
-                runat="server" />
-    <asp:UpdatePanel ID="UpdatePanelAddItem"
+    <asp:UpdatePanel ID="UpdatePanelUpdateCollectionPt"
         runat="server" UpdateMode="Always">
         <ContentTemplate>
             <div class="row">

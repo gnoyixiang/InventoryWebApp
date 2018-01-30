@@ -178,9 +178,12 @@ namespace InventoryWebApp.Controllers
             foreach (RequestDetail rd in rdList)
             {
                 string status = Convert.ToString(rd.Status);
-                if (status.ToUpper() == "INCOMPLETE" || status.ToUpper() == "PROCESSING")
+                if (!String.IsNullOrEmpty(status))
                 {
-                    returnList.Add(rd);
+                    if (status.ToUpper() == "INCOMPLETE" || status.ToUpper() == "PROCESSING")
+                    {
+                        returnList.Add(rd);
+                    }
                 }
             }
             return returnList;
