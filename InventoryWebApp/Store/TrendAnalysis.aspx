@@ -210,6 +210,45 @@
                     </div>
                 </div>
             </asp:Panel>
+             <asp:Panel ID="PanelSupplierTable" runat="server" Visible="false">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-striped">
+                            <tr style="background-color: #cfd8dc">
+                                <th></th>
+                                <% for (int i = 0; i < yearList.Count; i++)
+                                    {  %>
+                                <th><%= yearList[i].ToString() %></th>
+                                <%} %>
+                            </tr>
+                            <tr>
+                                <td><%= SeriesTitle1  %></td>
+                                <% for (int i = 0; i < SeriesData1.Count; i++)
+                                    { %>
+                                <td><%= SeriesData1[i] %></td>
+                                <%} %>
+                            </tr>
+                            <tr>
+                                <td><%= SeriesTitle2  %></td>
+                                <% for (int i = 0; i < SeriesData2.Count; i++)
+                                    { %>
+                                <td><%= SeriesData2[i] %></td>
+                                <%} %>
+                            </tr>
+                            <% if (count == 3)
+                                {%>
+                            <tr>
+                                <td><%= SeriesTitle3  %></td>
+                                <% for (int i = 0; i < SeriesData3.Count; i++)
+                                    { %>
+                                <td><%= SeriesData3[i] %></td>
+                                <%} %>
+                            </tr>
+                            <%} %>
+                        </table>
+                    </div>
+                </div>
+            </asp:Panel>
 
             <div class="row">
                 <div class="col-lg-12">
