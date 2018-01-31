@@ -144,7 +144,7 @@ namespace InventoryWebApp.Dept
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
-            Response.Redirect("/Department/AddAuthorise.aspx");
+            Response.Redirect("/Dept/AddAuthorise.aspx");
         }
     }
 }
