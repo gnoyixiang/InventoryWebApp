@@ -199,9 +199,14 @@
                             <%} %>
                             <% if (IsTempRoleCode("ActHead") || Context.User.IsInRole("Department Head"))
                                 { %>
-                            <li>
-                                <a href="/Dept/AddAuthorise">
+                            <li id="menu-RequestAuthorisation">
+                                <a href="#RequestAuthorisationSubmenu" data-toggle="collapse" aria-expanded="false">
                                     <i class="fa fa-key" aria-hidden="true"></i>Authorisation</a>
+                                <ul class="collapse list-unstyled submenu" id="RequestAuthorisationSubmenu">
+                                    <li><a href="/Dept/AddAuthorise">
+                                        <i class="fa fa-user-plus" aria-hidden="true"></i>Add Authorisation</a></li>
+                                    <li><a href="/Dept/AuthoriseStaff"><i class="fa fa-id-card-o" aria-hidden="true"></i>Authorised Staff</a></li>
+                                </ul>
                             </li>
                             <%} %>
                             <% } %>

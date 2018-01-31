@@ -141,8 +141,8 @@
         <div class="form-group">
             <div class="col-md-3"></div>
             <div class="col-md-4">
-                <asp:Label ID="lblSuccessMsg" runat="server" ForeColor="green"></asp:Label>
-                <asp:Label ID="lblErrorMsg" runat="server" ForeColor="red"></asp:Label>
+                <asp:Label ID="lblSuccessMsg" runat="server" ForeColor="Green"></asp:Label>
+                <asp:Label ID="lblErrorMsg" runat="server" ForeColor="Red"></asp:Label>
             </div>
         </div>
     </div>
