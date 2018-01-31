@@ -53,7 +53,7 @@
                         <table class="table">
                             <tr>
                                 <th>Request Code</th>
-                                <th>Item Code</th>
+                                <th>Stationery</th>
                                 <th>Status</th>
                                 <th>Remaining Quantity</th>
                                 <th>Quantity</th>
@@ -67,7 +67,7 @@
                     <ItemTemplate>
                         <tr>
                             <td><%# Eval("RequestCode") %></a></td>
-                            <td><%# Eval("ItemCode") %></td>
+                            <td><%# GetItemDescription((string)Eval("ItemCode")) %></td>
                             <td><%# Eval("Status") %></td>
                             <td><%# Eval("RemainingQuant") %></td>
                             <td><%# Eval("Quantity") %></td>

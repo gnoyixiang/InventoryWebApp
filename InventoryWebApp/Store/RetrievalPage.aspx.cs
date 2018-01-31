@@ -23,6 +23,7 @@ namespace InventoryWebApp.Store
                 if (sClerkCtrl.GetDisbursementsByStatus("allocating").Count != 0)
                 {
                     lvRetrievalList.Enabled = false;
+                    btnTickAll.Visible = false;
                     lblNoData.Text = "Retrieval has been confirmed, please proceed to allocation.";
                 }
                 retrieval = sClerkCtrl.GetCurrentRetrieval();

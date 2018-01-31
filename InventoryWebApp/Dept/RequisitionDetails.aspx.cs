@@ -192,5 +192,9 @@ namespace InventoryWebApp.Dept
             RefillFields();
         }
 
+        protected string GetItemDescription(string itemcode)
+        {
+            return dCon.GetStationeryCatalogue(itemcode).Description;
+        }
     }
 }

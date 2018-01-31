@@ -23,7 +23,7 @@ namespace InventoryWebApp.Dept
             if (!IsPostBack)
             {
                 //TODO: display Department Name
-                lblInfoDeptName.Text = "Institute of Systems Science";
+                lblInfoDeptName.Text = ec.GetDeptNameByCode(Master.UserDepartmentCode);
                 var collectionCode = ec.GetCollectionPoint(lblInfoDeptName.Text);
                 tbxCCP.Text = ec.GetCollectionPointnameByCode(collectionCode);
                 ddlCP.DataSource = ec.DdlCollectionPoint();

@@ -18,31 +18,23 @@ namespace InventoryWebApp.Store
         StoreSupervisorController storeSpController = new StoreSupervisorController();
         List<AssignRole> empList = null;
         List<Employee> empListInEMployee = null;
-         
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Context.User.IsInRole("Store Clerk"))
-            {
-                if (!Master.IsTempRoleCode("ActSSup"))
-                {
-                    Response.Redirect("/ErrorPages/401");
-                }
-            }
-
             if (!IsPostBack)
             {
                 Page.DataBind();
 
-               
+                //compStartTodayValidatorFooter.ValueToCompare = DateTime.Now.ToShortDateString();
 
-                
+
             }
         }
 
 
 
-       protected  void gvSearchResult_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        protected void gvSearchResult_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvSearchResult.PageIndex = e.NewPageIndex;
             gvSearchResult.DataSource = PopulateGridView(tbxSearch.Text);
@@ -65,8 +57,8 @@ namespace InventoryWebApp.Store
 
                     return empList;
                 }
-               
-                
+
+
                 gvSearchResult.DataSource = empList;
                 gvSearchResult.DataBind();
 
@@ -83,7 +75,7 @@ namespace InventoryWebApp.Store
                 //empListInEMployee = storeSpController.ListOfEmployeeNameInEmp(searchValue);
                 if (empList.Count == 0)
                 {
-                    
+
 
                     return empList;
                 }
@@ -101,7 +93,7 @@ namespace InventoryWebApp.Store
                 }
             }
 
-            
+
         }
 
 
@@ -114,8 +106,8 @@ namespace InventoryWebApp.Store
 
             if (searchcondition)
             {
-                
-                 empListInEMployee = storeSpController.ListOfEmployeeCodeInEmp(searchValue);
+
+                empListInEMployee = storeSpController.ListOfEmployeeCodeInEmp(searchValue);
                 if (empListInEMployee.Count == 0)
                 {
 
@@ -185,31 +177,31 @@ namespace InventoryWebApp.Store
         }
         protected void SearchButton_Click(object sender, EventArgs e)
         {
-            
-          string  searchCriteria= tbxSearch.Text;
+
+            string searchCriteria = tbxSearch.Text;
             //if (searchCriteria == "")
             //{
             //    lblNoresultFound.Text = "SearchBox cann't be Empty";
             //}
             //else
             //{
-                List<AssignRole> asRoleList = PopulateGridView(searchCriteria);
+            List<AssignRole> asRoleList = PopulateGridView(searchCriteria);
 
 
-                if (asRoleList.Count == 0)
-                {
+            if (asRoleList.Count == 0)
+            {
 
-                    PopulateGridViewFromEmp(searchCriteria);
-
-
-                }
-                else
-                {
-
-                    PopulateGridView(searchCriteria);
+                PopulateGridViewFromEmp(searchCriteria);
 
 
-                }
+            }
+            else
+            {
+
+                PopulateGridView(searchCriteria);
+
+
+            }
             //}
 
         }
@@ -218,10 +210,10 @@ namespace InventoryWebApp.Store
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                
+
                 string empdatakey = gvSearchResult.DataKeys[e.Row.RowIndex].Values["EmployeeCode"].ToString();
-                
-               string as2 = storeSpController.GetAssignRoleCode(empdatakey);
+
+                string as2 = storeSpController.GetAssignRoleCode(empdatakey);
 
 
                 if (as2 != null)
@@ -296,13 +288,13 @@ namespace InventoryWebApp.Store
 
                 else
                 {
-                    
+
                     //DataBinding from employee Table.
                     Employee emp2 = (Employee)e.Row.DataItem;
                     string id2 = emp2.EmployeeCode;
 
                     string assignRoleCode2 = storeSpController.GetAssignRoleCode(id2);
-                    
+
                     string temporaryRoleCode2 = storeSpController.GetTemporaryRole(id2);
                     string empName2 = storeSpController.GetUserName(id2);
 
@@ -336,7 +328,7 @@ namespace InventoryWebApp.Store
 
                     if (lblStartDate2 != null)
                     {
-                       // lblStartDate2.Text = startDate2.ToShortDateString();
+                        // lblStartDate2.Text = startDate2.ToShortDateString();
                     }
 
                     TextBox tbxStartDate2 = (e.Row.FindControl("tbxStartDate") as TextBox);
@@ -351,7 +343,7 @@ namespace InventoryWebApp.Store
                     Label lblEndDate2 = (e.Row.FindControl("lblEndDate") as Label);
                     if (lblEndDate2 != null)
                     {
-                       // lblEndDate2.Text = endDate2.ToShortDateString();
+                        // lblEndDate2.Text = endDate2.ToShortDateString();
                     }
                     TextBox tbxEndDate2 = (e.Row.FindControl("tbxEndDate") as TextBox);
 
@@ -366,8 +358,8 @@ namespace InventoryWebApp.Store
 
         }
 
-            
-        
+
+
 
         protected void gvSearchResult_RowEditing(object sender, GridViewEditEventArgs e)
         {
@@ -431,11 +423,11 @@ namespace InventoryWebApp.Store
 
         protected void gvSearchResult_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
-          GridViewRow row =  gvSearchResult.Rows[e.RowIndex];
-           string empCode =  gvSearchResult.DataKeys[e.RowIndex].Value.ToString();
+            GridViewRow row = gvSearchResult.Rows[e.RowIndex];
+            string empCode = gvSearchResult.DataKeys[e.RowIndex].Value.ToString();
 
-            
-            
+
+
             try
 
             {
@@ -454,9 +446,9 @@ namespace InventoryWebApp.Store
 
                 DateTime startDate = DateTime.Parse(txtstartDate.Text);
 
-                
 
-                
+
+
 
 
                 TextBox txtEndDate = (row.FindControl("tbxEndDate") as TextBox);
@@ -467,30 +459,34 @@ namespace InventoryWebApp.Store
                 //this is getting username from user.
                 //string userName =  user.UserName;
 
-                bool checkValue = storeSpController.CheckTempRoleAndDates(tempRoleCode, startDate, endDate);
-                // string checkAssignCode = storeSpController.GetAssignRoleCode(empCode);
-                if (assignCode != null)
+                Page.Validate();
+                if (Page.IsValid)
                 {
-                    if (checkValue)
+                    bool checkValue = storeSpController.CheckTempRoleAndDates(tempRoleCode, startDate, endDate);
+                    // string checkAssignCode = storeSpController.GetAssignRoleCode(empCode);
+                    if (assignCode != null)
                     {
-                        storeSpController.UpdateAssignRole(assignCode, tempRoleCode, employeeCode, startDate, endDate);
-                        gvSearchResult.EditIndex = -1;
-                        PopulateGridView(tbxSearch.Text);
-                        lblSuccessMsg.Text = "AssignRole Updated";
-                        lblErrorMsg.Text = "";
+                        if (checkValue)
+                        {
+                            storeSpController.UpdateAssignRole(assignCode, tempRoleCode, employeeCode, startDate, endDate);
+                            gvSearchResult.EditIndex = -1;
+                            PopulateGridView(tbxSearch.Text);
+                            lblSuccessMsg.Text = "AssignRole Updated";
+                            lblErrorMsg.Text = "";
 
+                        }
+                        else
+                        {
+                            lblSuccessMsg.Text = "";
+                            lblErrorMsg.Text = "StoreSuperVisor already present for this period";
+
+                        }
                     }
                     else
                     {
                         lblSuccessMsg.Text = "";
-                        lblErrorMsg.Text = "StoreSuperVisor already present for this period";
-
+                        lblErrorMsg.Text = "Cann't Update.Don't have any TemporaryRole";
                     }
-                }
-                else
-                {
-                    lblSuccessMsg.Text = "";
-                    lblErrorMsg.Text = "Cann't Update.Don't have any TemporaryRole";
                 }
             }
             catch (Exception ex)
@@ -503,7 +499,7 @@ namespace InventoryWebApp.Store
 
         protected void gvSearchResult_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
-            
+
 
             gvSearchResult.EditIndex = -1;
             PopulateGridView(tbxSearch.Text);
@@ -535,13 +531,13 @@ namespace InventoryWebApp.Store
 
         protected void gvSearchResult_SelectedIndexChanged(object sender, EventArgs e)
         {
-          Label empCodeFooter =   (gvSearchResult.FooterRow.FindControl("lblEmployeeCodeFooter") as Label);
+            Label empCodeFooter = (gvSearchResult.FooterRow.FindControl("lblEmployeeCodeFooter") as Label);
 
-           Label empNameFooter = (gvSearchResult.FooterRow.FindControl("lblEmployeeNameFooter") as Label);
+            Label empNameFooter = (gvSearchResult.FooterRow.FindControl("lblEmployeeNameFooter") as Label);
 
             Label currentRoleFooter = (gvSearchResult.FooterRow.FindControl("lblCurrentRoleFooter") as Label);
 
-            Label empCode  = (gvSearchResult.SelectedRow.FindControl("lblEmployeeCode") as Label);
+            Label empCode = (gvSearchResult.SelectedRow.FindControl("lblEmployeeCode") as Label);
 
             Label empName = (gvSearchResult.SelectedRow.FindControl("lblEmployeeName") as Label);
 
@@ -582,24 +578,33 @@ namespace InventoryWebApp.Store
                     var user = HttpContext.Current.GetOwinContext().Get<ApplicationUserManager>().FindById(User.Identity.GetUserName());
                     //this is getting username from user.
                     //string userName =  user.UserName;
-                   bool checkValue =  storeSpController.CheckTempRoleAndDates(tempRoleCode, startDate, endDate);
-
-                    if (checkValue)
+                    Page.Validate();
+                    if (Page.IsValid)
                     {
-                        storeSpController.CreateNewAssignRole(assignRoleCode, tempRoleCode, empCode, startDate, endDate, "yufei@logic.edu.sg");
-                        PopulateGridView(tbxSearch.Text);
-                        lblSuccessMsg.Text = "New AssignRole added.";
-                        lblErrorMsg.Text = "";
+                        bool checkValue = storeSpController.CheckTempRoleAndDates(tempRoleCode, startDate, endDate);
+
+                        if (checkValue)
+                        {
+                            storeSpController.CreateNewAssignRole(assignRoleCode, tempRoleCode, empCode, startDate, endDate, "yufei@logic.edu.sg");
+                            PopulateGridView(tbxSearch.Text);
+                            lblSuccessMsg.Text = "New AssignRole added.";
+                            lblErrorMsg.Text = "";
+
+                        }
+                        else
+                        {
+                            lblSuccessMsg.Text = "";
+                            lblErrorMsg.Text = "StoreSuperVisor already present for this period";
+
+                        }
 
                     }
                     else
                     {
                         lblSuccessMsg.Text = "";
-                        lblErrorMsg.Text = "StoreSuperVisor already present for this period";
+                        lblErrorMsg.Text = "Invalid Dates";
 
                     }
-                    
-
                 }
             }
             catch (Exception ex)
@@ -618,7 +623,7 @@ namespace InventoryWebApp.Store
                 GridViewRow row = gvSearchResult.Rows[e.RowIndex];
                 string empCode = gvSearchResult.DataKeys[e.RowIndex].Value.ToString();
 
-                
+
                 string assignCode = storeSpController.GetAssignRoleCode(empCode);
 
                 if (assignCode != null)
@@ -627,7 +632,7 @@ namespace InventoryWebApp.Store
                     lblSuccessMsg.Text = "Selected record Deleted.";
                     lblErrorMsg.Text = "";
                     PopulateGridView(tbxSearch.Text);
-                    
+
                 }
                 else
                 {
@@ -643,4 +648,4 @@ namespace InventoryWebApp.Store
             }
         }
     }
-    }
+}

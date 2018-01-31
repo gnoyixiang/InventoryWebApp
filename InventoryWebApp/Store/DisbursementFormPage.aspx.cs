@@ -188,9 +188,10 @@ namespace InventoryWebApp.Store
                     sClerkCtrl.UpdateDisbursementDetail(item);
                     sClerkCtrl.UpdateStationeryCatalogue(sc);
                     RequestDetail rd = sClerkCtrl.GetRequestDetail(item.RequestCode, item.ItemCode);
-                    sClerkCtrl.UpdateDisbursement(d);
-                    BindDropDownList();
+
                 }
+                sClerkCtrl.UpdateDisbursement(d);
+                BindDropDownList();
             }
             else
                 btnNotCollected.Enabled = false;

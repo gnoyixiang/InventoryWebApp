@@ -103,7 +103,7 @@ namespace InventoryWebApp.Dept
                 {
                     if ((string)Request.QueryString["REQUESTCODE"] != "")
                     {
-                        RequestDetail requestDetail=null;
+                        RequestDetail requestDetail = null;
                         if (!String.IsNullOrEmpty(tbxQuantity.Text))
                         {
                             requestDetail = new RequestDetail();
@@ -129,7 +129,7 @@ namespace InventoryWebApp.Dept
                         }
                         if (requestDetail != null)
                         {
-                            RequestDetail existingRequestDetail = 
+                            RequestDetail existingRequestDetail =
                                 ec.GetRequestDetail(requestDetail.RequestCode, requestDetail.ItemCode);
                             if (existingRequestDetail == null)
                                 ec.AddRequestDetail(requestDetail);
@@ -182,20 +182,21 @@ namespace InventoryWebApp.Dept
                         }
                     }
                 }
-            }
 
-            if (IsRedirect() && Session["ItemDetails"] != null)
-            {
-                Response.Redirect("RequisitionDetails.aspx?REQUESTCODE=" + requestcode);
-            }
-            else
-            {
-                //show success message
-                System.Text.StringBuilder sb = new System.Text.StringBuilder();
-                sb.Append(@"<script type='text/javascript'>");
-                sb.Append("$('#myModal').modal('show');");
-                sb.Append(@"</script>");
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "none", sb.ToString(), false);
+
+                if (IsRedirect() && Session["ItemDetails"] != null)
+                {
+                    Response.Redirect("RequisitionDetails.aspx?REQUESTCODE=" + requestcode);
+                }
+                else
+                {
+                    //show success message
+                    System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                    sb.Append(@"<script type='text/javascript'>");
+                    sb.Append("$('#myModal').modal('show');");
+                    sb.Append(@"</script>");
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "none", sb.ToString(), false);
+                }
             }
 
 

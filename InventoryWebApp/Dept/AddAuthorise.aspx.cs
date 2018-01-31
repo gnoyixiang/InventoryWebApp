@@ -104,11 +104,11 @@ namespace InventoryWebApp.Dept
             List<Employee> empList;
             if (Int32.TryParse(tbxSearch.Text, out number))
             {
-                empList = dCon.ListOfEmployeeCodeInDepartment(tbxSearch.Text);
+                empList = dCon.ListOfEmployeeCodeInDepartment(tbxSearch.Text, Master.UserDepartmentCode);
             }
             else
             {
-                empList = dCon.ListOfEmployeeNameInDepartment(tbxSearch.Text);
+                empList = dCon.ListOfEmployeeNameInDepartment(tbxSearch.Text, Master.UserDepartmentCode);
             }
             gvEmployee.DataSource = empList;
             gvEmployee.DataBind();
