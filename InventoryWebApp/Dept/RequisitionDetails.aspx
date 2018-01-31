@@ -147,16 +147,18 @@
                 <% } %>
 
                 <% if (!IsEditable())
-                        { %>
+                    { %>
                 <div class="row">
                     <div class="col-md-12">
                         <b>Department Head Remarks:</b>
-                    <asp:Label ID="lblComment" runat="server" Width="100%" CssClass="form-control disabled"></asp:Label>
-                </div></div>
+                        <asp:Label ID="lblComment" runat="server" Width="100%" CssClass="form-control disabled"></asp:Label>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-12">
-                <h4>Disbursements</h4>
-                        </div></div>
+                        <h4>Disbursements</h4>
+                    </div>
+                </div>
                 <asp:ListView ID="ListView2" runat="server">
                     <LayoutTemplate>
                         <table class="table">
