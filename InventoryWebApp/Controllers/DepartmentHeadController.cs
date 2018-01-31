@@ -19,13 +19,13 @@ namespace InventoryWebApp.Controllers
         IEmployeeDAO edao = new EmployeeDAO();
         IRoleDAO rdao = new RoleDAO();
         IUserDAO udao = new UserDAO();
-        public List<Employee> ListOfEmployeeNameInDepartment(string empName)
+        public List<Employee> ListOfEmployeeNameInDepartment(string empName, string deptCode)
         {
             List<Employee> empList = new List<Employee>();
             List<Employee> empSearchList = edao.SearchByEmployeeName(empName);
             foreach(Employee e in empSearchList)
             {
-                if(e.DepartmentCode=="CPSC")
+                if(e.DepartmentCode==deptCode)
                 {
                     empList.Add(e);
                 }
@@ -37,13 +37,13 @@ namespace InventoryWebApp.Controllers
         {
             return rdao.GetRoleInfo(id);
         }
-        public List<Employee> ListOfEmployeeCodeInDepartment(string empCode)
+        public List<Employee> ListOfEmployeeCodeInDepartment(string empCode, string deptCode)
         {
             List<Employee> empList = new List<Employee>();
             List<Employee> empSearchList = edao.SearchByEmployeeCode(empCode);
             foreach (Employee e in empSearchList)
             {
-                if (e.DepartmentCode == "CPSC")
+                if (e.DepartmentCode == deptCode)
                 {
                     empList.Add(e);
                 }
@@ -249,9 +249,9 @@ namespace InventoryWebApp.Controllers
 
         }
 
-        public List<Request> ListPendingRequest()
+        public List<Request> ListPendingRequest(string deptCode)
         {
-            return rDAO.SearchRequestbyStatus("pending","ISS1");
+            return rDAO.SearchRequestbyStatus("pending", deptCode);
         }
 
         public string GetEmployeeName(string username)

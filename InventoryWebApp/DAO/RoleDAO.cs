@@ -65,7 +65,8 @@ namespace InventoryWebApp.DAO
         {
             using (EntityModel em = new EntityModel())
             {
-                return em.Roles.Where(x => x.Name.Contains("Department")).ToList<Role>();
+                return em.Roles.Where(x => x.Name.Contains("Department Representative")
+                || x.Name.Contains("Acting Department Head")).ToList<Role>();
             }
         }
     }

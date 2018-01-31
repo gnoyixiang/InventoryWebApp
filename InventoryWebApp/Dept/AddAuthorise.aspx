@@ -83,7 +83,7 @@
         <div class="form-group">
             <label class="control-label col-md-2" for="tbxStartDate">Start Date:</label>
             <div class="col-md-4">
-                <asp:TextBox ID="tbxStartDate" runat="server" TextMode="Date" CssClass="form-control" required="true"></asp:TextBox>
+                <asp:TextBox ID="tbxStartDate" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox>
 
                 <asp:CompareValidator ID="CompareStartTodayValidator" Operator="GreaterThanEqual"
                     Type="Date" ControlToValidate="tbxStartDate" ErrorMessage="Invalid Start Date" runat="server" Display="Dynamic"
@@ -95,7 +95,7 @@
         <div class="form-group">
             <label class="control-label col-md-2" for="tbxEndDate">End Date:</label>
             <div class="col-md-4">
-                <asp:TextBox ID="tbxEndDate" runat="server" TextMode="Date" CssClass="form-control" required="true"></asp:TextBox>
+                <asp:TextBox ID="tbxEndDate" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox>
                 <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="tbxEndDate"
                     ErrorMessage="Invalid End Date " ControlToCompare="tbxStartDate" Display="Dynamic"
                     Operator="GreaterThanEqual" SetFocusOnError="True" Type="Date" ForeColor="Red"></asp:CompareValidator>
