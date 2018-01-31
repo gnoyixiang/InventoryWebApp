@@ -574,7 +574,7 @@ namespace InventoryWebApp
                     var user = HttpContext.Current.GetOwinContext().Get<ApplicationUserManager>().FindById(User.Identity.GetUserName());
                     //this is getting username from user.
                     //string userName =  user.UserName;
-
+                    Page.Validate();
                     if (Page.IsValid)
                     {
                         bool checkValue = storeSpController.CheckTempRoleAndDates(tempRoleCode, startDate, endDate);
@@ -593,6 +593,12 @@ namespace InventoryWebApp
                             lblErrorMsg.Text = "StoreSuperVisor already present for this period";
 
                         }
+
+                    }
+                    else
+                    {
+                        lblSuccessMsg.Text = "";
+                        lblErrorMsg.Text = "Invalid Dates";
 
                     }
                 }
