@@ -192,35 +192,6 @@
                             <%} %>
                             <% } %>
 
-                            <!-- Store Supervisor -->
-                            <% if (Context.User.IsInRole("Store Supervisor") || Context.User.IsInRole("Store Manager") || IsTempRoleCode("ActSMan") || IsTempRoleCode("ActSSup"))
-                                {%>
-                            <li>
-                                <a href="/Store/ViewPurchaseOrders?search=5&q=pending">Pending PO</a>
-                            </li>
-                            <% if (!IsTempRoleCode("ActSSup") && !Context.User.IsInRole("Store Manager"))
-                                { %>
-                            <li>
-                                <a href="/Store/AssigningAuthorityStoreDept">Assign Authority</a>
-                            </li>
-                            <%} %>
-
-                            
-                            <li>
-                                <a href="/Store/TrendAnalysis">Trend Analysis</a>
-                            </li>
-                            <li>
-                                <a href="/Store/StoreEmployeeList">View Employees</a>
-                            </li>
-                            <li>
-                                <a href="/Store/SupplierList">View Supplier</a>
-                            </li>
-                            <li>
-                                <a href="/Store/StockCardSearch">View Stock Card</a>
-                            </li>
-
-                            <%} %>
-
                             <!-- Department Head -->
                             <% if (Context.User.IsInRole("Department Head"))
                                 { %>
