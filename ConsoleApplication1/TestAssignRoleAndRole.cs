@@ -111,15 +111,18 @@ namespace ConsoleTestApp
             //wc.ApprovedBy = "yufei@logic.edu.sg";
             //wc.DateOfApprove = "2018-01-26";
 
-            //SupervisorService sc = new SupervisorService();
+            SupervisorService sc = new SupervisorService();
 
             //sc.UpdateAdjustmentBySupervisor(wc);
 
 
-           //Console.WriteLine("its wcfdate :"+ SupervisorService.wcfdate);
-           // Console.WriteLine("its adjustmentdate :" + SupervisorService.adjustmentdate);
+            //Console.WriteLine("its wcfdate :"+ SupervisorService.wcfdate);
+            // Console.WriteLine("its adjustmentdate :" + SupervisorService.adjustmentdate);
+
+
+            sc.Validate("mengkiak@ssis.edu.sg", "!Passw0rd");
             
-           // Console.ReadLine();
+            Console.ReadLine();
         }
 
         

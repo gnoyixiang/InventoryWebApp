@@ -10,6 +10,6 @@
 namespace InventoryWebApp {
     
     
-    public partial class LoginTest1 {
+    public partial class LoginTest {
     }
 }

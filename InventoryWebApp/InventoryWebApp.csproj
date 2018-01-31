@@ -82,6 +82,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IdentityModel.Selectors" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
@@ -632,6 +634,7 @@
     <Compile Include="WCF\ClerkService.svc.cs">
       <DependentUpon>ClerkService.svc</DependentUpon>
     </Compile>
+    <Compile Include="WCF\IdentityValidator.cs" />
     <Compile Include="WCF\DepartmentService.svc.cs">
       <DependentUpon>DepartmentService.svc</DependentUpon>
     </Compile>

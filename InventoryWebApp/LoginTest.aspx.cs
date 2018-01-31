@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 
 namespace InventoryWebApp
 {
-    public partial class LoginTest1 : System.Web.UI.Page
+    public partial class LoginTest: System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -48,7 +48,7 @@ namespace InventoryWebApp
 
             var result = signinManager.PasswordSignIn(emailUserName, password, false, shouldLockout: false);
 
-            Response.Write(emailUserName + "<br/>" + password + "<br/>");
+            //Response.Write(emailUserName + "<br/>" + password + "<br/>");
 
             switch (result)
             {

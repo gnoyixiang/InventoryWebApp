@@ -345,12 +345,17 @@ namespace InventoryWebApp.Controllers
             {
                 foreach (AssignRole ar in listOfAssignRole)
                 {
-                    if (ar.TemporaryRoleCode.Equals("SSupervisor") && ar.StartDate.Equals(startDate) && ar.EndDate.Equals(endDate))
+                    //ar.TemporaryRoleCode.Equals("ActSSup") && ar.StartDate.Equals(startDate) && ar.EndDate.Equals(endDate)
+                    if (ar.TemporaryRoleCode.Equals("ActSSup"))
                     {
+                        if (ar.StartDate.Equals(startDate) || ar.EndDate.Equals(endDate))
+                        {
 
-                        return false;
+
+                            return false;
+
+                        }
                     }
-
                 }
             }
 

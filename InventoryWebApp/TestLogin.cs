@@ -2,23 +2,55 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Microsoft.AspNet.Identity.Owin;
+
+
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+using Microsoft.Owin;
 using Microsoft.Owin.Security;
+using Microsoft.AspNet.Identity.Owin;
+
 
 namespace InventoryWebApp
 {
-    public class TestLogin:ApplicationSignInManager
+    public class TestLogin
     {
-        public TestLogin(ApplicationUserManager userManager, IAuthenticationManager authenticationManager) : base(userManager, authenticationManager)
-        {
-        }
+        //private ApplicationSignInManager _signInManager;
+        //private ApplicationUserManager _userManager;
 
-        public  void m1()
-        {
-            
-            SignInManagerExtensions.PasswordSignIn( this, userName:"mengkiak@ssis.edu.sg", password:"!Passw0rd", isPersistent:false, shouldLockout: false);
-        }
+        //public ApplicationSignInManager SignInManager
+        //{
+        //    get
+        //    {
+        //        //return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+        //    }
+        //    private set
+        //    {
+        //        _signInManager = value;
+        //    }
+        //}
 
-        
+        //public ApplicationUserManager UserManager
+        //{
+        //    get
+        //    {
+        //       // return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+        //    }
+        //    private set
+        //    {
+        //        _userManager = value;
+        //    }
+        //}
+
+        //private IAuthenticationManager AuthenticationManager
+        //{
+        //    get
+        //    {
+        //        //return HttpContext.GetOwinContext().Authentication;
+        //    }
+        //}
+
+
     }
 }

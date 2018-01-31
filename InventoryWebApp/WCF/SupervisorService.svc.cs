@@ -3,16 +3,22 @@ using InventoryWebApp.Models.Entities;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Selectors;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using System.Security.Principal;
+using System.Diagnostics;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity;
+using InventoryWebApp.Models;
 
 namespace InventoryWebApp.WCF
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "SupervisorService" in code, svc and config file together.
     // NOTE: In order to launch WCF Test Client for testing this service, please select SupervisorService.svc or SupervisorService.svc.cs at the Solution Explorer and start debugging.
-    public class SupervisorService : ISupervisorService
+    public class SupervisorService : UserNamePasswordValidator, ISupervisorService 
     {
         StoreSupervisorController controller = new StoreSupervisorController();
         StoreManagerController managerController = new StoreManagerController();
@@ -199,15 +205,24 @@ namespace InventoryWebApp.WCF
             }
         }
 
+        public override void Validate(string userName, string password)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                using (var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context)))
+                {
+                    var user = userManager.Find(userName, password);
+                    if (user == null)
+                    {
+                        var msg = String.Format("Unknown Username {0} or incorrect password {1}", userName, password);
+                        Trace.TraceWarning(msg);
+                        throw new FaultException(msg);//the client actually will receive MessageSecurityException. But if I throw MessageSecurityException, the runtime will give FaultException to client without clear message.
+                    }
+                }
 
-        //public string Authenticate(string email, string password)
-        //{
-        //    //string email = "";
-        //    //string password = "";
-        //   string msg =  new AuthenticationTest().LoginUser(email, password);
+            }
+        }
 
-        //    return msg;
-        //}
 
-    }
+        }
 }

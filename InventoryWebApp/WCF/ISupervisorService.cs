@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Selectors;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -11,7 +12,7 @@ namespace InventoryWebApp.WCF
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "ISupervisorService" in both code and config file together.
     [ServiceContract]
-    public interface ISupervisorService
+    public interface ISupervisorService 
     {
 
 
@@ -32,6 +33,11 @@ namespace InventoryWebApp.WCF
 
         List<WCFAdjustment> ListOfPendingRequestForManager();
 
+        [OperationContract]
+        [WebInvoke(UriTemplate = "/Validate/{userName}/{password}", Method = "POST",
+        RequestFormat = WebMessageFormat.Json,
+        ResponseFormat = WebMessageFormat.Json)]
+        void Validate(string userName, string password);
 
         [OperationContract]
         [WebGet(UriTemplate = "/Adjustment/{adjustmentcode}", ResponseFormat = WebMessageFormat.Json)]
