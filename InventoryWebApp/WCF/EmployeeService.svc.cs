@@ -14,95 +14,115 @@ namespace InventoryWebApp.WCF
     public class EmployeeService : IEmployeeService
     {
         EmployeeController ec = new EmployeeController();
+        ILoginService loginService = new LoginService();
 
-        public List<WCF_Disbursement> ListAllDisbursement()
+        public List<WCF_Disbursement> ListAllDisbursement(string depCode, string email, string password)
         {
-            List<WCF_Disbursement> wcfDisbursement = new List<WCF_Disbursement>();
-            List<Disbursement> dlist = ec.ListAllDisbursement();
-            foreach (Disbursement d in dlist)
+            if (loginService.ValidateUser(email, password))
             {
-                if (d.Status == "disbursing")
+                List<WCF_Disbursement> wcfDisbursement = new List<WCF_Disbursement>();
+                List<Disbursement> dlist = ec.ListAllDisbursement();
+
+                foreach (Disbursement d in dlist)
                 {
-                    String depName = ec.GetDeptNameByCode(d.DepartmentCode);
-                    wcfDisbursement.Add(new WCF_Disbursement(d.DisbursementCode, depName,d.Status, d.UserName));
+                    if (d.Status == "disbursing" && d.DepartmentCode == depCode)
+                    {
+                        String depName = ec.GetDeptNameByCode(d.DepartmentCode);
+                        wcfDisbursement.Add(new WCF_Disbursement(d.DisbursementCode, depName, d.Status, d.UserName));
+                    }
                 }
+                return wcfDisbursement;
             }
-            return wcfDisbursement;
-        }
-        public List<WCF_DisbursementDetails> DisbursementDetails(string disbursementCode)
-        {
-            List<DisbursementDetail> dDetailslist = ec.DisbursementDetails(disbursementCode);
-            List<WCF_DisbursementDetails> wcfDisbursementDetails = new List<WCF_DisbursementDetails>();
-            foreach (DisbursementDetail db in dDetailslist)
+            else
             {
-                Disbursement d=ec.GetDisbursementCode(db.DisbursementCode);
-                wcfDisbursementDetails.Add(new WCF_DisbursementDetails(db.DisbursementCode, ec.GetStationery(db.ItemCode).Description, Convert.ToString(db.ActualQuantity), Convert.ToString(db.Quantity),
-                    ec.GetCollectionPointnameByCode(d.CollectionPointCode),
-                    ec.GetDeptNameByCode(d.DepartmentCode),
-                    d.UserName,d.Status));
+                return null;
             }
-            return wcfDisbursementDetails;
+        }
+        public List<WCF_DisbursementDetails> DisbursementDetails(string disbursementCode, string email, string password)
+        {
+            if (loginService.ValidateUser(email, password))
+            {
+                List<DisbursementDetail> dDetailslist = ec.DisbursementDetails(disbursementCode);
+                List<WCF_DisbursementDetails> wcfDisbursementDetails = new List<WCF_DisbursementDetails>();
+                foreach (DisbursementDetail db in dDetailslist)
+                {
+                    Disbursement d = ec.GetDisbursementCode(db.DisbursementCode);
+                    wcfDisbursementDetails.Add(new WCF_DisbursementDetails(db.DisbursementCode, ec.GetStationery(db.ItemCode).Description, Convert.ToString(db.ActualQuantity), Convert.ToString(db.Quantity),
+                        ec.GetCollectionPointnameByCode(d.CollectionPointCode),
+                        ec.GetDeptNameByCode(d.DepartmentCode),
+                        d.UserName, d.Status, db.RequestCode));
+                }
+                return wcfDisbursementDetails;
+            }
+            else
+            {
+                return null;
+            }
             // Convert.ToString(db.Disbursement.CollectionPoint.CollectionTime)
         }
-        public void UpdateDisbursement(WCF_Disbursement wcfDisbursement)
+        public void UpdateDisbursement(WCF_Disbursement wcfDisbursement, string email, string password)
         {
-            // Check valid disbursement
-            if (wcfDisbursement != null && !string.IsNullOrEmpty(wcfDisbursement.DisbursementCode))
+            if (loginService.ValidateUser(email, password))
             {
-                Disbursement d = ec.GetDisbursementCode(wcfDisbursement.DisbursementCode);
-                //Update disbursement status
-                if (d != null)
+                // Check valid disbursement
+                if (wcfDisbursement != null && !string.IsNullOrEmpty(wcfDisbursement.DisbursementCode))
                 {
-                    d.DisbursementCode = wcfDisbursement.DisbursementCode;
-                    d.Status = wcfDisbursement.Status;
-                    d.ReceivedBy = wcfDisbursement.RepName;
-                    d.DateDisbursed = DateTime.Now;
-                    ec.UpdateDisbursement(d);
-                }
-                // Update item status in the request details table
-                List<DisbursementDetail> db = ec.DisbursementDetails(wcfDisbursement.DisbursementCode);
-                foreach (DisbursementDetail disDetails in db)
-                {
-                    Request request = ec.GetRequestCode(disDetails.RequestCode);
-                    List<RequestDetail> requestDetails = ec.ListRequestDetail(request.RequestCode);
-                    foreach (RequestDetail rqDetails in requestDetails)
+                    Disbursement d = ec.GetDisbursementCode(wcfDisbursement.DisbursementCode);
+                    //Update disbursement status
+                    if (d != null)
                     {
-                        if (rqDetails.ItemCode == disDetails.ItemCode)
+                        d.DisbursementCode = wcfDisbursement.DisbursementCode;
+                        d.Status = wcfDisbursement.Status;
+                        d.ReceivedBy = wcfDisbursement.RepName;
+                        d.DateDisbursed = DateTime.Now;
+                        ec.UpdateDisbursement(d);
+                    }
+                    // Update item status in the request details table
+                    List<DisbursementDetail> db = ec.DisbursementDetails(wcfDisbursement.DisbursementCode);
+                    foreach (DisbursementDetail disDetails in db)
+                    {
+                        Request request = ec.GetRequestCode(disDetails.RequestCode);
+                        List<RequestDetail> requestDetails = ec.ListRequestDetail(request.RequestCode);
+                        foreach (RequestDetail rqDetails in requestDetails)
                         {
-                            if (rqDetails.RemainingQuant - disDetails.ActualQuantity == 0)
+                            if (rqDetails.ItemCode == disDetails.ItemCode)
                             {
-                                rqDetails.Status = "completed";
-                                rqDetails.RemainingQuant = 0;
+                                if (rqDetails.RemainingQuant - disDetails.ActualQuantity == 0)
+                                {
+                                    rqDetails.Status = "completed";
+                                    rqDetails.RemainingQuant = 0;
+                                }
+                                else
+                                {
+                                    rqDetails.Status = "incompleted";
+                                    rqDetails.RemainingQuant -= disDetails.ActualQuantity;
+                                }
+                                ec.UpdateRequestDetails(rqDetails);
                             }
-                            else
-                            {
-                                rqDetails.Status = "incompleted";
-                                rqDetails.RemainingQuant -= disDetails.ActualQuantity;
-                            }
-                            ec.UpdateRequestDetails(rqDetails);
+
                         }
+                    }
+                    // Update the request status in the request table
+                    foreach (DisbursementDetail disburseDetails in db)
+                    {
+                        Request request = ec.GetRequestCode(disburseDetails.RequestCode);
+                        List<RequestDetail> rqList = ec.ListRequestDetail(request.RequestCode);
+                        var imcompletedRequestDetails = rqList.Where(x => !x.Status.
+                                                                Equals("completed", StringComparison.InvariantCultureIgnoreCase));
 
+                        if (imcompletedRequestDetails != null &&
+                            imcompletedRequestDetails.Any())
+                        {
+                            request.Status = "incompleted";
+                        }
+                        else
+                        {
+                            request.Status = "completed";
+                        }
+                        ec.UpdateRequest(request);
                     }
                 }
-                // Update the request status in the request table
-                foreach (DisbursementDetail disburseDetails in d.DisbursementDetails)
-                {
-                    Request request = ec.GetRequestCode(disburseDetails.RequestCode);
-                    List<RequestDetail> rqList = ec.ListRequestDetail(request.RequestCode);
-                    var imcompletedRequestDetails = rqList.Where(x => !x.Status.
-                                                            Equals("completed", StringComparison.InvariantCultureIgnoreCase));
 
-                    if (imcompletedRequestDetails != null &&
-                        imcompletedRequestDetails.Any())
-                    {
-                        disburseDetails.Request.Status = "incompleted";
-                    }
-                    else
-                    {
-                        disburseDetails.Request.Status = "completed";
-                    }
-                    ec.UpdateRequest(request);
-                }
             }
         }
     }

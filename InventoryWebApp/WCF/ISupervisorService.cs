@@ -13,47 +13,34 @@ namespace InventoryWebApp.WCF
     public interface ISupervisorService
     {
         [OperationContract]
-        [WebGet(UriTemplate = "/Pending", ResponseFormat = WebMessageFormat.Json)]
-        List<WCFPurchaseOrder> GetAllPendingPO();
+        [WebGet(UriTemplate = "/Pending/{email}/{password}", ResponseFormat = WebMessageFormat.Json)]
+        List<WCFPurchaseOrder> GetAllPendingPO(string email,string password);
 
         [OperationContract]
-        [WebGet(UriTemplate = "/PODetail/{id}", ResponseFormat = WebMessageFormat.Json)]
-        List<WCFPODetail> GetPODetail(String id);
+        [WebGet(UriTemplate = "/PODetail/{id}/{email}/{password}", ResponseFormat = WebMessageFormat.Json)]
+        List<WCFPODetail> GetPODetail(String id,string email, string password);
 
         [OperationContract]
-        [WebInvoke(UriTemplate = "/UpdatePendingPO", Method = "POST",
+        [WebInvoke(UriTemplate = "/UpdatePendingPO/{email}/{password}", Method = "POST",
         RequestFormat = WebMessageFormat.Json,
         ResponseFormat = WebMessageFormat.Json)]
-        void UpdatePendingPO(WCFPurchaseOrder po);
+        void UpdatePendingPO(WCFPurchaseOrder po, string email, string password);
 
         [OperationContract]
-        [WebGet(UriTemplate = "/PendingAdjustmentSupervisor", ResponseFormat = WebMessageFormat.Json)]
-        List<WCFAdjustment> ListOfPendingRequestForSupervisor();
-
-
-        [OperationContract]
-        [WebGet(UriTemplate = "/PendingAdjustmentManager", ResponseFormat = WebMessageFormat.Json)]
-
-        List<WCFAdjustment> ListOfPendingRequestForManager();
+        [WebGet(UriTemplate = "/PendingAdjustmentSupervisor/{email}/{password}", ResponseFormat = WebMessageFormat.Json)]
+        List<WCFAdjustment> ListOfPendingRequestForSupervisor( string email, string password);
 
 
         [OperationContract]
-        [WebGet(UriTemplate = "/Adjustment/{adjustmentcode}", ResponseFormat = WebMessageFormat.Json)]
+        [WebGet(UriTemplate = "/Adjustment/{adjustmentcode}/{email}/{password}", ResponseFormat = WebMessageFormat.Json)]
 
-        WCFAdjustment GetAdjustment(string adjustmentcode);
+        WCFAdjustment GetAdjustment(string adjustmentcode, string email, string password);
 
         [OperationContract]
-        [WebInvoke(UriTemplate = "/UpdateAdjustmentSupervisor", Method = "POST",
+        [WebInvoke(UriTemplate = "/UpdateAdjustmentSupervisor/{email}/{password}", Method = "POST",
         RequestFormat = WebMessageFormat.Json,
         ResponseFormat = WebMessageFormat.Json)]
-        String UpdateAdjustmentBySupervisor(WCFAdjustment adjustment);
-
-
-        [OperationContract]
-        [WebInvoke(UriTemplate = "/UpdateAdjustmentManager", Method = "POST",
-        RequestFormat = WebMessageFormat.Json,
-        ResponseFormat = WebMessageFormat.Json)]
-        void UpdateAdjustmentByManager(WCFAdjustment adjustment);
+        String UpdateAdjustmentBySupervisor(WCFAdjustment adjustment, string email, string password);
 
         
 

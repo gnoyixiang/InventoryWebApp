@@ -3,12 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using InventoryWebApp.Models.Entities;
+using System.Data.Entity;
 
 namespace InventoryWebApp.DAO
 {
     public class DisbursementDetailsDAO : IDisbursementDetailsDAO
     {
         EntityModel em;
+        public DisbursementDetail GetDisbursementDetail(String disbursementCode, String requestCode, String itemCode)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                return em.DisbursementDetails.Where(dd => dd.DisbursementCode == disbursementCode && dd.RequestCode == requestCode && dd.ItemCode == itemCode).FirstOrDefault();
+            }
+        }
+        public List<DisbursementDetail> SearchDDByDCode(String disbursementCode)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                return em.DisbursementDetails.Where(dd => dd.DisbursementCode == disbursementCode).ToList();
+            }
+        }
+        public int UpdateDisbursementDetail(DisbursementDetail ddUpdate)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                em.Entry(ddUpdate).State = EntityState.Modified;
+                return em.SaveChanges();
+            }
+        }
 
         //Read
         public List<DisbursementDetail> SearchDDByItem(StationeryCatalogue item)

@@ -21,7 +21,7 @@ namespace InventoryWebApp.Controllers
         IDisbursementDAO Idbm = new DisbursementDAO();
         IEmployeeDAO Iempl = new EmployeeDAO();
         IDisbursementDetailsDAO IdbmDetails = new DisbursementDetailsDAO();
-
+        IUserDAO user = new UserDAO();
 
         public List<Disbursement> ListAllDisbursement()
         {
@@ -68,6 +68,15 @@ namespace InventoryWebApp.Controllers
         {
             return Icp.GetCollectionPointNameByCode(collectionCode);
         }
+        public Employee GetEmployee(string username)
+        {
+            return Iempl.GetEmployeeInfo(username);
+        }
+        public Role GetRole(string userName)
+        {
+            return user.getRoleNameByUsername(userName);
+        }
+
     }
 }
  

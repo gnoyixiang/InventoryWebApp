@@ -11,10 +11,19 @@ namespace InventoryWebApp.DAO
     {
         EntityModel em;
         RequestDetail rd;
-
+        public List<RequestDetail> SearchOutstandingRequestDetails()
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                return em.RequestDetails.Where(rd => rd.RemainingQuant != 0).ToList();
+            }
+        }
         public List<RequestDetail> ListRequestDetail(string RequestCode)
         {
-            return em.RequestDetails.Where(b => b.RequestCode.ToUpper().Contains(RequestCode.Trim().ToUpper())).ToList();
+            using (EntityModel em = new EntityModel())
+            {
+                return em.RequestDetails.Where(b => b.RequestCode.ToUpper().Contains(RequestCode.Trim().ToUpper())).ToList();
+            }
         }
         public List<RequestDetail> SearchRequestbyStatus(string RequestDetailStatus)
         {
@@ -24,10 +33,14 @@ namespace InventoryWebApp.DAO
 
         public int UpdateRequestDetailStatus(RequestDetail R, string newStatus)
         {
-            int a = -1;
-            R.Status = newStatus;
-            a = em.SaveChanges();
-            return a;
+            using (EntityModel em = new EntityModel())
+            {
+                int a = 0;
+                RequestDetail rd = em.RequestDetails.Where(r => r.RequestCode == R.RequestCode && r.ItemCode == R.ItemCode).FirstOrDefault();
+                rd.Status = newStatus;
+                a = em.SaveChanges();
+                return a;
+            }
         }
 
         public int UpdateRequestDetailItemQuantity(RequestDetail R, int qtyChanged)

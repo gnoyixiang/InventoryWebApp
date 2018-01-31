@@ -14,16 +14,16 @@ namespace InventoryWebApp.WCF
     public interface IEmployeeService
     {
         [OperationContract]
-        [WebGet(UriTemplate = "/ListDisbursement", ResponseFormat = WebMessageFormat.Json)]
-        List<WCF_Disbursement> ListAllDisbursement();
+        [WebGet(UriTemplate = "/ListDisbursement/{depCode}/{email}/{password}", ResponseFormat = WebMessageFormat.Json)]
+        List<WCF_Disbursement> ListAllDisbursement(String depCode,string email,string password);
 
         [OperationContract]
-        [WebGet(UriTemplate = "/DisbursementDetails/{disbursementCode}", ResponseFormat = WebMessageFormat.Json)]
-        List<WCF_DisbursementDetails> DisbursementDetails(string disbursementCode);
+        [WebGet(UriTemplate = "/DisbursementDetails/{disbursementCode}/{email}/{password}", ResponseFormat = WebMessageFormat.Json)]
+        List<WCF_DisbursementDetails> DisbursementDetails(string disbursementCode, string email, string password);
 
         [OperationContract]
-        [WebInvoke(UriTemplate = "/UpdateDisbursement", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        void UpdateDisbursement(WCF_Disbursement wcfDisbursement);
+        [WebInvoke(UriTemplate = "/UpdateDisbursement/{email}/{password}", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        void UpdateDisbursement(WCF_Disbursement wcfDisbursement, string email, string password);
     }
     [DataContract]
     public class WCF_Disbursement
@@ -36,6 +36,10 @@ namespace InventoryWebApp.WCF
         private string status;
 
         private string repName;
+        public WCF_Disbursement()
+        {
+
+        }
 
         public WCF_Disbursement(string _disbursementCode, string _departmentName, string _status, string _repName)
         {
@@ -98,8 +102,9 @@ namespace InventoryWebApp.WCF
         private string repName;
 
         private string status;
+        private string requestCode;
         public WCF_DisbursementDetails(string _disbursementCode, string _itemDescription,
-            string _actualQuantity, string _neededQuantity, string _collectionPointName, string _deparmentName, string _repName, string _status)
+            string _actualQuantity, string _neededQuantity, string _collectionPointName, string _deparmentName, string _repName, string _status,string requestCode)
         {
             this.disbursementCode = _disbursementCode;
             this.itemDescription = _itemDescription;
@@ -110,6 +115,13 @@ namespace InventoryWebApp.WCF
             this.departmentName = _deparmentName;
             this.repName = _repName;
             this.status = _status;
+            this.requestCode = requestCode;
+        }
+        [DataMember]
+        public string RequestCode
+        {
+            get { return requestCode; }
+            set { requestCode = value; }
         }
         //string _collectionTime,
         [DataMember]

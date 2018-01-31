@@ -10,9 +10,34 @@ namespace InventoryWebApp.DAO
     public class EmployeeDAO :  IEmployeeDAO
     {
         EntityModel em = new EntityModel();
+        public Employee GetEmployeeByCode(String employeeCode)
+        {
+            em = new EntityModel();
+            return em.Employees.Where(e => e.EmployeeCode == employeeCode).First();
+        }
 
-
-
+        public Employee GetRepresentative(string departmentCode)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                List<Employee> eList = em.Employees.Where(x => x.DepartmentCode == departmentCode).ToList();
+                foreach (var item in eList)
+                {
+                    if (item.AssignRoles == null)
+                    {
+                        break;
+                    }
+                    foreach (var item2 in item.AssignRoles)
+                    {
+                        if (item2.TemporaryRoleCode == "Rep")
+                        {
+                            return item;
+                        }
+                    }
+                }
+            }
+            return null;
+        }
         public int AddEmployee(Employee emp)
         {
 
@@ -40,7 +65,7 @@ namespace InventoryWebApp.DAO
         }
         public Employee GetEmployeeInfo(string username)
         {
-            return em.Employees.Where(x => x.UserName.Contains(username)).FirstOrDefault();
+            return em.Employees.Where(x => x.UserName.Equals(username)).FirstOrDefault();
         }
 
         public int UpdateRole(string username, string role)

@@ -14,5 +14,6 @@ namespace InventoryWebApp.DAO
         int UpdateEndDate(string assignrolecode, DateTime enddate);
         int UpdateStartDate(string assignrolecode, DateTime startdate);
         int UpdateTemporaryRoleCode(string assignrolecode, string temporaryrolecode);
+        string GetTemporaryRoleCode(string empcode);
     }
 }

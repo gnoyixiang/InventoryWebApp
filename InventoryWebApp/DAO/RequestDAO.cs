@@ -30,7 +30,10 @@ namespace InventoryWebApp.DAO
         }
         public Request GetRequest(string ROCode)
         {
-            return new EntityModel().Requests.Where(p => p.RequestCode == ROCode).FirstOrDefault<Request>();
+            using (EntityModel em = new EntityModel())
+            {
+                return em.Requests.Where(p => p.RequestCode == ROCode).FirstOrDefault<Request>();
+            }
         }
         public int AddRequest(Request newR)
         {
@@ -63,10 +66,44 @@ namespace InventoryWebApp.DAO
         {
             using (EntityModel em = new EntityModel())
             {
+                Request re = em.Requests.Where(x => x.RequestCode == r.RequestCode).FirstOrDefault();
+                re.Status = r.Status;
                 em.Entry(r).State = EntityState.Modified;
                 return em.SaveChanges();
             }
         }
+        public List<Request> SearchRequestbyStatus(string RequestStatus, string deptcode)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                return em.Requests.Where(b => b.Status.ToUpper().Contains(RequestStatus.Trim().ToUpper()) && b.DepartmentCode == deptcode).ToList();
+            }
+        }
+        public int UpdateRequestStatus(Request r)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                Request req = em.Requests.Where(x => x.RequestCode == r.RequestCode).FirstOrDefault();
 
+                req.Status = r.Status;
+                req.DateApproved = r.DateApproved;
+                req.HeadRemarks = r.HeadRemarks;
+                req.ApprovedBy = r.ApprovedBy;
+                return em.SaveChanges();
+            }
+
+        }
+
+        public int UpdateRequestApproval(Request r)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                Request req = em.Requests.Where(x => x.RequestCode == r.RequestCode).FirstOrDefault();
+                req.ApprovedBy = r.ApprovedBy;
+
+
+                return em.SaveChanges();
+            }
+        }
     }
 }

@@ -227,6 +227,7 @@
     <Content Include="Layout.Master" />
     <Content Include="StockCardSearch.aspx" />
     <Content Include="ViewPurchaseOrders.aspx" />
+    <Content Include="WebForm1.aspx" />
     <None Include="Properties\PublishProfiles\InventoryWebApp.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
@@ -595,6 +596,13 @@
     </Compile>
     <Compile Include="WCF\SupervisorService.svc.cs">
       <DependentUpon>SupervisorService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

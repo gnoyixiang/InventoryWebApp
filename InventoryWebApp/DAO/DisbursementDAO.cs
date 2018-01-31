@@ -10,6 +10,13 @@ namespace InventoryWebApp.DAO
     public class DisbursementDAO : IDisbursementDAO
     {
         EntityModel em;
+        public List<Disbursement> GetAllDisbursement()
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                return em.Disbursements.ToList();
+            }
+        }
 
         //Create
         public int AddDisbursement(Disbursement disbursement)

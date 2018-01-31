@@ -11,16 +11,13 @@ namespace InventoryWebApp.WCF
     [ServiceContract]
     public interface ILoginService
     {
+        
         [OperationContract]
-        //[WebGet(UriTemplate = "/login", ResponseFormat =WebMessageFormat.Json)]
-        [WebInvoke(Method = "POST", UriTemplate = "/Login", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        LoginResult Login(LoginDetails details);
-
-        [OperationContract]
-        [WebInvoke(UriTemplate = "/Validate", Method = "POST",
+        [WebInvoke(UriTemplate = "/Login", Method = "POST",
         RequestFormat = WebMessageFormat.Json,
         ResponseFormat = WebMessageFormat.Json)]
-        LoginResult Validate(LoginDetails details);
+        LoginResult Login(LoginDetails details);
+         bool ValidateUser(string userName, string password);
 
     }
     [DataContract]
@@ -41,13 +38,38 @@ namespace InventoryWebApp.WCF
 
     public class LoginResult
     {
-        public bool Result { get; set; }
-        public string Name { get; set; }
+        private bool result;
+        private string departmentCode;
+        private string roleCode;
+        private string empName;
 
+        [DataMember]
+        public bool Result
+        {
+            get { return result; }
+            set { result = value; }
+        }
+        [DataMember]
+        public string DepartmentCode
+        {
+            get { return departmentCode; }
+            set { departmentCode = value; }
+        }
+        [DataMember]
+        public string RoleCode
+        {
+            get { return roleCode; }
+            set { roleCode = value; }
+        }
+        [DataMember]
+        public string EmpName
+        {
+            get { return empName; }
+            set { empName = value; }
+        }
         public LoginResult()
         {
-            Result = false;
-            Name = "";
+          
         }
     }
 

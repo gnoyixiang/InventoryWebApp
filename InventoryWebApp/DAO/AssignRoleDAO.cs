@@ -78,6 +78,13 @@ namespace InventoryWebApp.DAO
             }
 
         }
+        public string GetTemporaryRoleCode(string empcode)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                return em.AssignRoles.Where(p => p.EmployeeCode == empcode).Select(p => p.TemporaryRoleCode).FirstOrDefault();
+            }
+        }
     }
 
 }

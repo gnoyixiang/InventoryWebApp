@@ -21,7 +21,73 @@ namespace InventoryWebApp.Controllers
         IDisbursementDetailsDAO dbdDAO = new DisbursementDetailsDAO();
         IDepartmentDAO depDAO = new DepartmentDAO();
         IAdjustmentDAO adjustmentDao = new AdjustmentDAO();
+        IAssignRoleDAO asignDao = new AssignRoleDAO();
         private readonly string statusOfAdjustment = "Pending";
+
+        public string GetAssignRoleCode(string empCode)
+        {
+            string assignRoleCode = null;
+            List<AssignRole> asRoleList = asignDao.ListAssignRole();
+
+            foreach (AssignRole a in asRoleList)
+            {
+                if (a.EmployeeCode.Equals(empCode))
+                {
+                    assignRoleCode = a.AssignRoleCode;
+                    break;
+                }
+            }
+            return assignRoleCode;
+        }
+
+        public DateTime GetTemporaryRoleStartDate(string assignRolecode)
+        {
+            DateTime d = DateTime.MinValue;
+            List<AssignRole> tempRoleStartDate = asignDao.ListAssignRole();
+
+            foreach (AssignRole a in tempRoleStartDate)
+            {
+                if (a != null && a.AssignRoleCode.Equals(assignRolecode))
+                {
+                    d = (DateTime)a.StartDate;
+                    break;
+                }
+                else
+                {
+                    d = new DateTime();
+                }
+
+            }
+
+            return d;
+        }
+
+        public DateTime GetTemporaryRoleEndDate(string assignRolecode)
+        {
+            DateTime d = DateTime.MinValue;
+            List<AssignRole> tempRoleEndDate = asignDao.ListAssignRole();
+
+            foreach (AssignRole a in tempRoleEndDate)
+            {
+                if (a != null && a.AssignRoleCode.Equals(assignRolecode))
+                {
+                    d = (DateTime)a.EndDate;
+                    break;
+                }
+                else
+                {
+                    d = new DateTime();
+                }
+
+            }
+
+            return d;
+        }
+
+        public string GetTemporaryRole(string empCode)
+        {
+            return asignDao.GetTemporaryRoleCode(empCode);
+        }
 
         public Adjustment GetAdjustment(string adCode)
         {

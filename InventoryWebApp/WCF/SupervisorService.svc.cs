@@ -17,11 +17,13 @@ namespace InventoryWebApp.WCF
     {
         StoreSupervisorController controller = new StoreSupervisorController();
         StoreManagerController managerController = new StoreManagerController();
-      
+        ILoginService loginService = new LoginService();
 
-        public List<WCFPurchaseOrder> GetAllPendingPO()
+        public List<WCFPurchaseOrder> GetAllPendingPO(string email, string password)
         {
-            List<WCFPurchaseOrder> wcfPoList = new List<WCFPurchaseOrder>();
+            if (loginService.ValidateUser(email, password))
+            {
+                List<WCFPurchaseOrder> wcfPoList = new List<WCFPurchaseOrder>();
             List<PurchaseOrder> plist = controller.ListAllPendingPO();
             decimal? totalPrice=0;
             foreach (PurchaseOrder p in plist)
@@ -38,11 +40,18 @@ namespace InventoryWebApp.WCF
                 wcfPoList.Add(new WCFPurchaseOrder(p.PurchaseOrderCode, string.Format("{0:dd/MM/yyyy}", p.DateCreated),supName,empName,"$"+totalPrice.ToString()) );
             }
             return wcfPoList;
+            }
+            else
+            {
+                return null;
+            }
         }
 
-        public List<WCFPODetail> GetPODetail(string id)
+        public List<WCFPODetail> GetPODetail(string id,string email, string password)
         {
-            List<PODetail> poDetail = controller.ListPODetailsByPOCode(id);
+            if (loginService.ValidateUser(email, password))
+            {
+                List<PODetail> poDetail = controller.ListPODetailsByPOCode(id);
             List<WCFPODetail> wpoDetail = new List<WCFPODetail>();
             foreach (PODetail p in poDetail)
             {
@@ -50,45 +59,37 @@ namespace InventoryWebApp.WCF
                 wpoDetail.Add(new WCFPODetail(des,"$"+p.Price.ToString(),p.Quantity.ToString(), (p.Price * (decimal?)p.Quantity).ToString()));
             }
             return wpoDetail;
-        }
-        public void UpdatePendingPO(WCFPurchaseOrder po)
-        {
-
-            PurchaseOrder p = controller.GetPOByPOCode(po.PurchaseOrderCode);
-
-            p.Status = po.Status;
-            p.DateApproved = Convert.ToDateTime(po.DateApproved);
-            p.ApprovedBy = po.ApprovedBy;
-
-            ;
-            controller.updatePOStatus(p);
-        }
-
-
-        public List<WCFAdjustment> ListOfPendingRequestForManager()
-        {
-            List<WCFAdjustment> listOfWcfAdjustmwnt = new List<WCFAdjustment>();
-            WCFAdjustment wcfAdjustment = new WCFAdjustment();
-
-            List<Adjustment> adList = managerController.ListOfPendingAdjustmentByManager();
-            foreach (Adjustment a in adList)
-            {
-                StationeryCatalogue tempst = controller.GetStationeryCatalogue(a.ItemCode);
-
-                string price = tempst.Price.ToString();
-                string stock = tempst.Stock.ToString();
-
-                listOfWcfAdjustmwnt.Add(new WCFAdjustment(a.AdjustmentCode, a.ItemCode, price, a.AdjustmentQuant.ToString(), stock, a.Reason, a.HeadRemarks, tempst.Description.ToString()));
-
             }
+            else
+            {
+                return null;
+            }
+        }
+        public void UpdatePendingPO(WCFPurchaseOrder po, string email, string password)
+        {
+            if (loginService.ValidateUser(email, password))
+            {
 
-            return listOfWcfAdjustmwnt;
+                PurchaseOrder p = controller.GetPOByPOCode(po.PurchaseOrderCode);
 
+                p.Status = po.Status;
+                p.DateApproved = Convert.ToDateTime(po.DateApproved);
+                p.ApprovedBy = po.ApprovedBy;
+                p.HeadRemarks = po.HeadRemark;
+
+                ;
+                controller.updatePOStatus(p);
+            }
         }
 
-        public List<WCFAdjustment> ListOfPendingRequestForSupervisor()
+
+        
+
+        public List<WCFAdjustment> ListOfPendingRequestForSupervisor(string email, string password)
         {
-            List<WCFAdjustment> listOfWcfAdjustmwnt = new List<WCFAdjustment>();
+            if (loginService.ValidateUser(email, password))
+            {
+                List<WCFAdjustment> listOfWcfAdjustmwnt = new List<WCFAdjustment>();
             WCFAdjustment wcfAdjustment = new WCFAdjustment();
             List<Adjustment> adList = controller.ListOfPendingAdjustmentBySupervisor();
             foreach (Adjustment a in adList)
@@ -104,43 +105,20 @@ namespace InventoryWebApp.WCF
 
 
             return listOfWcfAdjustmwnt;
-
-        }
-
-        public void UpdateAdjustmentByManager(WCFAdjustment adjustment)
-        {
-            if (adjustment.Status.Equals("Approve"))
-            {
-                Adjustment adApprove = new Adjustment()
-                {
-                    AdjustmentCode = adjustment.AdjustmentCode,
-                    Status = "Approve",
-                    DateApproved = DateTime.Parse(adjustment.DateOfApprove),
-                    ApprovedBy = adjustment.ApprovedBy,
-                    HeadRemarks = adjustment.Remark
-
-                };
-
-                controller.UpdateAdjustmentBySupervisor(adApprove);
             }
             else
             {
-                Adjustment adReject = new Adjustment()
-                {
-                    AdjustmentCode = adjustment.AdjustmentCode,
-                    Status = "Reject",
-                    DateApproved = DateTime.Parse(adjustment.DateOfApprove),
-                    ApprovedBy = adjustment.ApprovedBy,
-                    HeadRemarks = adjustment.Remark
-
-                };
-                controller.UpdateAdjustmentBySupervisor(adReject);
-
+                return null;
             }
+
         }
-        public WCFAdjustment GetAdjustment(string adjustmentcode)
+
+       
+        public WCFAdjustment GetAdjustment(string adjustmentcode, string email, string password)
         {
-            Adjustment ad = controller.GetAdjustment(adjustmentcode);
+            if (loginService.ValidateUser(email, password))
+            {
+                Adjustment ad = controller.GetAdjustment(adjustmentcode);
 
             StationeryCatalogue tempst = controller.GetStationeryCatalogue(ad.ItemCode);
 
@@ -148,11 +126,17 @@ namespace InventoryWebApp.WCF
             string stock = tempst.Stock.ToString();
 
             return new WCFAdjustment(ad.AdjustmentCode, ad.ItemCode, price, ad.AdjustmentQuant.ToString(), stock, ad.Reason, ad.HeadRemarks,tempst.Description);
-
+            }
+            else
+            {
+                return null;
+            }
         }
-        public string UpdateAdjustmentBySupervisor(WCFAdjustment wcfAdjustment)
+        public string UpdateAdjustmentBySupervisor(WCFAdjustment wcfAdjustment, string email, string password)
         {
-            try
+            if (loginService.ValidateUser(email, password))
+            {
+                try
             {
                   Adjustment ad = new Adjustment()
                     {
@@ -171,6 +155,11 @@ namespace InventoryWebApp.WCF
             catch (Exception e)
             {
                 return e.Message;
+            }
+            }
+            else
+            {
+                return null;
             }
         }
 
