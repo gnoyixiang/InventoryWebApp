@@ -29,7 +29,7 @@
     <div class="row">
         <div class="col-md-5">
             <asp:Button ID="btnSearch" runat="server" class="btn btn-primary" Text="Search" OnClick="btnSearch_Click" />
-            <asp:Button ID="btnRefresh" runat="server" class="btn btn-basic" Text="Refresh List" OnClick="btnRefresh_Click" />
+            <asp:Button ID="btnRefresh" runat="server" class="btn btn-basic" Text="View All Requests" OnClick="btnRefresh_Click" />
         </div>
     </div>
     <div class="row">
