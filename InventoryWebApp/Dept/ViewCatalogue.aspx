@@ -22,7 +22,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <ul class="breadcrumb">
         <li><a href="#">Home</a></li>
-        <li class="active">View Catalogue</li>
+        <li class="active">Stationery Catalogue</li>
     </ul>
     <div class="container-fluid" id="mainContainer">
     <div class="row">

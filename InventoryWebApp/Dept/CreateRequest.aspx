@@ -28,7 +28,7 @@
     <ul class="breadcrumb">
         <li><a href="#">Home</a></li>
         <li class="active">Manage Requests</li>
-        <li class="active">Create Request</li>
+        <li class="active">New Request</li>
     </ul>
     <div class="container-fluid" id="mainContainer">
     <div class="row">
