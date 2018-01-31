@@ -219,7 +219,8 @@
                         </EditItemTemplate>
 
                         <FooterTemplate>
-                            <asp:LinkButton ID="btnAdd" CommandName="AddNew" runat="server"><i style="color:forestgreen" class="fa fa-plus-circle fa-2x" aria-hidden="true"></i></asp:LinkButton>
+                            <asp:LinkButton ID="btnAdd" CommandName="AddNew" runat="server" CausesValidation="true"><i style="color:forestgreen" 
+                                class="fa fa-plus-circle fa-2x" aria-hidden="true"></i></asp:LinkButton>
                             <%--<asp:ImageButton ID="btnAdd" ImageUrl="~/Images/addnew.png" CommandName="AddNew" ToolTip="AddNew" 
                                 Width="20px" Height="20px" runat="server" ValidationGroup="addValidation" />--%>
                         </FooterTemplate>
