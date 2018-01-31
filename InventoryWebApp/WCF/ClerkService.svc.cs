@@ -15,10 +15,13 @@ namespace InventoryWebApp.WCF
     public class ClerkService : IClerkService
     {
         StoreClerkController sClerkCtrl = new StoreClerkController();
-
-        public WCF_CollectionDate GetCollectionDate()
+        ILoginService loginService = new LoginService();
+        public WCF_CollectionDate GetCollectionDate( String email, String password)
         {
-            WCF_CollectionDate wcd = new WCF_CollectionDate();
+            if (loginService.ValidateUser(email, password))
+            {
+
+                WCF_CollectionDate wcd = new WCF_CollectionDate();
 
             List<Disbursement> dList = sClerkCtrl.GetDisbursementsByStatus("disbursing");
             List<Disbursement> adList = sClerkCtrl.GetDisbursementsByStatus("allocating");
@@ -42,25 +45,43 @@ namespace InventoryWebApp.WCF
                 }
             }
             return wcd;
+            }
+            else
+            {
+                return null;
+            }
         }
-        public void UpdateRetrievalDetail(WCF_RetrievalDetail wrd)
+        public void UpdateRetrievalDetail(WCF_RetrievalDetail wrd, String email, String password)
 
         {
-            RetrievalDetail rdCurrent = sClerkCtrl.GetProcessingRetrievalDetailByItemCode(wrd.ItemCode);
+            if (loginService.ValidateUser(email, password))
+            {
+                RetrievalDetail rdCurrent = sClerkCtrl.GetProcessingRetrievalDetailByItemCode(wrd.ItemCode);
             rdCurrent.QuantityRetrieved = Int32.Parse(wrd.QuantityRetrieved);
             rdCurrent.Notes = wrd.Notes;
             sClerkCtrl.UpdateRetrievalDetail(rdCurrent);
+            }
+           
         }
 
-        public WCF_RetrievalDetail GetRetrievalDetail(string id)
+        public WCF_RetrievalDetail GetRetrievalDetail(string id, String email, String password)
         {
-            Retrieval r = sClerkCtrl.GetCurrentRetrieval();
+            if (loginService.ValidateUser(email, password))
+            {
+                Retrieval r = sClerkCtrl.GetCurrentRetrieval();
             RetrievalDetail item = sClerkCtrl.GetProcessingRetrievalDetailByItemCode(id);
             return new WCF_RetrievalDetail(item.RetrievalCode, sClerkCtrl.GetStationeryByCode(item.ItemCode).Description, item.QuantityRetrieved.ToString(), item.QuantityNeeded.ToString(), item.Notes, r.Status, r.DateRetrieved == null ? "" : ((DateTime)r.DateRetrieved).ToString("dd MMM yyyy"), sClerkCtrl.GetStationeryByCode(item.ItemCode).Stock.ToString(), sClerkCtrl.GetStationeryByCode(item.ItemCode).Location, item.ItemCode);
+            }
+            else
+            {
+                return null;
+            }
         }
-        public List<WCF_RetrievalDetail> GetProcessingRetrievalDetails()
+        public List<WCF_RetrievalDetail> GetProcessingRetrievalDetails(String email, String password)
         {
-            if (sClerkCtrl.GetDisbursementsByStatus("allocating").Count == 0)
+            if (loginService.ValidateUser(email, password))
+            {
+                if (sClerkCtrl.GetDisbursementsByStatus("allocating").Count == 0)
             {
                 Retrieval r = sClerkCtrl.GetCurrentRetrieval();
                 List<RetrievalDetail> rdList = r.RetrievalDetails.ToList<RetrievalDetail>();
@@ -76,11 +97,18 @@ namespace InventoryWebApp.WCF
             {
                 return null;
             }
+            }
+            else
+            {
+                return null;
+            }
         }
 
-        public List<WCF_Request> GetOutstandingRequests()
+        public List<WCF_Request> GetOutstandingRequests(String email, String password)
         {
-            List<Request> rList = sClerkCtrl.GetNotDisbursedRequestList();
+            if (loginService.ValidateUser(email, password))
+            {
+                List<Request> rList = sClerkCtrl.GetNotDisbursedRequestList();
             List<WCF_Request> wRList = new List<WCF_Request>();
             foreach (var item in rList)
             {
@@ -88,11 +116,18 @@ namespace InventoryWebApp.WCF
                 wRList.Add(wr);
             }
             return wRList;
+            }
+            else
+            {
+                return null;
+            }
         }
 
-        public List<WCF_RetrievalDetail> GetAllocatingRetrievalDetails()
+        public List<WCF_RetrievalDetail> GetAllocatingRetrievalDetails(String email, String password)
         {
-            Retrieval r = sClerkCtrl.GetCurrentRetrieval();
+            if (loginService.ValidateUser(email, password))
+            {
+                Retrieval r = sClerkCtrl.GetCurrentRetrieval();
             if (r != null)
             {
                 sClerkCtrl.GetAllocatingDisbursementList();
@@ -106,11 +141,18 @@ namespace InventoryWebApp.WCF
                 return wrdList;
             }
             return null;
+            }
+            else
+            {
+                return null;
+            }
         }
 
-        public WCF_RetrievalDetail GetAllocatingRetrievalDetail(string itemCode)
+        public WCF_RetrievalDetail GetAllocatingRetrievalDetail(string itemCode, String email, String password)
         {
-            List<WCF_RetrievalDetail> ardList = GetAllocatingRetrievalDetails();
+            if (loginService.ValidateUser(email, password))
+            {
+                List<WCF_RetrievalDetail> ardList = GetAllocatingRetrievalDetails(email,password);
             foreach (var item in ardList)
             {
                 if (item.ItemCode == itemCode)
@@ -119,12 +161,19 @@ namespace InventoryWebApp.WCF
                 }
             }
             return null;
+            }
+            else
+            {
+                return null;
+            }
 
         }
 
-        public WCF_DisbursementDetail GetAllocatingDisbursementDetail(string itemCode, string departmentName)
+        public WCF_DisbursementDetail GetAllocatingDisbursementDetail(string itemCode, string departmentName, String email, String password)
         {
-            List<WCF_DisbursementDetail> waddList = GetAllocatingDisbursementDetails(itemCode);
+            if (loginService.ValidateUser(email, password))
+            {
+                List<WCF_DisbursementDetail> waddList = GetAllocatingDisbursementDetails(itemCode,email,password);
             foreach (var item in waddList)
             {
                 if (item.DepartmentName == departmentName)
@@ -133,10 +182,17 @@ namespace InventoryWebApp.WCF
                 }
             }
             return null;
+            }
+            else
+            {
+                return null;
+            }
         }
-        public List<WCF_DisbursementDetail> GetAllocatingDisbursementDetails(string itemCode)
+        public List<WCF_DisbursementDetail> GetAllocatingDisbursementDetails(string itemCode, String email, String password)
         {
-            Retrieval retrieval = sClerkCtrl.GetCurrentRetrieval();
+            if (loginService.ValidateUser(email, password))
+            {
+                Retrieval retrieval = sClerkCtrl.GetCurrentRetrieval();
             Disbursement d = sClerkCtrl.GetDisbursementsByStatus("disbursing").FirstOrDefault();
             if (retrieval != null && d == null)
             {
@@ -163,12 +219,18 @@ namespace InventoryWebApp.WCF
                 return null;
             }
 
-
+            }
+            else
+            {
+                return null;
+            }
         }
 
-        public List<WCF_ConfirmedDisbursement> GetConfirmedDisbursementList()
+        public List<WCF_ConfirmedDisbursement> GetConfirmedDisbursementList(String email, String password)
         {
-            List<WCF_ConfirmedDisbursement> wcdList = new List<WCF_ConfirmedDisbursement>();
+            if (loginService.ValidateUser(email, password))
+            {
+                List<WCF_ConfirmedDisbursement> wcdList = new List<WCF_ConfirmedDisbursement>();
             List<Disbursement> dList = sClerkCtrl.GetDisbursementsByStatus("disbursing");
             foreach (var item in dList)
             {
@@ -186,11 +248,18 @@ namespace InventoryWebApp.WCF
                 wcdList.Add(wcd);
             }
             return wcdList;
+            }
+            else
+            {
+                return null;
+            }
         }
 
-        public List<WCF_DisbursementDetail> GetConfirmedDisburDetailsByDepartment(string departmentCode)
+        public List<WCF_DisbursementDetail> GetConfirmedDisburDetailsByDepartment(string departmentCode, String email, String password)
         {
-            List<DisbursementDetail> ddList = sClerkCtrl.GetDisbursingDisbDetailsByDeptCode(departmentCode);
+            if (loginService.ValidateUser(email, password))
+            {
+                List<DisbursementDetail> ddList = sClerkCtrl.GetDisbursingDisbDetailsByDeptCode(departmentCode);
             List<WCF_DisbursementDetail> wddList = new List<WCF_DisbursementDetail>();
             foreach (var item in ddList)
             {
@@ -211,12 +280,19 @@ namespace InventoryWebApp.WCF
             }
 
             return wddList;
+            }
+            else
+            {
+                return null;
+            }
 
         }
 
-        public WCF_ConfirmedDisbursement GetConfirmedDisbursementByDeptCode(string departmentCode)
+        public WCF_ConfirmedDisbursement GetConfirmedDisbursementByDeptCode(string departmentCode, String email, String password)
         {
-            List<WCF_ConfirmedDisbursement> wcdList = GetConfirmedDisbursementList();
+            if (loginService.ValidateUser(email, password))
+            {
+                List<WCF_ConfirmedDisbursement> wcdList = GetConfirmedDisbursementList(email,password);
             foreach (var item in wcdList)
             {
                 if (item.DepartmentCode.Equals(departmentCode))
@@ -225,11 +301,18 @@ namespace InventoryWebApp.WCF
                 }
             }
             return null;
+            }
+            else
+            {
+                return null;
+            }
         }
 
-        public WCF_DisbursementDetail GetConfirmedDisburDetail(string departmentCode, string requestCode, string itemCode)
+        public WCF_DisbursementDetail GetConfirmedDisburDetail(string departmentCode, string requestCode, string itemCode, String email, String password)
         {
-            List<WCF_DisbursementDetail> wddList = GetConfirmedDisburDetailsByDepartment(departmentCode);
+            if (loginService.ValidateUser(email, password))
+            {
+                List<WCF_DisbursementDetail> wddList = GetConfirmedDisburDetailsByDepartment(departmentCode,email,password);
             foreach (var item in wddList)
             {
                 if (item.RequestCode.Equals(requestCode) && item.ItemCode.Equals(itemCode))
@@ -238,11 +321,18 @@ namespace InventoryWebApp.WCF
                 }
             }
             return null;
+            }
+            else
+            {
+                return null;
+            }
         }
 
-        public void UpdateDisbursementDetail(WCF_DisbursementDetail wdd)
+        public void UpdateDisbursementDetail(WCF_DisbursementDetail wdd, String email, String password)
         {
-            DisbursementDetail dd = sClerkCtrl.GetDisbursementDetail(wdd.DisbursementCode, wdd.RequestCode, wdd.ItemCode);
+            if (loginService.ValidateUser(email, password))
+            {
+                DisbursementDetail dd = sClerkCtrl.GetDisbursementDetail(wdd.DisbursementCode, wdd.RequestCode, wdd.ItemCode);
             dd.ActualQuantity = Int32.Parse(wdd.QuantityActual);
             dd.Notes = wdd.Notes;
             sClerkCtrl.UpdateDisbursementDetail(dd);
@@ -250,12 +340,15 @@ namespace InventoryWebApp.WCF
             StationeryCatalogue sc = sClerkCtrl.GetStationeryByCode(dd.ItemCode);
             sc.Stock += dd.Quantity - dd.ActualQuantity;
             sClerkCtrl.UpdateStationeryCatalogue(sc);
-
+            }
+           
         }
 
-        public void MarkAsNotCollected(WCF_DisbursementDetail wdd)
+        public void MarkAsNotCollected(WCF_DisbursementDetail wdd, String email, String password)
         {
-            Disbursement d = sClerkCtrl.GetDisbursement(wdd.DisbursementCode);
+            if (loginService.ValidateUser(email, password))
+            {
+                Disbursement d = sClerkCtrl.GetDisbursement(wdd.DisbursementCode);
             d.Status = "not collected";
             List<DisbursementDetail> ddList = sClerkCtrl.GetDisbursementDetails(wdd.DisbursementCode);
             foreach (var item in ddList)
@@ -267,6 +360,8 @@ namespace InventoryWebApp.WCF
                 sClerkCtrl.UpdateStationeryCatalogue(sc);
             }
             sClerkCtrl.UpdateDisbursement(d);
+            }
+           
         }
     }
 }

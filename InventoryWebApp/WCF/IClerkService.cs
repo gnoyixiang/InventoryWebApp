@@ -14,68 +14,68 @@ namespace InventoryWebApp.WCF
     public interface IClerkService
     {
         [OperationContract]
-        [WebInvoke(UriTemplate = "/MarkAsNotCollected", Method = "POST",
+        [WebInvoke(UriTemplate = "/MarkAsNotCollected/{email}/{password}", Method = "POST",
         RequestFormat = WebMessageFormat.Json,
         ResponseFormat = WebMessageFormat.Json)]
-        void MarkAsNotCollected(WCF_DisbursementDetail wdd);
+        void MarkAsNotCollected(WCF_DisbursementDetail wdd,String email,String password);
         [OperationContract]
-        [WebInvoke(UriTemplate = "/UpdateDisbursementDetail", Method = "POST",
+        [WebInvoke(UriTemplate = "/UpdateDisbursementDetail/{email}/{password}", Method = "POST",
         RequestFormat = WebMessageFormat.Json,
         ResponseFormat = WebMessageFormat.Json)]
-        void UpdateDisbursementDetail(WCF_DisbursementDetail wdd);
+        void UpdateDisbursementDetail(WCF_DisbursementDetail wdd, String email, String password);
 
         [OperationContract]
-        [WebGet(UriTemplate = "/DisbursementDetail/{departmentCode}/{requestCode}/{itemCode}", ResponseFormat = WebMessageFormat.Json)]
-        WCF_DisbursementDetail GetConfirmedDisburDetail(string departmentCode, string requestCode, string itemCode);
+        [WebGet(UriTemplate = "/DisbursementDetail/{departmentCode}/{requestCode}/{itemCode}/{email}/{password}", ResponseFormat = WebMessageFormat.Json)]
+        WCF_DisbursementDetail GetConfirmedDisburDetail(string departmentCode, string requestCode, string itemCode, String email, String password);
 
         [OperationContract]
-        [WebGet(UriTemplate = "/ConfirmedDisbursementDetails/{departmentCode}", ResponseFormat = WebMessageFormat.Json)]
-        List<WCF_DisbursementDetail> GetConfirmedDisburDetailsByDepartment(string departmentCode);
+        [WebGet(UriTemplate = "/ConfirmedDisbursementDetails/{departmentCode}/{email}/{password}", ResponseFormat = WebMessageFormat.Json)]
+        List<WCF_DisbursementDetail> GetConfirmedDisburDetailsByDepartment(string departmentCode, String email, String password);
 
         [OperationContract]
-        [WebGet(UriTemplate = "/ConfirmedDisbursement/{departementCode}", ResponseFormat = WebMessageFormat.Json)]
-        WCF_ConfirmedDisbursement GetConfirmedDisbursementByDeptCode(string departementCode);
+        [WebGet(UriTemplate = "/ConfirmedDisbursement/{departementCode}/{email}/{password}", ResponseFormat = WebMessageFormat.Json)]
+        WCF_ConfirmedDisbursement GetConfirmedDisbursementByDeptCode(string departementCode, String email, String password);
         [OperationContract]
-        [WebGet(UriTemplate = "/ConfirmedDisbursements", ResponseFormat = WebMessageFormat.Json)]
-        List<WCF_ConfirmedDisbursement> GetConfirmedDisbursementList();
+        [WebGet(UriTemplate = "/ConfirmedDisbursements/{email}/{password}", ResponseFormat = WebMessageFormat.Json)]
+        List<WCF_ConfirmedDisbursement> GetConfirmedDisbursementList( String email, String password);
 
         [OperationContract]
-        [WebGet(UriTemplate = "/GetCollectionDate", ResponseFormat = WebMessageFormat.Json)]
-        WCF_CollectionDate GetCollectionDate();
+        [WebGet(UriTemplate = "/GetCollectionDate/{email}/{password}", ResponseFormat = WebMessageFormat.Json)]
+        WCF_CollectionDate GetCollectionDate(String email, String password);
 
         [OperationContract]
-        [WebGet(UriTemplate = "/AllocatingDisbursementDetails/{itemCode}/{deparmentName}", ResponseFormat = WebMessageFormat.Json)]
-        WCF_DisbursementDetail GetAllocatingDisbursementDetail(string itemCode, string deparmentName);
+        [WebGet(UriTemplate = "/AllocatingDisbursementDetails/{itemCode}/{deparmentName}/{email}/{password}", ResponseFormat = WebMessageFormat.Json)]
+        WCF_DisbursementDetail GetAllocatingDisbursementDetail(string itemCode, string deparmentName, String email, String password);
 
         [OperationContract]
-        [WebGet(UriTemplate = "/AllocatingDisbursementDetails/{itemCode}", ResponseFormat = WebMessageFormat.Json)]
-        List<WCF_DisbursementDetail> GetAllocatingDisbursementDetails(string itemCode);
+        [WebGet(UriTemplate = "/AllocatingDisbursementDetails/{itemCode}/{email}/{password}", ResponseFormat = WebMessageFormat.Json)]
+        List<WCF_DisbursementDetail> GetAllocatingDisbursementDetails(string itemCode, String email, String password);
 
         [OperationContract]
-        [WebInvoke(UriTemplate = "/UpdateRetrievalDetail", Method = "POST",
+        [WebInvoke(UriTemplate = "/UpdateRetrievalDetail/{email}/{password}", Method = "POST",
         RequestFormat = WebMessageFormat.Json,
         ResponseFormat = WebMessageFormat.Json)]
-        void UpdateRetrievalDetail(WCF_RetrievalDetail wrd);
+        void UpdateRetrievalDetail(WCF_RetrievalDetail wrd, String email, String password);
 
         [OperationContract]
-        [WebGet(UriTemplate = "/AllocatingRetrievalDetail/{itemCode}", ResponseFormat = WebMessageFormat.Json)]
-        WCF_RetrievalDetail GetAllocatingRetrievalDetail(string itemCode);
+        [WebGet(UriTemplate = "/AllocatingRetrievalDetail/{itemCode}/{email}/{password}", ResponseFormat = WebMessageFormat.Json)]
+        WCF_RetrievalDetail GetAllocatingRetrievalDetail(string itemCode, String email, String password);
 
         [OperationContract]
-        [WebGet(UriTemplate = "/AllocatingRetrievalDetails", ResponseFormat = WebMessageFormat.Json)]
-        List<WCF_RetrievalDetail> GetAllocatingRetrievalDetails();
+        [WebGet(UriTemplate = "/AllocatingRetrievalDetails/{email}/{password}", ResponseFormat = WebMessageFormat.Json)]
+        List<WCF_RetrievalDetail> GetAllocatingRetrievalDetails( String email, String password);
 
         [OperationContract]
-        [WebGet(UriTemplate = "/ProcessingRetrievalDetail/{id}", ResponseFormat = WebMessageFormat.Json)]
-        WCF_RetrievalDetail GetRetrievalDetail(string id);
+        [WebGet(UriTemplate = "/ProcessingRetrievalDetail/{id}/{email}/{password}", ResponseFormat = WebMessageFormat.Json)]
+        WCF_RetrievalDetail GetRetrievalDetail(string id, String email, String password);
 
         [OperationContract]
-        [WebGet(UriTemplate = "/ProcessingRetrievalDetails", ResponseFormat = WebMessageFormat.Json)]
-        List<WCF_RetrievalDetail> GetProcessingRetrievalDetails();
+        [WebGet(UriTemplate = "/ProcessingRetrievalDetails/{email}/{password}", ResponseFormat = WebMessageFormat.Json)]
+        List<WCF_RetrievalDetail> GetProcessingRetrievalDetails( String email, String password);
 
         [OperationContract]
-        [WebGet(UriTemplate = "/OutstandingRequests", ResponseFormat = WebMessageFormat.Json)]
-        List<WCF_Request> GetOutstandingRequests();
+        [WebGet(UriTemplate = "/OutstandingRequests/{email}/{password}", ResponseFormat = WebMessageFormat.Json)]
+        List<WCF_Request> GetOutstandingRequests(String email, String password);
 
     }
 

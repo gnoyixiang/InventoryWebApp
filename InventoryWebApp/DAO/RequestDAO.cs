@@ -13,20 +13,32 @@ namespace InventoryWebApp.DAO
         Request r;
         public List<Request> ListAllRequest()
         {
-            return em.Requests.ToList();
+            using (EntityModel em = new EntityModel())
+            {
+                return em.Requests.ToList();
+            }
         }
 
         public List<Request> SearchRequestbyID(string RequestC)
         {
-            return em.Requests.Where(b => b.RequestCode.ToUpper().Contains(RequestC.Trim().ToUpper())).ToList();
+            using (EntityModel em = new EntityModel())
+            {
+                return em.Requests.Where(b => b.RequestCode.ToUpper().Contains(RequestC.Trim().ToUpper())).ToList();
+            }
         }
         public List<Request> SearchRequestbyStatus(string RequestStatus)
         {
-            return em.Requests.Where(b => b.Status.ToUpper().Contains(RequestStatus.Trim().ToUpper())).ToList();
+            using (EntityModel em = new EntityModel())
+            {
+                return em.Requests.Where(b => b.Status.ToUpper().Contains(RequestStatus.Trim().ToUpper())).ToList();
+            }
         }
         public List<Request> SearchRequestbyDate(string RequestDate)
         {
-            return em.Requests.Where(b => b.DateCreated == Convert.ToDateTime(RequestDate)).ToList();
+            using (EntityModel em = new EntityModel())
+            {
+                return em.Requests.Where(b => b.DateCreated == Convert.ToDateTime(RequestDate)).ToList();
+            }
         }
         public Request GetRequest(string ROCode)
         {
@@ -38,8 +50,9 @@ namespace InventoryWebApp.DAO
         public int AddRequest(Request newR)
         {
             int a = -1;
-            using (em = new EntityModel())
-            {
+            using (EntityModel em = new EntityModel())
+            
+                {
                 em.Requests.Add(newR);
                 a = em.SaveChanges();
             }
@@ -49,18 +62,24 @@ namespace InventoryWebApp.DAO
 
         public int UpdateRequestStatus(Request R, string newStatus)
         {
-            int a = -1;
-            R.Status = newStatus;
-            a = em.SaveChanges();
-            return a;
+            using (EntityModel em = new EntityModel())
+            {
+                int a = -1;
+                R.Status = newStatus;
+                a = em.SaveChanges();
+                return a;
+            }
         }
 
         public int UpdateRequestApproval(Request R, string ApprovedN)
         {
-            int a = -1;
-            R.ApprovedBy = ApprovedN;
-            a = em.SaveChanges();
-            return a;
+            using (EntityModel em = new EntityModel())
+            {
+                int a = -1;
+                R.ApprovedBy = ApprovedN;
+                a = em.SaveChanges();
+                return a;
+            }
         }
         public int UpdateRequest(Request r)
         {

@@ -12,7 +12,7 @@ namespace InventoryWebApp.DAO
         EntityModel em = new EntityModel();
         public List<Adjustment> ListAllAdjustments()
         {
-            using (em)
+            using (EntityModel em = new EntityModel())
             {
                 List<Adjustment> a = new List<Adjustment>();
                 a = em.Adjustments.ToList();
@@ -21,8 +21,9 @@ namespace InventoryWebApp.DAO
         }
         public List<Adjustment> SearchAdjustmentByStatus(String b)
         {
-            using (em)
+            using (EntityModel em = new EntityModel())
             {
+                
                 List<Adjustment> c = new List<Adjustment>();
                 c = em.Adjustments.Where(x => x.Status == b).ToList();
                 return c;
@@ -30,7 +31,8 @@ namespace InventoryWebApp.DAO
         }
         public int AddAdjustment(Adjustment b)
         {
-            using (em)
+
+            using (EntityModel em = new EntityModel())
             {
                 em.Adjustments.Add(b);
                 int a = em.SaveChanges();
@@ -39,7 +41,8 @@ namespace InventoryWebApp.DAO
         }
         public int UpdateAdjustment(string b, int d, string e)
         {
-            using (em)
+
+            using (EntityModel em = new EntityModel())
             {
                 Adjustment c = new Adjustment();
                 c = em.Adjustments.Where(x => x.AdjustmentCode == b).FirstOrDefault();
@@ -52,7 +55,8 @@ namespace InventoryWebApp.DAO
 
         public List<Adjustment> ListAllAdjustmentsByItemCode(string itemCode,DateTime start)
         {
-            using (em =new EntityModel())
+
+            using (EntityModel em = new EntityModel())
             {
                 return em.Adjustments.Where(x => x.ItemCode == itemCode && x.DateApproved>=start).ToList<Adjustment>();
             }

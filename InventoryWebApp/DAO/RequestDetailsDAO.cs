@@ -27,7 +27,10 @@ namespace InventoryWebApp.DAO
         }
         public List<RequestDetail> SearchRequestbyStatus(string RequestDetailStatus)
         {
-            return em.RequestDetails.Where(b => b.Status.ToUpper().Contains(RequestDetailStatus.Trim().ToUpper())).ToList();
+            using (EntityModel em = new EntityModel())
+            {
+                return em.RequestDetails.Where(b => b.Status.ToUpper().Contains(RequestDetailStatus.Trim().ToUpper())).ToList();
+            }
         }
 
 
@@ -45,22 +48,28 @@ namespace InventoryWebApp.DAO
 
         public int UpdateRequestDetailItemQuantity(RequestDetail R, int qtyChanged)
         {
-            int a = -1;
-            int qtyRem = (int)R.Quantity;
-            R.RemainingQuant = qtyRem - qtyChanged;
-            a = em.SaveChanges();
+            using (EntityModel em = new EntityModel())
+            {
+                int a = -1;
+                int qtyRem = (int)R.Quantity;
+                R.RemainingQuant = qtyRem - qtyChanged;
+                a = em.SaveChanges();
 
-            return a;
+                return a;
+            }
         }
 
         
         public int CancelRequestDetail(RequestDetail rd)
         {
-            rd.Status = "CANCELLED";
-            int changes = 0;
-            em.Entry(rd).State = System.Data.Entity.EntityState.Modified;
-            changes = em.SaveChanges();
-            return changes;
+            using (EntityModel em = new EntityModel())
+            {
+                rd.Status = "CANCELLED";
+                int changes = 0;
+                em.Entry(rd).State = System.Data.Entity.EntityState.Modified;
+                changes = em.SaveChanges();
+                return changes;
+            }
 
         }
 

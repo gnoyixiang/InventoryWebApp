@@ -55,6 +55,8 @@ namespace ConsoleTestApp
             //d.RepName = "derek@logic.edu.sg";
             //d.Status = "completed";
             //s.UpdateDisbursement(d);
+            ClerkService s = new ClerkService();
+
         } 
     }
 }
