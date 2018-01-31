@@ -26,9 +26,9 @@ namespace InventoryWebApp
             {
                 Page.DataBind();
 
-               
+                //compStartTodayValidatorFooter.ValueToCompare = DateTime.Now.ToShortDateString();
 
-                
+
             }
         }
 
@@ -574,24 +574,27 @@ namespace InventoryWebApp
                     var user = HttpContext.Current.GetOwinContext().Get<ApplicationUserManager>().FindById(User.Identity.GetUserName());
                     //this is getting username from user.
                     //string userName =  user.UserName;
-                   bool checkValue =  storeSpController.CheckTempRoleAndDates(tempRoleCode, startDate, endDate);
 
-                    if (checkValue)
+                    if (Page.IsValid)
                     {
-                        storeSpController.CreateNewAssignRole(assignRoleCode, tempRoleCode, empCode, startDate, endDate, "yufei@logic.edu.sg");
-                        PopulateGridView(tbxSearch.Text);
-                        lblSuccessMsg.Text = "New AssignRole added.";
-                        lblErrorMsg.Text = "";
+                        bool checkValue = storeSpController.CheckTempRoleAndDates(tempRoleCode, startDate, endDate);
+
+                        if (checkValue)
+                        {
+                            storeSpController.CreateNewAssignRole(assignRoleCode, tempRoleCode, empCode, startDate, endDate, "yufei@logic.edu.sg");
+                            PopulateGridView(tbxSearch.Text);
+                            lblSuccessMsg.Text = "New AssignRole added.";
+                            lblErrorMsg.Text = "";
+
+                        }
+                        else
+                        {
+                            lblSuccessMsg.Text = "";
+                            lblErrorMsg.Text = "StoreSuperVisor already present for this period";
+
+                        }
 
                     }
-                    else
-                    {
-                        lblSuccessMsg.Text = "";
-                        lblErrorMsg.Text = "StoreSuperVisor already present for this period";
-
-                    }
-                    
-
                 }
             }
             catch (Exception ex)

@@ -134,10 +134,10 @@
                 </EditItemTemplate>
 
                 <FooterTemplate>
-                    <asp:TextBox ID="tbxStartDateFooter" runat="server" TextMode="Date" ></asp:TextBox><br />
+                    <asp:TextBox ID="tbxStartDateFooter" runat="server" TextMode="Date"  ></asp:TextBox><br />
 
                     <asp:CompareValidator ID="compStartTodayValidatorFooter" Operator="GreaterThanEqual" Type="Date" ControlToValidate="tbxStartDateFooter" ErrorMessage="Invalid StartDate" runat="server"
-                        ForeColor="Red" ValueToCompare="<%# DateTime.Today.ToShortDateString() %>" /><br />
+                        ForeColor="Red" ValueToCompare="<%# DateTime.Today.ToShortDateString() %>"  /><br />
 
                     <asp:RequiredFieldValidator ID="rqValidatorStartdateFooter" runat="server" ErrorMessage="Required" ControlToValidate="tbxStartDateFooter" ForeColor="Red" ValidationGroup="addValidation">
                      </asp:RequiredFieldValidator>
@@ -203,7 +203,8 @@
                 </EditItemTemplate>
 
                 <FooterTemplate>
-                    <asp:ImageButton ID="btnAdd" ImageUrl="~/Images/addnew.png" CommandName="AddNew" ToolTip="AddNew" Width="20px" Height="20px" runat="server" ValidationGroup="addValidation" />
+                    <asp:ImageButton ID="btnAdd" ImageUrl="~/Images/addnew.png" CommandName="AddNew" ToolTip="AddNew" Width="20px" 
+                        Height="20px" runat="server" ValidationGroup="addValidation" />
                 </FooterTemplate>
 
             </asp:TemplateField>
