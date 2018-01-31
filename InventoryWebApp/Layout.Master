@@ -70,37 +70,103 @@
                         </div>
                                                
                         <ul class="list-unstyled components">
-                            <!-- Store Clerk -->
-                            <% if (Context.User.IsInRole("Store Clerk"))
+                            <!-- Store -->
+                            <% if (Context.User.IsInRole("Store Clerk") || Context.User.IsInRole("Store Supervisor") 
+                                    || Context.User.IsInRole("Store Manager"))
                                 { %>
-                            <li id="menu-RequestClerk">
-                                <a href="#RequestClerkSubmenu" data-toggle="collapse" aria-expanded="false">Manage Requests</a>
-                                <ul class="collapse list-unstyled submenu" id="RequestClerkSubmenu">
-                                    <li><a href="/Store/RequisitionList">View Requests</a></li>
-                                    <li><a href="/Store/RetrievalPage">Retrieve Items</a></li>
-                                    <li><a href="/Store/2AllocationPage">Allocate Items</a></li>
-                                    <li><a href="/Store/DisbursementGenerationPage">Generate Disbursement</a></li>
-                                    <li><a href="/Store/DisbursementFormPage">Disburse Items</a></li>
-                                    <li><a href="/Store/ChargeBackPage">Charge Back</a></li>
+                            <% if (Context.User.IsInRole("Store Clerk")){ %>
+                            <li id="menu-DisbursementsClerk">
+                                <a href="#DisbursementsClerkSubmenu" data-toggle="collapse" aria-expanded="false">
+                                    <i class="fa fa-sitemap" aria-hidden="true"></i>Disbursements</a>
+                                <ul class="collapse list-unstyled submenu" id="DisbursementsClerkSubmenu">
+                                    <li><a href="/Store/RequisitionList">
+                                        <i class="fa fa-paper-plane" aria-hidden="true"></i>View Requests</a></li>
+                                    <li><a href="/Store/RetrievalPage">
+                                        <i class="fa fa-hand-rock-o" aria-hidden="true"></i>Retrieve Items</a></li>
+                                    <li><a href="/Store/2AllocationPage"><i class="fa fa-hand-lizard-o" aria-hidden="true"></i>Allocate Items</a></li>
+                                    <li><a href="/Store/DisbursementGenerationPage">
+                                        <i class="fa fa-external-link" aria-hidden="true"></i>Generate Disbursement</a></li>
+                                    <li><a href="/Store/DisbursementFormPage"><i class="fa fa-truck" aria-hidden="true"></i>Disburse Items</a></li>
+                                    <li><a href="/Store/ChargeBackPage"><i class="fa fa-usd" aria-hidden="true"></i>Charge Back</a></li>
                                 </ul>
                             </li>
+                            <%} %>
                             <li id="menu-Reorder">
-                                <a href="#ReorderSubmenu" data-toggle="collapse" aria-expanded="false">Manage Re-order</a>
+                                <a href="#ReorderSubmenu" data-toggle="collapse" aria-expanded="false">
+                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>Purchase Orders</a>
                                 <ul class="collapse list-unstyled submenu" id="ReorderSubmenu">
-                                    <li><a href="/Store/ViewPurchaseOrders">View All Orders</a></li>
-                                    <li class="active"><a href="/Store/CreateNewOrder">Create New Order</a></li>
+                                    <li><a href="/Store/ViewPurchaseOrders"><i class="fa fa-file-text" aria-hidden="true"></i>View Orders</a></li>
+                                    <% if (!Context.User.IsInRole("Store Clerk"))
+                                        { %>
+                                    <li>
+                                        <a href="/Store/ViewPurchaseOrders?search=5&q=Pending"><i class="fa fa-magic" aria-hidden="true"></i>
+                                            Pending Orders</a></li>
+                                    <% } %>
+                                    <li class="active"><a href="/Store/CreateNewOrder"><i class="fa fa-magic" aria-hidden="true"></i>New Order</a></li>
                                 </ul>
                             </li>
-                            <li>
-                                <a href="/Store/StockAdjustmentList.aspx">Stock Adjustment</a>
+                            <li id="menu-Stock">
+                                <a href="#StockSubmenu" data-toggle="collapse" aria-expanded="false">
+                                    <i class="fa fa-cube" aria-hidden="true"></i>Stock</a>
+                                <ul class="collapse list-unstyled submenu" id="StockSubmenu">
+                                    <li><a href="/Store/StockCardSearch"><i class="fa fa-folder-open" aria-hidden="true"></i>Stock Card</a></li>
+                                    <li>
+                                        <a href="#AdjustmentSubmenu" data-toggle="collapse" aria-expanded="false">
+                                            <i class="fa fa-pencil" aria-hidden="true"></i>Adjustments</a>
+                                    </li>
+                                    <ul class="collapse list-unstyled submenu2" id="AdjustmentSubmenu">
+                                        <li><a href="/Store/StockAdjustmentList"><i class="fa fa-align-left" aria-hidden="true"></i>View Adjustments</a></li>
+                                         <% if (Context.User.IsInRole("Store Clerk"))
+                                             { %>
+                                        <li><a href="/Store/StockAdjustmentNew">
+                                            <i class="fa fa-file-archive-o" aria-hidden="true"></i>New Adjustments</a></li>
+                                        <% }else { %>
+                                        <li>
+                                            <% if (Context.User.IsInRole("Store Supervisor"))
+                                                { %>
+                                            <a href="/Store/AdjustmentByStoreSupervisor">
+                                                <i class="fa fa-check-square-o" aria-hidden="true"></i>Pending Adjustments</a>
+                                            <% } %>
+                                            <% if (Context.User.IsInRole("Store Manager"))
+                                                { %>
+                                            <a href="/Store/AdjustmentByStoreManager">
+                                                <i class="fa fa-check-square-o" aria-hidden="true"></i>Pending Adjustments</a>
+                                            <% } %>
+                                        </li>
+                                        <%} %>
+                                    </ul>
+                                    <li>
+                                        <a href="#SupplierSubmenu" data-toggle="collapse" aria-expanded="false">
+                                            <i class="fa fa-users" aria-hidden="true"></i>Suppliers</a>
+                                    </li>
+                                    <ul class="collapse list-unstyled submenu2" id="SupplierSubmenu">
+                                        <li><a href="/Store/SupplierList">
+                                            <i class="fa fa-address-book" aria-hidden="true"></i>View Suppliers</a></li>
+                                        <li><a href="/Store/QuotationView.aspx">
+                                            <i class="fa fa-file-code-o" aria-hidden="true"></i>View Quotations</a></li>
+                                    </ul>
+                                    <% if (!Context.User.IsInRole("Store Clerk"))
+                                        { %>
+                                    <li>
+                                        <a href="#EmployeeSubmenu" data-toggle="collapse" aria-expanded="false">
+                                            <i class="fa fa-user-circle" aria-hidden="true"></i>Employees</a>
+                                    </li>
+                                    <ul class="collapse list-unstyled submenu2" id="EmployeeSubmenu">
+                                        <li>
+                                            <a href="/Store/StoreEmployeeList">
+                                                <i class="fa fa-address-book-o" aria-hidden="true"></i>View Employees</a>
+                                        </li>
+                                        <li>
+                                            <a href="/Store/AssigningAuthorityStoreDept">
+                                                <i class="fa fa-key" aria-hidden="true"></i>Assign Authority</a>
+                                        </li>
+                                    </ul>
+                                    <%} %>
+                                </ul>
                             </li>
-                            <li>
-                                <a href="/Store/StockCardSearch.aspx">Stock Card</a>
-                            </li>
-                            <li>
-                                <a href="/Store/QuotationView.aspx">View / Print Quotation</a>
-                            </li>
+                            <li><a href="/Store/TrendAnalysis"><i class="fa fa-bar-chart" aria-hidden="true"></i>Trend Analysis</a></li> 
                             <% } %>
+
 
                             <!-- Employee -->
                             <% if (Context.User.IsInRole("Employee"))
@@ -139,18 +205,9 @@
                             </li>
                             <%} %>
 
+                            
                             <li>
-                                <% if (Context.User.IsInRole("Store Supervisor"))
-                                    { %>
-                                <a href="/Store/AdjustmentByStoreSupervisor">Stock Adjustment</a>
-                                <% } %>
-                                <% if (Context.User.IsInRole("Store Manager"))
-                                    { %>
-                                <a href="/Store/AdjustmentByStoreManager">Stock Adjustment</a>
-                                <% } %>
-                            </li>
-                            <li>
-                                <a href="/Store/TrendAnalysis">Generate Trend Analysis</a>
+                                <a href="/Store/TrendAnalysis">Trend Analysis</a>
                             </li>
                             <li>
                                 <a href="/Store/StoreEmployeeList">View Employees</a>

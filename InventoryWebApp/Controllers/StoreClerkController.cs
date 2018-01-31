@@ -1167,7 +1167,7 @@ namespace InventoryWebApp.Controllers
             {
                 if (retrievalList.ContainsKey(rd.ItemCode))
                 {
-                    retrievalList[rd.ItemCode].QuantityNeeded += rd.Quantity;
+                    retrievalList[rd.ItemCode].QuantityNeeded += rd.RemainingQuant;
                 }
                 else
                 {

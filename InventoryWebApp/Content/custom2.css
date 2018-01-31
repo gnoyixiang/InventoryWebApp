@@ -72,7 +72,7 @@ h1, h2, h3, h4, h5 {
     min-width: 250px;
     max-width: 250px;
     /*background: #7386D5;*/
-    background: linear-gradient(to bottom, #253161, #7386d59e);
+    background: linear-gradient(to bottom, #253161, #3852bdcc);
     color: #fff;
 }
 
@@ -103,18 +103,18 @@ h1, h2, h3, h4, h5 {
         }
 
         #sidebar ul li a:hover {
-            color: #28366d91;
+            color: #253161;
             background: #fff;
         }
 
     #sidebar a[aria-expanded="true"] {
         color: #fff;
-        background: #28366d91;
+        /*background: #28366d91;*/
     }
 
     #sidebar ul li.active > a {
         color: #fff;
-        background: #28366d91;
+        /*background: #28366d91;*/
     }
 
     #sidebar a[data-toggle="collapse"] {
@@ -136,15 +136,19 @@ h1, h2, h3, h4, h5 {
 
     #sidebar a.active {
         color: #fff;
-        background: #28366d91;
+        /*background: #28366d91;*/
     }
 
 .submenu li a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #28366d91;
+    /*background: #28366d91;*/
 }
 
+.submenu2 li a {
+    font-size: 0.85em !important;
+    padding-left: 40px !important;
+}
 
 
 ul.CTAs {
