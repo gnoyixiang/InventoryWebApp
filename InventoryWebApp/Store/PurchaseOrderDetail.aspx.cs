@@ -96,7 +96,7 @@ namespace InventoryWebApp.Store
             lblSupplierName.Text = scController.GetSupplierName(po.SupplierCode);
             lblDeliverAddress.Text = "";
             lblAttnTo.Text = po.UserName;
-            lblEstDeliverDate.Text = po.DateSupplyExpected == null ? "Not Approved" : String.Format("{0:dd MMM yyyy}", po.DateSupplyExpected);
+            lblEstDeliverDate.Text = po.DateSupplyExpected == null ? "-" : String.Format("{0:dd MMM yyyy}", po.DateSupplyExpected);
             lblOrderDate.Text = String.Format("{0:dd MMM yyyy}", po.DateCreated);
             lblApprovedDate.Text = po.DateApproved == null ? "Not Approved" : String.Format("{0:dd MMM yyyy}", po.DateApproved);
             lblReceivedDate.Text = po.DateReceived == null ? "Not Recieved" : String.Format("{0:dd MMM yyyy}", po.DateReceived);
