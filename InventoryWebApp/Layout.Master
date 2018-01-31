@@ -186,10 +186,13 @@
                                         <i class="fa fa-file-text" aria-hidden="true"></i>View Requests</a></li>
                                     <% if (IsTempRoleCode("ActHead") || Context.User.IsInRole("Department Head"))
                                         { %>
-                                    <li class="active"><a href="/Dept/DeptRequisitionList?search=Status&q=Pending">
+                                    <li><a href="/Dept/DeptRequisitionList?search=Status&q=Pending">
                                         <i class="fa fa-check-square-o" aria-hidden="true"></i>Pending Requests</a></li>
                                     <%} %>
+                                    <% if (Context.User.IsInRole("Employee"))
+                                        { %>
                                     <li><a href="/Dept/CreateRequest"><i class="fa fa-magic" aria-hidden="true"></i>New Request</a></li>
+                                    <% } %>
                                 </ul>
                             </li>
                             <li><a href="/Dept/ViewDisbursement"><i class="fa fa-truck" aria-hidden="true"></i>Disbursements</a></li>
