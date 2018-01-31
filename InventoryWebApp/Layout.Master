@@ -104,7 +104,7 @@
                                         <a href="/Store/ViewPurchaseOrders?search=5&q=Pending"><i class="fa fa-magic" aria-hidden="true"></i>
                                             Pending Orders</a></li>
                                     <% } %>
-                                    <li class="active"><a href="/Store/CreateNewOrder"><i class="fa fa-magic" aria-hidden="true"></i>New Order</a></li>
+                                    <li><a href="/Store/CreateNewOrder"><i class="fa fa-magic" aria-hidden="true"></i>New Order</a></li>
                                 </ul>
                             </li>
                             <li id="menu-Stock">
