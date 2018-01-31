@@ -41,6 +41,7 @@ namespace InventoryWebApp.Store
 
         static private readonly string[] SEARCH_ITEMS = { "Department and Item Requisition", "Supplier and Item Price" };
         public List<DateTime> monthList = new List<DateTime>();
+        public List<int> yearList = new List<int>();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -74,6 +75,7 @@ namespace InventoryWebApp.Store
                 lblMonth.Visible = true;
                 tbMonth.Visible = true;
                 PanelDept.Visible = true;
+                PanelDept.Enabled = true;
                 PanelSupplier.Visible = false;
                 cvalidSup.Enabled = false;
                 cvYear.Enabled = false;
@@ -84,8 +86,12 @@ namespace InventoryWebApp.Store
                 cvalidDept.Enabled = true;
                 cvMonth.Enabled = true;
                 PanelSupplier.Enabled = false;
-
-
+                ddlDept.Enabled = true;
+                ddlDept2.Enabled = true;
+                ddlDept3.Enabled = true;
+                ddlItemCode.Enabled = true;
+                PanelTable.Enabled = true;
+                PanelSupplierTable.Enabled = false;
 
                 if (ddlmonthsCount.SelectedIndex >= 0)
                 {
@@ -146,6 +152,8 @@ namespace InventoryWebApp.Store
                 pYear.Enabled = true;
                 lblYear.Visible = true;
                 ddlYear.Visible = true;
+                PanelSupplierTable.Enabled = true;
+                PanelTable.Enabled = false;
                 ddlYear.DataSource = Year;
                 ddlYear.DataBind();
                 ddlItemCode.DataSource = tc.ListAllItemCode();
@@ -220,7 +228,10 @@ namespace InventoryWebApp.Store
                 DateTime month1 = Convert.ToDateTime(tbMonth.Text);
                 DateTime month2 = Convert.ToDateTime(tbMonth2.Text);
 
+                PanelSupplierTable.Enabled = false;
+                PanelSupplierTable.Visible = false;
                 PanelTable.Visible = true;
+                PanelTable.Enabled = true;
 
                 monthList.Add(month1);
                 monthList.Add(month2);
@@ -304,7 +315,12 @@ namespace InventoryWebApp.Store
                 int year1 = Convert.ToInt32(ddlYear.SelectedValue);
                 int year2 = Convert.ToInt32(ddlYear2.SelectedValue);
                 int year3;
-                List<int> yearList = new List<int>();
+
+                PanelSupplierTable.Enabled = true;
+                PanelSupplierTable.Visible = true;
+                PanelTable.Visible = false;
+                PanelTable.Enabled = false;
+                
                 yearList.Add(year1);
                 yearList.Add(year2);
                 if (ddlmonthsCount.SelectedIndex == 1)
