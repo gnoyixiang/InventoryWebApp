@@ -85,15 +85,6 @@ namespace InventoryWebApp.Store {
         protected global::System.Web.UI.WebControls.ListView ListView2;
         
         /// <summary>
-        /// PrintButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button PrintButton;
-        
-        /// <summary>
         /// Master property.
         /// </summary>
         /// <remarks>

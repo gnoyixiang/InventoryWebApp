@@ -12,7 +12,6 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <ul class="breadcrumb">
         <li><a href="#">Home</a></li>
-        <li class="active">Manage Orders</li>
         <li class="active">Purchase Orders</li>
     </ul>
     <div class="container-fluid" id="mainContainer">

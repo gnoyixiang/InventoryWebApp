@@ -15,7 +15,7 @@ namespace InventoryWebApp.Dept
         EmployeeController ec = new EmployeeController();
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Master.IsTempRoleCode("Rep"))
+            if (Context.User.IsInRole("Employee") && !Master.IsTempRoleCode("Rep"))
             {
                 Response.Redirect("/ErrorPages/401");
             }

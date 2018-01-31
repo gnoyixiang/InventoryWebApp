@@ -19,7 +19,6 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <ul class="breadcrumb">
         <li><a href="#">Home</a></li>
-        <li class="active">Manage Orders</li>
         <li><a href="ViewPurchaseOrders">Purchase Orders</a></li>
         <li class="active">Purchase Order Details</li>
     </ul>

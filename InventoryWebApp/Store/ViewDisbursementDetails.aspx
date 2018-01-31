@@ -6,7 +6,6 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <ul class="breadcrumb">
         <li><a href="#">Home</a></li>
-        <li class="active">Manage Requests</li>
         <li><a href="RequisitionList">View Requests</a></li>
         <li class="active">Disbursement Details</li>
     </ul>

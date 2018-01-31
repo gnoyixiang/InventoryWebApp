@@ -16,6 +16,14 @@ namespace InventoryWebApp.Store
         List<Employee> empListInEMployee = null;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!Context.User.IsInRole("Store Supervisor") || !Context.User.IsInRole("Store Manager"))
+            {
+                if (!Master.IsTempRoleCode("ActSSup"))
+                {
+                    Response.Redirect("/ErrorPages/401");
+                }
+            }
+
             if (!IsPostBack)
             {
                 List<Employee> empList = storeSpController.EmployeeList();

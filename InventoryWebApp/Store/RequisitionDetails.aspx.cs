@@ -57,6 +57,7 @@ namespace InventoryWebApp.Store
             lblRequestCode.Text = RO.RequestCode.ToString();
             lblStatus.Text = RO.Status.ToString();
             lblDepartmentName.Text = RO.DepartmentCode.ToString();
+            lblEmployeeName.Text = Master.GetEmployeeName(RO.UserName);
         }
 
         protected bool IsEditable()

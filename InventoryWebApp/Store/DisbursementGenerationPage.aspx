@@ -67,7 +67,6 @@
 
     <ul class="breadcrumb">
         <li><a href="#">Home</a></li>
-        <li>Manage Requests</li>
         <li class="active">Generate Disbursement</li>
     </ul>
     <div class="container-fluid" id="mainContainer">

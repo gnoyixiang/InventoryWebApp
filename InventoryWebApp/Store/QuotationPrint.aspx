@@ -1,8 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="QuotationPrint.aspx.cs"
     Inherits="InventoryWebApp.Store.QuotationPrint" %>
 <%@ MasterType VirtualPath="~/Layout.Master" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">    
     <style>
         th:nth-child(2) {
             text-align: right;

@@ -19,7 +19,7 @@ namespace InventoryWebApp.Store
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Context.User.IsInRole("Store Supervisor"))
+            if (!Context.User.IsInRole("Store Manager"))
             {
                 if (!Master.IsTempRoleCode("ActSMan"))
                 {

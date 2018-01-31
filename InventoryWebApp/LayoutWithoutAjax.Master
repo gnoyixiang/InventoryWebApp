@@ -20,7 +20,7 @@
 
     <style>
     </style>
-     <script type="text/javascript">
+    <script type="text/javascript">
         function printDiv(divName) {
             var printContents = document.getElementById(divName).innerHTML;
             var originalContents = document.body.innerHTML;
@@ -50,111 +50,140 @@
                 </div>
 
                 <ul class="list-unstyled components">
-                    <!-- Store Clerk -->
+                    <!-- Store -->
+                    <% if (Context.User.IsInRole("Store Clerk") || Context.User.IsInRole("Store Supervisor")
+                                      || Context.User.IsInRole("Store Manager"))
+                        { %>
                     <% if (Context.User.IsInRole("Store Clerk"))
                         { %>
-                    <li id="menu-RequestClerk">
-                        <a href="#RequestClerkSubmenu" data-toggle="collapse" aria-expanded="false">Manage Requests</a>
-                        <ul class="collapse list-unstyled submenu" id="RequestClerkSubmenu">
-                            <li><a href="/Store/RequisitionList">View Requests</a></li>
-                            <li><a href="/Store/RetrievalPage">Retrieve Items</a></li>
-                            <li><a href="/Store/2AllocationPage">Allocate Items</a></li>
-                            <li><a href="/Store/DisbursementFormPage">Disburse Items</a></li>
+                    <li id="menu-DisbursementsClerk">
+                        <a href="#DisbursementsClerkSubmenu" data-toggle="collapse" aria-expanded="false">
+                            <i class="fa fa-sitemap" aria-hidden="true"></i>Disbursements</a>
+                        <ul class="collapse list-unstyled submenu" id="DisbursementsClerkSubmenu">
+                            <li><a href="/Store/RequisitionList">
+                                <i class="fa fa-paper-plane" aria-hidden="true"></i>View Requests</a></li>
+                            <li><a href="/Store/RetrievalPage">
+                                <i class="fa fa-hand-rock-o" aria-hidden="true"></i>Retrieve Items</a></li>
+                            <li><a href="/Store/2AllocationPage"><i class="fa fa-hand-lizard-o" aria-hidden="true"></i>Allocate Items</a></li>
+                            <li><a href="/Store/DisbursementGenerationPage">
+                                <i class="fa fa-external-link" aria-hidden="true"></i>Generate Disbursement</a></li>
+                            <li><a href="/Store/DisbursementFormPage"><i class="fa fa-truck" aria-hidden="true"></i>Disburse Items</a></li>
+                            <li><a href="/Store/ChargeBackPage"><i class="fa fa-usd" aria-hidden="true"></i>Charge Back</a></li>
                         </ul>
                     </li>
+                    <%} %>
                     <li id="menu-Reorder">
-                        <a href="#ReorderSubmenu" data-toggle="collapse" aria-expanded="false">Manage Re-order</a>
+                        <a href="#ReorderSubmenu" data-toggle="collapse" aria-expanded="false">
+                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>Purchase Orders</a>
                         <ul class="collapse list-unstyled submenu" id="ReorderSubmenu">
-                            <li><a href="/Store/ViewPurchaseOrders">View All Orders</a></li>
-                            <li class="active"><a href="/Store/CreateNewOrder">Create New Order</a></li>
+                            <li><a href="/Store/ViewPurchaseOrders"><i class="fa fa-file-text" aria-hidden="true"></i>View Orders</a></li>
+                            <% if (!Context.User.IsInRole("Store Clerk"))
+                                { %>
+                            <li>
+                                <a href="/Store/ViewPurchaseOrders?search=5&q=Pending"><i class="fa fa-magic" aria-hidden="true"></i>
+                                    Pending Orders</a></li>
+                            <% } %>
+                            <li class="active"><a href="/Store/CreateNewOrder"><i class="fa fa-magic" aria-hidden="true"></i>New Order</a></li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="/Store/StockAdjustmentList.aspx">Stock Adjustment</a>
-                    </li>
-                    <li>
-                        <a href="/Store/StockCardSearch.aspx">Stock Card</a>
-                    </li>
-                    <li>
-                        <a href="/Store/QuotationView.aspx">View / Print Quotation</a>
-                    </li>
-                    <% } %>
-
-                    <!-- Employee -->
-                    <% if (Context.User.IsInRole("Employee"))
-                        { %>
-                    <li>
-                        <a href="/Dept/ViewCatalogue">View Catalog</a>
-                    </li>
-                    <li id="menu-RequestEmployee">
-                        <a href="#RequestEmployeeSubmenu" data-toggle="collapse" aria-expanded="false">Manage Requests</a>
-                        <ul class="collapse list-unstyled submenu" id="RequestEmployeeSubmenu">
-                            <li><a href="/Dept/DeptRequisitionList">View Requests</a></li>
-                            <li><a href="/Dept/CreateRequest">Create Request</a></li>
-                            <% if (IsTempRoleCode("ActHead"))
+                    <li id="menu-Stock">
+                        <a href="#StockSubmenu" data-toggle="collapse" aria-expanded="false">
+                            <i class="fa fa-cube" aria-hidden="true"></i>Stock</a>
+                        <ul class="collapse list-unstyled submenu" id="StockSubmenu">
+                            <li><a href="/Store/StockCardSearch"><i class="fa fa-folder-open" aria-hidden="true"></i>Stock Card</a></li>
+                            <li>
+                                <a href="#AdjustmentSubmenu" data-toggle="collapse" aria-expanded="false">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>Adjustments</a>
+                            </li>
+                            <ul class="collapse list-unstyled submenu2" id="AdjustmentSubmenu">
+                                <li><a href="/Store/StockAdjustmentList"><i class="fa fa-align-left" aria-hidden="true"></i>View Adjustments</a></li>
+                                <% if (Context.User.IsInRole("Store Clerk"))
+                                    { %>
+                                <li><a href="/Store/StockAdjustmentNew">
+                                    <i class="fa fa-file-archive-o" aria-hidden="true"></i>New Adjustments</a></li>
+                                <% } %>
+                                <% if (!Context.User.IsInRole("Store Clerk") || IsTempRoleCode("ActSSup"))
+                                    { %>
+                                <li>
+                                    <% if (Context.User.IsInRole("Store Supervisor") || IsTempRoleCode("ActSSup"))
+                                        { %>
+                                    <a href="/Store/AdjustmentByStoreSupervisor">
+                                        <i class="fa fa-check-square-o" aria-hidden="true"></i>Pending Adjustments</a>
+                                    <% } %>
+                                    <% if (Context.User.IsInRole("Store Manager") || IsTempRoleCode("ActSMan"))
+                                        { %>
+                                    <a href="/Store/AdjustmentByStoreManager">
+                                        <i class="fa fa-check-square-o" aria-hidden="true"></i>Pending Adjustments</a>
+                                    <% } %>
+                                </li>
+                                <%} %>
+                            </ul>
+                            <li>
+                                <a href="#SupplierSubmenu" data-toggle="collapse" aria-expanded="false">
+                                    <i class="fa fa-users" aria-hidden="true"></i>Suppliers</a>
+                            </li>
+                            <ul class="collapse list-unstyled submenu2" id="SupplierSubmenu">
+                                <li><a href="/Store/SupplierList">
+                                    <i class="fa fa-address-book" aria-hidden="true"></i>View Suppliers</a></li>
+                                <li><a href="/Store/QuotationView.aspx">
+                                    <i class="fa fa-file-code-o" aria-hidden="true"></i>View Quotations</a></li>
+                            </ul>
+                            <% if (!Context.User.IsInRole("Store Clerk") || IsTempRoleCode("ActSSup"))
                                 { %>
-                            <li class="active"><a href="/Dept/ApproveRequest">Approve Requests</a></li>
+                            <li>
+                                <a href="#EmployeeSubmenu" data-toggle="collapse" aria-expanded="false">
+                                    <i class="fa fa-user-circle" aria-hidden="true"></i>Employees</a>
+                            </li>
+                            <ul class="collapse list-unstyled submenu2" id="EmployeeSubmenu">
+                                <li>
+                                    <a href="/Store/StoreEmployeeList">
+                                        <i class="fa fa-address-book-o" aria-hidden="true"></i>View Employees</a>
+                                </li>
+                                <li>
+                                    <a href="/Store/AssigningAuthorityStoreDept">
+                                        <i class="fa fa-key" aria-hidden="true"></i>Assign Authority</a>
+                                </li>
+                            </ul>
                             <%} %>
                         </ul>
                     </li>
-                    <li><a href="/Dept/ViewDisbursement">View Disbursements</a></li>
-                    <% if (IsTempRoleCode("Rep"))
-                        { %>
-                    <li><a href="/Dept/UpdateCollectionPoint">Update Collection Point</a></li>
-                    <%} %>
+                    <li><a href="/Store/TrendAnalysis"><i class="fa fa-bar-chart" aria-hidden="true"></i>Trend Analysis</a></li>
                     <% } %>
 
-                    <!-- Store Supervisor -->
-                    <% if (Context.User.IsInRole("Store Supervisor") || Context.User.IsInRole("Store Manager") || IsTempRoleCode("ActSMan") || IsTempRoleCode("ActSSup"))
-                        {%>
-                    <li>
-                        <a href="/Store/ViewPurchaseOrders?search=5&q=pending">Pending PO</a>
-                    </li>
-                    <% if (!IsTempRoleCode("ActSSup") && !Context.User.IsInRole("Store Manager"))
+
+                    <!-- Dept -->
+                    <% if (Context.User.IsInRole("Employee") || Context.User.IsInRole("Department Head"))
                         { %>
                     <li>
-                        <a href="/Store/AssigningAuthorityStoreDept">Assigning Authority</a>
+                        <a href="/Dept/ViewCatalogue"><i class="fa fa-cube" aria-hidden="true"></i>Catalogue</a>
                     </li>
-                    <%} %>
-
-                    <li>
-                        <% if (Context.User.IsInRole("Store Supervisor"))
-                            { %>
-                        <a href="/Store/AdjustmentByStoreSupervisor">Stock Adjustment</a>
-                        <% } %>
-                        <% if (Context.User.IsInRole("Store Manager"))
-                            { %>
-                        <a href="/Store/AdjustmentByStoreManager">Stock Adjustment</a>
-                        <% } %>
+                    <li id="menu-RequestEmployee">
+                        <a href="#RequestEmployeeSubmenu" data-toggle="collapse" aria-expanded="false">
+                            <i class="fa fa-paper-plane" aria-hidden="true"></i>Requests</a>
+                        <ul class="collapse list-unstyled submenu" id="RequestEmployeeSubmenu">
+                            <li><a href="/Dept/DeptRequisitionList">
+                                <i class="fa fa-file-text" aria-hidden="true"></i>View Requests</a></li>
+                            <% if (IsTempRoleCode("ActHead") || Context.User.IsInRole("Department Head"))
+                                { %>
+                            <li class="active"><a href="/Dept/DeptRequisitionList?search=Status&q=Pending">
+                                <i class="fa fa-check-square-o" aria-hidden="true"></i>Pending Requests</a></li>
+                            <%} %>
+                            <li><a href="/Dept/CreateRequest"><i class="fa fa-magic" aria-hidden="true"></i>New Request</a></li>
+                        </ul>
                     </li>
-                    <li>
-                        <a href="/Store/TrendAnalysis">Generate Trend Analysis</a>
-                    </li>
-                    <li>
-                        <a href="/Store/StoreEmployeeList">View Employees</a>
-                    </li>
-                    <li>
-                        <a href="/Store/SupplierList">View Supplier</a>
-                    </li>
-                    <li>
-                        <a href="/Store/StockCardSearch">View Stock Card</a>
-                    </li>
-
-                    <%} %>
-
-                    <!-- Department Head -->
-                    <% if (Context.User.IsInRole("Department Head"))
+                    <li><a href="/Dept/ViewDisbursement"><i class="fa fa-truck" aria-hidden="true"></i>Disbursements</a></li>
+                    <% if (IsTempRoleCode("Rep"))
                         { %>
-                    <li><a href="/Dept/DeptRequisitionList?search=Status&q=pending">
-                        <i class="fa fa-pencil" aria-hidden="true"></i>View Pending Requests</a>
-                    <li>
-                    <li><a href="/Dept/DeptRequisitionList">
-                        <i class="fa fa-newspaper-o" aria-hidden="true"></i>View All Requests</a>
+                    <li><a href="/Dept/UpdateCollectionPoint"><i class="fa fa-map-marker" aria-hidden="true"></i>Collection Point</a></li>
+                    <%} %>
+                    <% if (IsTempRoleCode("ActHead") || Context.User.IsInRole("Department Head"))
+                        { %>
                     <li>
                         <a href="/Dept/AddAuthorise">
-                            <i class="fa fa-key" aria-hidden="true"></i>Authorise Staff</a>
+                            <i class="fa fa-key" aria-hidden="true"></i>Authorisation</a>
                     </li>
                     <%} %>
+                    <% } %>
                 </ul>
 
 
@@ -181,18 +210,6 @@
                                 </ul>
                             </LoggedInTemplate>
                         </asp:LoginView>
-
-
-                        <%-- <li><a class="dropdown-toggle" id="dropdownMenu2" data-toggle="dropdown">Welcome, Esther
-    <span class="caret"></span></a>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                <li><a href="#">Manage Account</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Logout</a></li>
-                            </ul>
-
-
-                        </li>--%>
                     </div>
                 </nav>
                 <!-- Fill Content Here -->
