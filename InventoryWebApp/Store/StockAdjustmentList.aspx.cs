@@ -31,7 +31,7 @@ namespace InventoryWebApp.Store
                 {
                     //if ((bool)Session["CreatedPO"])
                     //{
-                    if (!(bool)Session["SendCreateAjdEmail"])
+                    if (!(bool)Session["SendCreateAdjEmail"])
                     {
                         ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
                             "alertMessage", "alert('Adjustment have been successfully created! However an error has occurred when sending email!')", true);

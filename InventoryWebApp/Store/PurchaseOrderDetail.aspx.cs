@@ -13,6 +13,7 @@ namespace InventoryWebApp.Store
     {
         StoreClerkController scController = new StoreClerkController();
         StoreSupervisorController supervisorController = new StoreSupervisorController();
+        EmailController emailController = new EmailController();
         string poNum;
         PurchaseOrder po;
         List<PODetail> poDetails;
@@ -312,6 +313,20 @@ namespace InventoryWebApp.Store
                 po.ApprovedBy = Context.User.Identity.Name;
                 supervisorController.updatePOStatus(po);
                 BindData();
+
+                //send email
+                string fromEmail = Util.EMAIL;
+                string password = Util.PASSWORD;
+                string username = Context.User.Identity.Name;
+                try
+                {
+                    emailController.POApproveRejectSendEmail(fromEmail, password, username, po);
+                    Session["SendPOApproveRejectEmail"] = true;
+                }
+                catch (Exception ex)
+                {
+                    Session["SendPOApproveRejectEmail"] = false;
+                }
             }
         }
 
@@ -324,6 +339,20 @@ namespace InventoryWebApp.Store
                 po.ApprovedBy = Context.User.Identity.Name;
                 supervisorController.updatePOStatus(po);
                 BindData();
+
+                //send email
+                string fromEmail = Util.EMAIL;
+                string password = Util.PASSWORD;
+                string username = Context.User.Identity.Name;
+                try
+                {
+                    emailController.POApproveRejectSendEmail(fromEmail, password, username, po);
+                    Session["SendPOApproveRejectEmail"] = true;
+                }
+                catch (Exception ex)
+                {
+                    Session["SendPOApproveRejectEmail"] = false;
+                }
             }
         }
     }

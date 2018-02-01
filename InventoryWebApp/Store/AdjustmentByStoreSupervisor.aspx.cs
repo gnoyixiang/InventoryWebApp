@@ -15,6 +15,7 @@ namespace InventoryWebApp.Store
     public partial class AdjustmentByStoreSupervisor : System.Web.UI.Page
     {
         StoreSupervisorController storeSpController = new StoreSupervisorController();
+        EmailController emailController = new EmailController();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -117,7 +118,21 @@ namespace InventoryWebApp.Store
 
                     PopulateGridViewForSupervisor();
                     lblSuccessMsg.Text = "Adjustment request Approved";
-                    lblErrorMsg.Text = "";                    
+                    lblErrorMsg.Text = "";
+
+                    //send email
+                    string fromEmail = Util.EMAIL;
+                    string password = Util.PASSWORD;
+                    string username = Context.User.Identity.Name;
+                    try
+                    {
+                        emailController.AdjApproveRejectSendEmail(fromEmail, password, username, ad);
+                        Session["SendAdjApproveRejectEmail"] = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Session["SendAdjApproveRejectEmail"] = false;
+                    }
                 }
                 else
                 {
@@ -159,6 +174,19 @@ namespace InventoryWebApp.Store
                     lblSuccessMsg.Text = "";
                     lblErrorMsg.Text = "Adjustment request rejected";
 
+                    //send email
+                    string fromEmail = Util.EMAIL;
+                    string password = Util.PASSWORD;
+                    string username = Context.User.Identity.Name;
+                    try
+                    {
+                        emailController.AdjApproveRejectSendEmail(fromEmail, password, username, adOFReject);
+                        Session["SendAdjApproveRejectEmail"] = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Session["SendAdjApproveRejectEmail"] = false;
+                    }
                 }
             }
             catch (Exception ex)
