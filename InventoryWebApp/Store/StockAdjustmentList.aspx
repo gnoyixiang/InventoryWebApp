@@ -13,7 +13,7 @@
         <div class="col-md-10 col-sm-9">
             <h3>Stock Adjustment</h3>
         </div>
-        <% if (!Context.User.IsInRole("Stork Clerk"))
+        <% if (Context.User.IsInRole("Store Clerk"))
             { %>
         <div class="col-md-2 col-sm-3" style="margin-top: 5px;">
             <asp:Button ID="btnNewStockAdjustment" runat="server" Text="New" OnClick="btnNewStockAdjustment_Click" CssClass="btn btn-primary" Width="100%"/>

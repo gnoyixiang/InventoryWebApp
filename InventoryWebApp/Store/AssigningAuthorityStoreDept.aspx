@@ -145,7 +145,7 @@
 
                     <asp:CompareValidator ID="compStartTodayValidatorFooter" Operator="GreaterThanEqual" Type="Date" ControlToValidate="tbxStartDateFooter" 
                         ErrorMessage="Invalid StartDate" runat="server"
-                        ForeColor="Red" ValueToCompare="<%# DateTime.Today.ToShortDateString() %>"  /><br />
+                        ForeColor="Red"  ValueToCompare="<%# DateTime.Today.ToShortDateString() %>" /><br />
 
                     <asp:RequiredFieldValidator ID="rqValidatorStartdateFooter" runat="server" ErrorMessage="Required" ControlToValidate="tbxStartDateFooter" 
                         ForeColor="Red" ValidationGroup="addValidation">
