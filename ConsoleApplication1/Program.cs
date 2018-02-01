@@ -77,10 +77,10 @@ namespace ConsoleTestApp
 
             //ds.Update(r);
 
-            DepartmentService ds = new DepartmentService();
+            //DepartmentService ds = new DepartmentService();
 
-            ds.GetAssignRoleInDepartment("ZOOL");
-            Console.WriteLine(ds);
+            //ds.GetAssignRoleInDepartment("ZOOL");
+            //Console.WriteLine(ds);
 
 
         }

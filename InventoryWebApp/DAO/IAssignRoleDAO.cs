@@ -21,5 +21,6 @@ namespace InventoryWebApp.DAO
         string GetTemporaryRoleCode(string empcode);
         
         int UpdateAssignRole(AssignRole role);
+        List<AssignRole> ListAssignRoleByEmpCode(string empCode);
     }
 }

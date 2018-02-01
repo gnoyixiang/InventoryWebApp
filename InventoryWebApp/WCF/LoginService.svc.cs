@@ -45,22 +45,40 @@ namespace InventoryWebApp.WCF
 
                 Employee em = controller.GetEmployee(detail.Email);
 
-                string temporaryCode = sController.GetTemporaryRole(em.EmployeeCode);
+                List<AssignRole> asList = sController.ListAssignRoleByEmpCode(em.EmployeeCode);
 
-                if (temporaryCode != null)
+                //string temporaryCode = sController.GetTemporaryRole(em.EmployeeCode);
+
+                if (asList.Count!=0)
                 {
-                    DateTime start = sController.GetTemporaryRoleStartDate(sController.GetAssignRoleCode(em.EmployeeCode));
-                    DateTime end = sController.GetTemporaryRoleEndDate(sController.GetAssignRoleCode(em.EmployeeCode));
-
-                    // string sdate = DateTime.Now.ToString("yyyyMMdd");
-
-                    //DateTime startDate = DateTime.Parse(sdate);
-
-                    if (DateTime.Now.Date >= start.Date && DateTime.Now.Date <= end.Date)
+                    foreach (AssignRole a in asList)
                     {
-                        result.RoleCode = temporaryCode;
-                    }
+                        if (a.TemporaryRoleCode.Equals("ActHead") || a.TemporaryRoleCode.Equals("ActSSup")) { 
+                        DateTime start = sController.GetTemporaryRoleStartDate(sController.GetAssignRoleCode(em.EmployeeCode));
+                        DateTime end = sController.GetTemporaryRoleEndDate(sController.GetAssignRoleCode(em.EmployeeCode));
 
+                        // string sdate = DateTime.Now.ToString("yyyyMMdd");
+
+                        //DateTime startDate = DateTime.Parse(sdate);
+
+
+                        if (DateTime.Now.Date >= start.Date && DateTime.Now.Date <= end.Date)
+                        {
+                            result.RoleCode = a.TemporaryRoleCode;
+                            break;
+                        }
+                        else
+                        {
+
+                            result.RoleCode = controller.GetRole(detail.Email).Id;
+                        }
+                        }
+                        else
+                        {
+                            result.RoleCode = a.TemporaryRoleCode;
+                        }
+
+                    }
 
                 }
                 else
