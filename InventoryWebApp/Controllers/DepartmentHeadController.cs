@@ -43,15 +43,20 @@ namespace InventoryWebApp.Controllers
             return edao.GetEmployeeInfoByEmployeeCode(employeecode);
         }
 
-        public List<Employee> ListOfEmployeeNameInDepartment(string empName, string deptCode)
+        public List<Employee> ListOfEmployeeCodeInDepartment(string empCode, string deptCode)
         {
             List<Employee> empList = new List<Employee>();
-            List<Employee> empSearchList = edao.SearchByEmployeeName(empName);
-            foreach(Employee e in empSearchList)
+            List<Employee> empSearchList = edao.SearchByEmployeeCode(empCode)
+                .Where(e => e.DepartmentCode == deptCode).ToList();
+            foreach (Employee e in empSearchList)
             {
-                if(e.DepartmentCode==deptCode)
+                Role role = udao.getRoleNameByUsername(e.UserName);
+                if (role != null)
                 {
-                    empList.Add(e);
+                    if (role.Id == "Empl")
+                    {
+                        empList.Add(e);
+                    }
                 }
             }
             return empList;
@@ -61,19 +66,7 @@ namespace InventoryWebApp.Controllers
         {
             return rdao.GetRoleInfo(id);
         }
-        public List<Employee> ListOfEmployeeCodeInDepartment(string empCode, string deptCode)
-        {
-            List<Employee> empList = new List<Employee>();
-            List<Employee> empSearchList = edao.SearchByEmployeeCode(empCode);
-            foreach (Employee e in empSearchList)
-            {
-                if (e.DepartmentCode == deptCode)
-                {
-                    empList.Add(e);
-                }
-            }
-            return empList;
-        }
+      
         public List<AssignRole> ListOfAssignRoleInDepartment(string deptCode)
         {
             List<Employee> empList = edao.SearchByDept(deptCode);
