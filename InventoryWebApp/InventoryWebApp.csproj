@@ -43,6 +43,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=18.1.0.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <HintPath>..\packages\AjaxControlToolkit.18.1.0\lib\net40\AjaxControlToolkit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -76,6 +80,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Reports, Version=0.9.5821.33855, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Report.NET.0.09.06\lib\net452\Reports.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -83,6 +91,8 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
@@ -184,6 +194,82 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Antlr3.Runtime.dll" />
+    <Content Include="bin\Antlr3.Runtime.pdb" />
+    <Content Include="bin\AspNet.ScriptManager.bootstrap.dll" />
+    <Content Include="bin\AspNet.ScriptManager.jQuery.dll" />
+    <Content Include="bin\EntityFramework.dll" />
+    <Content Include="bin\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\EntityFramework.xml" />
+    <Content Include="bin\InventoryWebApp.dll" />
+    <Content Include="bin\InventoryWebApp.pdb" />
+    <Content Include="bin\Microsoft.AI.Agent.Intercept.dll" />
+    <Content Include="bin\Microsoft.AI.DependencyCollector.dll" />
+    <Content Include="bin\Microsoft.AI.DependencyCollector.xml" />
+    <Content Include="bin\Microsoft.AI.PerfCounterCollector.dll" />
+    <Content Include="bin\Microsoft.AI.ServerTelemetryChannel.dll" />
+    <Content Include="bin\Microsoft.AI.ServerTelemetryChannel.xml" />
+    <Content Include="bin\Microsoft.AI.Web.dll" />
+    <Content Include="bin\Microsoft.AI.Web.xml" />
+    <Content Include="bin\Microsoft.AI.WindowsServer.dll" />
+    <Content Include="bin\Microsoft.AI.WindowsServer.xml" />
+    <Content Include="bin\Microsoft.ApplicationInsights.dll" />
+    <Content Include="bin\Microsoft.ApplicationInsights.xml" />
+    <Content Include="bin\Microsoft.AspNet.FriendlyUrls.dll" />
+    <Content Include="bin\Microsoft.AspNet.FriendlyUrls.xml" />
+    <Content Include="bin\Microsoft.AspNet.Identity.Core.dll" />
+    <Content Include="bin\Microsoft.AspNet.Identity.Core.xml" />
+    <Content Include="bin\Microsoft.AspNet.Identity.EntityFramework.dll" />
+    <Content Include="bin\Microsoft.AspNet.Identity.EntityFramework.xml" />
+    <Content Include="bin\Microsoft.AspNet.Identity.Owin.dll" />
+    <Content Include="bin\Microsoft.AspNet.Identity.Owin.xml" />
+    <Content Include="bin\Microsoft.AspNet.Web.Optimization.WebForms.dll" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml" />
+    <Content Include="bin\Microsoft.Owin.dll" />
+    <Content Include="bin\Microsoft.Owin.Host.SystemWeb.dll" />
+    <Content Include="bin\Microsoft.Owin.Host.SystemWeb.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.Cookies.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.Cookies.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.Facebook.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.Facebook.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.Google.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.Google.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.MicrosoftAccount.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.MicrosoftAccount.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.OAuth.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.OAuth.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.Twitter.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.Twitter.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.xml" />
+    <Content Include="bin\Microsoft.Owin.xml" />
+    <Content Include="bin\Microsoft.ScriptManager.MSAjax.dll" />
+    <Content Include="bin\Microsoft.ScriptManager.WebForms.dll" />
+    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="bin\Newtonsoft.Json.dll" />
+    <Content Include="bin\Newtonsoft.Json.xml" />
+    <Content Include="bin\Owin.dll" />
+    <Content Include="bin\System.Web.Optimization.dll" />
+    <Content Include="bin\System.Web.Optimization.xml" />
+    <Content Include="bin\System.Web.Providers.dll" />
+    <Content Include="bin\System.Web.Providers.xml" />
+    <Content Include="bin\WebGrease.dll" />
+    <Content Include="Dept\CreateRequest.aspx" />
+    <Content Include="Dept\ItemDetails.aspx" />
+    <Content Include="Dept\DeptRequisitionList.aspx" />
+    <Content Include="Dept\RequisitionDetails.aspx" />
+    <Content Include="Dept\UpdateCollectionPoint.aspx" />
+    <Content Include="Store\RequisitionDetails.aspx" />
+    <Content Include="Store\TrendAnalysis.aspx" />
+    <Content Include="Dept\ViewCatalogue.aspx" />
+    <Content Include="Dept\ViewDisbursement.aspx" />
+    <Content Include="ErrorPages\403.aspx" />
+    <Content Include="ErrorPages\404.aspx" />
+    <Content Include="ErrorPages\Oops.aspx" />
+    <Content Include="Store\2AllocationPage.aspx" />
+    <Content Include="ErrorPages\401.aspx" />
     <Content Include="About.aspx" />
     <Content Include="Account\AddPhoneNumber.aspx" />
     <Content Include="Account\Confirm.aspx" />
@@ -200,12 +286,22 @@
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
     <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
     <Content Include="Account\VerifyPhoneNumber.aspx" />
+    <Content Include="Store\ChargeBackPage.aspx" />
+    <Content Include="Store\AdjustmentByStoreManager.aspx" />
+    <Content Include="Store\AdjustmentByStoreSupervisor.aspx" />
+    <Content Include="Store\AssigningAuthorityStoreDept.aspx" />
+    <Content Include="Dept\AddAuthorise.aspx" />
+    <Content Include="Dept\AuthoriseStaff.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\custom.css" />
     <Content Include="Content\custom2.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Store\DisbursementFormPage.aspx" />
+    <Content Include="Store\DisbursementGenerationPage.aspx" />
+    <Content Include="Store\StoreEmployeeList.aspx" />
+    <Content Include="Store\CreateNewOrder.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -214,11 +310,26 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PurchaseOrderDetail.aspx" />
-    <Content Include="RequisitionList.aspx" />
+    <Content Include="Store\QuotationPrint.aspx" />
+    <Content Include="Store\QuotationView.aspx" />
+    <Content Include="Store\RequisitionList.aspx" />
+    <Content Include="Store\RetrievalPage.aspx" />
     <Content Include="Scripts\fancy-sidebar-navigation.js" />
     <Content Include="Layout.Master" />
-    <Content Include="ViewPurchaseOrders.aspx" />
+    <Content Include="Store\StockCardSearch.aspx" />
+    <Content Include="Store\StockAdjustmentEdit.aspx" />
+    <Content Include="Store\StockAdjustmentList.aspx" />
+    <Content Include="Store\StockAdjustmentNew.aspx" />
+    <Content Include="Store\StockAdjustmentView.aspx" />
+    <Content Include="Store\PurchaseOrderDetail.aspx" />
+    <Content Include="Store\ViewDisbursementDetails.aspx" />
+    <Content Include="Store\ViewPurchaseOrders.aspx" />
+    <Content Include="Public.Master" />
+    <Content Include="Dept\Web.config" />
+    <Content Include="bin\ApplicationInsights.config" />
+    <Content Include="bin\InventoryWebApp.dll.config" />
+    <Content Include="LayoutWithoutAjax.Master" />
+    <None Include="Properties\PublishProfiles\InventoryWCF.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
@@ -255,6 +366,9 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Site.Master" />
+    <Content Include="Store\ViewStockCard.aspx" />
+    <Content Include="Store\SupplierList.aspx" />
+    <Content Include="Dept\ViewDisbursementDetails.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -264,6 +378,7 @@
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Site.Mobile.Master" />
+    <Content Include="Store\Web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -272,6 +387,127 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\EmailController.cs" />
+    <Compile Include="Controllers\TrendAnalysisController.cs" />
+    <Compile Include="DAO\CategoryDAO.cs" />
+    <Compile Include="DAO\ICategoryDAO.cs" />
+    <Compile Include="Dept\CreateRequest.aspx.cs">
+      <DependentUpon>CreateRequest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dept\CreateRequest.aspx.designer.cs">
+      <DependentUpon>CreateRequest.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dept\ItemDetails.aspx.cs">
+      <DependentUpon>ItemDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dept\ItemDetails.aspx.designer.cs">
+      <DependentUpon>ItemDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dept\DeptRequisitionList.aspx.cs">
+      <DependentUpon>DeptRequisitionList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dept\DeptRequisitionList.aspx.designer.cs">
+      <DependentUpon>DeptRequisitionList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dept\RequisitionDetails.aspx.cs">
+      <DependentUpon>RequisitionDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dept\RequisitionDetails.aspx.designer.cs">
+      <DependentUpon>RequisitionDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dept\UpdateCollectionPoint.aspx.cs">
+      <DependentUpon>UpdateCollectionPoint.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dept\UpdateCollectionPoint.aspx.designer.cs">
+      <DependentUpon>UpdateCollectionPoint.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="LayoutWithoutAjax.Master.cs">
+      <DependentUpon>LayoutWithoutAjax.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LayoutWithoutAjax.Master.designer.cs">
+      <DependentUpon>LayoutWithoutAjax.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Store\RequisitionDetails.aspx.cs">
+      <DependentUpon>RequisitionDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Store\RequisitionDetails.aspx.designer.cs">
+      <DependentUpon>RequisitionDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Store\TrendAnalysis.aspx.cs">
+      <DependentUpon>TrendAnalysis.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Store\TrendAnalysis.aspx.designer.cs">
+      <DependentUpon>TrendAnalysis.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dept\ViewCatalogue.aspx.cs">
+      <DependentUpon>ViewCatalogue.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dept\ViewCatalogue.aspx.designer.cs">
+      <DependentUpon>ViewCatalogue.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dept\ViewDisbursement.aspx.cs">
+      <DependentUpon>ViewDisbursement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dept\ViewDisbursement.aspx.designer.cs">
+      <DependentUpon>ViewDisbursement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorPages\401.aspx.cs">
+      <DependentUpon>401.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ErrorPages\401.aspx.designer.cs">
+      <DependentUpon>401.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\DepartmentHeadController.cs" />
+    <Compile Include="Dept\AddAuthorise.aspx.cs">
+      <DependentUpon>AddAuthorise.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dept\AddAuthorise.aspx.designer.cs">
+      <DependentUpon>AddAuthorise.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorPages\403.aspx.cs">
+      <DependentUpon>403.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ErrorPages\403.aspx.designer.cs">
+      <DependentUpon>403.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorPages\404.aspx.cs">
+      <DependentUpon>404.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ErrorPages\404.aspx.designer.cs">
+      <DependentUpon>404.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorPages\Oops.aspx.cs">
+      <DependentUpon>Oops.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ErrorPages\Oops.aspx.designer.cs">
+      <DependentUpon>Oops.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RequestDTO.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="Store\2AllocationPage.aspx.cs">
+      <DependentUpon>2AllocationPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Store\2AllocationPage.aspx.designer.cs">
+      <DependentUpon>2AllocationPage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Account\AddPhoneNumber.aspx.cs">
       <DependentUpon>AddPhoneNumber.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -377,6 +613,49 @@
     <Compile Include="Account\VerifyPhoneNumber.aspx.designer.cs">
       <DependentUpon>VerifyPhoneNumber.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\EmployeeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\StoreClerkController.cs" />
+    <Compile Include="Controllers\StoreManagerController.cs" />
+    <Compile Include="Controllers\StoreSupervisorController.cs" />
+    <Compile Include="DAO\IRequestDAO.cs" />
+    <Compile Include="DAO\IRequestDetailsDAO.cs" />
+    <Compile Include="DAO\UserDAO.cs" />
+    <Compile Include="Models\Classes\ComparePurchaseOrderByPONum.cs" />
+    <Compile Include="Models\Classes\ComparePurchaseOrderByStatus.cs" />
+    <Compile Include="Models\Classes\PurchaseItem.cs" />
+    <Compile Include="Models\Entities\Adjustment.cs" />
+    <Compile Include="Models\Entities\AssignRole.cs" />
+    <Compile Include="Models\Entities\Category.cs" />
+    <Compile Include="Models\Entities\CollectionPoint.cs" />
+    <Compile Include="Models\Entities\Department.cs" />
+    <Compile Include="Models\Entities\Disbursement.cs" />
+    <Compile Include="Models\Entities\DisbursementDetail.cs" />
+    <Compile Include="Models\Entities\Employee.cs" />
+    <Compile Include="Models\Entities\EntityModel.cs" />
+    <Compile Include="Models\Entities\PODetail.cs" />
+    <Compile Include="Models\Entities\PurchaseOrder.cs" />
+    <Compile Include="Models\Entities\Request.cs" />
+    <Compile Include="Models\Entities\RequestDetail.cs" />
+    <Compile Include="Models\Entities\Retrieval.cs" />
+    <Compile Include="Models\Entities\RetrievalDetail.cs" />
+    <Compile Include="Models\Entities\Role.cs" />
+    <Compile Include="Models\Entities\StationeryCatalogue.cs" />
+    <Compile Include="Models\Entities\Supplier.cs" />
+    <Compile Include="Models\Entities\SupplierDetail.cs" />
+    <Compile Include="Models\Entities\Tender.cs" />
+    <Compile Include="Models\Entities\TenderDetail.cs" />
+    <Compile Include="Models\Entities\User.cs" />
+    <Compile Include="Models\Entities\UserClaim.cs" />
+    <Compile Include="Models\Entities\UserLogin.cs" />
+    <Compile Include="Public.Master.cs">
+      <DependentUpon>Public.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Public.Master.designer.cs">
+      <DependentUpon>Public.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Startup.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="About.aspx.cs">
       <DependentUpon>About.aspx</DependentUpon>
@@ -388,6 +667,41 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Store\AdjustmentByStoreManager.aspx.cs">
+      <DependentUpon>AdjustmentByStoreManager.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Store\AdjustmentByStoreManager.aspx.designer.cs">
+      <DependentUpon>AdjustmentByStoreManager.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Store\AdjustmentByStoreSupervisor.aspx.cs">
+      <DependentUpon>AdjustmentByStoreSupervisor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Store\AdjustmentByStoreSupervisor.aspx.designer.cs">
+      <DependentUpon>AdjustmentByStoreSupervisor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Store\AssigningAuthorityStoreDept.aspx.cs">
+      <DependentUpon>AssigningAuthorityStoreDept.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Store\AssigningAuthorityStoreDept.aspx.designer.cs">
+      <DependentUpon>AssigningAuthorityStoreDept.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Store\ChargeBackPage.aspx.cs">
+      <DependentUpon>ChargeBackPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Store\ChargeBackPage.aspx.designer.cs">
+      <DependentUpon>ChargeBackPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dept\AuthoriseStaff.aspx.cs">
+      <DependentUpon>AuthoriseStaff.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dept\AuthoriseStaff.aspx.designer.cs">
+      <DependentUpon>AuthoriseStaff.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -395,12 +709,6 @@
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\DepartmentHeadController.cs" />
-    <Compile Include="Controllers\DepartmentRepController.cs" />
-    <Compile Include="Controllers\EmployeeController.cs" />
-    <Compile Include="Controllers\StoreClerkController.cs" />
-    <Compile Include="Controllers\StoreManagerController.cs" />
-    <Compile Include="Controllers\StoreSupervisorController.cs" />
     <Compile Include="DAO\AdjustmentDAO.cs" />
     <Compile Include="DAO\AssignRoleDAO.cs" />
     <Compile Include="DAO\CatagoryDAO.cs" />
@@ -416,8 +724,6 @@
     <Compile Include="DAO\IEmployeeDAO.cs" />
     <Compile Include="DAO\IPODetailsDAO.cs" />
     <Compile Include="DAO\IPurchaseOrderDAO.cs" />
-    <Compile Include="DAO\IRequestDAO.cs" />
-    <Compile Include="DAO\IRequestDetailsDAO.cs" />
     <Compile Include="DAO\IRetrievalDAO.cs" />
     <Compile Include="DAO\IRetrievalDetailsDAO.cs" />
     <Compile Include="DAO\IRoleDAO.cs" />
@@ -442,13 +748,33 @@
     <Compile Include="DAO\SupplierDetailsDAO.cs" />
     <Compile Include="DAO\TenderDAO.cs" />
     <Compile Include="DAO\TenderDetailsDAO.cs" />
-    <Compile Include="DAO\UserDAO.cs" />
+    <Compile Include="Store\CreateNewOrder.aspx.cs">
+      <DependentUpon>CreateNewOrder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Store\CreateNewOrder.aspx.designer.cs">
+      <DependentUpon>CreateNewOrder.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Store\DisbursementFormPage.aspx.cs">
+      <DependentUpon>DisbursementFormPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Store\DisbursementFormPage.aspx.designer.cs">
+      <DependentUpon>DisbursementFormPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Store\DisbursementGenerationPage.aspx.cs">
+      <DependentUpon>DisbursementGenerationPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Store\DisbursementGenerationPage.aspx.designer.cs">
+      <DependentUpon>DisbursementGenerationPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -460,47 +786,44 @@
     <Compile Include="Layout.Master.designer.cs">
       <DependentUpon>Layout.Master</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entities\Adjustment.cs" />
-    <Compile Include="Models\Entities\AssignRole.cs" />
-    <Compile Include="Models\Entities\Category.cs" />
-    <Compile Include="Models\Entities\CollectionPoint.cs" />
-    <Compile Include="Models\Entities\Department.cs" />
-    <Compile Include="Models\Entities\Disbursement.cs" />
-    <Compile Include="Models\Entities\DisbursementDetail.cs" />
-    <Compile Include="Models\Entities\Employee.cs" />
-    <Compile Include="Models\Entities\EntityModel.cs" />
-    <Compile Include="Models\Entities\PODetail.cs" />
-    <Compile Include="Models\Entities\PurchaseOrder.cs" />
-    <Compile Include="Models\Entities\Request.cs" />
-    <Compile Include="Models\Entities\RequestDetail.cs" />
-    <Compile Include="Models\Entities\Retrieval.cs" />
-    <Compile Include="Models\Entities\RetrievalDetail.cs" />
-    <Compile Include="Models\Entities\Role.cs" />
-    <Compile Include="Models\Entities\StationeryCatalogue.cs" />
-    <Compile Include="Models\Entities\Supplier.cs" />
-    <Compile Include="Models\Entities\SupplierDetail.cs" />
-    <Compile Include="Models\Entities\sysdiagram.cs" />
-    <Compile Include="Models\Entities\Tender.cs" />
-    <Compile Include="Models\Entities\TenderDetail.cs" />
-    <Compile Include="Models\Entities\User.cs" />
-    <Compile Include="Models\Entities\UserClaim.cs" />
-    <Compile Include="Models\Entities\UserLogin.cs" />
+    <Compile Include="Models\Entities\TransactionOfRetrieval_Adjustment_PurchaseOrder.cs" />
     <Compile Include="Models\Entities\Util.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PurchaseOrderDetail.aspx.cs">
+    <Compile Include="Store\PurchaseOrderDetail.aspx.cs">
       <DependentUpon>PurchaseOrderDetail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="PurchaseOrderDetail.aspx.designer.cs">
+    <Compile Include="Store\PurchaseOrderDetail.aspx.designer.cs">
       <DependentUpon>PurchaseOrderDetail.aspx</DependentUpon>
     </Compile>
-    <Compile Include="RequisitionList.aspx.cs">
+    <Compile Include="Store\QuotationPrint.aspx.cs">
+      <DependentUpon>QuotationPrint.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Store\QuotationPrint.aspx.designer.cs">
+      <DependentUpon>QuotationPrint.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Store\QuotationView.aspx.cs">
+      <DependentUpon>QuotationView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Store\QuotationView.aspx.designer.cs">
+      <DependentUpon>QuotationView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Store\RequisitionList.aspx.cs">
       <DependentUpon>RequisitionList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="RequisitionList.aspx.designer.cs">
+    <Compile Include="Store\RequisitionList.aspx.designer.cs">
       <DependentUpon>RequisitionList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Store\RetrievalPage.aspx.cs">
+      <DependentUpon>RetrievalPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Store\RetrievalPage.aspx.designer.cs">
+      <DependentUpon>RetrievalPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
@@ -516,13 +839,78 @@
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
-    <Compile Include="Startup.cs" />
-    <Compile Include="ViewPurchaseOrders.aspx.cs">
+    <Compile Include="Store\StoreEmployeeList.aspx.cs">
+      <DependentUpon>StoreEmployeeList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Store\StoreEmployeeList.aspx.designer.cs" />
+    <Compile Include="Store\SupplierList.aspx.cs">
+      <DependentUpon>SupplierList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Store\SupplierList.aspx.designer.cs" />
+    <Compile Include="Store\StockCardSearch.aspx.cs">
+      <DependentUpon>StockCardSearch.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Store\StockCardSearch.aspx.designer.cs">
+      <DependentUpon>StockCardSearch.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Store\StockAdjustmentEdit.aspx.cs">
+      <DependentUpon>StockAdjustmentEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Store\StockAdjustmentEdit.aspx.designer.cs">
+      <DependentUpon>StockAdjustmentEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Store\StockAdjustmentList.aspx.cs">
+      <DependentUpon>StockAdjustmentList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Store\StockAdjustmentList.aspx.designer.cs">
+      <DependentUpon>StockAdjustmentList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Store\StockAdjustmentNew.aspx.cs">
+      <DependentUpon>StockAdjustmentNew.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Store\StockAdjustmentNew.aspx.designer.cs">
+      <DependentUpon>StockAdjustmentNew.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Store\StockAdjustmentView.aspx.cs">
+      <DependentUpon>StockAdjustmentView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Store\StockAdjustmentView.aspx.designer.cs">
+      <DependentUpon>StockAdjustmentView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Store\ViewDisbursementDetails.aspx.cs">
+      <DependentUpon>ViewDisbursementDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Store\ViewDisbursementDetails.aspx.designer.cs">
+      <DependentUpon>ViewDisbursementDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Store\ViewPurchaseOrders.aspx.cs">
       <DependentUpon>ViewPurchaseOrders.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewPurchaseOrders.aspx.designer.cs">
+    <Compile Include="Store\ViewPurchaseOrders.aspx.designer.cs">
       <DependentUpon>ViewPurchaseOrders.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Store\ViewStockCard.aspx.cs">
+      <DependentUpon>ViewStockCard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Store\ViewStockCard.aspx.designer.cs">
+      <DependentUpon>ViewStockCard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dept\ViewDisbursementDetails.aspx.cs">
+      <DependentUpon>ViewDisbursementDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dept\ViewDisbursementDetails.aspx.designer.cs">
+      <DependentUpon>ViewDisbursementDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
@@ -534,6 +922,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="bin\roslyn\" />
+    <Folder Include="WCF\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -550,7 +946,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>15132</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:15132/</IISUrl>
+          <IISUrl>http://localhost:15133/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

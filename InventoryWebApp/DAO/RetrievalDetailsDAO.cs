@@ -12,7 +12,7 @@ namespace InventoryWebApp.DAO
             using (EntityModel en = new EntityModel())
             {
                 RetrievalDetail r = en.RetrievalDetails.Where(p => p.RetrievalCode == rd.RetrievalCode && p.ItemCode == rd.ItemCode).FirstOrDefault<RetrievalDetail>();
-                r.Quantity = rd.Quantity;
+                r.QuantityRetrieved = rd.QuantityRetrieved;
                 r.Notes = rd.Notes;
                 return en.SaveChanges();
             }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using InventoryWebApp.DAO;
 using InventoryWebApp.Models.Entities;
+using InventoryWebApp.Models.Classes;
 
 namespace ConsoleTestApp
 {
@@ -16,167 +17,163 @@ namespace ConsoleTestApp
         {
             TestPurchaseOrderDAO testDAO = new TestPurchaseOrderDAO();
 
-            DateTime now = DateTime.Now;
-            PurchaseOrder po1 = new PurchaseOrder();
-            po1.PurchaseOrderCode = "ALPA" + now.ToString("yyMMddHHmmssfff");
-            po1.DateCreated = now;
-            po1.Status = "PENDING";
-            po1.Notes = "Test1";
-            po1.SupplierCode = "ALPA";
-            po1.UserName = "yixiang@ssis.edu.sg";
+            //DateTime now = DateTime.Now;
+            //PurchaseOrder po1 = new PurchaseOrder();
+            //po1.PurchaseOrderCode = "ALPA" + now.ToString("yyMMddHHmmssfff");
+            //po1.DateCreated = now;
+            //po1.Status = "PENDING";
+            //po1.Notes = "Test1";
+            //po1.SupplierCode = "ALPA";
+            //po1.UserName = "yixiang@ssis.edu.sg";
 
-            PODetail pod1 = new PODetail();
-            pod1.ItemCode = "C001";
-            pod1.PurchaseOrderCode = po1.PurchaseOrderCode;
-            pod1.Price = Convert.ToDecimal(0.5);
+            //PODetail pod1 = new PODetail();
+            //pod1.ItemCode = "C001";
+            //pod1.PurchaseOrderCode = po1.PurchaseOrderCode;
+            //pod1.Price = Convert.ToDecimal(0.5);
 
-            PODetail pod2 = new PODetail();
-            pod2.ItemCode = "E001";
-            pod2.PurchaseOrderCode = po1.PurchaseOrderCode;
-            pod2.Price = Convert.ToDecimal(0.3);
+            //PODetail pod2 = new PODetail();
+            //pod2.ItemCode = "E001";
+            //pod2.PurchaseOrderCode = po1.PurchaseOrderCode;
+            //pod2.Price = Convert.ToDecimal(0.3);
 
-            PODetail pod3 = new PODetail();
-            pod3.ItemCode = "F020";
-            pod3.PurchaseOrderCode = po1.PurchaseOrderCode;
-            pod3.Price = Convert.ToDecimal(2);
+            //PODetail pod3 = new PODetail();
+            //pod3.ItemCode = "F020";
+            //pod3.PurchaseOrderCode = po1.PurchaseOrderCode;
+            //pod3.Price = Convert.ToDecimal(2);
 
-            po1.PODetails.Add(pod1);
-            po1.PODetails.Add(pod2);
-            po1.PODetails.Add(pod3);
-            
-            Console.WriteLine("/nAdding purchase order");
-            testDAO.AddPurchaseOrder(po1);
-            
-            var polist = testDAO.ListAllPurchaseOrders();            
+            //po1.PODetails.Add(pod1);
+            //po1.PODetails.Add(pod2);
+            //po1.PODetails.Add(pod3);
+
+            //Console.WriteLine("/nAdding purchase order");
+            //testDAO.AddPurchaseOrder(po1);
+
+            var polist = testDAO.ListAllPurchaseOrders();
+            polist.Sort(new ComparePurchaseOrderByPONum());
             foreach (PurchaseOrder po in polist)
             {
-                Console.WriteLine("\nListing purchase order");
-                Console.WriteLine(testDAO.POToString(po));
-                foreach(PODetail pod in testDAO.ListPODetailsInPO(po))
-                {
-                    Console.WriteLine(testDAO.PODToString(pod));
-                }
+                Console.WriteLine(po.PurchaseOrderCode);
             }
 
-            Console.WriteLine("\nListing purchase orders by status");
-            foreach (PurchaseOrder po in testDAO.ListPurchaseOrdersByStatus("pending"))
-            {
-                Console.WriteLine(testDAO.POToString(po));
-            }
+            //Console.WriteLine("\nListing purchase orders by status");
+            //foreach (PurchaseOrder po in testDAO.ListPurchaseOrdersByStatus("pending"))
+            //{
+            //    Console.WriteLine(testDAO.POToString(po));
+            //}
 
-            Console.WriteLine("\nListing purchase orders by status");
-            foreach (PurchaseOrder po in testDAO.ListPurchaseOrdersByStatus("pending"))
-            {
-                Console.WriteLine(testDAO.POToString(po));
-            }
+            //Console.WriteLine("\nListing purchase orders by status");
+            //foreach (PurchaseOrder po in testDAO.ListPurchaseOrdersByStatus("pending"))
+            //{
+            //    Console.WriteLine(testDAO.POToString(po));
+            //}
 
-            Console.WriteLine("\nListing purchase orders by supplier code");
-            foreach (PurchaseOrder po in testDAO.ListPurchaseOrdersBySupplierCode("alpa"))
-            {
-                Console.WriteLine(testDAO.POToString(po));
-            }
+            //Console.WriteLine("\nListing purchase orders by supplier code");
+            //foreach (PurchaseOrder po in testDAO.ListPurchaseOrdersBySupplierCode("alpa"))
+            //{
+            //    Console.WriteLine(testDAO.POToString(po));
+            //}
 
-            Console.WriteLine("\nListing purchase orders by username");
-            foreach (PurchaseOrder po in testDAO.ListPurchaseOrdersByUsername("yixiang@ssis.edu.sg"))
-            {
-                Console.WriteLine(testDAO.POToString(po));
-            }
+            //Console.WriteLine("\nListing purchase orders by username");
+            //foreach (PurchaseOrder po in testDAO.ListPurchaseOrdersByUsername("yixiang@ssis.edu.sg"))
+            //{
+            //    Console.WriteLine(testDAO.POToString(po));
+            //}
 
-            Console.WriteLine("\nListing purchase orders by approved by");
-            foreach (PurchaseOrder po in testDAO.ListPurchaseOrdersByApprovedBy("amit@logic.edu.sg"))
-            {
-                Console.WriteLine(testDAO.POToString(po));
-            }
+            //Console.WriteLine("\nListing purchase orders by approved by");
+            //foreach (PurchaseOrder po in testDAO.ListPurchaseOrdersByApprovedBy("amit@logic.edu.sg"))
+            //{
+            //    Console.WriteLine(testDAO.POToString(po));
+            //}
 
-            Console.WriteLine("\nListing purchase orders by received by");
-            foreach (PurchaseOrder po in testDAO.ListPurchaseOrdersByReceivedBy("yixiang@ssis.edu.sg"))
-            {
-                Console.WriteLine(testDAO.POToString(po));
-            }
+            //Console.WriteLine("\nListing purchase orders by received by");
+            //foreach (PurchaseOrder po in testDAO.ListPurchaseOrdersByReceivedBy("yixiang@ssis.edu.sg"))
+            //{
+            //    Console.WriteLine(testDAO.POToString(po));
+            //}
 
-            Console.WriteLine("\nListing purchase orders by last updated by");
-            foreach (PurchaseOrder po in testDAO.ListPurchaseOrdersByLastUpdatedBy("yixiang@ssis.edu.sg"))
-            {
-                Console.WriteLine(testDAO.POToString(po));
-            }
+            //Console.WriteLine("\nListing purchase orders by last updated by");
+            //foreach (PurchaseOrder po in testDAO.ListPurchaseOrdersByLastUpdatedBy("yixiang@ssis.edu.sg"))
+            //{
+            //    Console.WriteLine(testDAO.POToString(po));
+            //}
 
-            Console.WriteLine("\nListing purchase orders by last updated by");
-            foreach (PurchaseOrder po in testDAO.ListPurchaseOrdersByLastUpdatedBy("yixiang@ssis.edu.sg"))
-            {
-                Console.WriteLine(testDAO.POToString(po));
-            }
+            //Console.WriteLine("\nListing purchase orders by last updated by");
+            //foreach (PurchaseOrder po in testDAO.ListPurchaseOrdersByLastUpdatedBy("yixiang@ssis.edu.sg"))
+            //{
+            //    Console.WriteLine(testDAO.POToString(po));
+            //}
 
-            Console.WriteLine("\nListing purchase orders by date created");
-            foreach (PurchaseOrder po in testDAO.ListPurchaseOrdersByDateCreated(DateTime.Parse("02/01/2018")))
-            {
-                Console.WriteLine(testDAO.POToString(po));
-            }
+            //Console.WriteLine("\nListing purchase orders by date created");
+            //foreach (PurchaseOrder po in testDAO.ListPurchaseOrdersByDateCreated(DateTime.Parse("02/01/2018")))
+            //{
+            //    Console.WriteLine(testDAO.POToString(po));
+            //}
 
-            Console.WriteLine("\nListing purchase orders by date created range");
-            foreach (PurchaseOrder po in 
-                testDAO.ListPurchaseOrdersByDateCreated(DateTime.Parse("02/01/2018"), DateTime.Parse("10/01/2018")))
-            {
-                Console.WriteLine(testDAO.POToString(po));
-            }
+            //Console.WriteLine("\nListing purchase orders by date created range");
+            //foreach (PurchaseOrder po in 
+            //    testDAO.ListPurchaseOrdersByDateCreated(DateTime.Parse("02/01/2018"), DateTime.Parse("10/01/2018")))
+            //{
+            //    Console.WriteLine(testDAO.POToString(po));
+            //}
 
-            Console.WriteLine("\nListing purchase orders by date approved");
-            foreach (PurchaseOrder po in testDAO.ListPurchaseOrdersByDateApproved(DateTime.Parse("02/01/2018")))
-            {
-                Console.WriteLine(testDAO.POToString(po));
-            }
+            //Console.WriteLine("\nListing purchase orders by date approved");
+            //foreach (PurchaseOrder po in testDAO.ListPurchaseOrdersByDateApproved(DateTime.Parse("02/01/2018")))
+            //{
+            //    Console.WriteLine(testDAO.POToString(po));
+            //}
 
-            Console.WriteLine("\nListing purchase orders by date approved range");
-            foreach (PurchaseOrder po in
-                testDAO.ListPurchaseOrdersByDateyDateApproved(DateTime.Parse("02/01/2018"), DateTime.Parse("10/01/2018")))
-            {
-                Console.WriteLine(testDAO.POToString(po));
-            }
+            //Console.WriteLine("\nListing purchase orders by date approved range");
+            //foreach (PurchaseOrder po in
+            //    testDAO.ListPurchaseOrdersByDateyDateApproved(DateTime.Parse("02/01/2018"), DateTime.Parse("10/01/2018")))
+            //{
+            //    Console.WriteLine(testDAO.POToString(po));
+            //}
 
-            Console.WriteLine("\nListing purchase orders by date received");
-            foreach (PurchaseOrder po in testDAO.ListPurchaseOrdersByDateReceived(DateTime.Parse("02/01/2018")))
-            {
-                Console.WriteLine(testDAO.POToString(po));
-            }
+            //Console.WriteLine("\nListing purchase orders by date received");
+            //foreach (PurchaseOrder po in testDAO.ListPurchaseOrdersByDateReceived(DateTime.Parse("02/01/2018")))
+            //{
+            //    Console.WriteLine(testDAO.POToString(po));
+            //}
 
-            Console.WriteLine("\nListing purchase orders by date received range");
-            foreach (PurchaseOrder po in
-                testDAO.ListPurchaseOrdersByDateyDateReceived(DateTime.Parse("02/01/2018"), DateTime.Parse("10/01/2018")))
-            {
-                Console.WriteLine(testDAO.POToString(po));
-            }
+            //Console.WriteLine("\nListing purchase orders by date received range");
+            //foreach (PurchaseOrder po in
+            //    testDAO.ListPurchaseOrdersByDateyDateReceived(DateTime.Parse("02/01/2018"), DateTime.Parse("10/01/2018")))
+            //{
+            //    Console.WriteLine(testDAO.POToString(po));
+            //}
 
-            Console.WriteLine("\nListing purchase orders by date last updated");
-            foreach (PurchaseOrder po in testDAO.ListPurchaseOrdersByDateLastUpdated(DateTime.Parse("02/01/2018")))
-            {
-                Console.WriteLine(testDAO.POToString(po));
-            }
+            //Console.WriteLine("\nListing purchase orders by date last updated");
+            //foreach (PurchaseOrder po in testDAO.ListPurchaseOrdersByDateLastUpdated(DateTime.Parse("02/01/2018")))
+            //{
+            //    Console.WriteLine(testDAO.POToString(po));
+            //}
 
-            Console.WriteLine("\nListing purchase orders by date last updated");
-            foreach (PurchaseOrder po in
-                testDAO.ListPurchaseOrdersByDateyDateLastUpdated(DateTime.Parse("02/01/2018"), DateTime.Parse("10/01/2018")))
-            {
-                Console.WriteLine(testDAO.POToString(po));
-            }
+            //Console.WriteLine("\nListing purchase orders by date last updated");
+            //foreach (PurchaseOrder po in
+            //    testDAO.ListPurchaseOrdersByDateyDateLastUpdated(DateTime.Parse("02/01/2018"), DateTime.Parse("10/01/2018")))
+            //{
+            //    Console.WriteLine(testDAO.POToString(po));
+            //}
 
 
-            Console.WriteLine("\nListing purchase orders by date supply expected");
-            foreach (PurchaseOrder po in testDAO.ListPurchaseOrdersByDateSupplyExpected(DateTime.Parse("02/01/2018")))
-            {
-                Console.WriteLine(testDAO.POToString(po));
-            }
+            //Console.WriteLine("\nListing purchase orders by date supply expected");
+            //foreach (PurchaseOrder po in testDAO.ListPurchaseOrdersByDateSupplyExpected(DateTime.Parse("02/01/2018")))
+            //{
+            //    Console.WriteLine(testDAO.POToString(po));
+            //}
 
-            Console.WriteLine("\nListing purchase orders by date supply expected range");
-            foreach (PurchaseOrder po in
-                testDAO.ListPurchaseOrdersByDateyDateSupplyExpected(DateTime.Parse("02/01/2018"), DateTime.Parse("10/01/2018")))
-            {
-                Console.WriteLine(testDAO.POToString(po));
-            }
+            //Console.WriteLine("\nListing purchase orders by date supply expected range");
+            //foreach (PurchaseOrder po in
+            //    testDAO.ListPurchaseOrdersByDateyDateSupplyExpected(DateTime.Parse("02/01/2018"), DateTime.Parse("10/01/2018")))
+            //{
+            //    Console.WriteLine(testDAO.POToString(po));
+            //}
 
-            Console.WriteLine("\nUpdate first purchase order");
-            PurchaseOrder purchaseOrder = testDAO.ListAllPurchaseOrders().FirstOrDefault<PurchaseOrder>();
-            purchaseOrder.Status = "EDITING";
-            testDAO.UpdatePurchaseOrder(purchaseOrder);
-            Console.WriteLine(testDAO.POToString(testDAO.GetPurchaseOrder(purchaseOrder.PurchaseOrderCode)));
+            //Console.WriteLine("\nUpdate first purchase order");
+            //PurchaseOrder purchaseOrder = testDAO.ListAllPurchaseOrders().FirstOrDefault<PurchaseOrder>();
+            //purchaseOrder.Status = "EDITING";
+            //testDAO.UpdatePurchaseOrder(purchaseOrder);
+            //Console.WriteLine(testDAO.POToString(testDAO.GetPurchaseOrder(purchaseOrder.PurchaseOrderCode)));
 
         }
 

@@ -8,14 +8,12 @@ namespace InventoryWebApp.DAO
 {
     public class SupplierDetailsDAO : ISupplierDetailsDAO
     {
-        EntityModel em = null;
-
         public int UpdateSupplierDetails(SupplierDetail sp)
         {
             using (EntityModel em = new EntityModel())
             {
 
-                SupplierDetail spDetail = this.GetSupplierDetailsById(sp.SupplierCode);
+                SupplierDetail spDetail = this.GetSupplierDetail(sp.SupplierCode, sp.ItemCode);
 
                 spDetail.Price = sp.Price;
                 spDetail.ItemCode = sp.ItemCode;
@@ -27,15 +25,22 @@ namespace InventoryWebApp.DAO
 
         }
 
-        public SupplierDetail GetSupplierDetailsById(string supplierCode)
+        public List<SupplierDetail> GetSupplierDetailsById(string supplierCode)
         {
             using (EntityModel em = new EntityModel())
             {
-                return em.SupplierDetails.Where(p => p.SupplierCode == supplierCode).FirstOrDefault<SupplierDetail>();
-
+                return em.SupplierDetails.Where(p => p.SupplierCode.ToUpper().Contains(supplierCode.ToUpper())).ToList<SupplierDetail>();
             }
+            
+        }
 
-
+        public SupplierDetail GetSupplierDetail(string supplierCode, string itemCode)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                return em.SupplierDetails.Where(p => p.SupplierCode.ToUpper()==supplierCode.ToUpper() 
+                && p.ItemCode.ToUpper() == itemCode.ToUpper()).FirstOrDefault<SupplierDetail>();
+            }
         }
 
         public List<SupplierDetail> ListOfSupplierByItemCode(string itemcode)
@@ -46,5 +51,21 @@ namespace InventoryWebApp.DAO
             }
         }
 
+        public int AddSupplierDetail(SupplierDetail sd)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                em.SupplierDetails.Add(sd);
+                return em.SaveChanges();
+            }
+        }
+
+        public List<SupplierDetail> ListAllSupplierDetail()
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                return em.SupplierDetails.ToList();                
+            }
+        }
     }
 }

@@ -1,5 +1,6 @@
 namespace InventoryWebApp.Models.Entities
 {
+    using DAO;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -9,6 +10,7 @@ namespace InventoryWebApp.Models.Entities
     [Table("Retrieval")]
     public partial class Retrieval
     {
+        
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Retrieval()
         {
@@ -33,5 +35,7 @@ namespace InventoryWebApp.Models.Entities
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RetrievalDetail> RetrievalDetails { get; set; }
+
+        
     }
 }

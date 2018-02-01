@@ -9,57 +9,83 @@ namespace InventoryWebApp.DAO
 {
     public class RequestDAO : IRequestDAO
     {
-        EntityModel em;
         Request r;
         public List<Request> ListAllRequest()
         {
-            em = new EntityModel();
-            return em.Requests.ToList<Request>();
+            using (EntityModel e = new EntityModel())
+            {
+                return e.Requests.ToList<Request>();
+            }
         }
 
         public List<Request> SearchRequestbyID(string RequestC)
         {
-            return em.Requests.Where(b => b.RequestCode.ToUpper().Contains(RequestC.Trim().ToUpper())).ToList();
+            using (EntityModel e = new EntityModel())
+            {
+                return e.Requests.Where(b => b.RequestCode.ToUpper().Contains(RequestC.Trim().ToUpper())).ToList();
+            }
         }
         public List<Request> SearchRequestbyStatus(string RequestStatus)
         {
-            return em.Requests.Where(b => b.Status.ToUpper().Contains(RequestStatus.Trim().ToUpper())).ToList();
+            using (EntityModel e = new EntityModel())
+            {
+                return e.Requests.Where(b => b.Status.ToUpper().Contains(RequestStatus.Trim().ToUpper())).ToList();
+            }
         }
-        public List<Request> SearchRequestbyDate(string RequestDate)
+        public List<Request> SearchRequestbyUsername(string username)
         {
-            return em.Requests.Where(b => b.DateCreated == Convert.ToDateTime(RequestDate)).ToList();
+            using (EntityModel e = new EntityModel())
+            {
+                return e.Requests.Where(b => b.UserName.ToUpper().Contains(username.Trim().ToUpper())).ToList();
+            }
+        }
+        public List<Request> SearchRequestbyDate(DateTime RequestDate)
+        {
+            using (EntityModel e = new EntityModel())
+            {
+                return e.Requests.Where(b => b.DateCreated == RequestDate).ToList();
+            }
         }
         public Request GetRequest(string ROCode)
         {
-            return new EntityModel().Requests.Where(p => p.RequestCode == ROCode).FirstOrDefault<Request>();
+            using (EntityModel e = new EntityModel())
+            {
+                return new EntityModel().Requests.Where(p => p.RequestCode == ROCode).FirstOrDefault<Request>();
+            }
         }
         public int AddRequest(Request newR)
         {
             int a = -1;
-            using (em = new EntityModel())
+            using (EntityModel e = new EntityModel())
             {
-                em.Requests.Add(newR);
-                a = em.SaveChanges();
+                e.Requests.Add(newR);
+                a = e.SaveChanges();
             }
-
             return a;
         }
 
 
         public int UpdateRequestStatus(Request R, string newStatus)
         {
-            int a = -1;
-            R.Status = newStatus;
-            a = em.SaveChanges();
-            return a;
+            using (EntityModel e = new EntityModel())
+            {
+                int a = -1;
+                R.Status = newStatus;
+                a = e.SaveChanges();
+                return a;
+            }
+
         }
 
         public int UpdateRequestApproval(Request R, string ApprovedN)
         {
-            int a = -1;
-            R.ApprovedBy = ApprovedN;
-            a = em.SaveChanges();
-            return a;
+            using (EntityModel e = new EntityModel())
+            {
+                int a = -1;
+                R.ApprovedBy = ApprovedN;
+                a = e.SaveChanges();
+                return a;
+            }
         }
 
         public int UpdateRequest(Request r)
@@ -71,6 +97,72 @@ namespace InventoryWebApp.DAO
             }
         }
 
+        public int UpdateRequestStatus(Request r)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                Request req = em.Requests.Where(x => x.RequestCode == r.RequestCode).FirstOrDefault();
 
+                req.Status = r.Status;
+                req.DateApproved = r.DateApproved;
+                req.HeadRemarks = r.HeadRemarks;
+                req.ApprovedBy = r.ApprovedBy;
+                return em.SaveChanges();
+
+            }
+
+        }
+
+        public int UpdateRequestApproval(Request r)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                Request req = em.Requests.Where(x => x.RequestCode == r.RequestCode).FirstOrDefault();
+                req.ApprovedBy = r.ApprovedBy;
+
+
+                return em.SaveChanges();
+            }
+
+        }
+
+        public List<Request> SearchPendingRequestByName(string username, string deptcode)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                return em.Requests.Where(x => x.UserName.Contains(username) && x.Status == "pending" && x.DepartmentCode == deptcode).ToList();
+            }
+        }
+
+        public List<Request> SearchPendingRequestByDate(DateTime d, string deptcode)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                return em.Requests.Where(x => x.DateCreated == d && x.Status == "pending" && x.DepartmentCode == deptcode).ToList();
+            }
+        }
+
+        public List<Request> SearchRequestbyDept(string dept)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                return em.Requests.Where(b => b.DepartmentCode.ToUpper().Contains(dept.Trim().ToUpper())).ToList();
+            }
+        }
+        public List<Request> SearchRequestbyStatus(string RequestStatus, string deptcode)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                return em.Requests.Where(b => b.Status.ToUpper().Contains(RequestStatus.Trim().ToUpper()) && b.DepartmentCode == deptcode).ToList();
+            }
+        }
+        public List<Request> SearchRequestByDeptCode(string deptCode)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                return em.Requests.Where(b => b.DepartmentCode == deptCode)
+                .ToList();
+            }
+        }
     }
 }

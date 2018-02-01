@@ -8,5 +8,6 @@ namespace InventoryWebApp.DAO
         int AddOrUpdateSupplier(Supplier supplier);
         Supplier GetSupplier(string supplierCode);
         List<Supplier> ListOfSupplier();
+        string GetSupplierCodeBySupplierName(string supplierName);
     }
 }

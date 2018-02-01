@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>ConsoleTestApp.TestCategoryDAO</StartupObject>
+    <StartupObject>ConsoleTestApp.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestAdjustmentDAO.cs" />
     <Compile Include="TestAssignRoleAndRole.cs" />
     <Compile Include="TestCategoryDAO.cs" />
     <Compile Include="TestCollectionPointDAO.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="TestUserDAO.cs" />
     <Compile Include="TestTenderDAO.cs" />
     <Compile Include="TestTenderDetailsDAO.cs" />
+    <Compile Include="TestUserRole.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
