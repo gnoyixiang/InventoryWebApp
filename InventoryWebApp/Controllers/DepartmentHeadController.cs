@@ -19,6 +19,25 @@ namespace InventoryWebApp.Controllers
         IEmployeeDAO edao = new EmployeeDAO();
         IRoleDAO rdao = new RoleDAO();
         IUserDAO udao = new UserDAO();
+
+        public List<Employee> ListAllEmployeeNameInDepartment(string deptCode)
+        {
+            List<Employee> empList = new List<Employee>();
+            List<Employee> eList = edao.ListEmployee();
+            foreach (Employee e in eList)
+            {
+                if (e.DepartmentCode == deptCode)
+                {
+                    empList.Add(e);
+                }
+            }
+            return empList;
+        }
+        public Employee GetEmployeeInfoByEmployeeCode(string employeecode)
+        {
+            return edao.GetEmployeeInfoByEmployeeCode(employeecode);
+        }
+
         public List<Employee> ListOfEmployeeNameInDepartment(string empName, string deptCode)
         {
             List<Employee> empList = new List<Employee>();

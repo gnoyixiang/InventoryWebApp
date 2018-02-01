@@ -13,64 +13,67 @@ namespace InventoryWebApp.WCF
     public interface ISupervisorService
     {
         [OperationContract]
-        [WebGet(UriTemplate = "/Pending", ResponseFormat = WebMessageFormat.Json)]
-        List<WCFPurchaseOrder> GetAllPendingPO();
+        [WebGet(UriTemplate = "/Pending/{email}/{password}", ResponseFormat = WebMessageFormat.Json)]
+        List<WCFPurchaseOrder> GetAllPendingPO(string email, string password);
 
-        //[OperationContract]
-        //[WebGet(UriTemplate = "/Adjustment", ResponseFormat = WebMessageFormat.Json)]
-        //List<WCFPurchaseOrder> GetAllAdjustment();
+        [OperationContract]
+        [WebGet(UriTemplate = "/PODetail/{id}/{email}/{password}", ResponseFormat = WebMessageFormat.Json)]
+        List<WCFPODetail> GetPODetail(String id, string email, string password);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "/UpdatePendingPO/{email}/{password}", Method = "POST",
+        RequestFormat = WebMessageFormat.Json,
+        ResponseFormat = WebMessageFormat.Json)]
+        void UpdatePendingPO(WCFPurchaseOrder po, string email, string password);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "/PendingAdjustmentSupervisor/{email}/{password}", ResponseFormat = WebMessageFormat.Json)]
+        List<WCFAdjustment> ListOfPendingRequestForSupervisor(string email, string password);
+
+
+        [OperationContract]
+        [WebGet(UriTemplate = "/Adjustment/{adjustmentcode}/{email}/{password}", ResponseFormat = WebMessageFormat.Json)]
+
+        WCFAdjustment GetAdjustment(string adjustmentcode, string email, string password);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "/UpdateAdjustmentSupervisor/{email}/{password}", Method = "POST",
+        RequestFormat = WebMessageFormat.Json,
+        ResponseFormat = WebMessageFormat.Json)]
+        String UpdateAdjustmentBySupervisor(WCFAdjustment adjustment, string email, string password);
+
+
 
     }
     [DataContract]
     public class WCFPurchaseOrder
-    { 
+    {
         private String purchaseOrderCode;
         private string dateCreated;
         private String dateApproved;
-        private String note;
         private String status;
         private String supplierCode;
-        private String dateReceived;
-        private String dateSupplyExpected;
         private String headRemark;
+        private String approvedBy;
+        private String supplierName;
+        private String totalPrice;
+        private String empName;
 
-        public WCFPurchaseOrder(String purchaseOrderCode, String dateCreated, String dateApproved, String note, String status, String supplierCode, String dateReceived,
-            String dateSupplyExpected, String headRemark)
+
+        public WCFPurchaseOrder(String PurchaseOrderCode, String DateCreated, String SupplierName, String empName,
+             String TotalPrice)
         {
 
-            this.purchaseOrderCode = purchaseOrderCode;
-            this.dateCreated = dateCreated;
-            this.dateApproved = dateApproved;
-            this.note = note;
-            this.status = status;
-            this.supplierCode = supplierCode;
-            this.dateReceived = dateReceived;
-            this.dateSupplyExpected = dateSupplyExpected;
-            this.headRemark = headRemark;
+            this.PurchaseOrderCode = PurchaseOrderCode;
+            this.DateCreated = DateCreated;
+            this.empName = empName;
+            this.SupplierName = SupplierName;
+            this.TotalPrice = TotalPrice;
+
+
+            this.HeadRemark = HeadRemark;
         }
-        //public WCFPurchaseOrder(String PurchaseOrderCode, String Note, String SupplierName,
-        //     String HeadRemark)
-        //{
 
-        //    this.PurchaseOrderCode = PurchaseOrderCode;
-        //    // this.DateCreated = DateCreated;
-
-        //    this.Note = Note;
-        //    //this.Status = Status;
-        //    this.SupplierName = SupplierName;
-
-        //    this.HeadRemark = HeadRemark;
-        //}
-        //public WCFPurchaseOrder(String PurchaseOrderCode, String Note, String Status, String SupplierName, String HeadRemark)
-        //{
-        //    this.PurchaseOrderCode = PurchaseOrderCode;
-
-        //    this.Note = Note;
-        //    this.Status = Status;
-        //    this.SupplierName = SupplierName;
-
-        //    this.HeadRemark = HeadRemark;
-        //}
         [DataMember]
         public string PurchaseOrderCode
         {
@@ -92,12 +95,7 @@ namespace InventoryWebApp.WCF
             set { this.dateApproved = value; }
         }
 
-        [DataMember]
-        public string Note
-        {
-            get { return note; }
-            set { this.note = value; }
-        }
+
         [DataMember]
         public string Status
         {
@@ -111,24 +109,193 @@ namespace InventoryWebApp.WCF
             get { return supplierCode; }
             set { this.supplierCode = value; }
         }
-        [DataMember]
-        public string DateReceived
-        {
-            get { return dateReceived; }
-            set { this.dateReceived = value; }
-        }
-        [DataMember]
-        public string DateSupplyExpected
-        {
-            get { return dateSupplyExpected; }
-            set { this.dateSupplyExpected = value; }
-        }
+
+
         [DataMember]
         public string HeadRemark
         {
             get { return headRemark; }
             set { this.headRemark = value; }
         }
+        [DataMember]
+        public string SupplierName
+        {
+            get { return supplierName; }
+            set { this.supplierName = value; }
+        }
+        [DataMember]
+        public string EmpName
+        {
+            get { return empName; }
+            set { this.empName = value; }
+        }
+        [DataMember]
+        public string TotalPrice
+        {
+            get { return totalPrice; }
+            set { this.totalPrice = value; }
+        }
+
+        [DataMember]
+        public string ApprovedBy
+        {
+            get { return approvedBy; }
+            set { this.approvedBy = value; }
+        }
     }
+
+    [DataContract]
+    public class WCFPODetail
+    {
+        private String itemDescription;
+        private string price;
+        private String quantity;
+        private String amount;
+        public WCFPODetail(String itemDescription, String price, String quantity, String amount)
+        {
+            this.itemDescription = itemDescription;
+            this.price = price;
+            this.quantity = quantity;
+            this.amount = amount;
+        }
+        [DataMember]
+        public string ItemDescription
+        {
+            get { return itemDescription; }
+            set { this.itemDescription = value; }
+        }
+        [DataMember]
+        public string Price
+        {
+            get { return price; }
+            set { this.price = value; }
+        }
+        [DataMember]
+        public string Quantity
+        {
+            get { return quantity; }
+            set { this.quantity = value; }
+        }
+        [DataMember]
+        public string Amount
+        {
+            get { return amount; }
+            set { this.amount = value; }
+        }
+
+    }
+    [DataContract]
+    public class WCFAdjustment
+    {
+        string adjustmentCode;
+        string itemCode;
+        string itemDescription;
+        string price;
+        string adjustmentQuant;
+        string stock;
+        string reason;
+        string remark;
+        string status;
+        String dateOfApprove;
+        string approvedBy;
+
+        [DataMember]
+        public string AdjustmentCode
+        {
+            get { return adjustmentCode; }
+            set { adjustmentCode = value; }
+        }
+
+        [DataMember]
+        public string ItemCode
+        {
+            get { return itemCode; }
+            set { itemCode = value; }
+        }
+        [DataMember]
+        public string ItemDescription
+        {
+            get { return itemDescription; }
+            set { itemDescription = value; }
+        }
+        [DataMember]
+        public string Price
+        {
+            get { return price; }
+            set { price = value; }
+        }
+
+        [DataMember]
+        public string AdjustmentQuant
+        {
+            get { return adjustmentQuant; }
+            set { adjustmentQuant = value; }
+        }
+
+        [DataMember]
+        public string Stock
+        {
+            get { return stock; }
+            set { stock = value; }
+        }
+
+        [DataMember]
+        public string Reason
+        {
+            get { return reason; }
+            set { reason = value; }
+        }
+        [DataMember]
+        public string Remark
+        {
+            get { return remark; }
+            set { remark = value; }
+        }
+
+        [DataMember]
+        public string Status
+        {
+            get { return status; }
+            set { status = value; }
+        }
+
+        [DataMember]
+        public String DateOfApprove
+        {
+            get { return dateOfApprove; }
+            set { dateOfApprove = value; }
+        }
+
+        [DataMember]
+        public string ApprovedBy
+        {
+            get { return approvedBy; }
+            set { approvedBy = value; }
+        }
+
+        public WCFAdjustment(string adjustmentCode, string itemCode, string price, string adjustmentQuant, string stock, string reason, string remark, string itemDescription)
+        {
+            this.adjustmentCode = adjustmentCode;
+
+            this.itemCode = itemCode;
+            this.price = price;
+            this.adjustmentQuant = adjustmentQuant;
+
+            this.stock = stock;
+            this.reason = reason;
+            this.remark = remark;
+            this.ItemDescription = itemDescription;
+        }
+
+
+        public WCFAdjustment()
+        {
+
+        }
+    }
+
+
+
+
 
 }

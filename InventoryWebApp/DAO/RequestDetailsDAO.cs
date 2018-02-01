@@ -38,11 +38,12 @@ namespace InventoryWebApp.DAO
 
         public int UpdateRequestDetailStatus(RequestDetail R, string newStatus)
         {
-            using (EntityModel e = new EntityModel())
+            using (EntityModel em = new EntityModel())
             {
                 int a = -1;
-                R.Status = newStatus;
-                a = e.SaveChanges();
+                RequestDetail rd=em.RequestDetails.Where(r => r.RequestCode == R.RequestCode && r.ItemCode == R.ItemCode).FirstOrDefault<RequestDetail>();
+                rd.Status = newStatus;
+                a = em.SaveChanges();
                 return a;
             }
         }

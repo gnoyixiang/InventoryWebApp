@@ -33,6 +33,14 @@ namespace InventoryWebApp.Controllers
         IRetrievalDetailsDAO retrievalDetailsDAO = new RetrievalDetailsDAO();
         ICollectionPointDAO collectionPointDAO = new CollectionPointDAO();
 
+        internal Employee GetRepresentative(String departmentCode)
+        {
+            return employeeDAO.GetRepresentative(departmentCode);
+        }
+        internal DisbursementDetail GetDisbursementDetail(String disbursementCode, String requestCode, String itemCode)
+        {
+            return disbursementDetailsDAO.GetDisbursementDetail(disbursementCode, requestCode, itemCode);
+        }
         internal int RecommendReorderQty(string itemCode)
         {
             int recommendQty = 0;
@@ -1114,7 +1122,7 @@ namespace InventoryWebApp.Controllers
                     retrieval.RetrievalDetails = new List<RetrievalDetail>();
                     retrieval.RetrievalCode = "RT" + DateTime.Now.ToString("yyMMddHHmmssfff");
                     retrieval.Status = "processing";
-                    retrieval.UserName = "nathalie@ssis.edu.sg";
+                   // retrieval.UserName = "nathalie@ssis.edu.sg";
                     retrieval.DateRetrieved = DateTime.Today;
                     //retrieval.UserName = Identity.User;
                     //retrieval.DateRetrieved = DateTime.Now;

@@ -92,7 +92,9 @@ namespace InventoryWebApp.DAO
         {
             using (EntityModel em = new EntityModel())
             {
-                em.Entry(r).State = EntityState.Modified;
+                Request req = em.Requests.Where(x => x.RequestCode == r.RequestCode).FirstOrDefault();
+                req.Status = r.Status;
+                //em.Entry(r).State = EntityState.Modified;
                 return em.SaveChanges();
             }
         }

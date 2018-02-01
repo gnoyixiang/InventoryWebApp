@@ -20,5 +20,7 @@ namespace InventoryWebApp.DAO
         int UpdateEmployeeRole(string employeecode, string role);
         string GetUserName(string empName);
         string GetDeptCodeByUserName(string userName);
+        Employee GetRepresentative(string departmentCode);
+        Employee GetEmployeeInfoByEmployeeCode(string employeecode);
     }
 }
