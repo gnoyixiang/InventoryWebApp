@@ -12,11 +12,11 @@ namespace InventoryWebApp.Dept
 {
     public partial class AddAuthorise : System.Web.UI.Page
     {
-        DepartmentHeadController dCon=new DepartmentHeadController();
+        DepartmentHeadController dCon = new DepartmentHeadController();
         int number;
-       
 
-             
+
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -28,18 +28,19 @@ namespace InventoryWebApp.Dept
                 ddlRolecodelist.DataTextField = "Name";
                 ddlRolecodelist.DataValueField = "Id";
                 ddlRolecodelist.DataBind();
-               
+
             }
         }
 
 
         protected void gv_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string employeecode = (string)gvEmployee.SelectedDataKey.Value;            
+            string employeecode = (string)gvEmployee.SelectedDataKey.Value;
             Employee emp = dCon.GetEmployeeInfo(employeecode);
             hfEmployeeCode.Value = employeecode;
             lblEmployeeName.Text = emp.EmployeeName;
             panelForm.Enabled = true;
+
         }
 
         protected void btnAssign_Click(object sender, EventArgs e)
@@ -48,54 +49,52 @@ namespace InventoryWebApp.Dept
             string assignrolecode = "AS" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
             if (rolecodeselected == "ActHead")
             {
-                DateTime startdateselected = Convert.ToDateTime(tbxStartDate.Text);
-                DateTime enddateselected = Convert.ToDateTime(tbxEndDate.Text);
-            
-                bool checkvalue = dCon.CheckTemporaryRoleAndDates(rolecodeselected, startdateselected, enddateselected);
-                bool checkemployee = dCon.CheckEmployee(hfEmployeeCode.Value);
-                    if (checkvalue&&checkemployee)
-                    {
-                    dCon.AddAssignRole(assignrolecode, rolecodeselected,hfEmployeeCode.Value, startdateselected, enddateselected,null);
-                    lblmessage.Text = "AssignRole Add";
-                    Response.Redirect("AuthoriseStaff.aspx");
+                if (tbxStartDate.Text == "" || tbxEndDate.Text == "")
+                {
+                    lblmessage.Text = "Please enter the date";
                 }
-                    else 
+                else
+                {
+                    DateTime startdateselected = DateTime.Parse(tbxStartDate.Text);
+                    DateTime enddateselected = DateTime.Parse(tbxEndDate.Text);
+
+                    bool checkvalue = dCon.CheckTemporaryRoleAndDates(rolecodeselected, startdateselected, enddateselected);
+                    bool checkemployee = dCon.CheckEmployee(hfEmployeeCode.Value);
+                    if (checkvalue && checkemployee)
+                    {
+                        dCon.AddAssignRole(assignrolecode, rolecodeselected, hfEmployeeCode.Value, startdateselected, enddateselected, null);
+                        Response.Redirect("AuthoriseStaff.aspx");
+                    }
+                    else if (!checkvalue && checkemployee)
                     {
                         lblmessage.Text = "Already present for this period";
-                    }              
+                    }
+                    else if (checkvalue && !checkemployee)
+                    {
+                        lblmessage.Text = "Employee has already assigned";
+                    }
+                    else
+                    {
+                        lblmessage.Text = "Both date and employee can't be assigned";
+                    }
+                }
             }
             else
             {
                 bool checkvalue = dCon.CheckTemporaryRole(rolecodeselected);
                 bool checkemployee = dCon.CheckEmployee(hfEmployeeCode.Value);
-                if (checkvalue&& checkemployee)
+                if (checkvalue && checkemployee)
                 {
-                    dCon.AddTemporaryRole(assignrolecode, rolecodeselected,hfEmployeeCode.Value);
-                    lblmessage.Text = "TemporaryRole add";
-                    /*EntityModel em = new EntityModel();
-                    AssignRole ass = dCon.GetAssignRoleInfo(assignrolecode);
-                    //
-                    Employee emp = dCon.GetEmployeeInfo(ass.EmployeeCode);
-                    Role r = dCon.GetRoleInfo(rolecodeselected);
-
-                    Role role = dCon.getRoleNameByUsername(emp.UserName);
-                    em.Users.Where(x => x.UserName ==emp.UserName).FirstOrDefault<User>().Roles.Remove(role);
-                    em.SaveChanges();
-                    
-
-                    em.Users.Where(x => x.UserName == emp.UserName).FirstOrDefault<User>().Roles.Add(r);
-                    em.SaveChanges();
-                    */
+                    dCon.AddTemporaryRole(assignrolecode, rolecodeselected, hfEmployeeCode.Value);
                     Response.Redirect("AuthoriseStaff.aspx");
-
                 }
                 else
                 {
-                        lblmessage.Text = "Already present for this period";
+                    lblmessage.Text = "Can't assign";
                 }
-                
+
             }
-          
+
 
         }
 
@@ -113,7 +112,23 @@ namespace InventoryWebApp.Dept
             gvEmployee.DataSource = empList;
             gvEmployee.DataBind();
             panelForm.Enabled = false;
+
         }
 
+
+
+        protected void dropdownSelectIndexdChanged(object sender, EventArgs e)
+        {
+            if (ddlRolecodelist.SelectedItem.Value == "ActHead")
+            {
+                tbxStartDate.Enabled = true;
+                tbxEndDate.Enabled = true;
+            }
+            else
+            {
+                tbxStartDate.Enabled = false;
+                tbxEndDate.Enabled = false;
+            }
+        }
     }
 }

@@ -101,7 +101,7 @@ namespace InventoryWebApp.Store
             string username = Context.User.Identity.Name;
             try
             {
-                emailController.NewAdjustmentSendEmail(fromEmail, password, username, a);
+                emailController.NewAdjustmentSendEmail(fromEmail, password, username, adjRetrieved);
                 Session["SendCreateAdjEmail"] = true;
             }
             catch (Exception ex)
