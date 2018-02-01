@@ -55,6 +55,7 @@ namespace InventoryWebApp
                     if (checkvalue&&checkemployee)
                     {
                     dCon.AddAssignRole(assignrolecode, rolecodeselected,lblEmployeeCode.Text,startdateselected, enddateselected,null);
+                    dCon.UpdateEmployeeRole(lblEmployeeCode.Text, rolecodeselected);
                     lblmessage.Text = "AssignRole Add";
                     Response.Redirect("AuthoriseStaff.aspx");
                 }
@@ -70,6 +71,7 @@ namespace InventoryWebApp
                 if (checkvalue&& checkemployee)
                 {
                     dCon.AddTemporaryRole(assignrolecode, rolecodeselected,lblEmployeeCode.Text);
+                    dCon.UpdateEmployeeRole(lblEmployeeCode.Text, rolecodeselected);
                     lblmessage.Text = "TemporaryRole add";
                     /*EntityModel em = new EntityModel();
                     AssignRole ass = dCon.GetAssignRoleInfo(assignrolecode);

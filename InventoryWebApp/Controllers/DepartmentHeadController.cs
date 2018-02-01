@@ -32,11 +32,21 @@ namespace InventoryWebApp.Controllers
             }
             return empList;
         }
-
-        public Role GetRoleInfo(string id)
+        public List<Employee> ListAllEmployeeNameInDepartment(string deptCode)
         {
-            return rdao.GetRoleInfo(id);
+            List<Employee> empList = new List<Employee>();
+            List<Employee> eList = edao.ListEmployee();
+            foreach (Employee e in eList)
+            {
+                if (e.DepartmentCode == deptCode)
+                {
+                    empList.Add(e);
+                }
+            }
+            return empList;
         }
+
+        
         public List<Employee> ListOfEmployeeCodeInDepartment(string empCode)
         {
             List<Employee> empList = new List<Employee>();
@@ -65,7 +75,12 @@ namespace InventoryWebApp.Controllers
             }
             return assignList;
         }
-    
+   
+        public List<Employee> ListEmployee()
+        {
+            return edao.ListEmployee();
+        }
+       
         public bool CheckTemporaryRole(string temporaryrole)
         {
             List<AssignRole> listOfAssignRole = adao.ListAssignRole();
@@ -144,6 +159,10 @@ namespace InventoryWebApp.Controllers
             return true;
 
         }
+        public Role GetRoleInfo(string id)
+        {
+            return rdao.GetRoleInfo(id);
+        }
         public string GetRoleName(string a)
         {
             
@@ -183,7 +202,10 @@ namespace InventoryWebApp.Controllers
 
         public void DeleteAssignRole(string assignrolecode)
         {
-             adao.DeleteAssignRole(assignrolecode);
+            AssignRole a = adao.GetAssignRoleInfo(assignrolecode);
+            edao.UpdateEmployeeRole(a.EmployeeCode, "Empl");
+            adao.DeleteAssignRole(assignrolecode);
+            
         }
         public List<Role> ListRole()
         {
@@ -208,21 +230,26 @@ namespace InventoryWebApp.Controllers
             return rdao.ListAllDepartmentRole();
         }
         public int AddAssignRole(string assignrolecode, string temporaryrolecode, string employeecode,
-           DateTime startdate, DateTime enddate, string assignedby)
+           DateTime? startdate, DateTime? enddate, string assignedby)
         {
             return adao.AddAssignRole(assignrolecode, temporaryrolecode, employeecode,
             startdate, enddate, assignedby);
 
         }
 
+        
         public Employee GetEmployeeInfo(string a)
         {
             return edao.GetEmployeeInfo(a);
         }
+        public  Employee GetEmployeeInfoByEmployeeCode(string employeecode)
+        {
+            return edao.GetEmployeeInfoByEmployeeCode(employeecode);
+        }
 
-       
-           
-        
+
+
+
         public Role getRoleNameByUsername(string username)
         {
 
@@ -233,6 +260,7 @@ namespace InventoryWebApp.Controllers
         {
             return udao.GetUserByUsername(username);
         }
+      
     }
 
 

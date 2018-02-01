@@ -12,7 +12,7 @@ namespace InventoryWebApp.DAO
         EntityModel em = new EntityModel();
         
         public int AddAssignRole(string assignrolecode, string temporaryrolecode, string employeecode,
-            DateTime startdate, DateTime enddate, string assignedby)
+            DateTime? startdate, DateTime? enddate, string assignedby)
         {
             AssignRole asrl = new AssignRole();
             asrl.AssignRoleCode = assignrolecode;
@@ -41,6 +41,7 @@ namespace InventoryWebApp.DAO
 
             AssignRole asrl = em.AssignRoles.Where(x => x.AssignRoleCode == assignrolecode).First();
             em.AssignRoles.Remove(asrl);
+
             em.SaveChanges();
         }
 
@@ -98,6 +99,15 @@ namespace InventoryWebApp.DAO
         public List<AssignRole> SearchByEmployeeCode(string employeecode)
         {
             return em.AssignRoles.Where(x => x.EmployeeCode==employeecode).ToList();
+        }
+        public AssignRole GetAssignRoleByEmployeeCode(string employeecode)
+        {
+
+            using (EntityModel em = new EntityModel())
+            {
+                return em.AssignRoles.Where(p => p.EmployeeCode ==
+                employeecode).FirstOrDefault<AssignRole>();
+            }
         }
 
       

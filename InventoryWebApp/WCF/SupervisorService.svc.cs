@@ -22,14 +22,21 @@ namespace InventoryWebApp.WCF
             List<PurchaseOrder> plist = controller.ListAllPendingPO();
             foreach (PurchaseOrder p in plist)
             {
-                wcfPoList.Add(new WCFPurchaseOrder(p.PurchaseOrderCode, string.Format("{0:dd/MM/yyyy}", p.DateCreated)
-                    , string.Format("{0:dd/MM/yyyy}", p.DateApproved), p.Notes, p.Status, p.SupplierCode,
-                    string.Format("{0:dd/MM/yyyy}", p.DateReceived), string.Format("{0:dd/MM/yyyy}", p.DateSupplyExpected), p.HeadRemarks));
+                wcfPoList.Add(new WCFPurchaseOrder(
+                   p.PurchaseOrderCode, string.Format("{0:dd/MM/yyyy}", p.DateCreated),
+                    string.Format("{0:dd/MM/yyyy}", p.DateApproved), p.Notes, p.Status,
+                    p.SupplierCode, string.Format("{0:dd/MM/yyyy}", p.DateReceived),
+                    string.Format("{0:dd/MM/yyyy}", p.DateSupplyExpected), p.HeadRemarks));
+
             }
             return wcfPoList;
         }
-     
 
-       
+
+        //wcfPoList.Add(new WCFPurchaseOrder(
+        //            p.PurchaseOrderCode, string.Format("{0:dd/MM/yyyy}", p.DateCreated),
+        //            string.Format("{0:dd/MM/yyyy}", p.DateApproved), p.Notes, p.Status,
+        //            p.SupplierCode, string.Format("{0:dd/MM/yyyy}", p.DateReceived),
+        //            string.Format("{0:dd/MM/yyyy}", p.DateSupplyExpected), p.HeadRemarks));
     }
-}
+} 

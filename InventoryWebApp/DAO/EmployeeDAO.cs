@@ -11,8 +11,6 @@ namespace InventoryWebApp.DAO
     {
         EntityModel em = new EntityModel();
 
-
-
         public int AddEmployee(Employee emp)
         {
 
@@ -41,11 +39,16 @@ namespace InventoryWebApp.DAO
         public Employee GetEmployeeInfo(string username)
         {
             return em.Employees.Where(x => x.UserName.Contains(username)).FirstOrDefault();
-        }       
-        public int UpdateEmployeeRole(string employeecode, string role)
+        }
+
+        public Employee GetEmployeeInfoByEmployeeCode(string employeecode)
+        {
+            return em.Employees.Where(x => x.EmployeeCode.Contains(employeecode)).FirstOrDefault();
+        }
+        public int UpdateEmployeeRole(string employeecode, string rolecode)
         {
             Employee emp = em.Employees.Where(x => x.EmployeeCode == employeecode).First();
-            emp.CurrentRoleCode = role;
+            emp.CurrentRoleCode = rolecode;
             return em.SaveChanges();
         }
 

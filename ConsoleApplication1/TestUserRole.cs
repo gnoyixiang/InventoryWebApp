@@ -18,7 +18,7 @@ namespace ConsoleTestApp
             string roleid = "Rep";
             User u = udao.GetUserByUsername(username);
             Role r = rdao.GetRoleInfo(roleid);
-            udao.UpdateUserRole(u,r);
+           // udao.UpdateUserRole(u,r);
         }
 
 

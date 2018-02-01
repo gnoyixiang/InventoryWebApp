@@ -227,7 +227,7 @@
     <Content Include="Layout.Master" />
     <Content Include="StockCardSearch.aspx" />
     <Content Include="ViewPurchaseOrders.aspx" />
-    <None Include="Properties\PublishProfiles\InventoryWebApp.pubxml" />
+    <None Include="Properties\PublishProfiles\InventoryWCF.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />

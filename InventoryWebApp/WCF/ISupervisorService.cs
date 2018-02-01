@@ -129,6 +129,10 @@ namespace InventoryWebApp.WCF
             get { return headRemark; }
             set { this.headRemark = value; }
         }
+        public WCFPurchaseOrder()
+        {
+             
+        }
     }
 
 }
