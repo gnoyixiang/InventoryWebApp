@@ -321,11 +321,13 @@ namespace InventoryWebApp.Store
                 try
                 {
                     emailController.POApproveRejectSendEmail(fromEmail, password, username, po);
-                    Session["SendPOApproveRejectEmail"] = true;
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                           "alertMessage", "alert('Purchase orders have been successfully approved! Email notifications have been sent successfully!')", true);
                 }
                 catch (Exception ex)
                 {
-                    Session["SendPOApproveRejectEmail"] = false;
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                           "alertMessage", "alert('Purchase orders have been successfully approved! However an error has occurred when sending email!')", true);
                 }
             }
         }
@@ -347,11 +349,13 @@ namespace InventoryWebApp.Store
                 try
                 {
                     emailController.POApproveRejectSendEmail(fromEmail, password, username, po);
-                    Session["SendPOApproveRejectEmail"] = true;
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                           "alertMessage", "alert('Purchase orders have been successfully rejected! Email notifications have been sent successfully!')", true);
                 }
                 catch (Exception ex)
                 {
-                    Session["SendPOApproveRejectEmail"] = false;
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                           "alertMessage", "alert('Purchase orders have been successfully rejected! However an error has occurred when sending email!')", true);
                 }
             }
         }

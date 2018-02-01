@@ -12,6 +12,7 @@ namespace InventoryWebApp.Store
     public partial class StockAdjustmentEdit : System.Web.UI.Page
     {
         StoreClerkController sClerkCtrl = new StoreClerkController();
+        EmailController emailController = new EmailController();
         string s;
         Adjustment adjRetrieved;
         protected int CreateQuantityUpdate(String a, String b)
@@ -93,7 +94,21 @@ namespace InventoryWebApp.Store
 
             adjRetrieved.Status = "pending";
             int submitResult = sClerkCtrl.UpdateAdjustment(adjRetrieved, QuantUpdate, tbxReason.Text);
-            
+
+            //send email
+            string fromEmail = Util.EMAIL;
+            string password = Util.PASSWORD;
+            string username = Context.User.Identity.Name;
+            try
+            {
+                emailController.NewAdjustmentSendEmail(fromEmail, password, username, a);
+                Session["SendCreateAdjEmail"] = true;
+            }
+            catch (Exception ex)
+            {
+                Session["SendCreateAdjEmail"] = false;
+            }
+
             Response.Redirect("/Store/StockAdjustmentList.aspx");
         }
         protected void btnSave_Click(object sender, EventArgs e)

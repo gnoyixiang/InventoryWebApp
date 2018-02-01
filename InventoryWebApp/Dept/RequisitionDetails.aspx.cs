@@ -157,11 +157,12 @@ namespace InventoryWebApp.Dept
             try
             {
                 emailController.RequestApproveRejectSendEmail(fromEmail, password, username, RO);
-                Session["SendRequestApproveRejectEmail"] = true;
+                //Session["SendRequestApproveRejectEmail"] = true;
             }
             catch (Exception ex)
             {
-                Session["SendRequestApproveRejectEmail"] = false;
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                           "alertMessage", "alert('Request has been successfully approved! However an error has occurred when sending email!')", true);
             }
 
             if (i == 1)
@@ -200,11 +201,12 @@ namespace InventoryWebApp.Dept
             try
             {
                 emailController.RequestApproveRejectSendEmail(fromEmail, password, username, RO);
-                Session["SendRequestApproveRejectEmail"] = true;
+                //Session["SendRequestApproveRejectEmail"] = true;
             }
             catch (Exception ex)
             {
-                Session["SendRequestApproveRejectEmail"] = false;
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                           "alertMessage", "alert('Request have been successfully rejected! However an error has occurred when sending email!')", true);
             }
 
             if (i == 1)

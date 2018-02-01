@@ -67,11 +67,13 @@ namespace InventoryWebApp.Dept
                 try
                 {
                     emailController.NewRequestSendEmail(fromEmail, password, username, requestcode);
-                    Session["SendCreateReqEmail"] = true;
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                           "alertMessage", "alert('Request have been successfully created! Email notifications have been sent successfully!')", true);
                 }
                 catch (Exception ex)
                 {
-                    Session["SendCreateReqEmail"] = false;
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                           "alertMessage", "alert('Request have been successfully created! However an error has occurred when sending email!')", true);
                 }
 
                 //clear

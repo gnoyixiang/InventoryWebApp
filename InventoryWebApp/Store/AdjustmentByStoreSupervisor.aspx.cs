@@ -127,11 +127,13 @@ namespace InventoryWebApp.Store
                     try
                     {
                         emailController.AdjApproveRejectSendEmail(fromEmail, password, username, ad);
-                        Session["SendAdjApproveRejectEmail"] = true;
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                           "alertMessage", "alert('Adjustment have been successfully approved! Email notifications have been sent successfully!')", true);
                     }
                     catch (Exception ex)
                     {
-                        Session["SendAdjApproveRejectEmail"] = false;
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                           "alertMessage", "alert('Adjustment have been successfully approved! However an error has occurred when sending email!')", true);
                     }
                 }
                 else
@@ -181,11 +183,13 @@ namespace InventoryWebApp.Store
                     try
                     {
                         emailController.AdjApproveRejectSendEmail(fromEmail, password, username, adOFReject);
-                        Session["SendAdjApproveRejectEmail"] = true;
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                           "alertMessage", "alert('Adjustment have been successfully rejected! Email notifications have been sent successfully!')", true);
                     }
                     catch (Exception ex)
                     {
-                        Session["SendAdjApproveRejectEmail"] = false;
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                           "alertMessage", "alert('Adjustment have been successfully rejected! However an error has occurred when sending email!')", true);
                     }
                 }
             }
