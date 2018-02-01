@@ -47,79 +47,83 @@
                     </div>
                 </div>
                 <br />
-                <asp:ListView ID="ListView1" runat="server" OnItemEditing="listDetails_ItemEditing"
-                    OnItemCanceling="ListView1_ItemCanceling" OnItemUpdating="ListView1_ItemUpdating" OnItemDeleting="ListView1_ItemDeleting">
-                    <LayoutTemplate>
-                        <table class="table">
-                            <tr>
-                                <th>Request Code</th>
-                                <th>Stationery</th>
-                                <th>Status</th>
-                                <th>Remaining Quantity</th>
-                                <th>Quantity</th>
-                                <th>Notes</th>
+                <div class="row">
+                    <div class="col-md-12">
+                        <asp:ListView ID="ListView1" runat="server" OnItemEditing="listDetails_ItemEditing"
+                            OnItemCanceling="ListView1_ItemCanceling" OnItemUpdating="ListView1_ItemUpdating" OnItemDeleting="ListView1_ItemDeleting">
+                            <LayoutTemplate>
+                                <table class="table">
+                                    <tr>
+                                        <th>Request Code</th>
+                                        <th>Stationery</th>
+                                        <th>Status</th>
+                                        <th>Remaining Quantity</th>
+                                        <th>Quantity</th>
+                                        <th>Notes</th>
 
-                            </tr>
-                            <tr id="itemPlaceholder" runat="server">
-                            </tr>
-                        </table>
-                    </LayoutTemplate>
-                    <ItemTemplate>
-                        <tr>
-                            <td><%# Eval("RequestCode") %></a></td>
-                            <td><%# GetItemDescription((string)Eval("ItemCode")) %></td>
-                            <td><%# Eval("Status") %></td>
-                            <td><%# Eval("RemainingQuant") %></td>
-                            <td><%# Eval("Quantity") %></td>
-                            <td><%# Eval("Notes") %></td>
-                            <% if (IsEditable() && IsEmployee())
-                                { %>
-                            <td align="center" style="width: 3%">
-                                <asp:LinkButton ID="lbEdit" runat="server" CommandName="Edit" Title="Edit">
+                                    </tr>
+                                    <tr id="itemPlaceholder" runat="server">
+                                    </tr>
+                                </table>
+                            </LayoutTemplate>
+                            <ItemTemplate>
+                                <tr>
+                                    <td><%# Eval("RequestCode") %></a></td>
+                                    <td><%# GetItemDescription((string)Eval("ItemCode")) %></td>
+                                    <td><%# Eval("Status") %></td>
+                                    <td><%# Eval("RemainingQuant") %></td>
+                                    <td><%# Eval("Quantity") %></td>
+                                    <td><%# Eval("Notes") %></td>
+                                    <% if (IsEditable() && IsEmployee())
+                                        { %>
+                                    <td align="center" style="width: 3%">
+                                        <asp:LinkButton ID="lbEdit" runat="server" CommandName="Edit" Title="Edit">
                                     <i class="fa fa-pencil-square" style="font-size:1.5em;color:darkorange" aria-hidden="true"></i>
-                                </asp:LinkButton>
-                            </td>
-                            <td align="center" style="width: 3%">
-                                <asp:LinkButton ID="lbDelete" runat="server" CommandName="Delete" Title="Delete">
+                                        </asp:LinkButton>
+                                    </td>
+                                    <td align="center" style="width: 3%">
+                                        <asp:LinkButton ID="lbDelete" runat="server" CommandName="Delete" Title="Delete">
                         <i class="fa fa-trash-o" style="font-size:1.5em;color:hotpink" aria-hidden="true"></i></asp:LinkButton>
-                            </td>
-                            <% } %>
-                        </tr>
-                    </ItemTemplate>
-                    <EditItemTemplate>
-                        <tr>
-                            <%--<asp:HiddenField ID="hfMinReorderQty" runat="server" />--%>
-                            <td>
-                                <asp:Label ID="lblEditRequisitionCode" runat="server"><%# Eval("RequestCode") %></asp:Label></td>
-                            <td>
-                                <asp:Label ID="lblEditItemCode" runat="server"><%# Eval("ItemCode") %></asp:Label></td>
-                            <td>
-                                <asp:Label ID="lblEditStatus" runat="server"><%# Eval("Status") %></asp:Label></td>
-                            <td>
-                                <asp:Label ID="lblEditRemainingQuantity" runat="server"><%# Eval("RemainingQuant") %></asp:Label></td>
-                            <td align="left">
-                                <asp:TextBox ID="txtOrderQuantity" runat="server" CssClass="control"
-                                    TextMode="Number" Width="80px" Text='<%# Bind("Quantity") %>' /></td>
-                            <td>
-                                <asp:Label ID="lblEditNotes" runat="server"><%# Eval("Notes") %></asp:Label></td>
+                                    </td>
+                                    <% } %>
+                                </tr>
+                            </ItemTemplate>
+                            <EditItemTemplate>
+                                <tr>
+                                    <%--<asp:HiddenField ID="hfMinReorderQty" runat="server" />--%>
+                                    <td>
+                                        <asp:Label ID="lblEditRequisitionCode" runat="server"><%# Eval("RequestCode") %></asp:Label></td>
+                                    <td>
+                                        <asp:Label ID="lblEditItemCode" runat="server"><%# Eval("ItemCode") %></asp:Label></td>
+                                    <td>
+                                        <asp:Label ID="lblEditStatus" runat="server"><%# Eval("Status") %></asp:Label></td>
+                                    <td>
+                                        <asp:Label ID="lblEditRemainingQuantity" runat="server"><%# Eval("RemainingQuant") %></asp:Label></td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtOrderQuantity" runat="server" CssClass="control"
+                                            TextMode="Number" Width="80px" Text='<%# Bind("Quantity") %>' /></td>
+                                    <td>
+                                        <asp:Label ID="lblEditNotes" runat="server"><%# Eval("Notes") %></asp:Label></td>
 
-                            <td align="center">
-                                <asp:LinkButton ID="UpdateButton" runat="server" CommandName="Update">
+                                    <td align="center">
+                                        <asp:LinkButton ID="UpdateButton" runat="server" CommandName="Update">
                                             <i class="fa fa-check-square" style="font-size:1.5em;color:forestgreen" aria-hidden="true"></i>
-                                </asp:LinkButton>
-                                <asp:LinkButton ID="CancelButton" runat="server" CommandName="Cancel">
+                                        </asp:LinkButton>
+                                        <asp:LinkButton ID="CancelButton" runat="server" CommandName="Cancel">
                                             <i class="fa fa-minus-square " style="font-size:1.5em;color:red" aria-hidden="true"></i>
-                                </asp:LinkButton>
-                            </td>
-                            <td>
-                                <asp:CompareValidator ID="quantityCompareValidator2" runat="server" Type="Integer" Operator="GreaterThan" Display="Dynamic"
-                                    ErrorMessage="Enter a value greater than Zero" ValueToCompare="0" ControlToValidate="txtOrderQuantity"
-                                    ForeColor="Red"></asp:CompareValidator>
-                                <asp:RequiredFieldValidator ID="quantityRequiredValidator" runat="server"
-                                    ErrorMessage="Empty Quantity" ForeColor="Red" ControlToValidate="txtOrderQuantity"></asp:RequiredFieldValidator></td>
-                        </tr>
-                    </EditItemTemplate>
-                </asp:ListView>
+                                        </asp:LinkButton>
+                                    </td>
+                                    <td>
+                                        <asp:CompareValidator ID="quantityCompareValidator2" runat="server" Type="Integer" Operator="GreaterThan" Display="Dynamic"
+                                            ErrorMessage="Enter a value greater than Zero" ValueToCompare="0" ControlToValidate="txtOrderQuantity"
+                                            ForeColor="Red"></asp:CompareValidator>
+                                        <asp:RequiredFieldValidator ID="quantityRequiredValidator" runat="server"
+                                            ErrorMessage="Empty Quantity" ForeColor="Red" ControlToValidate="txtOrderQuantity"></asp:RequiredFieldValidator></td>
+                                </tr>
+                            </EditItemTemplate>
+                        </asp:ListView>
+                    </div>
+                </div>
                 <div class="row">
 
                     <% if (IsEditable() && IsEmployee())
@@ -142,24 +146,17 @@
                         <asp:Label ID="lblCom" runat="server" Text="Comment: " Width="100%" Font-Bold="true"></asp:Label>
                         <asp:TextBox ID="tbxCom" runat="server" Width="100%" CssClass="form-control"></asp:TextBox>
                     </div>
+
+
+                    <% } %>
                 </div>
-
-                <% } %>
-
                 <% if (!IsEditable())
                     { %>
-                <div class="row">
-                    <div class="col-md-12">
-                        <b>Department Head Remarks:</b>
-                        <asp:Label ID="lblComment" runat="server" Width="100%" CssClass="form-control disabled"></asp:Label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <h4>Disbursements</h4>
-                    </div>
-                </div>
-                <asp:ListView ID="ListView2" runat="server">
+                <b>Department Head Remarks:</b>
+                <asp:Label ID="lblComment" runat="server" Width="100%" CssClass="form-control disabled"></asp:Label>
+                
+                <h4>Disbursements</h4>
+                <asp:ListView ID="ListView2" runat="server">                   
                     <LayoutTemplate>
                         <table class="table">
                             <tr>
@@ -180,6 +177,9 @@
                             <td><%# Eval("ReceivedBy") %></td>
                         </tr>
                     </ItemTemplate>
+                     <EmptyDataTemplate>
+                        <p>No disbursements found.</p>
+                    </EmptyDataTemplate>
                 </asp:ListView>
                 <% } %>
             </asp:Panel>

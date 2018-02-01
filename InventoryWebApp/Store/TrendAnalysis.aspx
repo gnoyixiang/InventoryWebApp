@@ -37,11 +37,11 @@
             </div>
             <div class="col-md-6">
                 <div style="margin-bottom: 10px">
-                    <asp:Label ID="lblCount" runat="server" Text="No. of Dept to be compared: "></asp:Label>
+                    <asp:Label ID="lblCount" runat="server" Text="No. of Dept / Suppliers to be compared: "></asp:Label>
                     <asp:DropDownList ID="ddlCount" runat="server"></asp:DropDownList>
                 </div>
                 <div style="margin-bottom: 10px">
-                    <asp:Label ID="lblMonthsCount" runat="server" Text="No. of Months/Year to be compared: "></asp:Label>
+                    <asp:Label ID="lblMonthsCount" runat="server" Text="No. of Months / Year to be compared: "></asp:Label>
                     <asp:DropDownList ID="ddlmonthsCount" runat="server"></asp:DropDownList>
                 </div>
                 <div style="margin-bottom: 10px">
