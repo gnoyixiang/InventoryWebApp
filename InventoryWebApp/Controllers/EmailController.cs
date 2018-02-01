@@ -47,6 +47,37 @@ namespace InventoryWebApp.Controllers
             }
         }
 
+        public void NewAdjustmentSendEmail(string fromEmail, string password, string username, Adjustment adjustment)
+        {
+            string toEmail = Util.EMAIL;
+            string emailSubject = "Adjustment for Approval";
+            StringBuilder emailBody = new StringBuilder();
+            emailBody.AppendLine("The following adjustment has been created:");
+
+            emailBody.AppendLine("http://localhost:15132/Store/AdjustmentByStoreManager?AdjustmentCode=" + adjustment.AdjustmentCode);
+
+            emailBody.AppendLine("The stock adjustment is created by " + employeeDAO.GetEmployeeName(username));
+            emailBody.AppendLine();
+            emailBody.AppendLine("This email is automatically generated");
+
+            try
+            {
+                SendEmail(fromEmail, password, toEmail, emailSubject, emailBody.ToString());
+            }
+            catch (SmtpFailedRecipientsException ex)
+            {
+                throw ex;
+            }
+            catch (SmtpException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         private void SendEmail(string fromEmail, string password, string toEmail, string emailSubject, string emailBody)
         {
             //create email to inform of the purchase orders created to all store clerks for notification and store supervisor for approval

@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
 
 namespace InventoryWebApp.Store
 {
@@ -26,7 +28,7 @@ namespace InventoryWebApp.Store
                     btnTickAll.Visible = false;
                     lblNoData.Text = "Retrieval has been confirmed, please proceed to allocation.";
                 }
-                retrieval = sClerkCtrl.GetCurrentRetrieval();
+                retrieval = sClerkCtrl.GetCurrentRetrieval();//Context.User.Identity.GetUserName()
                 if (retrieval == null)
                 {
                     btnReset.Visible = false;
@@ -42,7 +44,7 @@ namespace InventoryWebApp.Store
 
                     BindGrid();
                 }
-                //lblCreatedBy.Text = sClerkCtrl.GetEmployeeNameByUserName(retrieval.UserName) ;
+                lblCreatedBy.Text = Master.GetEmployeeName(retrieval.UserName) ;
                 
             }
 

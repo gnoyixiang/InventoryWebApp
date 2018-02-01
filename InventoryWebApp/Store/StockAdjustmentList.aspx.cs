@@ -19,6 +19,36 @@ namespace InventoryWebApp.Store
             gvAdjustmentStatus.DataSource = sClerkCtrl.ListAllAdjustments();
             gvAdjustmentStatus.DataBind();
 
+            //base.OnPreRenderComplete(e);
+
+            if (!IsPostBack)
+            {
+                //ddlSearch.Items.Clear();
+                //ddlSearch.DataSource = SEARCH_ITEMS;
+                //ddlSearch.DataBind();
+
+                if (Session["SendCreateAdjEmail"] != null)
+                {
+                    //if ((bool)Session["CreatedPO"])
+                    //{
+                    if (!(bool)Session["SendCreateAjdEmail"])
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                            "alertMessage", "alert('Adjustment have been successfully created! However an error has occurred when sending email!')", true);
+                    }
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                       "alertMessage", "alert('Adjustment have been successfully created! Email notifications have been sent successfully!')", true);
+                }
+                //else
+                //{
+               //     ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+               //"alertMessage", "alert('An error has occurred when creating adjustment!')", true);
+                //}
+                //Session["CreatedPO"] = null;
+                Session["SendCreateAdjEmail"] = null;
+            }
+
+
             //programmatically add hyperlinks dependent on status
             //handled in method gvAdjustmentStatus_RowDataBound
 
