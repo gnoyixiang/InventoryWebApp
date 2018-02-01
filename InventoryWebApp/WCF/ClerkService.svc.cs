@@ -63,14 +63,22 @@ namespace InventoryWebApp.WCF
             if (sClerkCtrl.GetDisbursementsByStatus("allocating").Count == 0)
             {
                 Retrieval r = sClerkCtrl.GetCurrentRetrieval();
-                List<RetrievalDetail> rdList = r.RetrievalDetails.ToList<RetrievalDetail>();
-                List<WCF_RetrievalDetail> wrdList = new List<WCF_RetrievalDetail>();
-                foreach (var item in rdList)
+                if (r == null)
                 {
-                    WCF_RetrievalDetail wrd = new WCF_RetrievalDetail(item.RetrievalCode, sClerkCtrl.GetStationeryByCode(item.ItemCode).Description, item.QuantityRetrieved.ToString(), item.QuantityNeeded.ToString(), item.Notes, r.Status, r.DateRetrieved == null ? "" : ((DateTime)r.DateRetrieved).ToString("dd MMM yyyy"), sClerkCtrl.GetStationeryByCode(item.ItemCode).Stock.ToString(), sClerkCtrl.GetStationeryByCode(item.ItemCode).Location, item.ItemCode);
-                    wrdList.Add(wrd);
+                    return null;
                 }
-                return wrdList;
+                else
+                {
+                    List<RetrievalDetail> rdList = r.RetrievalDetails.ToList<RetrievalDetail>();
+                    List<WCF_RetrievalDetail> wrdList = new List<WCF_RetrievalDetail>();
+                    foreach (var item in rdList)
+                    {
+                        WCF_RetrievalDetail wrd = new WCF_RetrievalDetail(item.RetrievalCode, sClerkCtrl.GetStationeryByCode(item.ItemCode).Description, item.QuantityRetrieved.ToString(), item.QuantityNeeded.ToString(), item.Notes, r.Status, r.DateRetrieved == null ? "" : ((DateTime)r.DateRetrieved).ToString("dd MMM yyyy"), sClerkCtrl.GetStationeryByCode(item.ItemCode).Stock.ToString(), sClerkCtrl.GetStationeryByCode(item.ItemCode).Location, item.ItemCode);
+                        wrdList.Add(wrd);
+                    }
+                    return wrdList;
+                }
+                
             }
             else
             {
@@ -267,6 +275,12 @@ namespace InventoryWebApp.WCF
                 sClerkCtrl.UpdateStationeryCatalogue(sc);
             }
             sClerkCtrl.UpdateDisbursement(d);
+        }
+
+        public void ConfirmCollectionDate(string date, string userName, string password)
+        {
+            sClerkCtrl.SetCollectionDateToDisbursement(DateTime.ParseExact(date, "dd MMM yyyy", null), userName);
+            sClerkCtrl.UpdateCurrentRetrievalToRetrieved();
         }
     }
 }

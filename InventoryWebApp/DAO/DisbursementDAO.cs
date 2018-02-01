@@ -152,6 +152,7 @@ namespace InventoryWebApp.DAO
                 disbursement.DateCreated = d.DateCreated;
                 disbursement.CollectionPointCode = d.CollectionPointCode;
                 disbursement.DatePlanToCollect = d.DatePlanToCollect;
+                disbursement.UserName = d.UserName;
                 return em.SaveChanges();
             }
         }

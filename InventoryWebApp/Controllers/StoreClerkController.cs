@@ -169,13 +169,14 @@ namespace InventoryWebApp.Controllers
         {
             return employeeDAO.GetEmployeeByCode(collectionPointDAO.SearchByCollectionPointCode(collectionPointCode).FirstOrDefault().SClerkInCharge).EmployeeName;
         }
-        public void SetCollectionDateToDisbursement(DateTime dt)
+        public void SetCollectionDateToDisbursement(DateTime dt, String username)
         {
             List<Disbursement> dList = GetDisbursementsByStatus("allocating");
             foreach(var item in dList)
             {
                 item.DatePlanToCollect = dt;
                 item.Status = "disbursing";
+                item.UserName = username;
                 item.CollectionPointCode = departmentDAO.GetDepartmentInfo(item.DepartmentCode).CollectionPointCode;
                 disbursementDAO.UpdateDbmStatus(item);
                 foreach (var detail in disbursementDetailsDAO.SearchDDByDCode(item.DisbursementCode))

@@ -122,7 +122,7 @@ namespace InventoryWebApp
 
         protected void btnConfirm_Click(object sender, EventArgs e)
         {
-            sClerkCtrl.SetCollectionDateToDisbursement(DateTime.Parse(tbxDate.Text));
+            sClerkCtrl.SetCollectionDateToDisbursement(DateTime.Parse(tbxDate.Text), "nathalie@ssis.edu.vn");
             sClerkCtrl.UpdateCurrentRetrievalToRetrieved();
             btnBack.Enabled = false;
             btnNext.Enabled = true;

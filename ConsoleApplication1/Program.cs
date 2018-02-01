@@ -16,9 +16,9 @@ namespace ConsoleTestApp
         public static void Main(String[] args)
         {
             IClerkService cs = new ClerkService();
-            cs.MarkAsNotCollected("DBM1801290310175173");
-
-
+            WCF_CollectionDate wcd = new WCF_CollectionDate();
+            wcd.DatePlanToCollect = "11 Jul 2018";
+            cs.ConfirmCollectionDate("08 Feb 2018", "nathalie@ssis.edu.sg", "null");
         }   
      }
 }

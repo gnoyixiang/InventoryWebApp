@@ -13,6 +13,7 @@ namespace InventoryWebApp.WCF
     [ServiceContract]
     public interface IClerkService
     {
+
         [OperationContract]
         [WebInvoke(UriTemplate = "/MarkAsNotCollected", Method = "POST",
         RequestFormat = WebMessageFormat.Json,
@@ -38,6 +39,10 @@ namespace InventoryWebApp.WCF
         [OperationContract]
         [WebGet(UriTemplate = "/ConfirmedDisbursements", ResponseFormat = WebMessageFormat.Json)]
         List<WCF_ConfirmedDisbursement> GetConfirmedDisbursementList();
+
+        [OperationContract]
+        [WebGet(UriTemplate = "/ConfirmCollectionDate/{date}/{userName}/{password}", ResponseFormat = WebMessageFormat.Json)]
+        void ConfirmCollectionDate(String date, String userName, String password);
 
         [OperationContract]
         [WebGet(UriTemplate = "/GetCollectionDate", ResponseFormat = WebMessageFormat.Json)]
