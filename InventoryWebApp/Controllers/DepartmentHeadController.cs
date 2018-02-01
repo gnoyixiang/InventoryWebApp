@@ -20,15 +20,20 @@ namespace InventoryWebApp.Controllers
         IRoleDAO rdao = new RoleDAO();
         IUserDAO udao = new UserDAO();
 
-        public List<Employee> ListAllEmployeeNameInDepartment(string deptCode)
+        public List<Employee> ListOfEmployeeNameInDepartment(string empName, string deptCode)
         {
             List<Employee> empList = new List<Employee>();
-            List<Employee> eList = edao.ListEmployee();
-            foreach (Employee e in eList)
+            List<Employee> empSearchList = edao.SearchByEmployeeName(empName)
+                .Where(e => e.DepartmentCode == deptCode).ToList();
+            foreach (Employee e in empSearchList)
             {
-                if (e.DepartmentCode == deptCode)
+                Role role = udao.getRoleNameByUsername(e.UserName);
+                if (role != null)
                 {
-                    empList.Add(e);
+                    if (role.Id == "Empl")
+                    {
+                        empList.Add(e);
+                    }
                 }
             }
             return empList;
