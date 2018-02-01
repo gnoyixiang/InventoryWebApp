@@ -24,7 +24,7 @@ namespace InventoryWebApp.Controllers
             emailBody.AppendLine("The following purchase orders have been created:");
             foreach (PurchaseOrder po in purchaseOrders)
             {
-                emailBody.AppendLine("http://localhost:15132/Store/PurchaseOrderDetail?PO=" + po.PurchaseOrderCode);
+                emailBody.AppendLine("http://localhost/Store/PurchaseOrderDetail?PO=" + po.PurchaseOrderCode);
             }
             emailBody.AppendLine("The orders are created by " + employeeDAO.GetEmployeeName(username));
             emailBody.AppendLine();
@@ -54,7 +54,7 @@ namespace InventoryWebApp.Controllers
             StringBuilder emailBody = new StringBuilder();
             emailBody.AppendLine("The following adjustment has been created:");
 
-            emailBody.AppendLine("http://localhost:15132/Store/AdjustmentByStoreManager?AdjustmentCode=" + adjustment.AdjustmentCode);
+            emailBody.AppendLine("http://localhost/Store/AdjustmentByStoreManager?AdjustmentCode=" + adjustment.AdjustmentCode);
 
             emailBody.AppendLine("The stock adjustment is created by " + employeeDAO.GetEmployeeName(username));
             emailBody.AppendLine();
@@ -84,7 +84,7 @@ namespace InventoryWebApp.Controllers
             StringBuilder emailBody = new StringBuilder();
             emailBody.AppendLine("The following request has been created:");
 
-            emailBody.AppendLine("http://localhost:15132/Dept/RequisitionDetails?REQUESTCODE=" + requestcode);
+            emailBody.AppendLine("http://localhost/Dept/RequisitionDetails?REQUESTCODE=" + requestcode);
 
             emailBody.AppendLine("The request is created by " + employeeDAO.GetEmployeeName(username));
             emailBody.AppendLine();
@@ -118,7 +118,7 @@ namespace InventoryWebApp.Controllers
                 emailBody = new StringBuilder();
                 emailBody.AppendLine("The following adjustment has been approved:");
 
-                emailBody.AppendLine("http://localhost:15132/Store/StockAdjustmentView?AdjustmentCode=" + adjustment.AdjustmentCode);
+                emailBody.AppendLine("http://localhost/Store/StockAdjustmentView?AdjustmentCode=" + adjustment.AdjustmentCode);
 
                 emailBody.AppendLine("The stock adjustment is approved by " + employeeDAO.GetEmployeeName(username));
                 emailBody.AppendLine();
@@ -130,7 +130,7 @@ namespace InventoryWebApp.Controllers
                 emailBody = new StringBuilder();
                 emailBody.AppendLine("The following adjustment has been rejected:");
 
-                emailBody.AppendLine("http://localhost:15132/Store/StockAdjustmentView?AdjustmentCode=" + adjustment.AdjustmentCode);
+                emailBody.AppendLine("http://localhost/Store/StockAdjustmentView?AdjustmentCode=" + adjustment.AdjustmentCode);
 
                 emailBody.AppendLine("The stock adjustment is rejected by " + employeeDAO.GetEmployeeName(username));
                 emailBody.AppendLine();
@@ -166,7 +166,7 @@ namespace InventoryWebApp.Controllers
                 emailBody = new StringBuilder();
                 emailBody.AppendLine("The following Purchase Order has been approved:");
 
-                emailBody.AppendLine("http://localhost:15132/Store/PurchaseOrderDetail?PO=" + purchaseOrders.PurchaseOrderCode);
+                emailBody.AppendLine("http://localhost/Store/PurchaseOrderDetail?PO=" + purchaseOrders.PurchaseOrderCode);
 
                 emailBody.AppendLine("The stock Purchase Order is approved by " + employeeDAO.GetEmployeeName(username));
                 emailBody.AppendLine();
@@ -178,7 +178,7 @@ namespace InventoryWebApp.Controllers
                 emailBody = new StringBuilder();
                 emailBody.AppendLine("The following Purchase Order has been rejected:");
 
-                emailBody.AppendLine("http://localhost:15132/Store/PurchaseOrderDetail?PO=" + purchaseOrders.PurchaseOrderCode);
+                emailBody.AppendLine("http://localhost/Store/PurchaseOrderDetail?PO=" + purchaseOrders.PurchaseOrderCode);
 
                 emailBody.AppendLine("The stock Purchase Order is rejected by " + employeeDAO.GetEmployeeName(username));
                 emailBody.AppendLine();
@@ -219,7 +219,7 @@ namespace InventoryWebApp.Controllers
 
                 emailBody.AppendLine();
                 emailBody.AppendLine("This request can be accessed at");
-                emailBody.AppendLine("http://localhost:15132/Store/RequisitionList");
+                emailBody.AppendLine("http://localhost/Store/RequisitionList");
 
                 emailBody.AppendLine("The request is approved by " + employeeDAO.GetEmployeeName(username));
                 emailBody.AppendLine();
@@ -236,7 +236,7 @@ namespace InventoryWebApp.Controllers
 
                 emailBody.AppendLine();
                 emailBody.AppendLine("This request can be accessed at");
-                emailBody.AppendLine("http://localhost:15132/Dept/RequisitionDetails?REQUESTCODE=" + RO.RequestCode);
+                emailBody.AppendLine("http://localhost/Dept/RequisitionDetails?REQUESTCODE=" + RO.RequestCode);
 
                 emailBody.AppendLine("The request is rejected by " + employeeDAO.GetEmployeeName(username));
                 emailBody.AppendLine();
