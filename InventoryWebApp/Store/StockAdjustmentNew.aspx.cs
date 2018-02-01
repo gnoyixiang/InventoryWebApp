@@ -13,6 +13,7 @@ namespace InventoryWebApp.Store
     public partial class StockAdjustmentNew : System.Web.UI.Page
     {
         StoreClerkController sClerkCtrl = new StoreClerkController();
+        EmailController emailCtrl = new EmailController();
         StationeryCatalogue stationery;
         protected int CreateQuantityUpdate(String a, String b)
         {
@@ -99,6 +100,20 @@ namespace InventoryWebApp.Store
                 Adjustment a = sClerkCtrl.PrefillAdjustment(ddlItemChoice.SelectedValue, QuantUpdate, tbxReason.Text);
 
                 sClerkCtrl.SubmitAdjustment(a);
+
+                //send email
+                string fromEmail = Util.EMAIL;
+                string password = Util.PASSWORD;
+                string username = Context.User.Identity.Name;
+                try
+                {
+                    emailCtrl.NewAdjustmentSendEmail(fromEmail, password, username, a);
+                    Session["SendCreateAdjEmail"] = true;
+                }
+                catch (Exception ex)
+                {
+                    Session["SendCreateAdjEmail"] = false;
+                }
 
                 Response.Redirect("StockAdjustmentList.aspx");
             }
