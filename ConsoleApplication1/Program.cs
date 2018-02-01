@@ -74,8 +74,13 @@ namespace ConsoleTestApp
             //DepartmentService ds = new DepartmentService();
             //WCFRequest r = new WCFRequest();
             //r.RequestCode = "RQ123456790";
-            
+
             //ds.Update(r);
+
+            DepartmentService ds = new DepartmentService();
+
+            ds.GetAssignRoleInDepartment("ZOOL");
+            Console.WriteLine(ds);
 
 
         }

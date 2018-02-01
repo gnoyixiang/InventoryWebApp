@@ -118,7 +118,7 @@ namespace InventoryWebApp.WCF
             List<AssignRole> alist = dCon.ListOfAssignRoleInDepartment(deptCode);
             foreach (AssignRole a in alist)
             {
-                string emName = dCon.GetEmployeeName(a.EmployeeCode);
+                string emName = dCon.GetEmployeeInfo(a.EmployeeCode).EmployeeName;
                 wcfASList.Add(new WCFAssignRole(a.AssignRoleCode, a.TemporaryRoleCode, a.EmployeeCode,
                     string.Format("{0:dd/MM/yyyy}", a.StartDate), string.Format("{0:dd/MM/yyyy}",
                     a.EndDate), a.AssignedBy, emName));
@@ -214,7 +214,7 @@ namespace InventoryWebApp.WCF
                 bool checkemployee = dCon.CheckEmployee(wcfassignrole.EmployeeCode);
                 if (checkvalue && checkemployee)
                 {
-                    dCon.AddAssignRole(assignrolecode, rolecodeselected, wcfassignrole.EmployeeCode, startdateselected, enddateselected, null);
+                    dCon.AddAssignRole(assignrolecode, rolecodeselected, wcfassignrole.EmployeeCode, startdateselected, enddateselected, wcfassignrole.AssignedBy);
                     return "true";
                     
                 }
