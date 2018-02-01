@@ -67,6 +67,7 @@ namespace InventoryWebApp.Dept
             lblStatus.Text = RO.Status.ToUpper().ToString();
             lblDepartmentName.Text = RO.DepartmentCode.ToString();
             lblEmployeeName.Text = GetEmployeeName(RO.UserName);
+            lblComment.Text = (string)RO.HeadRemarks;
         }
 
         protected bool IsEditable()

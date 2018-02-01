@@ -105,7 +105,7 @@
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-4">
-            <asp:Label ID="lblmessage" runat="server"></asp:Label></div>
+            <asp:Label ID="lblmessage" runat="server" ForeColor="Red"></asp:Label></div>
     </div>
     <div class="row">
         <div class="col-md-2"></div>
