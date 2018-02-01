@@ -63,15 +63,23 @@ namespace InventoryWebApp
             }
 
             Page.PreLoad += master_Page_PreLoad;
-            userDepartmentCode = employeeController.GetDeptCodeByUserName(Context.User.Identity.Name);
-            Department department = storeClerkController.GetDeptByCode(userDepartmentCode);
-            Employee employee = employeeController.GetEmployeeByUsername(Context.User.Identity.Name);
-            AssignRole assignRole = deptHeadController.ListAssignRole().Where(ar => ar.EmployeeCode == employee.EmployeeCode).FirstOrDefault();
-            if (assignRole != null)
+            if (!String.IsNullOrEmpty(Context.User.Identity.Name))
             {
-                if (DateTime.Now >= assignRole.StartDate && DateTime.Now <= assignRole.EndDate)
+                userDepartmentCode = employeeController.GetDeptCodeByUserName(Context.User.Identity.Name);
+                Department department = storeClerkController.GetDeptByCode(userDepartmentCode);
+                Employee employee = employeeController.GetEmployeeByUsername(Context.User.Identity.Name);
+
+                AssignRole assignRole = deptHeadController.ListAssignRole().Where(ar => ar.EmployeeCode == employee.EmployeeCode).FirstOrDefault();
+                if (assignRole != null)
                 {
-                    tempRoleCode = assignRole.TemporaryRoleCode;
+                    if(assignRole.TemporaryRoleCode == "Rep")
+                    {
+                        tempRoleCode = assignRole.TemporaryRoleCode;
+                    }
+                    else if (DateTime.Now >= assignRole.StartDate && DateTime.Now <= assignRole.EndDate)
+                    {
+                        tempRoleCode = assignRole.TemporaryRoleCode;
+                    }
                 }
             }
         }

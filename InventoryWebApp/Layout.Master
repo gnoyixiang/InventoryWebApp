@@ -20,7 +20,7 @@
 
     <style>
     </style>
-        <script type="text/javascript">
+    <script type="text/javascript">
         function printDiv(divName) {
             var printContents = document.getElementById(divName).innerHTML;
             var originalContents = document.body.innerHTML;
@@ -63,18 +63,20 @@
                     <!-- Sidebar Holder -->
                     <nav id="sidebar">
                         <div class="sidebar-header">
-                            <div style="text-align:center"><i class="fa fa-cubes fa-3x" aria-hidden="true"></i>
+                            <div style="text-align: center">
+                                <i class="fa fa-cubes fa-3x" aria-hidden="true"></i>
                                 <br />
-                                <div style="font-size:1.5em; font-weight:600;padding-top:10px"><span >SSIS</span></div>
+                                <div style="font-size: 1.5em; font-weight: 600; padding-top: 10px"><span>SSIS</span></div>
                             </div>
                         </div>
-                                               
+
                         <ul class="list-unstyled components">
                             <!-- Store -->
-                            <% if (Context.User.IsInRole("Store Clerk") || Context.User.IsInRole("Store Supervisor") 
-                                    || Context.User.IsInRole("Store Manager"))
+                            <% if (Context.User.IsInRole("Store Clerk") || Context.User.IsInRole("Store Supervisor")
+                                      || Context.User.IsInRole("Store Manager"))
                                 { %>
-                            <% if (Context.User.IsInRole("Store Clerk")){ %>
+                            <% if (Context.User.IsInRole("Store Clerk"))
+                                { %>
                             <li id="menu-DisbursementsClerk">
                                 <a href="#DisbursementsClerkSubmenu" data-toggle="collapse" aria-expanded="false">
                                     <i class="fa fa-sitemap" aria-hidden="true"></i>Disbursements</a>
@@ -102,7 +104,7 @@
                                         <a href="/Store/ViewPurchaseOrders?search=5&q=Pending"><i class="fa fa-magic" aria-hidden="true"></i>
                                             Pending Orders</a></li>
                                     <% } %>
-                                    <li class="active"><a href="/Store/CreateNewOrder"><i class="fa fa-magic" aria-hidden="true"></i>New Order</a></li>
+                                    <li><a href="/Store/CreateNewOrder"><i class="fa fa-magic" aria-hidden="true"></i>New Order</a></li>
                                 </ul>
                             </li>
                             <li id="menu-Stock">
@@ -116,13 +118,13 @@
                                     </li>
                                     <ul class="collapse list-unstyled submenu2" id="AdjustmentSubmenu">
                                         <li><a href="/Store/StockAdjustmentList"><i class="fa fa-align-left" aria-hidden="true"></i>View Adjustments</a></li>
-                                         <% if (Context.User.IsInRole("Store Clerk"))
-                                             { %>
+                                        <% if (Context.User.IsInRole("Store Clerk"))
+                                            { %>
                                         <li><a href="/Store/StockAdjustmentNew">
                                             <i class="fa fa-file-archive-o" aria-hidden="true"></i>New Adjustments</a></li>
                                         <% } %>
                                         <% if (!Context.User.IsInRole("Store Clerk") || IsTempRoleCode("ActSSup"))
-                                             { %>
+                                            { %>
                                         <li>
                                             <% if (Context.User.IsInRole("Store Supervisor") || IsTempRoleCode("ActSSup"))
                                                 { %>
@@ -137,36 +139,36 @@
                                         </li>
                                         <%} %>
                                     </ul>
-                                    <li>
-                                        <a href="#SupplierSubmenu" data-toggle="collapse" aria-expanded="false">
-                                            <i class="fa fa-users" aria-hidden="true"></i>Suppliers</a>
-                                    </li>
-                                    <ul class="collapse list-unstyled submenu2" id="SupplierSubmenu">
-                                        <li><a href="/Store/SupplierList">
-                                            <i class="fa fa-address-book" aria-hidden="true"></i>View Suppliers</a></li>
-                                        <li><a href="/Store/QuotationView.aspx">
-                                            <i class="fa fa-file-code-o" aria-hidden="true"></i>View Quotations</a></li>
-                                    </ul>
-                                    <% if (!Context.User.IsInRole("Store Clerk") || IsTempRoleCode("ActSSup"))
-                                        { %>
-                                    <li>
-                                        <a href="#EmployeeSubmenu" data-toggle="collapse" aria-expanded="false">
-                                            <i class="fa fa-user-circle" aria-hidden="true"></i>Employees</a>
-                                    </li>
-                                    <ul class="collapse list-unstyled submenu2" id="EmployeeSubmenu">
-                                        <li>
-                                            <a href="/Store/StoreEmployeeList">
-                                                <i class="fa fa-address-book-o" aria-hidden="true"></i>View Employees</a>
-                                        </li>
-                                        <li>
-                                            <a href="/Store/AssigningAuthorityStoreDept">
-                                                <i class="fa fa-key" aria-hidden="true"></i>Assign Authority</a>
-                                        </li>
-                                    </ul>
-                                    <%} %>
                                 </ul>
                             </li>
-                            <li><a href="/Store/TrendAnalysis"><i class="fa fa-bar-chart" aria-hidden="true"></i>Trend Analysis</a></li> 
+                            <li>
+                                <a href="#SupplierSubmenu" data-toggle="collapse" aria-expanded="false">
+                                    <i class="fa fa-users" aria-hidden="true"></i>Suppliers</a>
+                            </li>
+                            <ul class="collapse list-unstyled submenu2" id="SupplierSubmenu">
+                                <li><a href="/Store/SupplierList">
+                                    <i class="fa fa-address-book" aria-hidden="true"></i>View Suppliers</a></li>
+                                <li><a href="/Store/QuotationView.aspx">
+                                    <i class="fa fa-file-code-o" aria-hidden="true"></i>View Quotations</a></li>
+                            </ul>
+                            <% if (!Context.User.IsInRole("Store Clerk") || IsTempRoleCode("ActSSup"))
+                                { %>
+                            <li>
+                                <a href="#EmployeeSubmenu" data-toggle="collapse" aria-expanded="false">
+                                    <i class="fa fa-user-circle" aria-hidden="true"></i>Employees</a>
+                            </li>
+                            <ul class="collapse list-unstyled submenu2" id="EmployeeSubmenu">
+                                <li>
+                                    <a href="/Store/StoreEmployeeList">
+                                        <i class="fa fa-address-book-o" aria-hidden="true"></i>View Employees</a>
+                                </li>
+                                <li>
+                                    <a href="/Store/AssigningAuthorityStoreDept">
+                                        <i class="fa fa-key" aria-hidden="true"></i>Assign Authority</a>
+                                </li>
+                            </ul>
+                            <%} %>
+                            <li><a href="/Store/TrendAnalysis"><i class="fa fa-bar-chart" aria-hidden="true"></i>Trend Analysis</a></li>
                             <% } %>
 
 
@@ -184,10 +186,13 @@
                                         <i class="fa fa-file-text" aria-hidden="true"></i>View Requests</a></li>
                                     <% if (IsTempRoleCode("ActHead") || Context.User.IsInRole("Department Head"))
                                         { %>
-                                    <li class="active"><a href="/Dept/DeptRequisitionList?search=Status&q=Pending">
+                                    <li><a href="/Dept/DeptRequisitionList?search=Status&q=Pending">
                                         <i class="fa fa-check-square-o" aria-hidden="true"></i>Pending Requests</a></li>
                                     <%} %>
+                                    <% if (Context.User.IsInRole("Employee"))
+                                        { %>
                                     <li><a href="/Dept/CreateRequest"><i class="fa fa-magic" aria-hidden="true"></i>New Request</a></li>
+                                    <% } %>
                                 </ul>
                             </li>
                             <li><a href="/Dept/ViewDisbursement"><i class="fa fa-truck" aria-hidden="true"></i>Disbursements</a></li>
@@ -197,13 +202,17 @@
                             <%} %>
                             <% if (IsTempRoleCode("ActHead") || Context.User.IsInRole("Department Head"))
                                 { %>
-                            <li>
-                                <a href="/Dept/AddAuthorise">
+                            <li id="menu-RequestAuthorisation">
+                                <a href="#RequestAuthorisationSubmenu" data-toggle="collapse" aria-expanded="false">
                                     <i class="fa fa-key" aria-hidden="true"></i>Authorisation</a>
+                                <ul class="collapse list-unstyled submenu" id="RequestAuthorisationSubmenu">
+                                    <li><a href="/Dept/AddAuthorise">
+                                        <i class="fa fa-user-plus" aria-hidden="true"></i>Add Authorisation</a></li>
+                                    <li><a href="/Dept/AuthoriseStaff"><i class="fa fa-id-card-o" aria-hidden="true"></i>Authorised Staff</a></li>
+                                </ul>
                             </li>
                             <%} %>
                             <% } %>
-                            
                         </ul>
 
 
@@ -265,7 +274,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 
-     <%--<script>
+    <%--<script>
         $(document).ready(function () {
             $('li[id^="menu-"].active .collapse').collapse('show');
             $('li[id^="menu-"].active a[aria-expanded=false]').attr('aria-expanded', 'true');

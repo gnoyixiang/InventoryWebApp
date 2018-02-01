@@ -53,7 +53,7 @@
                         <table class="table">
                             <tr>
                                 <th>Request Code</th>
-                                <th>Item Code</th>
+                                <th>Stationery</th>
                                 <th>Status</th>
                                 <th>Remaining Quantity</th>
                                 <th>Quantity</th>
@@ -67,7 +67,7 @@
                     <ItemTemplate>
                         <tr>
                             <td><%# Eval("RequestCode") %></a></td>
-                            <td><%# Eval("ItemCode") %></td>
+                            <td><%# GetItemDescription((string)Eval("ItemCode")) %></td>
                             <td><%# Eval("Status") %></td>
                             <td><%# Eval("RemainingQuant") %></td>
                             <td><%# Eval("Quantity") %></td>
@@ -124,31 +124,41 @@
 
                     <% if (IsEditable() && IsEmployee())
                         { %><div class="col-md-2">
-                <asp:Button ID="btnAddItem" runat="server" Text="Add Item" OnClick="btnAddItem_Click" CssClass="btn btn-primary" />
-                    </div>
+                            <asp:Button ID="btnAddItem" runat="server" Text="Add Item" OnClick="btnAddItem_Click" CssClass="btn btn-primary" />
+                        </div>
 
                     <% } %>
                     <% if (IsEditable() && !IsEmployee())
                         { %>
-                    <div class="row">
-                        <div class="col-md-2">
-                            <asp:Button ID="btnApprove" runat="server" CssClass="btn btn-success" OnClientClick="return confirm('Are you sure to approve the requisition?');"
-                                OnClick="btnApprove_Click" Text="Approve" Width="100%" />
-                        </div>
-                        <div class="col-md-2">
-                            <asp:Button ID="btnReject" runat="server" CssClass="btn btn-warning" Text="Reject" Width="100%"
-                                OnClientClick="return confirm('Are you sure to REJECT the requisition?');" OnClick="btnReject_Click" />
-                        </div>
-                        <div class="col-md-8">
-                            <asp:Label ID="lblCom" runat="server" Text="Comment: " Width="100%"></asp:Label>
-                            <asp:TextBox ID="tbxCom" runat="server" Width="100%" CssClass="form-control"></asp:TextBox>
-                        </div>
+                    <div class="col-md-2">
+                        <asp:Button ID="btnApprove" runat="server" CssClass="btn btn-success" OnClientClick="return confirm('Are you sure to approve the requisition?');"
+                            OnClick="btnApprove_Click" Text="Approve" Width="100%" />
                     </div>
-                    <% } %>
-                    <% if (!IsEditable())
-                        { %>
+                    <div class="col-md-2">
+                        <asp:Button ID="btnReject" runat="server" CssClass="btn btn-warning" Text="Reject" Width="100%"
+                            OnClientClick="return confirm('Are you sure to REJECT the requisition?');" OnClick="btnReject_Click" />
+                    </div>
+                    <div class="col-md-8">
+                        <asp:Label ID="lblCom" runat="server" Text="Comment: " Width="100%" Font-Bold="true"></asp:Label>
+                        <asp:TextBox ID="tbxCom" runat="server" Width="100%" CssClass="form-control"></asp:TextBox>
+                    </div>
                 </div>
-                <h4>Disbursements</h4>
+
+                <% } %>
+
+                <% if (!IsEditable())
+                    { %>
+                <div class="row">
+                    <div class="col-md-12">
+                        <b>Department Head Remarks:</b>
+                        <asp:Label ID="lblComment" runat="server" Width="100%" CssClass="form-control disabled"></asp:Label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Disbursements</h4>
+                    </div>
+                </div>
                 <asp:ListView ID="ListView2" runat="server">
                     <LayoutTemplate>
                         <table class="table">

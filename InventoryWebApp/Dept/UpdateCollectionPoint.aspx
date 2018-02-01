@@ -30,7 +30,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-3" for="tbxStartDate">Current Collection Point:</label>
                     <div class="col-md-4">
-                        <asp:TextBox ID="tbxCCP" runat="server" CssClass="form-control disabled"></asp:TextBox>
+                        <asp:TextBox ID="tbxCCP" runat="server" CssClass="form-control disabled" ReadOnly="true"></asp:TextBox>
                     </div>
                 </div>
             </div>

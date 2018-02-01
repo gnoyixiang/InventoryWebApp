@@ -52,7 +52,7 @@
                 <ul class="list-unstyled components">
                     <!-- Store -->
                     <% if (Context.User.IsInRole("Store Clerk") || Context.User.IsInRole("Store Supervisor")
-                                      || Context.User.IsInRole("Store Manager"))
+                                        || Context.User.IsInRole("Store Manager"))
                         { %>
                     <% if (Context.User.IsInRole("Store Clerk"))
                         { %>
@@ -83,7 +83,7 @@
                                 <a href="/Store/ViewPurchaseOrders?search=5&q=Pending"><i class="fa fa-magic" aria-hidden="true"></i>
                                     Pending Orders</a></li>
                             <% } %>
-                            <li class="active"><a href="/Store/CreateNewOrder"><i class="fa fa-magic" aria-hidden="true"></i>New Order</a></li>
+                            <li><a href="/Store/CreateNewOrder"><i class="fa fa-magic" aria-hidden="true"></i>New Order</a></li>
                         </ul>
                     </li>
                     <li id="menu-Stock">
@@ -118,35 +118,35 @@
                                 </li>
                                 <%} %>
                             </ul>
-                            <li>
-                                <a href="#SupplierSubmenu" data-toggle="collapse" aria-expanded="false">
-                                    <i class="fa fa-users" aria-hidden="true"></i>Suppliers</a>
-                            </li>
-                            <ul class="collapse list-unstyled submenu2" id="SupplierSubmenu">
-                                <li><a href="/Store/SupplierList">
-                                    <i class="fa fa-address-book" aria-hidden="true"></i>View Suppliers</a></li>
-                                <li><a href="/Store/QuotationView.aspx">
-                                    <i class="fa fa-file-code-o" aria-hidden="true"></i>View Quotations</a></li>
-                            </ul>
-                            <% if (!Context.User.IsInRole("Store Clerk") || IsTempRoleCode("ActSSup"))
-                                { %>
-                            <li>
-                                <a href="#EmployeeSubmenu" data-toggle="collapse" aria-expanded="false">
-                                    <i class="fa fa-user-circle" aria-hidden="true"></i>Employees</a>
-                            </li>
-                            <ul class="collapse list-unstyled submenu2" id="EmployeeSubmenu">
-                                <li>
-                                    <a href="/Store/StoreEmployeeList">
-                                        <i class="fa fa-address-book-o" aria-hidden="true"></i>View Employees</a>
-                                </li>
-                                <li>
-                                    <a href="/Store/AssigningAuthorityStoreDept">
-                                        <i class="fa fa-key" aria-hidden="true"></i>Assign Authority</a>
-                                </li>
-                            </ul>
-                            <%} %>
                         </ul>
                     </li>
+                    <li>
+                        <a href="#SupplierSubmenu" data-toggle="collapse" aria-expanded="false">
+                            <i class="fa fa-users" aria-hidden="true"></i>Suppliers</a>
+                    </li>
+                    <ul class="collapse list-unstyled submenu2" id="SupplierSubmenu">
+                        <li><a href="/Store/SupplierList">
+                            <i class="fa fa-address-book" aria-hidden="true"></i>View Suppliers</a></li>
+                        <li><a href="/Store/QuotationView.aspx">
+                            <i class="fa fa-file-code-o" aria-hidden="true"></i>View Quotations</a></li>
+                    </ul>
+                    <% if (!Context.User.IsInRole("Store Clerk") || IsTempRoleCode("ActSSup"))
+                        { %>
+                    <li>
+                        <a href="#EmployeeSubmenu" data-toggle="collapse" aria-expanded="false">
+                            <i class="fa fa-user-circle" aria-hidden="true"></i>Employees</a>
+                    </li>
+                    <ul class="collapse list-unstyled submenu2" id="EmployeeSubmenu">
+                        <li>
+                            <a href="/Store/StoreEmployeeList">
+                                <i class="fa fa-address-book-o" aria-hidden="true"></i>View Employees</a>
+                        </li>
+                        <li>
+                            <a href="/Store/AssigningAuthorityStoreDept">
+                                <i class="fa fa-key" aria-hidden="true"></i>Assign Authority</a>
+                        </li>
+                    </ul>
+                    <%} %>
                     <li><a href="/Store/TrendAnalysis"><i class="fa fa-bar-chart" aria-hidden="true"></i>Trend Analysis</a></li>
                     <% } %>
 
@@ -165,10 +165,13 @@
                                 <i class="fa fa-file-text" aria-hidden="true"></i>View Requests</a></li>
                             <% if (IsTempRoleCode("ActHead") || Context.User.IsInRole("Department Head"))
                                 { %>
-                            <li class="active"><a href="/Dept/DeptRequisitionList?search=Status&q=Pending">
+                            <li><a href="/Dept/DeptRequisitionList?search=Status&q=Pending">
                                 <i class="fa fa-check-square-o" aria-hidden="true"></i>Pending Requests</a></li>
                             <%} %>
+                            <% if (Context.User.IsInRole("Employee"))
+                                { %>
                             <li><a href="/Dept/CreateRequest"><i class="fa fa-magic" aria-hidden="true"></i>New Request</a></li>
+                            <% } %>
                         </ul>
                     </li>
                     <li><a href="/Dept/ViewDisbursement"><i class="fa fa-truck" aria-hidden="true"></i>Disbursements</a></li>
@@ -178,9 +181,14 @@
                     <%} %>
                     <% if (IsTempRoleCode("ActHead") || Context.User.IsInRole("Department Head"))
                         { %>
-                    <li>
-                        <a href="/Dept/AddAuthorise">
+                    <li id="menu-RequestAuthorisation">
+                        <a href="#RequestAuthorisationSubmenu" data-toggle="collapse" aria-expanded="false">
                             <i class="fa fa-key" aria-hidden="true"></i>Authorisation</a>
+                        <ul class="collapse list-unstyled submenu" id="RequestAuthorisationSubmenu">
+                            <li><a href="/Dept/AddAuthorise">
+                                <i class="fa fa-user-plus" aria-hidden="true"></i>Add Authorisation</a></li>
+                            <li><a href="/Dept/AuthoriseStaff"><i class="fa fa-id-card-o" aria-hidden="true"></i>Authorised Staff</a></li>
+                        </ul>
                     </li>
                     <%} %>
                     <% } %>

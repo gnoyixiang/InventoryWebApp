@@ -159,14 +159,25 @@ namespace InventoryWebApp.Controllers
         {
             List<Disbursement> dlist = new List<Disbursement>();
 
-            foreach (var c in ddDAO.SearchDDByRequest(R))
+            foreach (var dd in ddDAO.SearchDDByRequest(R))
             {
-                Disbursement d = dDAO.SearchDisbursementByCode(c.DisbursementCode).FirstOrDefault();
+                Disbursement d = dDAO.SearchDisbursementByCode(dd.DisbursementCode).FirstOrDefault();
                 if (d != null)
                 {
-                    dlist.Add(d);
+                    bool hasDisbursement = false;
+                    foreach (Disbursement disbursement in dlist)
+                    {
+                        if (disbursement.DisbursementCode==d.DisbursementCode)
+                        {
+                            hasDisbursement = true;
+                            break;
+                        }
+                    }
+                    if (!hasDisbursement)
+                    {
+                        dlist.Add(d);
+                    }
                 }
-
             }
 
             return dlist;
