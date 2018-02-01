@@ -16,6 +16,7 @@ namespace InventoryWebApp.Dept
     public partial class CreateRequest : System.Web.UI.Page
     {
         EmployeeController ec = new EmployeeController();
+        EmailController emailController = new EmailController();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -58,7 +59,23 @@ namespace InventoryWebApp.Dept
                 string userName = Context.User.Identity.Name;
                 string deptCode = ec.GetDeptCodeByUserName(userName);
                 string requestcode = ec.AddRequest(userName, deptCode, stationaries);
-               
+
+                //send email
+                string fromEmail = Util.EMAIL;
+                string password = Util.PASSWORD;
+                string username = Context.User.Identity.Name;
+                try
+                {
+                    emailController.NewRequestSendEmail(fromEmail, password, username, requestcode);
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                           "alertMessage", "alert('Request have been successfully created! Email notifications have been sent successfully!')", true);
+                }
+                catch (Exception ex)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                           "alertMessage", "alert('Request have been successfully created! However an error has occurred when sending email!')", true);
+                }
+
                 //clear
                 Session["ItemDetails"] = null;
                 BindGrid();
@@ -69,7 +86,7 @@ namespace InventoryWebApp.Dept
                 sb.Append("$('#lblRequestCode').text('"+ requestcode +"');");
                 sb.Append(@"</script>");
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "none", sb.ToString(), false);
-               
+
             }
         }
         protected void btnClear_Click(object sender, EventArgs e)

@@ -74,7 +74,7 @@
         <div class="form-group">
             <label class="control-label col-md-2" for="ddlRolecodelist">Role Name:</label>
             <div class="col-md-4">
-                <asp:DropDownList ID="ddlRolecodelist" runat="server" CssClass="form-control">
+                <asp:DropDownList ID="ddlRolecodelist" runat="server" CssClass="form-control" AutoPostBack="True" OnSelectedIndexChanged="dropdownSelectIndexdChanged">
                 </asp:DropDownList>
             </div>
         </div>

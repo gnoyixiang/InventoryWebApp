@@ -25,7 +25,7 @@ namespace InventoryWebApp.Dept
             assignrolecode = Request.QueryString["AssignRoleCode"];
             if (!IsPostBack)
             {
-                Page.DataBind();              
+                Page.DataBind();
                 BindGrid();
             }
         }
@@ -76,7 +76,7 @@ namespace InventoryWebApp.Dept
                     DateTime d2 = (DateTime)assignrole.EndDate;
                     enddate.Text = d2.ToShortDateString();
                 }
-                
+
             }
         }
 
@@ -84,61 +84,70 @@ namespace InventoryWebApp.Dept
 
         protected void btnAssign_Click(object sender, EventArgs e)
         {
-           
+
             string employeecode = lblEmpCode.Text;
             string assignrolecode = (string)gv.SelectedDataKey.Value;
             AssignRole assignRole = dCon.GetAssignRoleInfo(assignrolecode);
             string rolecodeselected = assignRole.TemporaryRoleCode;
             if (rolecodeselected == "ActHead")
             {
-                DateTime startdateselected = Convert.ToDateTime(tbxStartDate.Text);
-                DateTime enddateselected = Convert.ToDateTime(tbxEndDate.Text);
-                bool checkvalue = dCon.CheckTemporaryRoleAndDates(rolecodeselected, startdateselected, enddateselected);
-                if (assignrolecode != null)
+                if (tbxStartDate.Text == "" || tbxEndDate.Text == "")
                 {
-                    if (checkvalue)
+                    lblSuccessMsg.Text = "";
+                    lblErrorMsg.Text = "Can't be empty";
+                }
+                else
+                {
+                    DateTime startdateselected = Convert.ToDateTime(tbxStartDate.Text);
+                    DateTime enddateselected = Convert.ToDateTime(tbxEndDate.Text);
+                    bool checkvalue = dCon.CheckTemporaryRoleAndDates(rolecodeselected, startdateselected, enddateselected);
+                    if (assignrolecode != null)
                     {
-                        dCon.UpdateAssignRole(assignrolecode, rolecodeselected, startdateselected, enddateselected);
-                        
-                        lblSuccessMsg.Text = "Assign Role updated";
-                        lblErrorMsg.Text = "";
+                        if (checkvalue)
+                        {
+                            dCon.UpdateAssignRole(assignrolecode, rolecodeselected, startdateselected, enddateselected);
+
+                            lblSuccessMsg.Text = "Assign Role updated";
+                            lblErrorMsg.Text = "";
+                        }
+                        else
+                        {
+                            lblSuccessMsg.Text = "";
+                            lblErrorMsg.Text = "Already present for this period";
+                        }
+
                     }
                     else
                     {
                         lblSuccessMsg.Text = "";
-                        lblErrorMsg.Text = "Already present for this period";
+                        lblErrorMsg.Text = "Can't update, there's no temporaryrole";
                     }
-
-                }
-                else
-                {
-                    lblSuccessMsg.Text = "";
-                    lblErrorMsg.Text = "Can't update, there's no temporaryrole";
                 }
             }
             else
             {
+                lblSuccessMsg.Text = "";
                 lblErrorMsg.Text = "Can't update";
-            }         
+            }
             BindGrid();
         }
         protected void OnRowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             string assignrolecode = (string)gv.DataKeys[e.RowIndex].Values[0];
-                      
+
             AssignRole ass = dCon.GetAssignRoleInfo(assignrolecode);
             //if (ass.TemporaryRoleCode == "ActHead")
-           // {
-                dCon.DeleteAssignRole(assignrolecode);
+            // {
+            dCon.DeleteAssignRole(assignrolecode);
             //}
-           /* else
-            {
-                Employee emp = dCon.GetEmployeeInfo(ass.EmployeeCode);
-                Role role = dCon.getRoleNameByUsername(emp.UserName);
-                em.Users.Where(x => x.UserName == emp.UserName).FirstOrDefault<User>().Roles.Remove(role);
-                em.SaveChanges();
-                dCon.DeleteAssignRole(assignrolecode);
-            }*/
+            /* else
+             {
+                 Employee emp = dCon.GetEmployeeInfo(ass.EmployeeCode);
+                 Role role = dCon.getRoleNameByUsername(emp.UserName);
+                 em.Users.Where(x => x.UserName == emp.UserName).FirstOrDefault<User>().Roles.Remove(role);
+                 em.SaveChanges();
+                 dCon.DeleteAssignRole(assignrolecode);
+             }*/
             BindGrid();
         }
 

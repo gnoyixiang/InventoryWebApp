@@ -16,6 +16,7 @@ namespace InventoryWebApp.Store
     {
         StoreSupervisorController storeSpController = new StoreSupervisorController();
         StoreManagerController storeMgController = new StoreManagerController();
+        EmailController emailController = new EmailController();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -121,6 +122,21 @@ namespace InventoryWebApp.Store
                     lblSuccessMsg.Text = "Adjustment request Approved";
                     lblErrorMsg.Text = "";
 
+                    //send email
+                    string fromEmail = Util.EMAIL;
+                    string password = Util.PASSWORD;
+                    string username = Context.User.Identity.Name;
+                    try
+                    {
+                        emailController.AdjApproveRejectSendEmail(fromEmail, password, username, ad);
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                           "alertMessage", "alert('Adjustment have been successfully approved! Email notifications have been sent successfully!')", true);
+                    }
+                    catch (Exception ex)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                           "alertMessage", "alert('Adjustment have been successfully approved! However an error has occurred when sending email!')", true);
+                    }
                 }
                 else
                 {
@@ -157,6 +173,21 @@ namespace InventoryWebApp.Store
                     lblSuccessMsg.Text = "";
                     lblErrorMsg.Text = "Adjustment request rejected";
 
+                    //send email
+                    string fromEmail = Util.EMAIL;
+                    string password = Util.PASSWORD;
+                    string username = Context.User.Identity.Name;
+                    try
+                    {
+                        emailController.AdjApproveRejectSendEmail(fromEmail, password, username, adOFReject);
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                           "alertMessage", "alert('Adjustment have been successfully rejected! Email notifications have been sent successfully!')", true);
+                    }
+                    catch (Exception ex)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                           "alertMessage", "alert('Adjustment have been successfully rejected! However an error has occurred when sending email!')", true);
+                    }
                 }
             }
             catch (Exception ex)

@@ -7,7 +7,7 @@ using System.Web;
 
 namespace InventoryWebApp.Controllers
 {
-    
+
 
     public class DepartmentHeadController
     {
@@ -22,12 +22,17 @@ namespace InventoryWebApp.Controllers
         public List<Employee> ListOfEmployeeNameInDepartment(string empName, string deptCode)
         {
             List<Employee> empList = new List<Employee>();
-            List<Employee> empSearchList = edao.SearchByEmployeeName(empName);
-            foreach(Employee e in empSearchList)
+            List<Employee> empSearchList = edao.SearchByEmployeeName(empName)
+                .Where(e => e.DepartmentCode == deptCode).ToList();
+            foreach (Employee e in empSearchList)
             {
-                if(e.DepartmentCode==deptCode)
+                Role role = udao.getRoleNameByUsername(e.UserName);
+                if (role != null)
                 {
-                    empList.Add(e);
+                    if (role.Id == "Empl")
+                    {
+                        empList.Add(e);
+                    }
                 }
             }
             return empList;
@@ -40,12 +45,17 @@ namespace InventoryWebApp.Controllers
         public List<Employee> ListOfEmployeeCodeInDepartment(string empCode, string deptCode)
         {
             List<Employee> empList = new List<Employee>();
-            List<Employee> empSearchList = edao.SearchByEmployeeCode(empCode);
+            List<Employee> empSearchList = edao.SearchByEmployeeCode(empCode)
+                .Where(e => e.DepartmentCode == deptCode).ToList();
             foreach (Employee e in empSearchList)
             {
-                if (e.DepartmentCode == deptCode)
+                Role role = udao.getRoleNameByUsername(e.UserName);
+                if (role != null)
                 {
-                    empList.Add(e);
+                    if (role.Id == "Empl")
+                    {
+                        empList.Add(e);
+                    }
                 }
             }
             return empList;
@@ -54,18 +64,18 @@ namespace InventoryWebApp.Controllers
         {
             List<Employee> empList = edao.SearchByDept(deptCode);
             List<AssignRole> assignList = new List<AssignRole>();
-            
-            foreach(Employee e in empList)
+
+            foreach (Employee e in empList)
             {
                 List<AssignRole> assList = adao.SearchByEmployeeCode(e.EmployeeCode);
-                foreach(AssignRole a in assList)
+                foreach (AssignRole a in assList)
                 {
                     assignList.Add(a);
-                }              
+                }
             }
             return assignList;
         }
-    
+
         public bool CheckTemporaryRole(string temporaryrole)
         {
             List<AssignRole> listOfAssignRole = adao.ListAssignRole();
@@ -86,7 +96,7 @@ namespace InventoryWebApp.Controllers
             }
             return true;
         }
-        
+
         public bool CheckTemporaryRoleAndDates(string temporaryrole, DateTime startdate, DateTime enddate)
         {
             List<AssignRole> listOfAssignRole = adao.ListAssignRole();
@@ -104,14 +114,14 @@ namespace InventoryWebApp.Controllers
                     int j2 = DateTime.Compare((DateTime)a.EndDate, enddate);
                     */
                     if (
-                        (a.TemporaryRoleCode.Equals(temporaryrole))&&
-                       ((DateTime.Compare((DateTime)a.StartDate, startdate) <= 0 
+                        (a.TemporaryRoleCode.Equals(temporaryrole)) &&
+                       ((DateTime.Compare((DateTime)a.StartDate, startdate) <= 0
                        &&
-                       DateTime.Compare((DateTime)a.EndDate, startdate) >=0)
+                       DateTime.Compare((DateTime)a.EndDate, startdate) >= 0)
                        ||
                        (DateTime.Compare((DateTime)a.StartDate, enddate) <= 0
-                       && 
-                       DateTime.Compare((DateTime)a.EndDate, enddate) >=0))
+                       &&
+                       DateTime.Compare((DateTime)a.EndDate, enddate) >= 0))
                        )
                     {
                         return false;
@@ -133,12 +143,12 @@ namespace InventoryWebApp.Controllers
             {
                 foreach (AssignRole a in listOfAssignRole)
                 {
-                    if ((a.EmployeeCode==employeecode)&&(a.TemporaryRoleCode!="ActHead"))
+                    if ((a.EmployeeCode == employeecode) && (a.TemporaryRoleCode != "ActHead"))
                     {
                         return false;
 
                     }
-                    
+
                 }
             }
             return true;
@@ -146,7 +156,7 @@ namespace InventoryWebApp.Controllers
         }
         public string GetRoleName(string a)
         {
-            
+
             return rdao.GetRoleName(a);
         }
 
@@ -163,23 +173,23 @@ namespace InventoryWebApp.Controllers
         public int UpdateAssignRole(string assignrolecode, string temporaryrolecode,
            DateTime startdate, DateTime enddate)
         {
-            return adao.UpdateAssignRole(assignrolecode,  temporaryrolecode,
-            startdate,  enddate);
+            return adao.UpdateAssignRole(assignrolecode, temporaryrolecode,
+            startdate, enddate);
         }
         public int UpdateTemporaryRoleCode(string assignrolecode, string temporaryrolecode)
         {
             return adao.UpdateTemporaryRoleCode(assignrolecode, temporaryrolecode);
 
         }
-        public int AddTemporaryRole(string assignrolecode, string temporaryrolecode,string employeecode)
+        public int AddTemporaryRole(string assignrolecode, string temporaryrolecode, string employeecode)
         {
-            return adao.AddTemporaryRole( assignrolecode,  temporaryrolecode,employeecode);
+            return adao.AddTemporaryRole(assignrolecode, temporaryrolecode, employeecode);
 
         }
 
         public void DeleteAssignRole(string assignrolecode)
         {
-             adao.DeleteAssignRole(assignrolecode);
+            adao.DeleteAssignRole(assignrolecode);
         }
         public List<Role> ListRole()
         {
@@ -198,7 +208,7 @@ namespace InventoryWebApp.Controllers
 
             return adao.GetAssignRoleInfo(assignrolecode);
         }
-        
+
         public List<Role> ListAllDepartmentRoles()
         {
             return rdao.ListAllDepartmentRole();
@@ -216,23 +226,23 @@ namespace InventoryWebApp.Controllers
             return edao.GetEmployeeByCode(empCode);
         }
 
-       
-           
-        
+
+
+
         public Role getRoleNameByUsername(string username)
         {
 
             return udao.getRoleNameByUsername(username);
-            
+
         }
         public User GetUserByUsername(string username)
         {
             return udao.GetUserByUsername(username);
         }
-    
 
 
-    //yf
+
+        //yf
 
         IEmployeeDAO eDAO = new EmployeeDAO();
         IRequestDAO rDAO = new RequestDAO();
@@ -241,9 +251,9 @@ namespace InventoryWebApp.Controllers
         IDisbursementDetailsDAO ddDAO = new DisbursementDetailsDAO();
         IDisbursementDAO dDAO = new DisbursementDAO();
 
-       
 
-        public List<string> ListEmpName(string dept,string role)
+
+        public List<string> ListEmpName(string dept, string role)
         {
             return eDAO.ListEmpName(dept, role);
 
@@ -272,19 +282,19 @@ namespace InventoryWebApp.Controllers
         public List<Request> SearchRequestByName(string name)
         {
             string username = eDAO.GetUserName(name);
-            return rDAO.SearchPendingRequestByName(username,"ISS1");
+            return rDAO.SearchPendingRequestByName(username, "ISS1");
         }
 
         public List<Request> SearchRequestByDate(DateTime d)
         {
 
-            return rDAO.SearchPendingRequestByDate(d,"ISS1");
+            return rDAO.SearchPendingRequestByDate(d, "ISS1");
         }
 
         public List<Request> SearchRequestByStatus(string status)
         {
 
-            return rDAO.SearchRequestbyStatus(status,"ISS1");
+            return rDAO.SearchRequestbyStatus(status, "ISS1");
         }
 
 
@@ -304,24 +314,24 @@ namespace InventoryWebApp.Controllers
             return scDAO.GetStationery(code);
         }
 
-        public int UpdateRequest(Request r,string status)
-        {                               
-               
-                List<RequestDetail> rdlist= rdDAO.ListRequestDetail(r.RequestCode);
-                
-                foreach(RequestDetail rd in rdlist)
-                {
-                    rdDAO.UpdateRequestDetailStatus(rd, status);
-                }
+        public int UpdateRequest(Request r, string status)
+        {
 
-                rDAO.UpdateRequestApproval(r);
-                return rDAO.UpdateRequestStatus(r);          
-                   
-                    
-           
+            List<RequestDetail> rdlist = rdDAO.ListRequestDetail(r.RequestCode);
+
+            foreach (RequestDetail rd in rdlist)
+            {
+                rdDAO.UpdateRequestDetailStatus(rd, status);
+            }
+
+            rDAO.UpdateRequestApproval(r);
+            return rDAO.UpdateRequestStatus(r);
+
+
+
         }
 
-       public List<DisbursementDetail> ListDisbursementDetail(Request r)
+        public List<DisbursementDetail> ListDisbursementDetail(Request r)
         {
             return ddDAO.SearchDDByRequest(r);
         }

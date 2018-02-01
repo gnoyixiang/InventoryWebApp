@@ -17,6 +17,7 @@ namespace InventoryWebApp.Dept
         Request RO;
         EmployeeController ec = new EmployeeController();
         DepartmentHeadController dCon = new DepartmentHeadController();
+        EmailController emailController = new EmailController();
         string ItCode;
         
         
@@ -149,6 +150,21 @@ namespace InventoryWebApp.Dept
 
             int i = dCon.UpdateRequest(RO, "processing");
 
+            //send email
+            string fromEmail = Util.EMAIL;
+            string password = Util.PASSWORD;
+            string username = Context.User.Identity.Name;
+            try
+            {
+                emailController.RequestApproveRejectSendEmail(fromEmail, password, username, RO);
+                //Session["SendRequestApproveRejectEmail"] = true;
+            }
+            catch (Exception ex)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                           "alertMessage", "alert('Request has been successfully approved! However an error has occurred when sending email!')", true);
+            }
+
             if (i == 1)
             {
                 btnApprove.Visible = false;
@@ -177,6 +193,21 @@ namespace InventoryWebApp.Dept
             }
 
             int i = dCon.UpdateRequest(RO, "rejected");
+
+            //send email
+            string fromEmail = Util.EMAIL;
+            string password = Util.PASSWORD;
+            string username = Context.User.Identity.Name;
+            try
+            {
+                emailController.RequestApproveRejectSendEmail(fromEmail, password, username, RO);
+                //Session["SendRequestApproveRejectEmail"] = true;
+            }
+            catch (Exception ex)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                           "alertMessage", "alert('Request have been successfully rejected! However an error has occurred when sending email!')", true);
+            }
 
             if (i == 1)
             {

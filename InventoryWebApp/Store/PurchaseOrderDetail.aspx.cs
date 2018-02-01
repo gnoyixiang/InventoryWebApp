@@ -13,6 +13,7 @@ namespace InventoryWebApp.Store
     {
         StoreClerkController scController = new StoreClerkController();
         StoreSupervisorController supervisorController = new StoreSupervisorController();
+        EmailController emailController = new EmailController();
         string poNum;
         PurchaseOrder po;
         List<PODetail> poDetails;
@@ -312,6 +313,22 @@ namespace InventoryWebApp.Store
                 po.ApprovedBy = Context.User.Identity.Name;
                 supervisorController.updatePOStatus(po);
                 BindData();
+
+                //send email
+                string fromEmail = Util.EMAIL;
+                string password = Util.PASSWORD;
+                string username = Context.User.Identity.Name;
+                try
+                {
+                    emailController.POApproveRejectSendEmail(fromEmail, password, username, po);
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                           "alertMessage", "alert('Purchase orders have been successfully approved! Email notifications have been sent successfully!')", true);
+                }
+                catch (Exception ex)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                           "alertMessage", "alert('Purchase orders have been successfully approved! However an error has occurred when sending email!')", true);
+                }
             }
         }
 
@@ -324,6 +341,22 @@ namespace InventoryWebApp.Store
                 po.ApprovedBy = Context.User.Identity.Name;
                 supervisorController.updatePOStatus(po);
                 BindData();
+
+                //send email
+                string fromEmail = Util.EMAIL;
+                string password = Util.PASSWORD;
+                string username = Context.User.Identity.Name;
+                try
+                {
+                    emailController.POApproveRejectSendEmail(fromEmail, password, username, po);
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                           "alertMessage", "alert('Purchase orders have been successfully rejected! Email notifications have been sent successfully!')", true);
+                }
+                catch (Exception ex)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                           "alertMessage", "alert('Purchase orders have been successfully rejected! However an error has occurred when sending email!')", true);
+                }
             }
         }
     }

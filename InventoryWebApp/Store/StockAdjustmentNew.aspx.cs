@@ -13,7 +13,7 @@ namespace InventoryWebApp.Store
     public partial class StockAdjustmentNew : System.Web.UI.Page
     {
         StoreClerkController sClerkCtrl = new StoreClerkController();
-        EmailController emailCtrl = new EmailController();
+        EmailController emailController = new EmailController();
         StationeryCatalogue stationery;
         protected int CreateQuantityUpdate(String a, String b)
         {
@@ -107,7 +107,7 @@ namespace InventoryWebApp.Store
                 string username = Context.User.Identity.Name;
                 try
                 {
-                    emailCtrl.NewAdjustmentSendEmail(fromEmail, password, username, a);
+                    emailController.NewAdjustmentSendEmail(fromEmail, password, username, a);
                     Session["SendCreateAdjEmail"] = true;
                 }
                 catch (Exception ex)
