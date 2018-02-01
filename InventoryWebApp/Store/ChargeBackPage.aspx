@@ -57,7 +57,9 @@
                                         <td style="text-align: right; padding-right: 50px"><%# String.Format("{0:c}",GetPriceOfDisbursement(Eval("DisbursementCode").ToString())) %></td>
                                         <td><%# Eval("Status") %></td>
                                         <td>
-                                            <asp:LinkButton ID="linkHide" runat="server" Visible='<%# Eval("Status").ToString()=="disbursed"?true:false %>' CommandName="ChargeBack" OnCommand="btnChargeBack_OnClick"><span class="glyphicon glyphicon-usd" style="color:#d80000" aria-hidden="true">Charge Back</span></asp:LinkButton></td>
+                                            <asp:LinkButton ID="linkHide" runat="server" Visible='<%# Eval("Status").ToString()=="disbursed"?true:false %>' 
+                                                CommandName="ChargeBack" OnCommand="btnChargeBack_OnClick" ForeColor="Red">
+                                                <i class="fa fa-usd" aria-hidden="true" ></i> Charge Back</asp:LinkButton></td>
                                     </tr>
                                 </tbody>
                             </ItemTemplate>
