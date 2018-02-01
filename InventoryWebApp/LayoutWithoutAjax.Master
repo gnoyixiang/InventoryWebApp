@@ -13,7 +13,8 @@
     <!-- Scrollbar Custom CSS -->
     <%--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">--%>
     <!-- FontsAwesome -->
-    <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="/Content/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/Content/font-awesome-4.7.0/css/font-awesome.css">
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title></title>
@@ -80,7 +81,7 @@
                             <% if (!Context.User.IsInRole("Store Clerk"))
                                 { %>
                             <li>
-                                <a href="/Store/ViewPurchaseOrders?search=5&q=Pending"><i class="fa fa-magic" aria-hidden="true"></i>
+                                <a href="/Store/ViewPurchaseOrders?search=5&q=Pending"><i class="fa fa-check-square-o" aria-hidden="true"></i>
                                     Pending Orders</a></li>
                             <% } %>
                             <li><a href="/Store/CreateNewOrder"><i class="fa fa-magic" aria-hidden="true"></i>New Order</a></li>
