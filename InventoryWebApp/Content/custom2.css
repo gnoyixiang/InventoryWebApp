@@ -173,7 +173,14 @@ a.article, a.article:hover {
     color: #fff !important;
 }
 
+/* ---------------------------------------------------
+    LOGIN STYLE
+----------------------------------------------------- */
 
+.sidebar-login{
+    background: linear-gradient(to bottom, #253161, #3852bdcc);
+    min-width:250px;
+}
 
 /* ---------------------------------------------------
     CONTENT STYLE

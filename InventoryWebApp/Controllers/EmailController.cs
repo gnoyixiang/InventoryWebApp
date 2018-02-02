@@ -14,7 +14,20 @@ namespace InventoryWebApp.Controllers
 {
     public class EmailController
     {
-        EmployeeDAO employeeDAO = new EmployeeDAO();
+        IEmployeeDAO employeeDAO = new EmployeeDAO();
+        IUserDAO userDAO = new UserDAO();
+
+        public string GetUserEmail(string username)
+        {
+            try
+            {
+                return userDAO.GetUserByUsername(username).Email;
+            }
+            catch (NullReferenceException ex)
+            {
+                throw ex;
+            }
+        }
 
         public void CreatePurchaseOrdersSendEmail(string fromEmail, string password, string username, List<PurchaseOrder> purchaseOrders)
         {

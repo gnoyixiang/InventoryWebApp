@@ -10,8 +10,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="/Content/custom2.css">
-    <!-- Scrollbar Custom CSS -->
-    <%--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">--%>
     <!-- FontsAwesome -->
     <link rel="stylesheet" href="/Content/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/Content/font-awesome-4.7.0/css/font-awesome.css">
@@ -31,6 +29,8 @@
 
             document.body.innerHTML = originalContents;
         }</script>
+
+    
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -145,7 +145,7 @@
                                 <a href="#SupplierSubmenu" data-toggle="collapse" aria-expanded="false">
                                     <i class="fa fa-users" aria-hidden="true"></i>Suppliers</a>
                             </li>
-                            <ul class="collapse list-unstyled submenu2" id="SupplierSubmenu">
+                            <ul class="collapse list-unstyled submenu" id="SupplierSubmenu">
                                 <li><a href="/Store/SupplierList">
                                     <i class="fa fa-address-book" aria-hidden="true"></i>View Suppliers</a></li>
                                 <li><a href="/Store/QuotationView.aspx">
@@ -157,7 +157,7 @@
                                 <a href="#EmployeeSubmenu" data-toggle="collapse" aria-expanded="false">
                                     <i class="fa fa-user-circle" aria-hidden="true"></i>Employees</a>
                             </li>
-                            <ul class="collapse list-unstyled submenu2" id="EmployeeSubmenu">
+                            <ul class="collapse list-unstyled submenu" id="EmployeeSubmenu">
                                 <li>
                                     <a href="/Store/StoreEmployeeList">
                                         <i class="fa fa-address-book-o" aria-hidden="true"></i>View Employees</a>
@@ -200,7 +200,7 @@
                                 { %>
                             <li><a href="/Dept/UpdateCollectionPoint"><i class="fa fa-map-marker" aria-hidden="true"></i>Collection Point</a></li>
                             <%} %>
-                            <% if (IsTempRoleCode("ActHead") || Context.User.IsInRole("Department Head"))
+                            <% if (Context.User.IsInRole("Department Head"))
                                 { %>
                             <li id="menu-RequestAuthorisation">
                                 <a href="#RequestAuthorisationSubmenu" data-toggle="collapse" aria-expanded="false">
@@ -214,8 +214,6 @@
                             <%} %>
                             <% } %>
                         </ul>
-
-
                     </nav>
 
                     <!-- Page Content Holder -->
@@ -239,18 +237,6 @@
                                         </ul>
                                     </LoggedInTemplate>
                                 </asp:LoginView>
-
-
-                                <%-- <li><a class="dropdown-toggle" id="dropdownMenu2" data-toggle="dropdown">Welcome, Esther
-    <span class="caret"></span></a>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                <li><a href="#">Manage Account</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Logout</a></li>
-                            </ul>
-
-
-                        </li>--%>
                             </div>
                         </nav>
                         <!-- Fill Content Here -->
@@ -273,6 +259,16 @@
     <!-- Bootstrap Js CDN -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+    <script type='text/javascript'>
+        $(document).ready(function () {
+            $('#sidebar .collapse').on('show.bs.collapse', function (e) {
+                if ($(e.target).hasClass('submenu')) {
+                    $('#sidebar .collapse').not(e.target).collapse('hide');
+                }
+            })
+        });
+    </script>
+    
 
     <%--<script>
         $(document).ready(function () {

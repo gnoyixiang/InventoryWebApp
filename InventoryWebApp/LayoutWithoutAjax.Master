@@ -125,7 +125,7 @@
                         <a href="#SupplierSubmenu" data-toggle="collapse" aria-expanded="false">
                             <i class="fa fa-users" aria-hidden="true"></i>Suppliers</a>
                     </li>
-                    <ul class="collapse list-unstyled submenu2" id="SupplierSubmenu">
+                    <ul class="collapse list-unstyled submenu" id="SupplierSubmenu">
                         <li><a href="/Store/SupplierList">
                             <i class="fa fa-address-book" aria-hidden="true"></i>View Suppliers</a></li>
                         <li><a href="/Store/QuotationView.aspx">
@@ -137,7 +137,7 @@
                         <a href="#EmployeeSubmenu" data-toggle="collapse" aria-expanded="false">
                             <i class="fa fa-user-circle" aria-hidden="true"></i>Employees</a>
                     </li>
-                    <ul class="collapse list-unstyled submenu2" id="EmployeeSubmenu">
+                    <ul class="collapse list-unstyled submenu" id="EmployeeSubmenu">
                         <li>
                             <a href="/Store/StoreEmployeeList">
                                 <i class="fa fa-address-book-o" aria-hidden="true"></i>View Employees</a>
@@ -239,7 +239,16 @@
     <!-- Bootstrap Js CDN -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-
+    <script type='text/javascript'>
+        $(document).ready(function () {
+            $('#sidebar .collapse').on('show.bs.collapse', function (e) {
+                if ($(e.target).hasClass('submenu')) {
+                    $('#sidebar .collapse').not(e.target).collapse('hide');
+                }
+            })
+        });
+    </script>
+    
     <%--<script>
         $(document).ready(function () {
             $('li[id^="menu-"].active .collapse').collapse('show');

@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using InventoryWebApp.Controllers;
 using InventoryWebApp.Models.Classes;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace InventoryWebApp.Store
 {
@@ -50,7 +51,6 @@ namespace InventoryWebApp.Store
                     }
                 }
             }
-
             Session["purchaseItems"] = purchaseItems;
         }
 
@@ -82,12 +82,68 @@ namespace InventoryWebApp.Store
             ddlAddSuppliers.Items.Clear();
         }
 
+        private bool VerifyLoginUser(string username, string password)
+        {
+            // Validate the user password
+            var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            var signinManager = Context.GetOwinContext().GetUserManager<ApplicationSignInManager>();
+
+            // This doen't count login failures towards account lockout
+            // To enable password failures to trigger lockout, change to shouldLockout: true
+            var result = signinManager.PasswordSignIn(username, password, isPersistent: false, shouldLockout: false);
+
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    return true;
+                case SignInStatus.LockedOut:
+                    return false;
+                case SignInStatus.RequiresVerification:
+                    return false;
+                case SignInStatus.Failure:
+                default:
+                    return false;
+            }
+        }
+        
+        protected void btnModal_Click(object sender, EventArgs e)
+        {
+            if (IsValid)
+            {
+                txtPassword.Text = "";
+                lblVerifyError.Visible = false;
+                ScriptManager.RegisterStartupScript(this, GetType(), "emailPopup", "$('#emailModal').modal('show');", true);
+            }
+        }
+
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             if (!Page.IsValid)
             {
                 return;
             }
+
+            if (String.IsNullOrEmpty(txtPassword.Text))
+            {
+                lblVerifyError.Visible = true;
+                lblVerifyError.Text = "Password field cannot be empty";
+                ScriptManager.RegisterStartupScript(this, GetType(), "emailPopup",
+                    "document.body.style.padding = '0';$('.modal-backdrop').remove();$('#emailModal').modal('show');", true);
+                return;
+            }
+
+
+            if (!VerifyLoginUser(Context.User.Identity.Name, txtPassword.Text))
+            {
+                lblVerifyError.Visible = true;
+                lblVerifyError.Text = "Incorrect password!";
+                ScriptManager.RegisterStartupScript(this, GetType(), "emailPopup", 
+                    "document.body.style.padding = '0';$('.modal-backdrop').remove();$('#emailModal').modal('show');", true);
+                return;
+            }
+            
+            ScriptManager.RegisterStartupScript(this, GetType(), "emailPopup",
+                    "document.body.style.padding = '0';$('.modal-backdrop').remove();$('#emailModal').modal('hide');", true);
 
             var purchaseItems = (List<PurchaseItem>)Session["purchaseItems"];
             if (purchaseItems.Count == 0)
@@ -102,8 +158,9 @@ namespace InventoryWebApp.Store
                 Session["CreatedPO"] = true;
 
                 //send email
-                string fromEmail = Util.EMAIL;                
-                string password = Util.PASSWORD;
+
+                string fromEmail = emailController.GetUserEmail(Context.User.Identity.Name);                
+                string password = txtPassword.Text;
                 string username = Context.User.Identity.Name;
                 try
                 {
@@ -592,6 +649,7 @@ namespace InventoryWebApp.Store
             int totalOrderQty = Convert.ToInt32(lblTotalOrderQty.Text != "" ? lblTotalOrderQty.Text : "0");
             lblTotalOrderQty.Text = Convert.ToString(Convert.ToInt32(totalOrderQty) + Convert.ToInt32(poDetail.Quantity));
         }
+
     }
 
 

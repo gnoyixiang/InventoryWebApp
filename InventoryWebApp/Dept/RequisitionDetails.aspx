@@ -132,7 +132,7 @@
                         </div>
 
                     <% } %>
-                    <% if (IsEditable() && !IsEmployee())
+                    <% if (IsEditable() && (!IsEmployee() || (IsEmployee() && Master.IsTempRoleCode("ActHead"))))
                         { %>
                     <div class="col-md-2">
                         <asp:Button ID="btnApprove" runat="server" CssClass="btn btn-success" OnClientClick="return confirm('Are you sure to approve the requisition?');"
