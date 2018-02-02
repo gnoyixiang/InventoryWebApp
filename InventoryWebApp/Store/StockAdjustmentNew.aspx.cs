@@ -132,14 +132,18 @@ namespace InventoryWebApp.Store
                 try
                 {
                     emailController.NewAdjustmentSendEmail(fromEmail, password, username, a);
-                    Session["SendCreateAdjEmail"] = true;
+                    //Session["SendCreateAdjEmail"] = true;
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                    "alertMessage", "alert('Adjustment have been successfully created! Email notifications have been sent successfully!');window.location ='StockAdjustmentList';", true);
                 }
                 catch (Exception ex)
                 {
-                    Session["SendCreateAdjEmail"] = false;
+                    //Session["SendCreateAdjEmail"] = false;
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                  "alertMessage", "alert('Adjustment have been successfully created! However an error has occurred when sending email!');window.location ='StockAdjustmentList';", true);
                 }
 
-                Response.Redirect("StockAdjustmentList.aspx");
+                //Response.Redirect("StockAdjustmentList.aspx");
             }
         }
         protected void btnSave_Click(object sender, EventArgs e)

@@ -175,13 +175,13 @@ namespace InventoryWebApp.Store {
         protected global::System.Web.UI.WebControls.Button btnCancelOrder;
         
         /// <summary>
-        /// btnRejectRequest control.
+        /// btnModalReject control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnRejectRequest;
+        protected global::System.Web.UI.WebControls.Button btnModalReject;
         
         /// <summary>
         /// btnAckReceipt control.
@@ -193,13 +193,22 @@ namespace InventoryWebApp.Store {
         protected global::System.Web.UI.WebControls.Button btnAckReceipt;
         
         /// <summary>
-        /// btnApproveRequest control.
+        /// btnModalApprove control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnApproveRequest;
+        protected global::System.Web.UI.WebControls.Button btnModalApprove;
+        
+        /// <summary>
+        /// hfRequestType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfRequestType;
         
         /// <summary>
         /// txtPassword control.

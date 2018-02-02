@@ -108,6 +108,14 @@ namespace InventoryWebApp.Store
         
         protected void btnModal_Click(object sender, EventArgs e)
         {
+            var purchaseItems = (List<PurchaseItem>)Session["purchaseItems"];
+            if (purchaseItems.Count == 0)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                           "alertMessage", "alert('You have not added any items to order!')", true);
+                return;
+            }
+
             if (IsValid)
             {
                 txtPassword.Text = "";
@@ -118,10 +126,10 @@ namespace InventoryWebApp.Store
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            if (!Page.IsValid)
-            {
-                return;
-            }
+            //if (!Page.IsValid)
+            //{
+            //    return;
+            //}
 
             if (String.IsNullOrEmpty(txtPassword.Text))
             {
@@ -146,12 +154,7 @@ namespace InventoryWebApp.Store
                     "document.body.style.padding = '0';$('.modal-backdrop').remove();$('#emailModal').modal('hide');", true);
 
             var purchaseItems = (List<PurchaseItem>)Session["purchaseItems"];
-            if (purchaseItems.Count == 0)
-            {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
-                           "alertMessage", "alert('You have not added any items to order!')", true);
-                return;
-            }
+
             try
             {
                 List<PurchaseOrder> poList = scController.CreatePurchaseOrders(purchaseItems, Context.User.Identity.Name);
@@ -165,20 +168,26 @@ namespace InventoryWebApp.Store
                 try
                 {
                     emailController.CreatePurchaseOrdersSendEmail(fromEmail, password, username, poList);
-                    Session["SendCreatePOEmail"] = true;
+                    //Session["SendCreatePOEmail"] = true;
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                        "alertMessage", "alert('Purchase orders have been successfully created! Email notifications have been sent successfully!');window.location ='ViewPurchaseOrders';", true);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    Session["SendCreatePOEmail"] = false;                    
+                    //Session["SendCreatePOEmail"] = false; 
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                       "alertMessage", "alert('Purchase orders have been successfully created! However an error has occurred when sending email!');window.location ='ViewPurchaseOrders';", true);
                 }
             }
             catch (Exception ex)
             {
-                Session["CreatedPO"] = false;                
+                //Session["CreatedPO"] = false;           
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                        "alertMessage", "alert('An error has occurred when creating purchase orders!');window.location ='ViewPurchaseOrders';", true);
             }
 
             Session["purchaseItems"] = null;
-            Response.Redirect("/Store/ViewPurchaseOrders");
+            //Response.Redirect("/Store/ViewPurchaseOrders");
 
         }
 

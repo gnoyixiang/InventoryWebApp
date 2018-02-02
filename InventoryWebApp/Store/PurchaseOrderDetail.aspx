@@ -4,10 +4,6 @@
 <%@ MasterType VirtualPath="~/Layout.Master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
-        .row {
-            margin: 10px 0;
-        }
-
         .control {
             padding: 1px 5px;
         }
@@ -241,9 +237,13 @@
                 <div class="col-lg-3">
                     <% if (Context.User.IsInRole("Store Supervisor") || Context.User.IsInRole("Store Manager"))
                         { %>
-                    <asp:Button runat="server" ID="btnRejectRequest" CssClass="btn btn-danger" OnClick="btnRejectRequest_Click"
+                    <asp:Button runat="server" ID="btnModalReject" Text="Reject PO" CssClass="btn btn-danger" CausesValidation="true" Width="100%"
+                        OnClick="btnModal_Click" Style="margin-bottom: 10px" OnClientClick="return confirm('Confirm to reject this PO?');" />
+
+                    <%--<asp:Button runat="server" ID="btnRejectRequest" CssClass="btn btn-danger" OnClick="btnRejectRequest_Click"
                         Text="Reject PO" Width="100%" Style="margin-bottom: 10px"
-                        OnClientClick="return confirm('Confirm to reject this PO?');" />
+                        OnClientClick="return confirm('Confirm to reject this PO?');" />--%>
+
                     <% } %>
                 </div>
                 <div class="col-lg-3">
@@ -255,42 +255,50 @@
                     <% } %>
                     <% if (Context.User.IsInRole("Store Supervisor") || Context.User.IsInRole("Store Manager"))
                         { %>
-                    <asp:Button runat="server" ID="btnApproveRequest" CssClass="btn btn-success" OnClick="btnApproveRequest_Click"
+                    <asp:Button runat="server" ID="btnModalApprove" Text="Approve PO" CssClass="btn btn-success" CausesValidation="true" Width="100%"
+                        OnClick="btnModal_Click" Style="margin-bottom: 10px" OnClientClick="return confirm('Confirm to approve this PO?');" />
+
+                    <%--<asp:Button runat="server" ID="btnApproveRequest" CssClass="btn btn-success" OnClick="btnApproveRequest_Click"
                         Text="Approve PO" Width="100%" Style="margin-bottom: 10px"
-                        OnClientClick="return confirm('Confirm to approve this PO?');" />
+                        OnClientClick="return confirm('Confirm to approve this PO?');" />--%>
+
                     <% } %>
+                </div>
+            </div>
+
+
+            <!-- Email Modal -->
+            <div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <asp:HiddenField ID="hfRequestType" runat="server" />
+                            <h3 class="modal-title" id="exampleModalLongTitle">Please verify your password</h3>
+                        </div>
+                        <div class="modal-body">
+                            <div class="input-group " style="margin-bottom: 10px">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-log-in"></i></span>
+                                <input type="text" class="form-control disabled" id="txtUsername" aria-describedby="lblUsername" value="<%= Context.User.Identity.Name %>" readonly>
+                            </div>
+                            <div class="input-group " style="margin-bottom: 10px">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                <asp:TextBox type="password" CssClass="form-control" ID="txtPassword" aria-describedby="lblPassword" runat="server"></asp:TextBox>
+                            </div>
+                            <div style="margin-bottom: 10px">
+                                <asp:Label ID="lblVerifyError" runat="server" Text="" ForeColor="Red" Visible="false"></asp:Label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-bottom: 10px">Close</button>
+                            <asp:Button runat="server" ID="btnSubmit" Text="Submit" CssClass="btn btn-success" CausesValidation="true" type="button"
+                                OnClick="btnSubmit_Click" Style="margin-bottom: 10px; margin-left: 0" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </asp:Panel>
     </div>
 
-    <!-- Email Modal -->
-    <div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title" id="exampleModalLongTitle">Please verify your password</h3>
-                </div>
-                <div class="modal-body">
-                    <div class="input-group " style="margin-bottom: 10px">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-log-in"></i></span>
-                        <input type="text" class="form-control disabled" id="txtUsername" aria-describedby="lblUsername" value="<%= Context.User.Identity.Name %>" readonly>
-                    </div>
-                    <div class="input-group " style="margin-bottom: 10px">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <asp:TextBox type="password" CssClass="form-control" ID="txtPassword" aria-describedby="lblPassword" runat="server"></asp:TextBox>
-                    </div>
-                    <div style="margin-bottom: 10px">
-                        <asp:Label ID="lblVerifyError" runat="server" Text="" ForeColor="Red" Visible="false"></asp:Label>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-bottom: 10px">Close</button>
-                    <asp:Button runat="server" ID="btnSubmit" Text="Submit" CssClass="btn btn-success" CausesValidation="true" type="button"
-                        OnClick="btnSubmit_Click" Style="margin-bottom: 10px; margin-left: 0" />
-                </div>
-            </div>
-        </div>
-    </div>
+
 
 </asp:Content>

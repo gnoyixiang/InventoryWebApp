@@ -135,12 +135,16 @@
                     <% if (IsEditable() && (!IsEmployee() || (IsEmployee() && Master.IsTempRoleCode("ActHead"))))
                         { %>
                     <div class="col-md-2">
-                        <asp:Button ID="btnApprove" runat="server" CssClass="btn btn-success" OnClientClick="return confirm('Are you sure to approve the requisition?');"
-                            OnClick="btnApprove_Click" Text="Approve" Width="100%" />
+                        <%--<asp:Button ID="btnApprove" runat="server" CssClass="btn btn-success" OnClientClick="return confirm('Are you sure to approve the requisition?');"
+                            OnClick="btnApprove_Click" Text="Approve" Width="100%" />--%>
+                        <asp:Button runat="server" ID="btnModalApprove" Text="Approve" CssClass="btn btn-success" Width="100%" OnClientClick="return confirm('Are you sure to approve the requisition?');"
+                                OnClick="btnModal_Click" />
                     </div>
                     <div class="col-md-2">
-                        <asp:Button ID="btnReject" runat="server" CssClass="btn btn-warning" Text="Reject" Width="100%"
-                            OnClientClick="return confirm('Are you sure to REJECT the requisition?');" OnClick="btnReject_Click" />
+                        <%--<asp:Button ID="btnReject" runat="server" CssClass="btn btn-warning" Text="Reject" Width="100%"
+                            OnClientClick="return confirm('Are you sure to REJECT the requisition?');" OnClick="btnReject_Click" />--%>
+                        <asp:Button runat="server" ID="btnModalReject" Text="Reject" CssClass="btn btn-success" Width="100%" OnClientClick="return confirm('Are you sure to REJECT the requisition?');"
+                                OnClick="btnModal_Click" />
                     </div>
                     <div class="col-md-8">
                         <asp:Label ID="lblCom" runat="server" Text="Comment: " Width="100%" Font-Bold="true"></asp:Label>
@@ -202,6 +206,36 @@
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Confirm</button>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Email Modal -->
+    <div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalTitle">Please verify your password</h3>
+                    <asp:HiddenField runat="server" ID="hfRequestType" />
+                </div>
+                <div class="modal-body">
+                    <div class="input-group " style="margin-bottom: 10px">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-log-in"></i></span>
+                        <input type="text" class="form-control disabled" id="txtUsername" aria-describedby="lblUsername" value="<%= Context.User.Identity.Name %>" readonly>
+                    </div>
+                    <div class="input-group " style="margin-bottom: 10px">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        <asp:TextBox type="password" CssClass="form-control" ID="txtPassword" aria-describedby="lblPassword" runat="server"></asp:TextBox>
+                    </div>
+                    <div style="margin-bottom: 10px">
+                        <asp:Label ID="lblVerifyError" runat="server" Text="" ForeColor="Red" Visible="false"></asp:Label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-bottom: 10px">Close</button>
+                    <asp:Button runat="server" ID="btnSubmit" Text="Submit" CssClass="btn btn-success" CausesValidation="true" type="button"
+                        OnClick="btnSubmit_Click" Style="margin-bottom: 10px; margin-left: 0" />
                 </div>
             </div>
         </div>
