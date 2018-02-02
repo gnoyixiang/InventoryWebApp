@@ -83,8 +83,15 @@ namespace InventoryWebApp.DAO
         {
             using (EntityModel em = new EntityModel())
             {
-                Employee emp = em.Employees.Where(x => x.UserName == username).FirstOrDefault();
-                return emp.EmployeeName;
+                try
+                {
+                    Employee emp = em.Employees.Where(x => x.UserName == username).FirstOrDefault();
+                    return emp.EmployeeName;
+                }
+                catch (NullReferenceException ex)
+                {
+                    return String.Empty;
+                }
             }
 
         }

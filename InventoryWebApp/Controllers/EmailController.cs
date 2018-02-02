@@ -168,30 +168,30 @@ namespace InventoryWebApp.Controllers
                 throw ex;
             }
         }
-        public void POApproveRejectSendEmail(string fromEmail, string password, string username, PurchaseOrder purchaseOrders)
+        public void POApproveRejectSendEmail(string fromEmail, string password, string username, PurchaseOrder purchaseOrder)
         {
             string toEmail = Util.EMAIL;
             string emailSubject = "PO approve/reject failed";
             StringBuilder emailBody = new StringBuilder("PO approve/reject failed");
-            if (purchaseOrders.Status == "APPROVED")
+            if (purchaseOrder.Status == "APPROVED")
             {
                 emailSubject = "Purchase Order Approved";
                 emailBody = new StringBuilder();
                 emailBody.AppendLine("The following Purchase Order has been approved:");
 
-                emailBody.AppendLine("http://localhost/Store/PurchaseOrderDetail?PO=" + purchaseOrders.PurchaseOrderCode);
+                emailBody.AppendLine("http://localhost/Store/PurchaseOrderDetail?PO=" + purchaseOrder.PurchaseOrderCode);
 
                 emailBody.AppendLine("The stock Purchase Order is approved by " + employeeDAO.GetEmployeeName(username));
                 emailBody.AppendLine();
                 emailBody.AppendLine("This email is automatically generated");
             }
-            if (purchaseOrders.Status == "REJECTED")
+            if (purchaseOrder.Status == "REJECTED")
             {
                 emailSubject = "Purchase Order Rejected";
                 emailBody = new StringBuilder();
                 emailBody.AppendLine("The following Purchase Order has been rejected:");
 
-                emailBody.AppendLine("http://localhost/Store/PurchaseOrderDetail?PO=" + purchaseOrders.PurchaseOrderCode);
+                emailBody.AppendLine("http://localhost/Store/PurchaseOrderDetail?PO=" + purchaseOrder.PurchaseOrderCode);
 
                 emailBody.AppendLine("The stock Purchase Order is rejected by " + employeeDAO.GetEmployeeName(username));
                 emailBody.AppendLine();

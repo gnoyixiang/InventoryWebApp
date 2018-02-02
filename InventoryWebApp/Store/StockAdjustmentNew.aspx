@@ -93,7 +93,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="input-group " style="margin-bottom: 10px">
-                        <span class="input-group-addon">@</span>
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-log-in"></i></span>
                         <input type="text" class="form-control disabled" id="txtUsername" aria-describedby="lblUsername" value="<%= Context.User.Identity.Name %>" readonly>
                     </div>
                     <div class="input-group " style="margin-bottom: 10px">

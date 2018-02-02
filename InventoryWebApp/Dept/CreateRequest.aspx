@@ -1,5 +1,6 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="CreateRequest.aspx.cs" 
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="CreateRequest.aspx.cs"
     Inherits="InventoryWebApp.Dept.CreateRequest" %>
+
 <%@ MasterType VirtualPath="~/Layout.Master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
@@ -31,40 +32,40 @@
         <li class="active">New Request</li>
     </ul>
     <div class="container-fluid" id="mainContainer">
-    <div class="row">
-        <div class="col-md-12">
-            <h3>New Request</h3>
+        <div class="row">
+            <div class="col-md-12">
+                <h3>New Request</h3>
+            </div>
         </div>
-        </div>    
-    <table>
-        <tr>
-            <td style="padding-right: 5px">
-                <asp:Label ID="lblDept" runat="server" Text="Department Name:"></asp:Label>
-                <br />
-                <br />
-            </td>
-            <td>
-                <asp:Label ID="lblDeptName" runat="server"></asp:Label>
-                <br />
-                <br />
-            </td>
-        </tr>
-        <tr>
-            <td style="padding-right: 5px">
-                <asp:Label ID="lblEmp" runat="server" Text="Employee Name:"></asp:Label>
-                <br />
-                <br />
-            </td>
-            <td>
-                <asp:Label ID="lblEmpName" runat="server"></asp:Label>
-                <br />
-                <br />
-            </td>
-        </tr>
-    </table>
-    <asp:UpdatePanel ID="UpdatePanelAddRequest"
-        runat="server" UpdateMode="Always">
-        <ContentTemplate>
+        <table>
+            <tr>
+                <td style="padding-right: 5px">
+                    <asp:Label ID="lblDept" runat="server" Text="Department Name:"></asp:Label>
+                    <br />
+                    <br />
+                </td>
+                <td>
+                    <asp:Label ID="lblDeptName" runat="server"></asp:Label>
+                    <br />
+                    <br />
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-right: 5px">
+                    <asp:Label ID="lblEmp" runat="server" Text="Employee Name:"></asp:Label>
+                    <br />
+                    <br />
+                </td>
+                <td>
+                    <asp:Label ID="lblEmpName" runat="server"></asp:Label>
+                    <br />
+                    <br />
+                </td>
+            </tr>
+        </table>
+        <%--  <asp:UpdatePanel ID="UpdatePanelAddRequest"
+        runat="server" UpdateMode="Always">--%>
+        <%--<contenttemplate>--%>
             <asp:GridView ID="gvNewRequest" runat="server" AutoGenerateColumns="False"
                 CellPadding="4"
                 CellSpacing="-1"
@@ -152,7 +153,9 @@
                     </div>
                 </div>
             </div>
-        </ContentTemplate>
-    </asp:UpdatePanel>
-        </div>
+        <%--</ContentTemplate>
+    </asp:UpdatePanel>--%>
+    </div>
+
+
 </asp:Content>

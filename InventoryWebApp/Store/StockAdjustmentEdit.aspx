@@ -3,19 +3,7 @@
 <%@ MasterType VirtualPath="~/Layout.Master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
-        .error {
-            border: 1px solid red;
-        }
-
-        .row {
-            margin: 10px 0;
-        }
-
-        .disabled {
-            background-color: #eeecec;
-        }
-
-        .btn {
+        .btnform {
             width: 100%;
             margin-bottom: 10px;
         }
@@ -65,9 +53,9 @@
                     <asp:TextBox ID="tbxNewQuantity" runat="server" OnTextChanged="tbxQuantityAdjust_TextChanged" AutoPostBack="True" TextMode="Number"
                         CausesValidation="true" CssClass="form-control"></asp:TextBox>
                     <asp:CustomValidator ID="validNewQuantity" runat="server" ErrorMessage="" ForeColor="Red" ControlToValidate="tbxNewQuantity"
-                        OnServerValidate="validNewQuantity_ServerValidate" Display="Dynamic"></asp:CustomValidator>
+                        OnServerValidate="validNewQuantity_ServerValidate" Display="Dynamic" ValidationGroup="validGroupSubmit" ></asp:CustomValidator>
                     <asp:RequiredFieldValidator ID="validRequiredQty" runat="server" ErrorMessage="New quantity is required" ControlToValidate="tbxNewQuantity"
-                        Display="Dynamic" ForeColor="Red">
+                        Display="Dynamic" ForeColor="Red" ValidationGroup="validGroupSubmit" >
                     </asp:RequiredFieldValidator>
                 </div>
             </div>
@@ -89,15 +77,45 @@
             </div>
             <div class="row">
                 <div class="col-md-2 col-sm-3">
-                    <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" CssClass="btn btn-success" />
+                    <asp:Button runat="server" ID="btnModal" Text="Submit" CssClass="btn btn-success btnform" CausesValidation="true" Width="100%"
+                    ValidationGroup="validGroupSubmit" OnClick="btnModal_Click" />
                 </div>
                 <div class="col-md-2 col-sm-3">
-                    <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" CssClass="btn btn-primary" />
+                    <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" CssClass="btn btn-primary btnform" />
                 </div>
                 <div class="col-md-2 col-sm-3">
-                    <asp:Button ID="btnDiscard" runat="server" Text="Cancel" OnClick="btnDiscard_Click" CssClass="btn btn-danger" CausesValidation="false" />
+                    <asp:Button ID="btnDiscard" runat="server" Text="Cancel" OnClick="btnDiscard_Click" CssClass="btn btn-danger btnform" CausesValidation="false" />
                 </div>
             </div>
         </asp:Panel>
+    </div>
+
+    <!-- Email Modal -->
+    <div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLongTitle">Please verify your password</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group " style="margin-bottom: 10px">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-log-in"></i></span>
+                        <input type="text" class="form-control disabled" id="txtUsername" aria-describedby="lblUsername" value="<%= Context.User.Identity.Name %>" readonly>
+                    </div>
+                    <div class="input-group " style="margin-bottom: 10px">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        <asp:TextBox type="password" CssClass="form-control" ID="txtPassword" aria-describedby="lblPassword" runat="server"></asp:TextBox>
+                    </div>
+                    <div style="margin-bottom: 10px">
+                        <asp:Label ID="lblVerifyError" runat="server" Text="" ForeColor="Red" Visible="false"></asp:Label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-bottom: 10px">Close</button>
+                    <asp:Button runat="server" ID="btnSubmit" Text="Submit" CssClass="btn btn-success" CausesValidation="true" type="button"
+                        OnClick="btnSubmit_Click" Style="margin-bottom: 10px; margin-left: 0" />
+                </div>
+            </div>
+        </div>
     </div>
 </asp:Content>
