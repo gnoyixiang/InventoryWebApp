@@ -65,7 +65,7 @@
         }
     </style>
 
-    
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <ul class="breadcrumb">
@@ -401,52 +401,36 @@
                     OnClick="btnCancel_Click" OnClientClick="return confirm('All changes made to this purchase order will be lost.');" />
             </div>
         </div>
+    </div>
 
-
-        <%--<ajaxToolkit:ModalPopupExtender ID="mp1" runat="server" PopupControlID="Panel1" TargetControlID="btnShow"
-                CancelControlID="btnClose" BackgroundCssClass="modalBackground">
-            </ajaxToolkit:ModalPopupExtender>
-            <asp:Panel ID="Panel1" runat="server" CssClass="modalPopup" align="center" Style="display: none">
-                <div style="height: 100px">
-                    Do you like this product?&nbsp;
-                    <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="true" OnSelectedIndexChanged="OnSelectedIndexChanged">
-                        <asp:ListItem Text="Please Select" Value="0"></asp:ListItem>
-                        <asp:ListItem Text="Yes" Value="1"></asp:ListItem>
-                        <asp:ListItem Text="No" Value="2"></asp:ListItem>
-                    </asp:DropDownList>
+    <!-- Email Modal -->
+    <div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLongTitle">Please verify your password</h3>
                 </div>
-                <asp:Button ID="btnClose" runat="server" Text="Close" />
-            </asp:Panel>--%>
-
-        <div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 class="modal-title" id="exampleModalLongTitle">Please verify your password</h3>
+                <div class="modal-body">
+                    <div class="input-group " style="margin-bottom: 10px">
+                        <span class="input-group-addon">@</span>
+                        <input type="text" class="form-control disabled" id="txtUsername" aria-describedby="lblUsername" value="<%= Context.User.Identity.Name %>" readonly>
                     </div>
-                    <div class="modal-body">
-                         <div class="input-group">
-                             <span class="input-group-addon">Email</span>
-                              <input type="text" class="form-control disabled" id="txtUsername" aria-describedby="lblUsername" value="<%= Context.User.Identity.Name %>" readonly>
-                         </div>
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                            <asp:TextBox type="password" CssClass="form-control" ID="txtPassword" aria-describedby="lblPassword" runat="server"></asp:TextBox>                            
-                        </div>
-                        <div style="margin-bottom:10px">
-                            <asp:Label ID="lblVerifyError" runat="server" Text="" ForeColor="Red" Visible="false"></asp:Label>
-                        </div>
+                    <div class="input-group " style="margin-bottom: 10px">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        <asp:TextBox type="password" CssClass="form-control" ID="txtPassword" aria-describedby="lblPassword" runat="server"></asp:TextBox>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <asp:Button runat="server" ID="btnSubmit" Text="Submit" CssClass="btn btn-success" CausesValidation="true" type="button"
-                            OnClick="btnSubmit_Click" ValidationGroup="validGroupEmail" />
+                    <div style="margin-bottom: 10px">
+                        <asp:Label ID="lblVerifyError" runat="server" Text="" ForeColor="Red" Visible="false"></asp:Label>
                     </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-bottom: 10px">Close</button>
+                    <asp:Button runat="server" ID="btnSubmit" Text="Submit" CssClass="btn btn-success" CausesValidation="true" type="button"
+                        OnClick="btnSubmit_Click" Style="margin-bottom: 10px; margin-left: 0" />
                 </div>
             </div>
         </div>
     </div>
 
-    
 
 </asp:Content>

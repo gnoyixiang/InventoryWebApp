@@ -130,7 +130,6 @@
                 </EditItemTemplate>
             </asp:ListView>
         </ContentTemplate>
-
     </asp:UpdatePanel>
-        </div>
+    </div>
 </asp:Content>
