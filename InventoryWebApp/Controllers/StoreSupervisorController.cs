@@ -54,8 +54,10 @@ namespace InventoryWebApp.Controllers
 
                 foreach (AssignRole a in etempCode)
                 {
-                    empNameList.Add(a);
-
+                    if (a.TemporaryRoleCode.Equals("ActSSup"))
+                    {
+                        empNameList.Add(a);
+                    }
                 }
 
             }
@@ -70,12 +72,18 @@ namespace InventoryWebApp.Controllers
 
         public List<AssignRole> ListOfEmployeeCodeInAssignRole(string empCode)
         {
-           
+            List<AssignRole> empCodeList = new List<AssignRole>();
 
             List<AssignRole> empSearchList =  asignDao.SearchByEmployeeCode(empCode);
-            
-            
-            return empSearchList;
+
+            foreach (AssignRole a in empSearchList)
+            {
+                if (a.TemporaryRoleCode.Equals("ActSSup"))
+                {
+                    empCodeList.Add(a);
+                }
+            }
+            return empCodeList;
         }
 
         
@@ -207,8 +215,11 @@ namespace InventoryWebApp.Controllers
             {
                 if (a != null && a.AssignRoleCode.Equals(assignRolecode))
                 {
-                    d = (DateTime)a.StartDate;
-                    break;
+                    if (a.StartDate != null)
+                    {
+                        d = (DateTime)a.StartDate;
+                        break;
+                    }
                 }
                 else
                 {
@@ -230,8 +241,11 @@ namespace InventoryWebApp.Controllers
             {
                 if (a != null && a.AssignRoleCode.Equals(assignRolecode))
                 {
-                    d = (DateTime)a.EndDate;
-                    break;
+                    if (a.EndDate != null)
+                    {
+                        d = (DateTime)a.EndDate;
+                        break;
+                    }
                 }
                 else
                 {
