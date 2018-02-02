@@ -173,7 +173,7 @@ namespace InventoryWebApp.Dept
                 btnModalReject.Visible = false;
                 tbxCom.Visible = false;
                 lblCom.Visible = false;
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "none", "alert('The requisition is approved successfully!');window.location ='RequisitionDetails?REQUESTCODE="
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "none", "alert('The requisition is approved successfully! Email notifications have been sent successfully!');window.location ='RequisitionDetails?REQUESTCODE="
                            + RO.RequestCode + "';", true);
 
             }
@@ -220,7 +220,7 @@ namespace InventoryWebApp.Dept
                 btnModalReject.Visible = false;
                 tbxCom.Visible = false;
                 lblCom.Visible = false;
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "none", "alert('The requisition has been rejected!');window.location ='RequisitionDetails?REQUESTCODE="
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "none", "alert('The requisition has been rejected! Email notifications have been sent successfully!');window.location ='RequisitionDetails?REQUESTCODE="
                            + RO.RequestCode + "';", true);                
             }
             else
