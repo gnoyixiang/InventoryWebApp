@@ -265,7 +265,7 @@
     <Content Include="Dept\DeptRequisitionList.aspx" />
     <Content Include="Dept\RequisitionDetails.aspx" />
     <Content Include="Dept\UpdateCollectionPoint.aspx" />
-    <Content Include="MapTrial.aspx" />
+    <Content Include="Store\MapTrial.aspx" />
     <Content Include="Store\RequisitionDetails.aspx" />
     <Content Include="Store\TrendAnalysis.aspx" />
     <Content Include="Dept\ViewCatalogue.aspx" />
@@ -471,11 +471,11 @@
     <Compile Include="LayoutWithoutAjax.Master.designer.cs">
       <DependentUpon>LayoutWithoutAjax.Master</DependentUpon>
     </Compile>
-    <Compile Include="MapTrial.aspx.cs">
+    <Compile Include="Store\MapTrial.aspx.cs">
       <DependentUpon>MapTrial.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="MapTrial.aspx.designer.cs">
+    <Compile Include="Store\MapTrial.aspx.designer.cs">
       <DependentUpon>MapTrial.aspx</DependentUpon>
     </Compile>
     <Compile Include="Store\RequisitionDetails.aspx.cs">
