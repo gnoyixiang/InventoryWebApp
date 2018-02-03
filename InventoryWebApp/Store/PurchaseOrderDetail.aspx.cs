@@ -97,14 +97,14 @@ namespace InventoryWebApp.Store
             lblStatus.Text = "Status: " + po.Status;
             lblSupplierName.Text = scController.GetSupplierName(po.SupplierCode);
             lblDeliverAddress.Text = "";
-            lblAttnTo.Text = po.UserName;
+            lblAttnTo.Text = scController.GetEmployeeName(po.UserName);
             lblEstDeliverDate.Text = po.DateSupplyExpected == null ? "-" : String.Format("{0:dd MMM yyyy}", po.DateSupplyExpected);
             lblOrderDate.Text = String.Format("{0:dd MMM yyyy}", po.DateCreated);
             lblApprovedDate.Text = po.DateApproved == null ? "Not Approved" : String.Format("{0:dd MMM yyyy}", po.DateApproved);
             lblReceivedDate.Text = po.DateReceived == null ? "Not Recieved" : String.Format("{0:dd MMM yyyy}", po.DateReceived);
-            lblOrderBy.Text = po.UserName;
-            lblApprovedBy.Text = po.ApprovedBy;
-            lblReceivedBy.Text = po.ReceivedBy;
+            lblOrderBy.Text = scController.GetEmployeeName(po.UserName);
+            lblApprovedBy.Text = scController.GetEmployeeName(po.ApprovedBy);
+            lblReceivedBy.Text = scController.GetEmployeeName(po.ReceivedBy);
             lblNotes.Value = po.Notes;
 
             Label lblGrandTotal = (Label)listDetails.FindControl("lblGrandTotal");
@@ -155,7 +155,7 @@ namespace InventoryWebApp.Store
 
         protected void btnAckReceipt_Click(object sender, EventArgs e)
         {
-            int isAck = scController.AckPurchaseOrder(po, poDetails);
+            int isAck = scController.AckPurchaseOrder(po, poDetails, Context.User.Identity.Name);
             if (isAck == -1)
             {
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", 
@@ -190,11 +190,11 @@ namespace InventoryWebApp.Store
         
        
 
-        protected void linkEdit_Command(object sender, CommandEventArgs e)
-        {
-            //Response.Redirect("/EditPurchaseOrder?PO=" + poNum);
-            scController.ApprovePurchaseOrder(po);
-        }
+        //protected void linkEdit_Command(object sender, CommandEventArgs e)
+        //{
+        //    //Response.Redirect("/EditPurchaseOrder?PO=" + poNum);
+        //    scController.ApprovePurchaseOrder(po, Context.User.Identity.Name);
+        //}
         
 
         protected void listDetails_ItemEditing(object sender, ListViewEditEventArgs e)
@@ -225,7 +225,7 @@ namespace InventoryWebApp.Store
             poDetail.Quantity = Convert.ToInt32(e.NewValues["Quantity"]);
             poDetail.Notes = Convert.ToString(e.NewValues["Notes"]);
             scController.UpdatePODetail(poDetail);
-            scController.FinishEditingPurchaseOrder(po);
+            //scController.FinishEditingPurchaseOrder(po);
             listDetails.EditIndex = -1;
             BindData();
         }
@@ -257,7 +257,7 @@ namespace InventoryWebApp.Store
 
         protected void listDetails_ItemCanceling(object sender, ListViewCancelEventArgs e)
         {
-            scController.FinishEditingPurchaseOrder(po);
+            //scController.FinishEditingPurchaseOrder(po);
             listDetails.EditIndex = -1;
             BindData();
         }
