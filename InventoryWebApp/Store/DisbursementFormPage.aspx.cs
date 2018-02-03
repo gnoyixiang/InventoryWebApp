@@ -226,7 +226,8 @@ namespace InventoryWebApp.Store
 
         protected void displayDepartmentInformation()
         {
-            tbxRep.Text = sClerkCtrl.GetRepresentative(ddlDepartment.SelectedValue).EmployeeTitle + " " + sClerkCtrl.GetRepresentative(ddlDepartment.SelectedValue).EmployeeName;
+            Employee rep = sClerkCtrl.GetRepresentative(ddlDepartment.SelectedValue);
+            tbxRep.Text = rep==null?"No Representative assigned":rep.EmployeeTitle + " " + rep.EmployeeName;
             tbxDisbursementDate.Text = GetPlanToCollectDate().ToString("dd MMM yyyy");
             tbxStatus.Text = GetDisbursingDisbursementByDeptCode(ddlDepartment.SelectedValue).Status;
             tbxDisbursementTime.Text = GetCollectionTime();

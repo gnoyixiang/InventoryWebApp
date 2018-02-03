@@ -129,7 +129,7 @@
                 </tr>
             </table>
             <%--<asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" Class="btn btn-success" />--%>
-            <asp:Button runat="server" ID="btnModal" Text="Submit" CssClass="btn btn-success"  OnClick="btnModal_Click" />
+            <asp:Button runat="server" ID="btnModal" Text="Submit" CssClass="btn btn-success" OnClick="btnModal_Click" />
             <asp:Button ID="btnClear" runat="server" Text="Clear" OnClick="btnClear_Click" Class="btn btn-warning" />
 
 
