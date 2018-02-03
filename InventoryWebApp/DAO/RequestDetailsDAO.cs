@@ -14,7 +14,7 @@ namespace InventoryWebApp.DAO
         {
             using (EntityModel em = new EntityModel())
             {
-                return em.RequestDetails.Where(rd =>rd.RemainingQuant!=0).ToList();
+                return em.RequestDetails.Where(rd => rd.RemainingQuant != 0 && (rd.Request.Status == "incomplete" || rd.Request.Status == "processing")).ToList();
             }
         }
 

@@ -6,13 +6,37 @@ using System.Threading.Tasks;
 using InventoryWebApp.DAO;
 using InventoryWebApp.Models.Entities;
 using InventoryWebApp.WCF;
+using InventoryWebApp.Controllers;
 
 namespace ConsoleTestApp
 {
     class Program
     {
+        static StoreClerkController sClerkCtrl = new StoreClerkController();
+        public static List<WCF_RetrievalDetail> GetAllocatingRetrievalDetails()
+        {
+                  Retrieval r = sClerkCtrl.GetCurrentRetrieval();
+                if (r != null)
+                {
+                    sClerkCtrl.GetAllocatingDisbursementList();
+                    List<RetrievalDetail> rdList = r.RetrievalDetails.ToList<RetrievalDetail>();
+                    List<WCF_RetrievalDetail> wrdList = new List<WCF_RetrievalDetail>();
+                    foreach (var item in rdList)
+                    {
+                        WCF_RetrievalDetail wrd = new WCF_RetrievalDetail(item.RetrievalCode, sClerkCtrl.GetStationeryByCode(item.ItemCode).Description, item.QuantityRetrieved.ToString(), item.QuantityNeeded.ToString(), item.Notes, r.Status, r.DateRetrieved == null ? "" : ((DateTime)r.DateRetrieved).ToString("dd MMM yyyy"), sClerkCtrl.GetStationeryByCode(item.ItemCode).Stock.ToString(), sClerkCtrl.GetStationeryByCode(item.ItemCode).Location, item.ItemCode);
+                        wrdList.Add(wrd);
+                    }
+                    return wrdList;
+                }
+                return null;
+            
+            
+        }
         public static void Main(String[] args)
         {
+            IClerkService cs = new ClerkService();
+            GetAllocatingRetrievalDetails();
+
             //IStationeryCatalogueDAO sDAO = new StationeryCatalogueDAO();
             //ISupplierDetailsDAO sdDAO = new SupplierDetailsDAO();
             ////SupplierDetail sd = null;
