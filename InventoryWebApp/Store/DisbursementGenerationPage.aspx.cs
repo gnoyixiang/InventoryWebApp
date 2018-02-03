@@ -1,5 +1,6 @@
 ﻿using InventoryWebApp.Controllers;
 using InventoryWebApp.Models.Entities;
+using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -139,6 +140,26 @@ namespace InventoryWebApp.Store
             lvCollectionPointList.Visible = true;
             lblFixedCollectionPoint.Visible = true;
             ddlCollectionPoint.Visible = true;
+
+
+            //send email
+
+            string fromEmail = emailController.GetUserEmail(Context.User.Identity.Name);
+            string password = txtPassword.Text;
+            string username = Context.User.Identity.Name;
+            try
+            {
+                emailController.ConfirmDisbursementSendEmail(fromEmail, password, username, disbursingList, DateTime.Parse(tbxDate.Text));
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                    "alertMessage", "alert('Disbursements have been confirmed! Email notifications have been sent successfully!');window.location ='DisbursementGenerationPage';", true);
+            }
+            catch (Exception ex)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                   "alertMessage", "alert('Disbursements have been confirmed! However an error has occurred when sending email!');window.location ='DisbursementGenerationPage';", true);
+            }
+
+
         }
 
         protected void btnPopUp_Click(object sender, EventArgs e)
@@ -169,6 +190,69 @@ namespace InventoryWebApp.Store
         {
             DateTime time = DateTime.Today.Add((TimeSpan)sClerkCtrl.GetCollectionPointByCode(collectionPointCode).CollectionTime);
             return time.ToString("hh:mm tt");
+        }
+
+        protected void btnModal_Click(object sender, EventArgs e)
+        {
+            if (IsValid)
+            {
+                txtPassword.Text = "";
+                lblVerifyError.Visible = false;
+                ScriptManager.RegisterStartupScript(this, GetType(), "emailPopup", "$('#emailModal').modal('show');", true);
+            }
+        }
+
+        private bool VerifyLoginUser(string username, string password)
+        {
+            // Validate the user password
+            var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            var signinManager = Context.GetOwinContext().GetUserManager<ApplicationSignInManager>();
+
+            // This doen't count login failures towards account lockout
+            // To enable password failures to trigger lockout, change to shouldLockout: true
+            var result = signinManager.PasswordSignIn(username, password, isPersistent: false, shouldLockout: false);
+
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    return true;
+                case SignInStatus.LockedOut:
+                    return false;
+                case SignInStatus.RequiresVerification:
+                    return false;
+                case SignInStatus.Failure:
+                default:
+                    return false;
+            }
+        }
+
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(txtPassword.Text))
+            {
+                lblVerifyError.Visible = true;
+                lblVerifyError.Text = "Password field cannot be empty";
+                ScriptManager.RegisterStartupScript(this, GetType(), "emailPopup",
+                    "document.body.style.padding = '0';$('.modal-backdrop').remove();$('#emailModal').modal('show');", true);
+                return;
+            }
+
+
+            if (!VerifyLoginUser(Context.User.Identity.Name, txtPassword.Text))
+            {
+                lblVerifyError.Visible = true;
+                lblVerifyError.Text = "Incorrect password!";
+                ScriptManager.RegisterStartupScript(this, GetType(), "emailPopup",
+                    "document.body.style.padding = '0';$('.modal-backdrop').remove();$('#emailModal').modal('show');", true);
+                return;
+            }
+
+            ScriptManager.RegisterStartupScript(this, GetType(), "emailPopup",
+                    "document.body.style.padding = '0';$('.modal-backdrop').remove();$('#emailModal').modal('hide');", true);
+
+            btnConfirm_Click(sender, e);
+
+
         }
     }
 }

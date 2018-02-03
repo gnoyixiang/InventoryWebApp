@@ -57,47 +57,55 @@ namespace InventoryWebApp.Controllers
             return emails;
         }
 
-        private void GetDepartmentRepEmail(string deptCode)
+        private string GetDepartmentRepEmail(string deptCode)
         {
-            
+            List<Employee> employees = employeeDAO.SearchByDept(deptCode);
+            foreach (Employee e in employees)
+            {
+                AssignRole assignRole = assignRoleDAO.SearchByEmployeeCode(e.EmployeeCode).Where(ar => ar.TemporaryRoleCode == "Rep").FirstOrDefault();
+                if(assignRole != null)
+                {
+                    return GetUserEmail(e.UserName);
+                }
+            }
+            return null;
         }
 
-        public void ConfirmDisbursementSendEmail(string fromEmail, string password, string username, List<Disbursement> dList)
+        public void ConfirmDisbursementSendEmail(string fromEmail, string password, string username, List<Disbursement> dList, DateTime disburseDate)
         {
-            List<String> toEmail = new List<string>();
             foreach (Disbursement d in dList)
             {
-                string deptCode = d.DepartmentCode;
-                toEmail.Add(GetDepartmentRepEmail(deptCode));
-            }
-            
+                try
+                {
+                    string deptCode = d.DepartmentCode;
+                    string toEmail = GetDepartmentRepEmail(deptCode);
+                    if (toEmail != null)
+                    {
+                        string emailSubject = "Confirmed Disbursement Date " + disburseDate.ToString("d MMM yyyy");
+                        StringBuilder emailBody = new StringBuilder();
+                        emailBody.AppendLine("The following disbursement date has been confirmed at " + disburseDate.ToString("d MMM yyyy") + ":");
+                        emailBody.AppendLine("http://localhost/Store/ViewDisbursementDetails?DISBURSEMENTCODE=" + d.DisbursementCode);
+                    
+                        emailBody.AppendLine("The disbursement has been confirmed by " + employeeDAO.GetEmployeeName(username));
+                        emailBody.AppendLine();
+                        emailBody.AppendLine("This email is automatically generated");
 
-            string emailSubject = "Create Purchase Orders";
-            StringBuilder emailBody = new StringBuilder();
-            emailBody.AppendLine("The following purchase orders have been created:");
-            foreach (PurchaseOrder po in purchaseOrders)
-            {
-                emailBody.AppendLine("http://localhost/Store/PurchaseOrderDetail?PO=" + po.PurchaseOrderCode);
-            }
-            emailBody.AppendLine("The orders are created by " + employeeDAO.GetEmployeeName(username));
-            emailBody.AppendLine();
-            emailBody.AppendLine("This email is automatically generated");
-            try
-            {
-                SendMultipleEmail(fromEmail, password, toEmail, emailSubject, emailBody.ToString());
-            }
-            catch (SmtpFailedRecipientsException ex)
-            {
-                throw ex;
-            }
-            catch (SmtpException ex)
-            {
-                throw ex;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+                        SendEmail(fromEmail, password, toEmail, emailSubject, emailBody.ToString());
+                    }
+                }
+                catch (SmtpFailedRecipientsException ex)
+                {
+                    throw ex;
+                }
+                catch (SmtpException ex)
+                {
+                    throw ex;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }            
         }
 
 
