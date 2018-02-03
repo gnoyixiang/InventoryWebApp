@@ -130,8 +130,8 @@ namespace InventoryWebApp.Dept
                 string requestcode = ec.AddRequest(userName, deptCode, stationaries);
 
                 //send email
-                string fromEmail = Util.EMAIL;
-                string password = Util.PASSWORD;
+                string fromEmail = emailController.GetUserEmail(Context.User.Identity.Name);
+                string password = txtPassword.Text;
                 string username = Context.User.Identity.Name;
                 try
                 {

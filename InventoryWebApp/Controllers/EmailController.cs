@@ -333,7 +333,6 @@ namespace InventoryWebApp.Controllers
             if (RO.Status == "processing")
             {
                 //email must belong to a store clerk
-                toEmail = Util.EMAIL;
                 emailSubject = "Request Approved";
                 emailBody = new StringBuilder();
                 emailBody.AppendLine("The following request has been approved:");
@@ -350,7 +349,6 @@ namespace InventoryWebApp.Controllers
             if (RO.Status == "rejected")
             {
                 //email must belong to an employee
-                toEmail = Util.EMAIL;
                 emailSubject = "Request Rejected";
                 emailBody = new StringBuilder();
                 emailBody.AppendLine("The following request has been rejected:");

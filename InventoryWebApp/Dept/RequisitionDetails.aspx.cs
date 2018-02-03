@@ -152,8 +152,8 @@ namespace InventoryWebApp.Dept
             int i = dCon.UpdateRequest(RO, "processing");
 
             //send email
-            string fromEmail = Util.EMAIL;
-            string password = Util.PASSWORD;
+            string fromEmail = emailController.GetUserEmail(Context.User.Identity.Name);
+            string password = txtPassword.Text;
             string username = Context.User.Identity.Name;
             try
             {
@@ -199,8 +199,8 @@ namespace InventoryWebApp.Dept
             int i = dCon.UpdateRequest(RO, "rejected");
 
             //send email
-            string fromEmail = Util.EMAIL;
-            string password = Util.PASSWORD;
+            string fromEmail = emailController.GetUserEmail(Context.User.Identity.Name);
+            string password = txtPassword.Text;
             string username = Context.User.Identity.Name;
             try
             {
