@@ -5,6 +5,7 @@ namespace InventoryWebApp.DAO
 {
     public interface IEmployeeDAO
     {
+        Employee GetRepresentative(string departmentCode);
         int AddEmployee(Employee emp);
         void DeleteEmployee(string username);
         Employee GetEmployeeInfo(string username);

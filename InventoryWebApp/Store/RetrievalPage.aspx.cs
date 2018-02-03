@@ -44,7 +44,7 @@ namespace InventoryWebApp.Store
 
                     BindGrid();
                 }
-                lblCreatedBy.Text = Master.GetEmployeeName(retrieval.UserName) ;
+                //lblCreatedBy.Text = Master.GetEmployeeName(retrieval.UserName) ;
                 
             }
 
@@ -59,7 +59,7 @@ namespace InventoryWebApp.Store
 
             List<Request> rList = sClerkCtrl.GetNotDisbursedRequestList();
             List<RequestDetail> rDetailList = sClerkCtrl.GetNotDisbursedRequestDetailList();
-            lblTotalItem.Text = rDetailList.Count.ToString();
+            //lblTotalItem.Text = rDetailList.Count.ToString();
         }
 
         protected StationeryCatalogue GetStationeryByCode(String itemCode)
