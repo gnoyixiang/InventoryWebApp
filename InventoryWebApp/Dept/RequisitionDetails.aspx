@@ -143,7 +143,7 @@
                     <div class="col-md-2">
                         <%--<asp:Button ID="btnReject" runat="server" CssClass="btn btn-warning" Text="Reject" Width="100%"
                             OnClientClick="return confirm('Are you sure to REJECT the requisition?');" OnClick="btnReject_Click" />--%>
-                        <asp:Button runat="server" ID="btnModalReject" Text="Reject" CssClass="btn btn-success" Width="100%" OnClientClick="return confirm('Are you sure to REJECT the requisition?');"
+                        <asp:Button runat="server" ID="btnModalReject" Text="Reject" CssClass="btn btn-danger" Width="100%" OnClientClick="return confirm('Are you sure to REJECT the requisition?');"
                                 OnClick="btnModal_Click" />
                     </div>
                     <div class="col-md-8">
