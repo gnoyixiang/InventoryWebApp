@@ -46,7 +46,7 @@ namespace InventoryWebApp.Dept
         protected void btnAssign_Click(object sender, EventArgs e)
         {
             string rolecodeselected = ddlRolecodelist.SelectedItem.Value;
-            string assignrolecode = "AS" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
+            string assignrolecode = "AS" + DateTime.Now.ToString("yyMMddHHmmssfff");
             if (rolecodeselected == "ActHead")
             {
                 if (tbxStartDate.Text == "" || tbxEndDate.Text == "")

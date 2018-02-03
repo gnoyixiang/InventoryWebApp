@@ -31,7 +31,7 @@ namespace InventoryWebApp.Dept
         }
         private void BindGrid()
         {
-            gv.DataSource = dCon.ListOfAssignRoleInDepartment("CPSC");
+            gv.DataSource = dCon.ListOfAssignRoleInDepartment(Master.UserDepartmentCode);
             gv.DataBind();
         }
 
