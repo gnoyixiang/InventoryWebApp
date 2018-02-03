@@ -16,7 +16,7 @@ namespace ConsoleTestApp
         public static void Main(String[] args)
         {
             IClerkService cs = new ClerkService();
-            cs.GetOutstandingRequests();
+            cs.ConfirmCollectionDate("10/02/2018", "nathalie", "!Passw0rd");
             
         }   
      }

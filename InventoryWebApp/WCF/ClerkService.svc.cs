@@ -279,7 +279,7 @@ namespace InventoryWebApp.WCF
 
         public void ConfirmCollectionDate(string date, string userName, string password)
         {
-            sClerkCtrl.SetCollectionDateToDisbursement(DateTime.ParseExact(date, "dd MMM yyyy", null), userName);
+            sClerkCtrl.SetCollectionDateToDisbursement(DateTime.ParseExact(date, "ddMMyyyy", null), userName);
             sClerkCtrl.UpdateCurrentRetrievalToRetrieved();
         }
     }
