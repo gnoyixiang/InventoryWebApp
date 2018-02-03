@@ -215,7 +215,7 @@ namespace InventoryWebApp.WCF
                 if (checkvalue && checkemployee)
                 {
                     dCon.AddAssignRole(assignrolecode, rolecodeselected, wcfassignrole.EmployeeCode, startdateselected, enddateselected, wcfassignrole.AssignedBy);
-                    return "true";
+                    return "truee";
                     
                 }
                 else
