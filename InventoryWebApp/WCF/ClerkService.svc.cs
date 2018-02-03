@@ -16,6 +16,19 @@ namespace InventoryWebApp.WCF
     {
         StoreClerkController sClerkCtrl = new StoreClerkController();
         ILoginService loginService = new LoginService();
+        
+        
+        public void ConfirmCollectionDate(string date, string userName, string password)
+        {
+            if (loginService.ValidateUser(email, password))
+            {
+                sClerkCtrl.SetCollectionDateToDisbursement(DateTime.ParseExact(date, "ddMMyyyy", null), userName);
+                sClerkCtrl.UpdateCurrentRetrievalToRetrieved();
+            }
+            else{
+            return;
+            }
+        }
         public WCF_CollectionDate GetCollectionDate(String email, String password)
         {
             if (loginService.ValidateUser(email, password))
