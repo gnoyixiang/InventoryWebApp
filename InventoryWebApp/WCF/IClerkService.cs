@@ -13,6 +13,11 @@ namespace InventoryWebApp.WCF
     [ServiceContract]
     public interface IClerkService
     {
+        
+        [OperationContract]
+        [WebGet(UriTemplate = "/ConfirmCollectionDate/{date}/{userName}/{password}", ResponseFormat = WebMessageFormat.Json)]
+        void ConfirmCollectionDate(String date, String userName, String password);
+        
         [OperationContract]
         [WebInvoke(UriTemplate = "/MarkAsNotCollected/{email}/{password}", Method = "POST",
         RequestFormat = WebMessageFormat.Json,
