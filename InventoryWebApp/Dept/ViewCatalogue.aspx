@@ -33,6 +33,7 @@
     <div class="row">
         <div class="col-xs-12 col-md-2">
             <asp:DropDownList ID="ddlSearchBy" runat="server"  CssClass="form-control">
+                <asp:ListItem>-Choose Category-</asp:ListItem>
                 <asp:ListItem>Description</asp:ListItem>
                 <asp:ListItem>Stationery Number</asp:ListItem>
                 <asp:ListItem>Category</asp:ListItem>
