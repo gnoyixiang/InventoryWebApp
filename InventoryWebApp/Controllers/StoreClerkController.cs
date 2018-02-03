@@ -46,7 +46,7 @@ namespace InventoryWebApp.Controllers
             int remainingQtyToOrder = outstandingRequestQty - qtyInPendingAndApprovedOrders;
 
             //Case: if stock > reorderLevel
-            if(item.Stock > item.ReorderLevel)
+            if (item.Stock > item.ReorderLevel)
             {
                 if (outstandingRequestQty - qtyInPendingAndApprovedOrders > item.ReorderQuantity)
                 {
@@ -87,7 +87,7 @@ namespace InventoryWebApp.Controllers
                 {
                     if (outstandingRequestQty - qtyInPendingAndApprovedOrders > item.ReorderQuantity)
                     {
-                        
+
                         recommendQty = outstandingRequestQty - qtyInPendingAndApprovedOrders;
                     }
                     else
@@ -103,7 +103,7 @@ namespace InventoryWebApp.Controllers
         internal List<string> GetTenderYearsFromSupplier(string supplierCode)
         {
             List<string> tenderYears = new List<string>();
-            foreach(Tender t in tenderDAO.ListTendersBySupplierCode(supplierCode))
+            foreach (Tender t in tenderDAO.ListTendersBySupplierCode(supplierCode))
             {
                 tenderYears.Add(Convert.ToDateTime(t.DateCreated).Year.ToString());
             }
@@ -587,7 +587,7 @@ namespace InventoryWebApp.Controllers
             //adjustmentCodeTemp2++;
             //adjustmentCodeTemp = new StringBuilder(adjustmentCodeTemp2.ToString(fmt));
             //adjustmentCodeTemp.Insert(0, "A", 1);
-            
+
 
             a.AdjustmentCode = "A" + dateCreated.ToString("ddMMyyHHmmssfff");
             a.DateCreated = dateCreated;
@@ -651,7 +651,7 @@ namespace InventoryWebApp.Controllers
         public List<TenderDetail> LoadQuotationPriceList(Supplier supplierPick, int year)
         {
             Tender tender = GetTenderByCodeAndDate(supplierPick, year);
-            if(tender != null)
+            if (tender != null)
             {
                 return tenderDetailsDAO.ListTenderDetailsByTenderCode(tender.TenderCode);
             }
@@ -696,9 +696,9 @@ namespace InventoryWebApp.Controllers
                 }
             }
             return null;
-            
+
         }
-        
+
         public List<Retrieval> GetRetrievalsByStatus(String status)
         {
             return retrievalDAO.ListRetrievalByStatus(status);
@@ -741,7 +741,7 @@ namespace InventoryWebApp.Controllers
             return disbursementDetailsDAO.SearchDDByDCode(disbursementCode);
         }
 
-        public int UpdateDisbursement (Disbursement d)
+        public int UpdateDisbursement(Disbursement d)
         {
             return disbursementDAO.UpdateDbmStatus(d);
         }
@@ -777,12 +777,13 @@ namespace InventoryWebApp.Controllers
             try
             {
                 return disbursementDetailsDAO.SearchDDByDCode(GetDisbursingDisbursementByDeptCode(deptCode).DisbursementCode);
-            } catch(Exception e)
+            }
+            catch (Exception e)
             {
                 return null;
             }
-            
-            
+
+
         }
 
         public List<Disbursement> GetDisbursementListBySClerkInCharge(String collectionPointCode)
@@ -826,13 +827,14 @@ namespace InventoryWebApp.Controllers
         {
             return employeeDAO.GetEmployeeByCode(collectionPointDAO.SearchByCollectionPointCode(collectionPointCode).FirstOrDefault().SClerkInCharge).EmployeeName;
         }
-        public void SetCollectionDateToDisbursement(DateTime dt)
+        public void SetCollectionDateToDisbursement(DateTime dt, String username)
         {
             List<Disbursement> dList = GetDisbursementsByStatus("allocating");
-            foreach(var item in dList)
+            foreach (var item in dList)
             {
                 item.DatePlanToCollect = dt;
                 item.Status = "disbursing";
+                item.UserName = username;
                 item.CollectionPointCode = departmentDAO.GetDepartmentInfo(item.DepartmentCode).CollectionPointCode;
                 disbursementDAO.UpdateDbmStatus(item);
                 foreach (var detail in disbursementDetailsDAO.SearchDDByDCode(item.DisbursementCode))
@@ -846,15 +848,15 @@ namespace InventoryWebApp.Controllers
                 }
             }
         }
-        public CollectionPoint GetCollectionPointByCode (String collectionPointCode)
+        public CollectionPoint GetCollectionPointByCode(String collectionPointCode)
         {
             return collectionPointDAO.SearchByCollectionPointCode(collectionPointCode).FirstOrDefault();
         }
-        
+
         public List<Department> GetDisbursingDepartmentList(List<Disbursement> dList)
         {
             List<Department> deptList = new List<Department>();
-            foreach(var item in dList)
+            foreach (var item in dList)
             {
                 deptList.Add(departmentDAO.GetDepartmentInfo(item.DepartmentCode));
             }
@@ -870,7 +872,7 @@ namespace InventoryWebApp.Controllers
                 cpList.Add(collectionPointDAO.SearchByCollectionPointCode(item.CollectionPointCode).FirstOrDefault());
             }
 
-            return cpList; 
+            return cpList;
         }
 
         public DateTime GetDefaultCollectionDate()
@@ -900,7 +902,7 @@ namespace InventoryWebApp.Controllers
         //        item.DateCreated = DateTime.Today;
         //        item.CollectionPointCode = departmentDAO.GetDepartmentInfo(item.DepartmentCode).CollectionPointCode;
         //        disbursementDAO.UpdateDbmStatus(item);
-                
+
         //    }
         //}
         public List<DisbursementDetail> GenerateDisbursementDetail()
@@ -951,14 +953,15 @@ namespace InventoryWebApp.Controllers
             {
                 ddDict.Add(item.ItemCode, new List<DisbursementDetail>());
             }
-            
+
             if (disbursementDAO.SearchDbmByStatus("allocating").Count == 0)
             {
                 foreach (var item in disbursementDAO.SearchDbmByStatus("disbursing"))
                 {
                     ddList.AddRange(disbursementDetailsDAO.SearchDDByDCode(item.DisbursementCode));
                 }
-            }else
+            }
+            else
             {
                 foreach (var item in disbursementDAO.SearchDbmByStatus("allocating"))
                 {
@@ -1068,7 +1071,7 @@ namespace InventoryWebApp.Controllers
                 else
                     return null;
 
-               
+
             }
             else
             {
@@ -1080,7 +1083,7 @@ namespace InventoryWebApp.Controllers
         public List<RequestDetail> GetNotDisbursedRequestDetailList()
         {
             List<RequestDetail> rdList = requestDetailsDAO.SearchOutstandingRequestDetails();
-            
+
             foreach (var item in rdList)
             {
                 item.Request = requestDAO.GetRequest(item.RequestCode);
@@ -1101,7 +1104,27 @@ namespace InventoryWebApp.Controllers
             retrievalDAO.UpdateRetrival(retrieval);
             return retrieval;
         }
+        public Retrieval findCurrentRetrieval()
+        {
+            Retrieval retrieval = retrievalDAO.ListRetrievalByStatus("processing").FirstOrDefault();
+            //Retrieval rTest = retrievalList.FirstOrDefault();
+            if (retrieval == null)
+            {
+                return null;
+            }
+            else
+            {
+                Retrieval newRetrieval = new Retrieval();
+                newRetrieval.RetrievalCode = retrieval.RetrievalCode;
+                newRetrieval.Status = retrieval.Status;
+                newRetrieval.DateRetrieved = retrieval.DateRetrieved;
+                newRetrieval.RetrievalDetails = new List<RetrievalDetail>();
+                newRetrieval.RetrievalDetails = retrievalDetailsDAO.ListRetrievalDetailsByRetrievalCode(newRetrieval.RetrievalCode);
+                return newRetrieval;
+            }
+            
 
+        }
         public Retrieval GetCurrentRetrieval()
         {
             Retrieval retrieval = retrievalDAO.ListRetrievalByStatus("processing").FirstOrDefault();
@@ -1114,7 +1137,7 @@ namespace InventoryWebApp.Controllers
                     retrieval.RetrievalDetails = new List<RetrievalDetail>();
                     retrieval.RetrievalCode = "RT" + DateTime.Now.ToString("yyMMddHHmmssfff");
                     retrieval.Status = "processing";
-                    retrieval.UserName = "nathalie@ssis.edu.sg";
+                    //retrieval.UserName = "nathalie@ssis.edu.sg";
                     retrieval.DateRetrieved = DateTime.Today;
                     //retrieval.UserName = Identity.User;
                     //retrieval.DateRetrieved = DateTime.Now;
@@ -1123,7 +1146,7 @@ namespace InventoryWebApp.Controllers
                     return retrieval;
                 }
                 return null;
-                
+
             }
             else
             {
@@ -1206,7 +1229,11 @@ namespace InventoryWebApp.Controllers
             return 0;
 
         }
-        
+        public Employee GetRepresentative(String departmentCode)
+        {
+            return employeeDAO.GetRepresentative(departmentCode);
+        }
+
 
         public Department GetDeptByCode(String deptCode)
         {

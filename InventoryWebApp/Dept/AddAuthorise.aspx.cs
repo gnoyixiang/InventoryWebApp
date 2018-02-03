@@ -46,7 +46,7 @@ namespace InventoryWebApp.Dept
         protected void btnAssign_Click(object sender, EventArgs e)
         {
             string rolecodeselected = ddlRolecodelist.SelectedItem.Value;
-            string assignrolecode = "AS" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
+            string assignrolecode = "AS" + DateTime.Now.ToString("yyMMddHHmmssfff");
             if (rolecodeselected == "ActHead")
             {
                 if (tbxStartDate.Text == "" || tbxEndDate.Text == "")
@@ -58,8 +58,8 @@ namespace InventoryWebApp.Dept
                     DateTime startdateselected = DateTime.Parse(tbxStartDate.Text);
                     DateTime enddateselected = DateTime.Parse(tbxEndDate.Text);
 
-                    bool checkvalue = dCon.CheckTemporaryRoleAndDates(rolecodeselected, startdateselected, enddateselected);
-                    bool checkemployee = dCon.CheckEmployee(hfEmployeeCode.Value);
+                    bool checkvalue = dCon.CheckTemporaryRoleAndDates(rolecodeselected, startdateselected, enddateselected,Master.UserDepartmentCode);
+                    bool checkemployee = dCon.CheckEmployee(hfEmployeeCode.Value,Master.UserDepartmentCode);
                     if (checkvalue && checkemployee)
                     {
                         dCon.AddAssignRole(assignrolecode, rolecodeselected, hfEmployeeCode.Value, startdateselected, enddateselected, null);
@@ -81,8 +81,8 @@ namespace InventoryWebApp.Dept
             }
             else
             {
-                bool checkvalue = dCon.CheckTemporaryRole(rolecodeselected);
-                bool checkemployee = dCon.CheckEmployee(hfEmployeeCode.Value);
+                bool checkvalue = dCon.CheckTemporaryRole(rolecodeselected,Master.UserDepartmentCode);
+                bool checkemployee = dCon.CheckEmployee(hfEmployeeCode.Value,Master.UserDepartmentCode);
                 if (checkvalue && checkemployee)
                 {
                     dCon.AddTemporaryRole(assignrolecode, rolecodeselected, hfEmployeeCode.Value);

@@ -56,7 +56,7 @@ namespace InventoryWebApp.Store
         }
         protected override void OnPreRenderComplete(EventArgs e)
         {
-            if(sClerkCtrl.GetDisbursementsByStatus("allocating").FirstOrDefault() != null && sClerkCtrl.GetDisbursementsByStatus("disbursing").FirstOrDefault() != null)
+            if(sClerkCtrl.GetDisbursementsByStatus("allocating").FirstOrDefault() != null || sClerkCtrl.GetDisbursementsByStatus("disbursing").FirstOrDefault() != null)
             {
                 lblCollectionDate.Text = DisplayDate(DateTime.Parse(tbxDate.Text));
             }
@@ -123,7 +123,7 @@ namespace InventoryWebApp.Store
 
         protected void btnConfirm_Click(object sender, EventArgs e)
         {
-            sClerkCtrl.SetCollectionDateToDisbursement(DateTime.Parse(tbxDate.Text));
+            sClerkCtrl.SetCollectionDateToDisbursement(DateTime.Parse(tbxDate.Text), Context.User.Identity.Name);
             sClerkCtrl.UpdateCurrentRetrievalToRetrieved();
             btnBack.Enabled = false;
             btnNext.Enabled = true;

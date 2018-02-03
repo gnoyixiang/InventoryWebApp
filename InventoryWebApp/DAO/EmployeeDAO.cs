@@ -8,6 +8,28 @@ namespace InventoryWebApp.DAO
 {
     public class EmployeeDAO : IEmployeeDAO
     {
+        public Employee GetRepresentative(string departmentCode)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                List<Employee> eList = em.Employees.Where(x => x.DepartmentCode == departmentCode).ToList();
+                foreach (var item in eList)
+                {
+                    if (item.AssignRoles == null)
+                    {
+                        break;
+                    }
+                    foreach (var item2 in item.AssignRoles)
+                    {
+                        if (item2.TemporaryRoleCode == "Rep")
+                        {
+                            return item;
+                        }
+                    }
+                }
+            }
+            return null;
+        }
         public int AddEmployee(Employee emp)
         {
             /* Employee emp = new Employee();
