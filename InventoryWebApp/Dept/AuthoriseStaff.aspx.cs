@@ -31,7 +31,7 @@ namespace InventoryWebApp.Dept
         }
         private void BindGrid()
         {
-            gv.DataSource = dCon.ListOfAssignRoleInDepartment("CPSC");
+            gv.DataSource = dCon.ListOfAssignRoleInDepartment(Master.UserDepartmentCode);
             gv.DataBind();
         }
 
@@ -100,7 +100,7 @@ namespace InventoryWebApp.Dept
                 {
                     DateTime startdateselected = Convert.ToDateTime(tbxStartDate.Text);
                     DateTime enddateselected = Convert.ToDateTime(tbxEndDate.Text);
-                    bool checkvalue = dCon.CheckTemporaryRoleAndDates(rolecodeselected, startdateselected, enddateselected);
+                    bool checkvalue = dCon.CheckTemporaryRoleAndDates(rolecodeselected, startdateselected, enddateselected,Master.UserDepartmentCode);
                     if (assignrolecode != null)
                     {
                         if (checkvalue)
