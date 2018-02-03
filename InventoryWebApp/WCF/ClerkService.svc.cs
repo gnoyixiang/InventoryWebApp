@@ -20,7 +20,7 @@ namespace InventoryWebApp.WCF
         
         public void ConfirmCollectionDate(string date, string userName, string password)
         {
-            if (loginService.ValidateUser(email, password))
+            if (loginService.ValidateUser(userName, password))
             {
                 sClerkCtrl.SetCollectionDateToDisbursement(DateTime.ParseExact(date, "ddMMyyyy", null), userName);
                 sClerkCtrl.UpdateCurrentRetrievalToRetrieved();
