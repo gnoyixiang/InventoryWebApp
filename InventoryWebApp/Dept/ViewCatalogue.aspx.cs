@@ -14,6 +14,7 @@ namespace InventoryWebApp.Dept
         EmployeeController ec = new EmployeeController();
         string RequestC;
         Request RO;
+        static List<StationeryCatalogue> list;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Request.QueryString["REQUESTCODE"] != null)
@@ -24,20 +25,13 @@ namespace InventoryWebApp.Dept
             }
             if (!IsPostBack)
             {
-                //try
-                //{
+                list = ec.Gridview();
                 BindGrid();
-                //}
-                //catch (Exception ex)
-                //{
-                //    string errormsg = string.Format("<script>Error:{0}</script>", ex.Message);
-                //    Response.Write(errormsg);
-                //}
             }
         }
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            var list = ec.Gridview();
+            list = ec.Gridview();
             string keyword = txbkeyword.Text;
             string type = ddlSearchBy.Text;
             if (type == "Description")
@@ -69,7 +63,7 @@ namespace InventoryWebApp.Dept
         }
         private void BindGrid()
         {
-            gvCatalogue.DataSource = ec.Gridview();
+            gvCatalogue.DataSource = list;
             gvCatalogue.DataBind();
         }
         protected void OnPageIndexChanging(object sender, GridViewPageEventArgs e)

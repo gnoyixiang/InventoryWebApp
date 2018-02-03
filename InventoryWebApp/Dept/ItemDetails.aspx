@@ -80,7 +80,7 @@
                     <td>
                         <asp:Label ID="lblAnotherQuantity" runat="server" Text="Enter another quantity here!"></asp:Label>
                         <br />
-                        <asp:TextBox ID="tbxQuantity" runat="server" OnTextChanged="tbxQuantity_TextChanged" AutoPostBack="true"></asp:TextBox>
+                        <asp:TextBox ID="tbxQuantity" runat="server" OnTextChanged="tbxQuantity_TextChanged" AutoPostBack="true" type="number"></asp:TextBox>
                         <asp:CompareValidator ID="quantityCompareValidator1" runat="server" ErrorMessage="Enter an integer value" Type="Integer" ControlToValidate="tbxQuantity" Operator="DataTypeCheck" ForeColor="Red"></asp:CompareValidator>
                         <br />
                         <asp:CompareValidator ID="quantityCompareValidator2" runat="server" ErrorMessage="Enter a value greater than Zero" Type="Integer" Operator="GreaterThan" ValueToCompare="0" ControlToValidate="tbxQuantity" ForeColor="Red"></asp:CompareValidator>
