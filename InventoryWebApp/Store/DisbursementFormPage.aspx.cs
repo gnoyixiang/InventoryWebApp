@@ -20,9 +20,9 @@ namespace InventoryWebApp.Store
 
             if (!IsPostBack)
             {
-                BindDropDownList();                 
-            }
-            BindLvDisbursementDetails();
+                BindDropDownList();
+                BindLvDisbursementDetails();             
+            }     
 
 
         }
@@ -221,6 +221,7 @@ namespace InventoryWebApp.Store
 
         protected void ddlDepartment_SelectedIndexChanged(object sender, EventArgs e)
         {
+            BindLvDisbursementDetails();
             displayDepartmentInformation();
         }
 

@@ -169,6 +169,7 @@
                             </ul>
                             <%} %>
                             <li><a href="/Store/TrendAnalysis"><i class="fa fa-bar-chart" aria-hidden="true"></i>Trend Analysis</a></li>
+                            <li><a href="/Store/MapTrial"><i class="fa fa-map-o" aria-hidden="true"></i>Store Map</a></li>
                             <% } %>
 
 
