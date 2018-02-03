@@ -16,6 +16,8 @@ namespace InventoryWebApp.Controllers
     {
         IEmployeeDAO employeeDAO = new EmployeeDAO();
         IUserDAO userDAO = new UserDAO();
+        IStationeryCatalogueDAO sDAO = new StationeryCatalogueDAO();
+        AssignRoleDAO assignRoleDAO = new AssignRoleDAO();
 
         public string GetUserEmail(string username)
         {
@@ -29,9 +31,47 @@ namespace InventoryWebApp.Controllers
             }
         }
 
-        public void CreatePurchaseOrdersSendEmail(string fromEmail, string password, string username, List<PurchaseOrder> purchaseOrders)
+        private string GetUserDeptCode(string username)
         {
-            string toEmail = Util.EMAIL;
+            return employeeDAO.GetDeptCodeByUserName(username);
+        }
+
+        private List<String> GetRecepientsEmail(string deptCode, List<String> roles)
+        {
+            List<String> emails = new List<string>();
+            foreach (string role in roles)
+            {
+                List<Employee> employees = employeeDAO.SearchByDept(deptCode);
+                foreach (Employee e in employees)
+                {
+                    Role r = userDAO.getRoleNameByUsername(e.UserName);
+                    if (r != null)
+                    {
+                        if (r.Id == role)
+                        {
+                            emails.Add(GetUserEmail(e.UserName));
+                        }
+                    }
+                }
+            }
+            return emails;
+        }
+
+        private void GetDepartmentRepEmail(string deptCode)
+        {
+            
+        }
+
+        public void ConfirmDisbursementSendEmail(string fromEmail, string password, string username, List<Disbursement> dList)
+        {
+            List<String> toEmail = new List<string>();
+            foreach (Disbursement d in dList)
+            {
+                string deptCode = d.DepartmentCode;
+                toEmail.Add(GetDepartmentRepEmail(deptCode));
+            }
+            
+
             string emailSubject = "Create Purchase Orders";
             StringBuilder emailBody = new StringBuilder();
             emailBody.AppendLine("The following purchase orders have been created:");
@@ -44,7 +84,7 @@ namespace InventoryWebApp.Controllers
             emailBody.AppendLine("This email is automatically generated");
             try
             {
-                SendEmail(fromEmail, password, toEmail, emailSubject, emailBody.ToString());
+                SendMultipleEmail(fromEmail, password, toEmail, emailSubject, emailBody.ToString());
             }
             catch (SmtpFailedRecipientsException ex)
             {
@@ -60,9 +100,62 @@ namespace InventoryWebApp.Controllers
             }
         }
 
+
+        public void CreatePurchaseOrdersSendEmail(string fromEmail, string password, string username, List<PurchaseOrder> purchaseOrders)
+        {
+            //send to store supervisor
+            //get deptCode of username
+            string deptCode = GetUserDeptCode(username);
+            //get all employees in this dept with role store supervisor
+            List<String> roles = new List<string>() { "SSupervisor" };
+            List<String> toEmail = GetRecepientsEmail(deptCode, roles);
+            
+            string emailSubject = "Create Purchase Orders";
+            StringBuilder emailBody = new StringBuilder();
+            emailBody.AppendLine("The following purchase orders have been created:");
+            foreach (PurchaseOrder po in purchaseOrders)
+            {
+                emailBody.AppendLine("http://localhost/Store/PurchaseOrderDetail?PO=" + po.PurchaseOrderCode);
+            }
+            emailBody.AppendLine("The orders are created by " + employeeDAO.GetEmployeeName(username));
+            emailBody.AppendLine();
+            emailBody.AppendLine("This email is automatically generated");
+            try
+            {
+                SendMultipleEmail(fromEmail, password, toEmail, emailSubject, emailBody.ToString());
+            }
+            catch (SmtpFailedRecipientsException ex)
+            {
+                throw ex;
+            }
+            catch (SmtpException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
         public void NewAdjustmentSendEmail(string fromEmail, string password, string username, Adjustment adjustment)
         {
-            string toEmail = Util.EMAIL;
+            //get deptCode of username
+            string deptCode = GetUserDeptCode(username);
+            //get all employees in this dept with role store supervisor / manager
+            StationeryCatalogue stationery = sDAO.GetStationery(adjustment.ItemCode);
+            List<String> roles;
+            if (adjustment.AdjustmentQuant * stationery.Price <= 250)
+            {
+                roles = new List<string>() { "SSupervisor" };
+            }
+            else
+            {
+                roles = new List<string>() { "SManager" };
+            }
+            List<String> toEmail = GetRecepientsEmail(deptCode, roles);
+
             string emailSubject = "Adjustment for Approval";
             StringBuilder emailBody = new StringBuilder();
             emailBody.AppendLine("The following adjustment has been created:");
@@ -75,7 +168,7 @@ namespace InventoryWebApp.Controllers
 
             try
             {
-                SendEmail(fromEmail, password, toEmail, emailSubject, emailBody.ToString());
+                SendMultipleEmail(fromEmail, password, toEmail, emailSubject, emailBody.ToString());
             }
             catch (SmtpFailedRecipientsException ex)
             {
@@ -92,7 +185,13 @@ namespace InventoryWebApp.Controllers
         }
         public void NewRequestSendEmail(string fromEmail, string password, string username, string requestcode)
         {
-            string toEmail = Util.EMAIL;
+            //send to Department Head
+            //get deptCode of username
+            string deptCode = GetUserDeptCode(username);
+            //get all employees in this dept with role Department Head
+            List<String> roles = new List<string>() { "Head" };
+            List<String> toEmail = GetRecepientsEmail(deptCode, roles);
+
             string emailSubject = "Request for Approval";
             StringBuilder emailBody = new StringBuilder();
             emailBody.AppendLine("The following request has been created:");
@@ -105,7 +204,7 @@ namespace InventoryWebApp.Controllers
 
             try
             {
-                SendEmail(fromEmail, password, toEmail, emailSubject, emailBody.ToString());
+                SendMultipleEmail(fromEmail, password, toEmail, emailSubject, emailBody.ToString());
             }
             catch (SmtpFailedRecipientsException ex)
             {
@@ -122,7 +221,9 @@ namespace InventoryWebApp.Controllers
         }
         public void AdjApproveRejectSendEmail(string fromEmail, string password, string username, Adjustment adjustment)
         {
-            string toEmail = Util.EMAIL;
+            //send to user email
+            string toEmail = GetUserEmail(adjustment.UserName);
+                        
             string emailSubject = "Adjustment approve/reject failed";
             StringBuilder emailBody = new StringBuilder("Adjustment approve/reject failed");
             if (adjustment.Status == "Approve")
@@ -170,7 +271,7 @@ namespace InventoryWebApp.Controllers
         }
         public void POApproveRejectSendEmail(string fromEmail, string password, string username, PurchaseOrder purchaseOrder)
         {
-            string toEmail = Util.EMAIL;
+            string toEmail = GetUserEmail(purchaseOrder.UserName);
             string emailSubject = "PO approve/reject failed";
             StringBuilder emailBody = new StringBuilder("PO approve/reject failed");
             if (purchaseOrder.Status == "APPROVED")
@@ -218,7 +319,7 @@ namespace InventoryWebApp.Controllers
         }
         public void RequestApproveRejectSendEmail(string fromEmail, string password, string username, Request RO)
         {
-            string toEmail = Util.EMAIL;
+            string toEmail = GetUserEmail(RO.UserName);
             string emailSubject = "Request approve/reject failed";
             StringBuilder emailBody = new StringBuilder("Request approve/reject failed");
             if (RO.Status == "processing")
@@ -274,6 +375,30 @@ namespace InventoryWebApp.Controllers
                 throw ex;
             }
         }
+
+        private void SendMultipleEmail(string fromEmail, string password, List<String> toEmail, string emailSubject, string emailBody)
+        {
+            try
+            {
+                foreach (string email in toEmail)
+                {
+                    SendEmail(fromEmail, password, email, emailSubject, emailBody);
+                }
+            }
+            catch (SmtpFailedRecipientsException ex)
+            {
+                throw ex;
+            }
+            catch (SmtpException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         private void SendEmail(string fromEmail, string password, string toEmail, string emailSubject, string emailBody)
         {
             //create email to inform of the purchase orders created to all store clerks for notification and store supervisor for approval

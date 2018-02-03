@@ -115,11 +115,5 @@
             </div>
         </div>
     </div>
-
-    <script>
-        function openModal(){
-            $('#emailModal').modal('show');
-        }
-    </script>
-
+    
 </asp:Content>

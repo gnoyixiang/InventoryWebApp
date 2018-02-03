@@ -12,6 +12,7 @@ namespace InventoryWebApp.Store
     public partial class DisbursementGenerationPage : System.Web.UI.Page
     {
         StoreClerkController sClerkCtrl = new StoreClerkController();
+        EmailController emailController = new EmailController();
         String disbursementStatus = "";
 
         protected void Page_Load(object sender, EventArgs e)
@@ -132,7 +133,8 @@ namespace InventoryWebApp.Store
             lblConfirmDate.Text = "Disbursements have been confirmed. Please proceed to Disbursement Form.";
             disbursementStatus = "disbursing";
             BindDropDownList(disbursementStatus);
-            lvCollectionPointList.DataSource = sClerkCtrl.GetDisbursementsByStatus(disbursementStatus);
+            var disbursingList = sClerkCtrl.GetDisbursementsByStatus(disbursementStatus);
+            lvCollectionPointList.DataSource = disbursingList;
             lvCollectionPointList.DataBind();
             lvCollectionPointList.Visible = true;
             lblFixedCollectionPoint.Visible = true;
