@@ -19,12 +19,12 @@
          <LayoutTemplate>
                     <table class="table table-striped">
                         <tr style="background-color:#cfd8dc">
-                            <th>DisbursementCode</th>
-                            <th>DateCreated</th>
+                            <th>Disbursement Code</th>
+                            <th>Date Created</th>
                             <th>Status</th>
-                            <th>DateDisbursed</th>
+                            <th>Date Disbursed</th>
                             <th>Notes</th>
-                            <th>ReceivedBy</th>
+                            <th>Received By</th>
                         </tr>
                         <tr id="itemPlaceholder" runat="server">
                         </tr>
@@ -41,5 +41,17 @@
                     </tr>
                 </ItemTemplate>
             </asp:ListView>
+        <asp:DataPager ID="listDisbursement" runat="server" class="btn-group" PagedControlID="lvDisbursement" PageSize="10">
+                        <Fields>
+                            <asp:NextPreviousPagerField PreviousPageText="<" FirstPageText="|<" ShowPreviousPageButton="true"
+                                ShowFirstPageButton="true" ShowNextPageButton="false" ShowLastPageButton="false"
+                                ButtonCssClass="btn btn-default" RenderNonBreakingSpacesBetweenControls="false" RenderDisabledButtonsAsLabels="false" />
+                            <asp:NumericPagerField ButtonType="Link" CurrentPageLabelCssClass="btn btn-primary disabled inpager" RenderNonBreakingSpacesBetweenControls="false"
+                                NumericButtonCssClass="btn btn-default" ButtonCount="10" NextPageText="..." NextPreviousButtonCssClass="btn btn-default" />
+                            <asp:NextPreviousPagerField NextPageText=">" LastPageText=">|" ShowNextPageButton="true"
+                                ShowLastPageButton="true" ShowPreviousPageButton="false" ShowFirstPageButton="false"
+                                ButtonCssClass="btn btn-default" RenderNonBreakingSpacesBetweenControls="false" RenderDisabledButtonsAsLabels="false" />
+                        </Fields>
+                    </asp:DataPager>
         </div>
 </asp:Content>

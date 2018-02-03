@@ -16,7 +16,7 @@ namespace InventoryWebApp.Dept
             if(!IsPostBack)
             {
                 ec = new EmployeeController();
-                lvDisbursement.DataSource = ec.ListDisbursementList();
+                lvDisbursement.DataSource = ec.ListDisbursementList().Where(r => r.DepartmentCode == this.Master.UserDepartmentCode).ToList();
                 lvDisbursement.DataBind();
             }
 
