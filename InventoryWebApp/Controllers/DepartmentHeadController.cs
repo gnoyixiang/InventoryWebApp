@@ -76,16 +76,26 @@ namespace InventoryWebApp.Controllers
             return assignList;
         }
 
-        public bool CheckTemporaryRole(string temporaryrole)
+        public bool CheckTemporaryRole(string temporaryrole,String deptCode)
         {
-            List<AssignRole> listOfAssignRole = adao.ListAssignRole();
-            if (listOfAssignRole.Count == 0)
+            List<Employee> empList = edao.SearchByDept(deptCode);
+            List<AssignRole> assignList = new List<AssignRole>();
+            foreach (Employee e in empList)
+            {
+                List<AssignRole> assList = adao.SearchByEmployeeCode(e.EmployeeCode);
+                foreach (AssignRole a in assList)
+                {
+                    assignList.Add(a);
+                }
+            }
+
+            if (assignList.Count == 0)
             {
                 return true;
             }
             else
             {
-                foreach (AssignRole a in listOfAssignRole)
+                foreach (AssignRole a in assignList)
                 {
                     if (a.TemporaryRoleCode.Equals(temporaryrole))
                     {
@@ -97,16 +107,25 @@ namespace InventoryWebApp.Controllers
             return true;
         }
 
-        public bool CheckTemporaryRoleAndDates(string temporaryrole, DateTime startdate, DateTime enddate)
+        public bool CheckTemporaryRoleAndDates(string temporaryrole, DateTime startdate, DateTime enddate,String deptCode)
         {
-            List<AssignRole> listOfAssignRole = adao.ListAssignRole();
-            if (listOfAssignRole.Count == 0)
+            List<Employee> empList = edao.SearchByDept(deptCode);
+            List<AssignRole> assignList = new List<AssignRole>();
+            foreach (Employee e in empList)
+            {
+                List<AssignRole> assList = adao.SearchByEmployeeCode(e.EmployeeCode);
+                foreach (AssignRole a in assList)
+                {
+                    assignList.Add(a);
+                }
+            }
+            if (assignList.Count == 0)
             {
                 return true;
             }
             else
             {
-                foreach (AssignRole a in listOfAssignRole)
+                foreach (AssignRole a in assignList)
                 {
                     /*int i1 = DateTime.Compare( (DateTime)a.StartDate, startdate);
                     int i2 = DateTime.Compare((DateTime)a.StartDate, enddate);
@@ -132,16 +151,25 @@ namespace InventoryWebApp.Controllers
             return true;
 
         }
-        public bool CheckEmployee(string employeecode)
+        public bool CheckEmployee(string employeecode,String deptCode)
         {
-            List<AssignRole> listOfAssignRole = adao.ListAssignRole();
-            if (listOfAssignRole.Count == 0)
+            List<Employee> empList = edao.SearchByDept(deptCode);
+            List<AssignRole> assignList = new List<AssignRole>();
+            foreach (Employee e in empList)
+            {
+                List<AssignRole> assList = adao.SearchByEmployeeCode(e.EmployeeCode);
+                foreach (AssignRole a in assList)
+                {
+                    assignList.Add(a);
+                }
+            }
+            if (assignList.Count == 0)
             {
                 return true;
             }
             else
             {
-                foreach (AssignRole a in listOfAssignRole)
+                foreach (AssignRole a in assignList)
                 {
                     if ((a.EmployeeCode == employeecode) && (a.TemporaryRoleCode != "ActHead"))
                     {
