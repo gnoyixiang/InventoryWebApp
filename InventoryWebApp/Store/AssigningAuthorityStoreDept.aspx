@@ -127,27 +127,28 @@
 
                             <EditItemTemplate>
 
-                                <asp:TextBox ID="tbxStartDate" runat="server" TextMode="Date" ItemStyle-HorizontalAlign="Left" CausesValidation="true"></asp:TextBox><br />
+                                <asp:TextBox ID="tbxStartDate" runat="server" TextMode="Date" ItemStyle-HorizontalAlign="Left" ValidationGroup="updateValidation" ></asp:TextBox><br />
 
-                                <asp:CompareValidator ID="compStartTodayValidator" Operator="GreaterThanEqual" Type="Date" ControlToValidate="tbxStartDate" ErrorMessage="Invalid StartDate" runat="server"
-                                    ForeColor="Red" Display="Dynamic" ValueToCompare="<%# DateTime.Today.ToShortDateString() %>" /><br />
+                                <asp:CompareValidator ID="compStartTodayValidator" Operator="GreaterThanEqual" Type="Date" ControlToValidate="tbxStartDate" Display="Dynamic"
+                                    ErrorMessage="Invalid StartDate" runat="server" ValidationGroup="updateValidation"
+                                    ForeColor="Red"  ValueToCompare="<%# DateTime.Today.ToShortDateString() %>" /><br />
 
                                 <asp:RequiredFieldValidator ID="rqValidatorStartdate" runat="server" ControlToValidate="tbxStartDate" ForeColor="Red" ErrorMessage="Required"
-                                     Display="Dynamic" ValidationGroup="updateValidation">
+                                      ValidationGroup="updateValidation" Display="Dynamic">
                                 </asp:RequiredFieldValidator>
 
 
                             </EditItemTemplate>
 
                             <FooterTemplate>
-                                <asp:TextBox ID="tbxStartDateFooter" runat="server" TextMode="Date" CausesValidation="true"></asp:TextBox><br />
+                                <asp:TextBox ID="tbxStartDateFooter" runat="server" TextMode="Date" ValidationGroup="addValidation" ></asp:TextBox><br />
 
-                                <asp:CompareValidator ID="compStartTodayValidatorFooter" Operator="GreaterThanEqual" Type="Date" ControlToValidate="tbxStartDateFooter"
-                                    ErrorMessage="Invalid StartDate" runat="server" Display="Dynamic"
+                                <asp:CompareValidator ID="compStartTodayValidatorFooter" Operator="GreaterThanEqual" Type="Date" ControlToValidate="tbxStartDateFooter" Display="Dynamic"
+                                    ErrorMessage="Invalid StartDate" runat="server" ValidationGroup="addValidation"
                                     ForeColor="Red" ValueToCompare="<%# DateTime.Today.ToShortDateString() %>" /><br />
 
-                                <asp:RequiredFieldValidator ID="rqValidatorStartdateFooter" runat="server" ErrorMessage="Required" ControlToValidate="tbxStartDateFooter" Display="Dynamic"
-                                    ForeColor="Red" ValidationGroup="addValidation">
+                                <asp:RequiredFieldValidator ID="rqValidatorStartdateFooter" runat="server" ErrorMessage="Required" ControlToValidate="tbxStartDateFooter"
+                                    ForeColor="Red" ValidationGroup="addValidation" Display="Dynamic" >
                                 </asp:RequiredFieldValidator>
                             </FooterTemplate>
 
@@ -161,28 +162,28 @@
 
                             <EditItemTemplate>
 
-                                <asp:TextBox ID="tbxEndDate" runat="server" TextMode="Date" CausesValidation="true"></asp:TextBox></br>
+                                <asp:TextBox ID="tbxEndDate" runat="server" TextMode="Date"   ValidationGroup="updateValidation" ></asp:TextBox></br>
 
-                    <asp:CompareValidator ID="compEndDateValidator" runat="server" ControlToValidate="tbxEndDate" Display="Dynamic"
-                        ErrorMessage="Invalid EndDate " ControlToCompare="tbxStartDate" Operator="GreaterThanEqual" SetFocusOnError="True" Type="Date" ForeColor="Red">
+                    <asp:CompareValidator ID="compEndDateValidator" runat="server" ControlToValidate="tbxEndDate" ValidationGroup="updateValidation" Display="Dynamic"
+                        ErrorMessage="Invalid EndDate " ControlToCompare="tbxStartDate" Operator="GreaterThanEqual" SetFocusOnError="True" Type="Date" ForeColor="Red" >
                     </asp:CompareValidator><br />
 
                                 <asp:RequiredFieldValidator ID="rqValidatorEnddate" runat="server" ErrorMessage="Required" ControlToValidate="tbxEndDate" ForeColor="Red"
-                                     Display="Dynamic" ValidationGroup="updateValidation">
+                                      ValidationGroup="updateValidation" Display="Dynamic" >
                                 </asp:RequiredFieldValidator>
 
                             </EditItemTemplate>
 
                             <FooterTemplate>
-                                <asp:TextBox ID="tbxEndDateFooter" runat="server" TextMode="Date" ItemStyle-HorizontalAlign="center"
-                                    CausesValidation="true"></asp:TextBox>
+                                <asp:TextBox ID="tbxEndDateFooter" runat="server" TextMode="Date" ItemStyle-HorizontalAlign="center" ValidationGroup="addValidation" 
+                                    ></asp:TextBox>
 
-                                <asp:CompareValidator ID="compEndDateValidator" runat="server" ControlToValidate="tbxEndDateFooter" Display="Dynamic"
-                                    ErrorMessage="Invalid EndDate " ControlToCompare="tbxStartDateFooter" Operator="GreaterThanEqual" SetFocusOnError="True" Type="Date" ForeColor="Red">
+                                <asp:CompareValidator ID="compEndDateValidator" runat="server" ControlToValidate="tbxEndDateFooter" Display="Dynamic" ValidationGroup="addValidation"
+                                   ErrorMessage="Invalid EndDate " ControlToCompare="tbxStartDateFooter" Operator="GreaterThanEqual" SetFocusOnError="True" Type="Date" ForeColor="Red" >
 
                                 </asp:CompareValidator>
-                                <asp:RequiredFieldValidator ID="rqValidatorEnddateFooter" runat="server" ErrorMessage="Required" ControlToValidate="tbxEndDateFooter" ForeColor="Red" Display="Dynamic"
-                                     ValidationGroup="addValidation">
+                                <asp:RequiredFieldValidator ID="rqValidatorEnddateFooter" runat="server" ErrorMessage="Required" ControlToValidate="tbxEndDateFooter" ForeColor="Red" 
+                                     ValidationGroup="addValidation" Display="Dynamic"  >
                                 </asp:RequiredFieldValidator>
 
                             </FooterTemplate>

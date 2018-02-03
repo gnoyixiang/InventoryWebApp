@@ -22,6 +22,8 @@ namespace InventoryWebApp.Store
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            
             if (Context.User.IsInRole("Store Clerk"))
             {
                 if (!Master.IsTempRoleCode("ActSSup"))
@@ -37,6 +39,8 @@ namespace InventoryWebApp.Store
                
 
             }
+
+
             
         }
 
@@ -467,9 +471,9 @@ namespace InventoryWebApp.Store
                 //this is getting username from user.
                 //string userName =  user.UserName;
 
-                Page.Validate();
-                if (Page.IsValid)
-                {
+                Page.Validate("updateValidation");
+               if (Page.IsValid)
+               {
                     bool checkValue = storeSpController.CheckTempRoleAndDates(tempRoleCode, startDate, endDate);
                     // string checkAssignCode = storeSpController.GetAssignRoleCode(empCode);
                     if (assignCode != null)
@@ -492,7 +496,7 @@ namespace InventoryWebApp.Store
                     }
                     else
                     {
-                        lblSuccessMsg.Text = "";
+                       lblSuccessMsg.Text = "";
                         lblErrorMsg.Text = "Cann't Update.Don't have any TemporaryRole";
                     }
                 }
@@ -586,7 +590,7 @@ namespace InventoryWebApp.Store
                     var user = HttpContext.Current.GetOwinContext().Get<ApplicationUserManager>().FindById(User.Identity.GetUserName());
                     //this is getting username from user.
                     //string userName =  user.UserName;
-                    Page.Validate();
+                    Page.Validate("addValidation");
                     if (Page.IsValid)
                     {
                         bool checkValue = storeSpController.CheckTempRoleAndDates(tempRoleCode, startDate, endDate);
@@ -608,11 +612,11 @@ namespace InventoryWebApp.Store
 
                     }
                     else
-                    {
-                        lblSuccessMsg.Text = "";
-                        lblErrorMsg.Text = "Invalid Dates";
+                   {
+                        //lblSuccessMsg.Text = "";
+                     //lblErrorMsg.Text = "Invalid Dates";
 
-                    }
+                   }
                 }
             }
             catch (Exception ex)

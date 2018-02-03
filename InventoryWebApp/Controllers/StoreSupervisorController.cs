@@ -92,21 +92,21 @@ namespace InventoryWebApp.Controllers
         {
             List<Employee> empCodeList = new List<Employee>();
             List<Employee> empSearchList = empDao.SearchByEmployeeCode(empCode);
-            //string userRoleName = null;
+            string userRoleName = null;
 
-            //foreach (Employee emp in empSearchList)
-            //{
+            foreach (Employee emp in empSearchList)
+            {
 
-            //    userRoleName = GetUserRoleName(emp.UserName);
-            //    if (userRoleName.Equals("SSupervisor"))
-            //    {
-            //        break;
-            //    }
-            //}
+                userRoleName = GetUserRoleName(emp.UserName);
+                if (userRoleName.Equals("Store Supervisor"))
+                {
+                    break;
+                }
+            }
 
             foreach (Employee e in empSearchList)
             {
-                  if (e.DepartmentCode.Equals("STOR") /*&& !userRoleName.Equals("SSupervisor")*/)
+                  if (e.DepartmentCode.Equals("STOR") && !userRoleName.Equals("Store Supervisor"))
                 {
                    empCodeList.Add(e);
 
@@ -149,7 +149,7 @@ namespace InventoryWebApp.Controllers
             foreach (Employee emp in empSearchList)
             {
                 userRoleName = GetUserRoleName(emp.UserName);
-                if (userRoleName.Equals("SSupervisor"))
+                if (userRoleName.Equals("Store Supervisor"))
                 {
                     break;
                 }
@@ -157,7 +157,7 @@ namespace InventoryWebApp.Controllers
             foreach (Employee e in empSearchList)
             {
               
-                if (e.DepartmentCode.Equals("STOR")&&!userRoleName.Equals("SSupervisor"))
+                if (e.DepartmentCode.Equals("STOR")&&!userRoleName.Equals("Store Supervisor"))
                 {
                     empCodeList.Add(e);
 
