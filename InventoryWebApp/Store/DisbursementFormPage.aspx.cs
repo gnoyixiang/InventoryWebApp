@@ -74,6 +74,7 @@ namespace InventoryWebApp.Store
             ddlDepartment.DataTextField = "DepartmentName";
             ddlDepartment.DataValueField = "DepartmentCode";
             ddlDepartment.DataBind();
+            displayDepartmentInformation();
 
         }
 
@@ -151,18 +152,9 @@ namespace InventoryWebApp.Store
 
         protected override void OnPreRenderComplete(EventArgs e)
         {
-            
-
             if (deptList != null && deptList.Count != 0)
             {
-                tbxRep.Text = GetEmployee(GetDepartment().RepresentativeCode).EmployeeTitle + " " + GetEmployee(GetDepartment().RepresentativeCode).EmployeeName;
-                tbxDisbursementDate.Text = GetPlanToCollectDate().ToString("dd MMM yyyy");
-                tbxStatus.Text = GetDisbursingDisbursementByDeptCode(ddlDepartment.SelectedValue).Status;
-                tbxDisbursementTime.Text = GetCollectionTime();
-            }
-            else
-            {
-                lblAlert.Text = "There is no disbursement at the moment.";
+                displayDepartmentInformation();
             }
             base.OnPreRenderComplete(e);
         }
@@ -225,6 +217,19 @@ namespace InventoryWebApp.Store
 
                 validator.ErrorMessage = "Actual Quantity must be between 0 and " + dd.Quantity;
             }
+        }
+
+        protected void ddlDepartment_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            displayDepartmentInformation();
+        }
+
+        protected void displayDepartmentInformation()
+        {
+            tbxRep.Text = sClerkCtrl.GetRepresentative(ddlDepartment.SelectedValue).EmployeeTitle + " " + sClerkCtrl.GetRepresentative(ddlDepartment.SelectedValue).EmployeeName;
+            tbxDisbursementDate.Text = GetPlanToCollectDate().ToString("dd MMM yyyy");
+            tbxStatus.Text = GetDisbursingDisbursementByDeptCode(ddlDepartment.SelectedValue).Status;
+            tbxDisbursementTime.Text = GetCollectionTime();
         }
     }
 

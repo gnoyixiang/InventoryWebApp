@@ -19,28 +19,25 @@
                     <td class="col-lg-1">Retrieval Code: </td>
                     <td class="col-lg-2">
                         <asp:Label ID="lblRetrievalCode" runat="server" Text=""></asp:Label></td>
-                    <td class="col-lg-2">Created on: </td>
+                    <td class="col-lg-1">Created on: </td>
                     <td class="col-lg-2">
                         <asp:Label ID="lblRetrievalDate" runat="server" Text=""></asp:Label></td>
                 </tr>
-                <tr>
+                <%--<tr>
                     <td class="col-lg-1">Created by: </td>
                     <td class="col-lg-2">
                         <asp:Label ID="lblCreatedBy" runat="server" Text="Need to work with DAO null exception"></asp:Label></td>
                     <td class="col-lg-2">Number of items need to be retrieved: </td>
                     <td class="col-lg-2">
                         <asp:Label ID="lblTotalItem" runat="server" Text="TotalQuant"></asp:Label></td>
-                </tr>
+                </tr>--%>
             </table>
         </div>
-
         <br />
-        <br />
-
-
 
         <asp:Button ID="btnBack" runat="server" Text="<Back to Requests" Style="float: left" OnClick="btnBack_Click" CssClass="btn btn-success" />
         <asp:Button ID="btnNext" runat="server" Text="Proceed to Allocation>" Style="float: right" OnClick="btnNext_Click" CssClass="btn btn-success" />
+        <asp:Label  runat="server" Style="float: right">&nbsp &nbsp</asp:Label>
         <asp:Button ID="btnReset" runat="server" Text="Reset" Style="float: right" OnClick="btnReset_Click" CssClass="btn btn-danger" />
         <br />
         <br />

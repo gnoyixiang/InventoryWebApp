@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using InventoryWebApp.Models.Entities;
 using System.Text;
 using InventoryWebApp.Controllers;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace InventoryWebApp.Store
 {
@@ -93,6 +94,29 @@ namespace InventoryWebApp.Store
         {
             if (Page.IsValid)
             {
+                if (String.IsNullOrEmpty(txtPassword.Text))
+                {
+                    lblVerifyError.Visible = true;
+                    lblVerifyError.Text = "Password field cannot be empty";
+                    ScriptManager.RegisterStartupScript(this, GetType(), "emailPopup",
+                        "document.body.style.padding = '0';$('.modal-backdrop').remove();$('#emailModal').modal('show');", true);
+                    return;
+                }
+
+
+                if (!VerifyLoginUser(Context.User.Identity.Name, txtPassword.Text))
+                {
+                    lblVerifyError.Visible = true;
+                    lblVerifyError.Text = "Incorrect password!";
+                    ScriptManager.RegisterStartupScript(this, GetType(), "emailPopup",
+                        "document.body.style.padding = '0';$('.modal-backdrop').remove();$('#emailModal').modal('show');", true);
+                    return;
+                }
+
+                ScriptManager.RegisterStartupScript(this, GetType(), "emailPopup",
+                        "document.body.style.padding = '0';$('.modal-backdrop').remove();$('#emailModal').modal('hide');", true);
+
+
                 lblCurrentStockAmount.Text = sClerkCtrl.UpdateViewCurrentStockAmount(ddlItemChoice.SelectedItem.Text);
                 int QuantUpdate = CreateQuantityUpdate(tbxNewQuantity.Text, lblCurrentStockAmount.Text);
 
@@ -108,14 +132,18 @@ namespace InventoryWebApp.Store
                 try
                 {
                     emailController.NewAdjustmentSendEmail(fromEmail, password, username, a);
-                    Session["SendCreateAdjEmail"] = true;
+                    //Session["SendCreateAdjEmail"] = true;
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                    "alertMessage", "alert('Adjustment have been successfully created! Email notifications have been sent successfully!');window.location ='StockAdjustmentList';", true);
                 }
                 catch (Exception ex)
                 {
-                    Session["SendCreateAdjEmail"] = false;
+                    //Session["SendCreateAdjEmail"] = false;
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                  "alertMessage", "alert('Adjustment have been successfully created! However an error has occurred when sending email!');window.location ='StockAdjustmentList';", true);
                 }
 
-                Response.Redirect("StockAdjustmentList.aspx");
+                //Response.Redirect("StockAdjustmentList.aspx");
             }
         }
         protected void btnSave_Click(object sender, EventArgs e)
@@ -165,6 +193,40 @@ namespace InventoryWebApp.Store
             }
             
 
+        }
+
+        protected void btnModal_Click(object sender, EventArgs e)
+        {
+            if (IsValid)
+            {
+                txtPassword.Text = "";
+                lblVerifyError.Visible = false;
+                ScriptManager.RegisterStartupScript(this, GetType(), "emailPopup", "$('#emailModal').modal('show');", true);
+            }
+        }
+
+        private bool VerifyLoginUser(string username, string password)
+        {
+            // Validate the user password
+            var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            var signinManager = Context.GetOwinContext().GetUserManager<ApplicationSignInManager>();
+
+            // This doen't count login failures towards account lockout
+            // To enable password failures to trigger lockout, change to shouldLockout: true
+            var result = signinManager.PasswordSignIn(username, password, isPersistent: false, shouldLockout: false);
+
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    return true;
+                case SignInStatus.LockedOut:
+                    return false;
+                case SignInStatus.RequiresVerification:
+                    return false;
+                case SignInStatus.Failure:
+                default:
+                    return false;
+            }
         }
     }
 }

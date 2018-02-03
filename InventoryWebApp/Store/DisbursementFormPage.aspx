@@ -40,7 +40,7 @@
                 <tr>
                     <td>Department</td>
                     <td>
-                        <asp:DropDownList ID="ddlDepartment" runat="server" AutoPostBack="true" Width="100%"></asp:DropDownList></td>
+                        <asp:DropDownList ID="ddlDepartment" runat="server" AutoPostBack="true" Width="100%" OnSelectedIndexChanged="ddlDepartment_SelectedIndexChanged"></asp:DropDownList></td>
                     <td>Disbursement Time</td>
                     <td>
                         <asp:TextBox ID="tbxDisbursementTime" runat="server" Enabled="false"></asp:TextBox></td>
@@ -128,9 +128,12 @@
                         </tr>
                     </tbody>
                 </EditItemTemplate>
+                <EmptyDataTemplate>
+                    There is no disbursement at the moment.
+                </EmptyDataTemplate>
+
             </asp:ListView>
         </ContentTemplate>
-
     </asp:UpdatePanel>
-        </div>
+    </div>
 </asp:Content>

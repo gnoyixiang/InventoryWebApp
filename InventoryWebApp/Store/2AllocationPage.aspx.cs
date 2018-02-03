@@ -18,7 +18,7 @@ namespace InventoryWebApp.Store
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            retrieval = sClerkCtrl.GetCurrentRetrieval();
+            retrieval = sClerkCtrl.findCurrentRetrieval();
 
             if (!IsPostBack)
             {

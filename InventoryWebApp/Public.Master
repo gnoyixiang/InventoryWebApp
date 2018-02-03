@@ -11,36 +11,53 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="/Content/custom2.css">
-    <!-- Scrollbar Custom CSS -->
-    <%--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">--%>
     <!-- FontsAwesome -->
-    <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="/Content/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/Content/font-awesome-4.7.0/css/font-awesome.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
+
+    <style>
+        body {
+            background: linear-gradient(to bottom, #253161, #3852bdcc);
+            min-height:100vh;
+            color:#fff;
+
+        }
+        .logo{
+            text-align:center;
+            padding-top:30vh;
+        }
+
+        .login-row{
+            min-height:100vh;
+            min-width:100%;
+        }
+        
+        .fillheight{
+            min-height:100vh;
+        }
+    </style>
 </head>
 <body>
     <form runat="server">
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#"><i class="fa fa-cubes" aria-hidden="true"></i>Stationery Store Inventory System</a>
-                </div>
+        <div class="login-row" >
+            <div class="col-md-5 logo fillheight">
+                <i class="fa fa-cubes fa-5x" aria-hidden="true"></i>
+                <br />
+                <br />
+                <h2>Stationery Store
+                    <br />
+                    Inventory System    
+                </h2>
             </div>
-            <!-- /.container-fluid -->
-        </nav>
 
-        <div class="container">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server">
-            </asp:ContentPlaceHolder>
+            <div class="col-md-7 fillheight">
+                <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
         </div>
-
     </form>
     <!-- jQuery CDN -->
     <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>

@@ -27,18 +27,18 @@ namespace InventoryWebApp.Store
                 //ddlSearch.DataSource = SEARCH_ITEMS;
                 //ddlSearch.DataBind();
 
-                if (Session["SendCreateAdjEmail"] != null)
-                {
-                    //if ((bool)Session["CreatedPO"])
-                    //{
-                    if (!(bool)Session["SendCreateAdjEmail"])
-                    {
-                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
-                            "alertMessage", "alert('Adjustment have been successfully created! However an error has occurred when sending email!')", true);
-                    }
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
-                       "alertMessage", "alert('Adjustment have been successfully created! Email notifications have been sent successfully!')", true);
-                }
+                //if (Session["SendCreateAdjEmail"] != null)
+                //{
+                //    //if ((bool)Session["CreatedPO"])
+                //    //{
+                //    if (!(bool)Session["SendCreateAdjEmail"])
+                //    {
+                //        ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                //            "alertMessage", "alert('Adjustment have been successfully created! However an error has occurred when sending email!')", true);
+                //    }
+                //    ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                //       "alertMessage", "alert('Adjustment have been successfully created! Email notifications have been sent successfully!')", true);
+                //}
                 //else
                 //{
                //     ScriptManager.RegisterClientScriptBlock(this, this.GetType(),

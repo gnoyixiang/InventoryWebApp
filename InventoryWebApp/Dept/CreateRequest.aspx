@@ -1,5 +1,6 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="CreateRequest.aspx.cs" 
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="CreateRequest.aspx.cs"
     Inherits="InventoryWebApp.Dept.CreateRequest" %>
+
 <%@ MasterType VirtualPath="~/Layout.Master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
@@ -31,40 +32,40 @@
         <li class="active">New Request</li>
     </ul>
     <div class="container-fluid" id="mainContainer">
-    <div class="row">
-        <div class="col-md-12">
-            <h3>New Request</h3>
+        <div class="row">
+            <div class="col-md-12">
+                <h3>New Request</h3>
+            </div>
         </div>
-        </div>    
-    <table>
-        <tr>
-            <td style="padding-right: 5px">
-                <asp:Label ID="lblDept" runat="server" Text="Department Name:"></asp:Label>
-                <br />
-                <br />
-            </td>
-            <td>
-                <asp:Label ID="lblDeptName" runat="server"></asp:Label>
-                <br />
-                <br />
-            </td>
-        </tr>
-        <tr>
-            <td style="padding-right: 5px">
-                <asp:Label ID="lblEmp" runat="server" Text="Employee Name:"></asp:Label>
-                <br />
-                <br />
-            </td>
-            <td>
-                <asp:Label ID="lblEmpName" runat="server"></asp:Label>
-                <br />
-                <br />
-            </td>
-        </tr>
-    </table>
-    <asp:UpdatePanel ID="UpdatePanelAddRequest"
-        runat="server" UpdateMode="Always">
-        <ContentTemplate>
+        <table>
+            <tr>
+                <td style="padding-right: 5px">
+                    <asp:Label ID="lblDept" runat="server" Text="Department Name:"></asp:Label>
+                    <br />
+                    <br />
+                </td>
+                <td>
+                    <asp:Label ID="lblDeptName" runat="server"></asp:Label>
+                    <br />
+                    <br />
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-right: 5px">
+                    <asp:Label ID="lblEmp" runat="server" Text="Employee Name:"></asp:Label>
+                    <br />
+                    <br />
+                </td>
+                <td>
+                    <asp:Label ID="lblEmpName" runat="server"></asp:Label>
+                    <br />
+                    <br />
+                </td>
+            </tr>
+        </table>
+        <%--  <asp:UpdatePanel ID="UpdatePanelAddRequest"
+        runat="server" UpdateMode="Always">--%>
+        <%--<contenttemplate>--%>
             <asp:GridView ID="gvNewRequest" runat="server" AutoGenerateColumns="False"
                 CellPadding="4"
                 CellSpacing="-1"
@@ -127,7 +128,8 @@
                     </td>
                 </tr>
             </table>
-            <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" Class="btn btn-success" />
+            <%--<asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" Class="btn btn-success" />--%>
+            <asp:Button runat="server" ID="btnModal" Text="Submit" CssClass="btn btn-success"  OnClick="btnModal_Click" />
             <asp:Button ID="btnClear" runat="server" Text="Clear" OnClick="btnClear_Click" Class="btn btn-warning" />
 
 
@@ -152,7 +154,37 @@
                     </div>
                 </div>
             </div>
-        </ContentTemplate>
-    </asp:UpdatePanel>
+        <%--</ContentTemplate>
+    </asp:UpdatePanel>--%>
+    </div>
+
+    <!-- Email Modal -->
+    <div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLongTitle">Please verify your password</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group " style="margin-bottom: 10px">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-log-in"></i></span>
+                        <input type="text" class="form-control disabled" id="txtUsername" aria-describedby="lblUsername" value="<%= Context.User.Identity.Name %>" readonly>
+                    </div>
+                    <div class="input-group " style="margin-bottom: 10px">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        <asp:TextBox type="password" CssClass="form-control" ID="txtPassword" aria-describedby="lblPassword" runat="server"></asp:TextBox>
+                    </div>
+                    <div style="margin-bottom: 10px">
+                        <asp:Label ID="lblVerifyError" runat="server" Text="" ForeColor="Red" Visible="false"></asp:Label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-bottom: 10px">Close</button>
+                    <asp:Button runat="server" ID="btnSubmit" Text="Submit" CssClass="btn btn-success" CausesValidation="true" type="button"
+                        OnClick="btnSubmit_Click" Style="margin-bottom: 10px; margin-left: 0" />
+                </div>
+            </div>
         </div>
+    </div>
+
 </asp:Content>

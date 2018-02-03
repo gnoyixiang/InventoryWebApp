@@ -17,6 +17,9 @@ namespace InventoryWebApp.Store
         StoreSupervisorController storeSpController = new StoreSupervisorController();
         EmailController emailController = new EmailController();
 
+        Object senderForAdj = null;
+        GridViewCommandEventArgs gvCommandEvent = null;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Context.User.IsInRole("Store Supervisor"))
@@ -78,8 +81,17 @@ namespace InventoryWebApp.Store
 
         protected void gvPendingAdjutment_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            //if(senderForAdj == null || gvCommandEvent == null)
+            //{
+            //    senderForAdj = sender;
+            //    gvCommandEvent = e;
+            //    txtPassword.Text = "";
+            //    lblVerifyError.Visible = false;
+            //    ScriptManager.RegisterStartupScript(this, GetType(), "emailPopup", "$('#emailModal').modal('show');", true);
+            //}            
+
             try
-            {
+            {  
                 if (e.CommandName.Equals("Approve"))
                 {
 

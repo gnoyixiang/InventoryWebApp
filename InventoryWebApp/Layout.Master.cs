@@ -69,16 +69,19 @@ namespace InventoryWebApp
                 Department department = storeClerkController.GetDeptByCode(userDepartmentCode);
                 Employee employee = employeeController.GetEmployeeByUsername(Context.User.Identity.Name);
 
-                AssignRole assignRole = deptHeadController.ListAssignRole().Where(ar => ar.EmployeeCode == employee.EmployeeCode).FirstOrDefault();
-                if (assignRole != null)
+                if (employee != null)
                 {
-                    if(assignRole.TemporaryRoleCode == "Rep")
+                    AssignRole assignRole = deptHeadController.ListAssignRole().Where(ar => ar.EmployeeCode == employee.EmployeeCode).FirstOrDefault();
+                    if (assignRole != null)
                     {
-                        tempRoleCode = assignRole.TemporaryRoleCode;
-                    }
-                    else if (DateTime.Now >= assignRole.StartDate && DateTime.Now <= assignRole.EndDate)
-                    {
-                        tempRoleCode = assignRole.TemporaryRoleCode;
+                        if (assignRole.TemporaryRoleCode == "Rep")
+                        {
+                            tempRoleCode = assignRole.TemporaryRoleCode;
+                        }
+                        else if (DateTime.Now >= assignRole.StartDate && DateTime.Now <= assignRole.EndDate)
+                        {
+                            tempRoleCode = assignRole.TemporaryRoleCode;
+                        }
                     }
                 }
             }

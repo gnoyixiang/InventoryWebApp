@@ -86,7 +86,7 @@
                                 <td><%# Container.DataItemIndex + 1 %></td>
                                 <td><a href="PurchaseOrderDetail?PO=<%#Eval("PurchaseOrderCode") %>" style="color: #337ab7"><%# Eval("PurchaseOrderCode") %></a></td>
                                 <td><%# Eval("SupplierCode") %></td>
-                                <td><%# Eval("DateCreated") %></td>
+                                <td><%# Convert.ToDateTime(Eval("DateCreated")).ToString("d MMM yyyy") %></td>
                                 <td><%# Master.GetEmployeeName((string)Eval("Username")) %></td>
                                 <td><%# Eval("DateSupplyExpected") %></td>
                                 <td><%# Eval("Status") %></td>

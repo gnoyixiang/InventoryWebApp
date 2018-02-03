@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace InventoryWebApp.Store
 {
@@ -115,36 +116,36 @@ namespace InventoryWebApp.Store
                     lblStatus.ForeColor = System.Drawing.Color.Gray;
                     btnAckReceipt.Visible = false;
                     btnCancelOrder.Visible = true;
-                    btnApproveRequest.Visible = true;
-                    btnRejectRequest.Visible = true;
+                    btnModalApprove.Visible = true;
+                    btnModalReject.Visible = true;
                     break;
                 case "APPROVED":
                     lblStatus.ForeColor = System.Drawing.Color.Blue;
                     btnAckReceipt.Visible = true;
                     btnCancelOrder.Visible = true;
-                    btnApproveRequest.Visible = false;
-                    btnRejectRequest.Visible = false;
+                    btnModalApprove.Visible = false;
+                    btnModalReject.Visible = false;
                     break;
                 case "RECEIVED":
                     lblStatus.ForeColor = System.Drawing.Color.Green;
                     btnAckReceipt.Visible = false;
                     btnCancelOrder.Visible = false;
-                    btnApproveRequest.Visible = false;
-                    btnRejectRequest.Visible = false;
+                    btnModalApprove.Visible = false;
+                    btnModalReject.Visible = false;
                     break;
                 case "REJECTED":
                     lblStatus.ForeColor = System.Drawing.Color.Red;
                     btnAckReceipt.Visible = false;
                     btnCancelOrder.Visible = false;
-                    btnApproveRequest.Visible = false;
-                    btnRejectRequest.Visible = false;
+                    btnModalApprove.Visible = false;
+                    btnModalReject.Visible = false;
                     break;
                 case "CANCELLED":
                     lblStatus.ForeColor = System.Drawing.Color.OrangeRed;
                     btnAckReceipt.Visible = false;
                     btnCancelOrder.Visible = false;
-                    btnApproveRequest.Visible = false;
-                    btnRejectRequest.Visible = false;
+                    btnModalApprove.Visible = false;
+                    btnModalReject.Visible = false;
                     break;
             }
 
@@ -322,12 +323,14 @@ namespace InventoryWebApp.Store
                 {
                     emailController.POApproveRejectSendEmail(fromEmail, password, username, po);
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
-                           "alertMessage", "alert('Purchase orders have been successfully approved! Email notifications have been sent successfully!')", true);
+                           "alertMessage", "alert('Purchase orders have been successfully approved! Email notifications have been sent successfully!');window.location ='PurchaseOrderDetail?PO="
+                           + po.PurchaseOrderCode + "';", true);
                 }
                 catch (Exception ex)
                 {
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
-                           "alertMessage", "alert('Purchase orders have been successfully approved! However an error has occurred when sending email!')", true);
+                           "alertMessage", "alert('Purchase orders have been successfully approved! However an error has occurred when sending email!');window.location ='PurchaseOrderDetail?PO="
+                           + po.PurchaseOrderCode + "';",    true);
                 }
             }
         }
@@ -350,14 +353,89 @@ namespace InventoryWebApp.Store
                 {
                     emailController.POApproveRejectSendEmail(fromEmail, password, username, po);
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
-                           "alertMessage", "alert('Purchase orders have been successfully rejected! Email notifications have been sent successfully!')", true);
+                           "alertMessage",
+                           "alert('Purchase orders have been successfully rejected! Email notifications have been sent successfully!');window.location ='PurchaseOrderDetail?PO=" 
+                           + po.PurchaseOrderCode + "';",
+                           true);
                 }
                 catch (Exception ex)
                 {
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
-                           "alertMessage", "alert('Purchase orders have been successfully rejected! However an error has occurred when sending email!')", true);
+                           "alertMessage", "alert('Purchase orders have been successfully rejected! However an error has occurred when sending email!');window.location ='PurchaseOrderDetail?PO="
+                           + po.PurchaseOrderCode + "';", true);
                 }
             }
         }
+
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(txtPassword.Text))
+            {
+                lblVerifyError.Visible = true;
+                lblVerifyError.Text = "Password field cannot be empty";
+                ScriptManager.RegisterStartupScript(this, GetType(), "emailPopup",
+                    "document.body.style.padding = '0';$('.modal-backdrop').remove();$('#emailModal').modal('show');", true);
+                return;
+            }
+
+            if (!VerifyLoginUser(Context.User.Identity.Name, txtPassword.Text))
+            {
+                lblVerifyError.Visible = true;
+                lblVerifyError.Text = "Incorrect password!";
+                ScriptManager.RegisterStartupScript(this, GetType(), "emailPopup",
+                    "document.body.style.padding = '0';$('.modal-backdrop').remove();$('#emailModal').modal('show');", true);
+                return;
+            }
+
+            ScriptManager.RegisterStartupScript(this, GetType(), "emailPopup",
+                    "document.body.style.padding = '0';$('.modal-backdrop').remove();$('#emailModal').modal('hide');", true);
+
+            if (hfRequestType.Value == "btnModalApprove")
+            {
+                btnApproveRequest_Click(sender, e);
+            }
+            if (hfRequestType.Value == "btnModalReject")
+            {
+                btnRejectRequest_Click(sender, e);
+            }
+        }
+
+        protected void btnModal_Click(object sender, EventArgs e)
+        {
+            if (IsValid)
+            {
+                Button btnSender = (Button)sender;
+                hfRequestType.Value = btnSender.ID;
+                
+                txtPassword.Text = "";
+                lblVerifyError.Visible = false;
+                ScriptManager.RegisterStartupScript(this, GetType(), "emailPopup", "$('#emailModal').modal('show');", true);
+            }
+        }
+
+        private bool VerifyLoginUser(string username, string password)
+        {
+            // Validate the user password
+            var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            var signinManager = Context.GetOwinContext().GetUserManager<ApplicationSignInManager>();
+
+            // This doen't count login failures towards account lockout
+            // To enable password failures to trigger lockout, change to shouldLockout: true
+            var result = signinManager.PasswordSignIn(username, password, isPersistent: false, shouldLockout: false);
+
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    return true;
+                case SignInStatus.LockedOut:
+                    return false;
+                case SignInStatus.RequiresVerification:
+                    return false;
+                case SignInStatus.Failure:
+                default:
+                    return false;
+            }
+        }
+
     }
 }

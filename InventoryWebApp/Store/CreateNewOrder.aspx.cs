@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using InventoryWebApp.Controllers;
 using InventoryWebApp.Models.Classes;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace InventoryWebApp.Store
 {
@@ -50,7 +51,6 @@ namespace InventoryWebApp.Store
                     }
                 }
             }
-
             Session["purchaseItems"] = purchaseItems;
         }
 
@@ -82,13 +82,32 @@ namespace InventoryWebApp.Store
             ddlAddSuppliers.Items.Clear();
         }
 
-        protected void btnSubmit_Click(object sender, EventArgs e)
+        private bool VerifyLoginUser(string username, string password)
         {
-            if (!Page.IsValid)
-            {
-                return;
-            }
+            // Validate the user password
+            var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            var signinManager = Context.GetOwinContext().GetUserManager<ApplicationSignInManager>();
 
+            // This doen't count login failures towards account lockout
+            // To enable password failures to trigger lockout, change to shouldLockout: true
+            var result = signinManager.PasswordSignIn(username, password, isPersistent: false, shouldLockout: false);
+
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    return true;
+                case SignInStatus.LockedOut:
+                    return false;
+                case SignInStatus.RequiresVerification:
+                    return false;
+                case SignInStatus.Failure:
+                default:
+                    return false;
+            }
+        }
+        
+        protected void btnModal_Click(object sender, EventArgs e)
+        {
             var purchaseItems = (List<PurchaseItem>)Session["purchaseItems"];
             if (purchaseItems.Count == 0)
             {
@@ -96,32 +115,79 @@ namespace InventoryWebApp.Store
                            "alertMessage", "alert('You have not added any items to order!')", true);
                 return;
             }
+
+            if (IsValid)
+            {
+                txtPassword.Text = "";
+                lblVerifyError.Visible = false;
+                ScriptManager.RegisterStartupScript(this, GetType(), "emailPopup", "$('#emailModal').modal('show');", true);
+            }
+        }
+
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            //if (!Page.IsValid)
+            //{
+            //    return;
+            //}
+
+            if (String.IsNullOrEmpty(txtPassword.Text))
+            {
+                lblVerifyError.Visible = true;
+                lblVerifyError.Text = "Password field cannot be empty";
+                ScriptManager.RegisterStartupScript(this, GetType(), "emailPopup",
+                    "document.body.style.padding = '0';$('.modal-backdrop').remove();$('#emailModal').modal('show');", true);
+                return;
+            }
+
+
+            if (!VerifyLoginUser(Context.User.Identity.Name, txtPassword.Text))
+            {
+                lblVerifyError.Visible = true;
+                lblVerifyError.Text = "Incorrect password!";
+                ScriptManager.RegisterStartupScript(this, GetType(), "emailPopup", 
+                    "document.body.style.padding = '0';$('.modal-backdrop').remove();$('#emailModal').modal('show');", true);
+                return;
+            }
+            
+            ScriptManager.RegisterStartupScript(this, GetType(), "emailPopup",
+                    "document.body.style.padding = '0';$('.modal-backdrop').remove();$('#emailModal').modal('hide');", true);
+
+            var purchaseItems = (List<PurchaseItem>)Session["purchaseItems"];
+
             try
             {
                 List<PurchaseOrder> poList = scController.CreatePurchaseOrders(purchaseItems, Context.User.Identity.Name);
                 Session["CreatedPO"] = true;
 
                 //send email
-                string fromEmail = Util.EMAIL;                
-                string password = Util.PASSWORD;
+
+                string fromEmail = emailController.GetUserEmail(Context.User.Identity.Name);                
+                string password = txtPassword.Text;
                 string username = Context.User.Identity.Name;
                 try
                 {
                     emailController.CreatePurchaseOrdersSendEmail(fromEmail, password, username, poList);
-                    Session["SendCreatePOEmail"] = true;
+                    //Session["SendCreatePOEmail"] = true;
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                        "alertMessage", "alert('Purchase orders have been successfully created! Email notifications have been sent successfully!');window.location ='ViewPurchaseOrders';", true);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    Session["SendCreatePOEmail"] = false;                    
+                    //Session["SendCreatePOEmail"] = false; 
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                       "alertMessage", "alert('Purchase orders have been successfully created! However an error has occurred when sending email!');window.location ='ViewPurchaseOrders';", true);
                 }
             }
             catch (Exception ex)
             {
-                Session["CreatedPO"] = false;                
+                //Session["CreatedPO"] = false;           
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
+                        "alertMessage", "alert('An error has occurred when creating purchase orders!');window.location ='ViewPurchaseOrders';", true);
             }
 
             Session["purchaseItems"] = null;
-            Response.Redirect("/Store/ViewPurchaseOrders");
+            //Response.Redirect("/Store/ViewPurchaseOrders");
 
         }
 
@@ -592,6 +658,7 @@ namespace InventoryWebApp.Store
             int totalOrderQty = Convert.ToInt32(lblTotalOrderQty.Text != "" ? lblTotalOrderQty.Text : "0");
             lblTotalOrderQty.Text = Convert.ToString(Convert.ToInt32(totalOrderQty) + Convert.ToInt32(poDetail.Quantity));
         }
+
     }
 
 

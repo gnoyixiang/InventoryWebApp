@@ -50,10 +50,68 @@ namespace InventoryWebApp.Dept
         {
             Response.Redirect("ViewCatalogue.aspx");
         }
+
+        protected void btnModal_Click(object sender, EventArgs e)
+        {
+            if (IsValid)
+            {
+                txtPassword.Text = "";
+                lblVerifyError.Visible = false;
+                ScriptManager.RegisterStartupScript(this, GetType(), "emailPopup", "$('#emailModal').modal('show');", true);
+            }
+        }
+
+        private bool VerifyLoginUser(string username, string password)
+        {
+            // Validate the user password
+            var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            var signinManager = Context.GetOwinContext().GetUserManager<ApplicationSignInManager>();
+
+            // This doen't count login failures towards account lockout
+            // To enable password failures to trigger lockout, change to shouldLockout: true
+            var result = signinManager.PasswordSignIn(username, password, isPersistent: false, shouldLockout: false);
+
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    return true;
+                case SignInStatus.LockedOut:
+                    return false;
+                case SignInStatus.RequiresVerification:
+                    return false;
+                case SignInStatus.Failure:
+                default:
+                    return false;
+            }
+        }
+
+
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             if (Page.IsValid)
             {
+                if (String.IsNullOrEmpty(txtPassword.Text))
+                {
+                    lblVerifyError.Visible = true;
+                    lblVerifyError.Text = "Password field cannot be empty";
+                    ScriptManager.RegisterStartupScript(this, GetType(), "emailPopup",
+                        "document.body.style.padding = '0';$('.modal-backdrop').remove();$('#emailModal').modal('show');", true);
+                    return;
+                }
+
+
+                if (!VerifyLoginUser(Context.User.Identity.Name, txtPassword.Text))
+                {
+                    lblVerifyError.Visible = true;
+                    lblVerifyError.Text = "Incorrect password!";
+                    ScriptManager.RegisterStartupScript(this, GetType(), "emailPopup",
+                        "document.body.style.padding = '0';$('.modal-backdrop').remove();$('#emailModal').modal('show');", true);
+                    return;
+                }
+
+                ScriptManager.RegisterStartupScript(this, GetType(), "emailPopup",
+                        "document.body.style.padding = '0';$('.modal-backdrop').remove();$('#emailModal').modal('hide');", true);
+
                 var stationaries = (List<RequestDTO>)Session["ItemDetails"];
                 //TODO: change back to userName to session["userName"]
                 string userName = Context.User.Identity.Name;
