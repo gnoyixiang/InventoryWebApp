@@ -90,7 +90,7 @@ namespace InventoryWebApp.Controllers
                     {
                         if (qtyToReorderToRequiredLevel - qtyInPendingAndApprovedOrders > item.ReorderQuantity)
                         {
-                            recommendQty = qtyToReorderToRequiredLevel;
+                            recommendQty = qtyToReorderToRequiredLevel - qtyInPendingAndApprovedOrders;
                         }
                         else
                         {
