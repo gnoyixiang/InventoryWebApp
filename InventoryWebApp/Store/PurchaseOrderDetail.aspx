@@ -15,7 +15,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <ul class="breadcrumb">
-        <li><a href="#">Home</a></li>
+        <li><a href="Home">Home</a></li>
         <li><a href="ViewPurchaseOrders">Purchase Orders</a></li>
         <li class="active">Purchase Order Details</li>
     </ul>
@@ -218,8 +218,15 @@
             <div class="row">
                 <div class="col-md-1" style="padding: 5px 15px">Notes:</div>
                 <div class="col-md-11">
-                    <textarea rows="3" style="resize: none; width: 100%;"
-                        class="form-control" runat="server" id="lblNotes" readonly="readonly"></textarea>
+                    <asp:TextBox ID="txtFinalNotes" runat="server" Rows="3" CssClass="control" ReadOnly="true" OnTextChanged="txtFinalNotes_TextChanged" AutoPostBack="true"
+                                            resize="none" TextMode="MultiLine" Width="100%" Text='<%# Bind("Notes") %>' Style="resize: none"></asp:TextBox>
+                    <asp:CustomValidator ID="ValidFinalNotes" runat="server"
+                                        OnServerValidate="ValidNotes_ServerValidate" ValidationGroup="ValidGroupFinalNotes"
+                                        ControlToValidate="txtFinalNotes" ForeColor="Red" ErrorMessage="Maximum 200 characters allowed."
+                                        Display="Dynamic"></asp:CustomValidator>
+                    
+                   <%-- <textarea rows="3" style="resize: none; width: 100%;"
+                        class="form-control" runat="server" id="lblNotes" readonly="readonly"></textarea>--%>
                 </div>
             </div>
             <div class="row">
@@ -229,21 +236,17 @@
                     <asp:Button runat="server" ID="btnCancelOrder" CssClass="btn btn-danger" OnClick="btnCancelOrder_Click"
                         Text="Cancel Order" Width="100%" Style="margin-bottom: 10px"
                         OnClientClick="return confirm('Cancel this order?');" />
-                    <%} %>
-                    <%--<asp:LinkButton ID="linkEdit" runat="server" CssClass="btn btn-warning"
-                    Style="width: 100%; margin-bottom: 10px" OnCommand="linkEdit_Command">Edit Order</asp:LinkButton>--%>
                 </div>
-                <div class="col-lg-3"></div>
+                <%} %>
+                <div class="col-lg-3">
+                    <asp:Button runat="server" ID="btnSaveFinalNotes" Text="Save Notes" CssClass="btn btn-warning" CausesValidation="true" Width="100%"
+                        OnClick="btnSaveFinalNotes_Click" Style="margin-bottom: 10px" Visible="false" />
+                </div>
                 <div class="col-lg-3">
                     <% if (Context.User.IsInRole("Store Supervisor") || Context.User.IsInRole("Store Manager"))
                         { %>
-                    <asp:Button runat="server" ID="btnModalReject" Text="Reject PO" CssClass="btn btn-danger" CausesValidation="true" Width="100%"
+                    <asp:Button runat="server" ID="btnModalReject" Text="Reject PO" CssClass="btn btn-danger" Width="100%"
                         OnClick="btnModal_Click" Style="margin-bottom: 10px" OnClientClick="return confirm('Confirm to reject this PO?');" />
-
-                    <%--<asp:Button runat="server" ID="btnRejectRequest" CssClass="btn btn-danger" OnClick="btnRejectRequest_Click"
-                        Text="Reject PO" Width="100%" Style="margin-bottom: 10px"
-                        OnClientClick="return confirm('Confirm to reject this PO?');" />--%>
-
                     <% } %>
                 </div>
                 <div class="col-lg-3">
@@ -255,13 +258,8 @@
                     <% } %>
                     <% if (Context.User.IsInRole("Store Supervisor") || Context.User.IsInRole("Store Manager"))
                         { %>
-                    <asp:Button runat="server" ID="btnModalApprove" Text="Approve PO" CssClass="btn btn-success" CausesValidation="true" Width="100%"
+                    <asp:Button runat="server" ID="btnModalApprove" Text="Approve PO" CssClass="btn btn-success" Width="100%"
                         OnClick="btnModal_Click" Style="margin-bottom: 10px" OnClientClick="return confirm('Confirm to approve this PO?');" />
-
-                    <%--<asp:Button runat="server" ID="btnApproveRequest" CssClass="btn btn-success" OnClick="btnApproveRequest_Click"
-                        Text="Approve PO" Width="100%" Style="margin-bottom: 10px"
-                        OnClientClick="return confirm('Confirm to approve this PO?');" />--%>
-
                     <% } %>
                 </div>
             </div>

@@ -1,5 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/LayoutWithoutAjax.Master" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="InventoryWebApp.Store.Home" %>
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/LayoutWithoutAjax.Master" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="InventoryWebApp.Dept.Home" %>
+<%@ MasterType VirtualPath="~/LayoutWithoutAjax.Master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <!-- Styles -->
     <style>
@@ -21,6 +21,7 @@
             background-color: #fff;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             border-radius: 5px;
+            min-height:19vh;
         }
 
             .box a {
@@ -190,79 +191,66 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="row top">
-        <!-- # Pending orders -->
+        <!-- # Pending requests -->
         <div class="col-sm-12 col-md-3">
-            <a href="ViewPurchaseOrders?search=5&q=Pending">
+            <a href="DeptRequisitionList?search=Status&q=Pending">
                 <div class="col-xs-12 box">
                     <div class="floatleft">
-                        <h2><i class="fa fa-shopping-cart"></i></h2>
+                        <h2><i class="fa fa-edit"></i></h2>
                     </div>
                     <div>
                         <h2>
-                            <asp:Label ID="lblPendingOrderQty" runat="server"></asp:Label></h2>
+                            <asp:Label ID="lblPendingRequests" runat="server"></asp:Label></h2>
                     </div>
-                    <h5>Pending PO</h5>
+                    <h5>Pending Requests</h5>
                 </div>
             </a>
         </div>
-        <!-- # Pending adjustments -->
+        <!-- # Total completed requests -->
         <div class="col-sm-12 col-md-3">
-            <% if (Context.User.IsInRole("Store Clerk"))
-                { %>
-            <a href="StockAdjustmentList">
-                <%}
-                    else if (Context.User.IsInRole("Store Supervisor"))
-                    { %>
-                <a href="AdjustmentByStoreSupervisor">
-                    <%}
-                        else if (Context.User.IsInRole("Store Manager"))
-                        { %>
-                    <a href="AdjustmentByStoreManager">
-                        <%} %>
-                        <div class="col-xs-12 box">
-                            <div class="floatleft">
-                                <h2><i class="fa fa-edit"></i></h2>
-                            </div>
-                            <div>
-                                <h2>
-                                    <asp:Label ID="lblPendingAdjQty" runat="server"></asp:Label></h2>
-                            </div>
-                            <h5>Pending adjustments</h5>
-                        </div>
-                    </a>
-        </div>
-        <!-- # Items below reorder level -->
-        <div class="col-sm-12 col-md-3">
-            <a href="CreateNewOrder">
+            <a href="DeptRequisitionList?search=Status&q=Completed">
                 <div class="col-xs-12 box">
                     <div class="floatleft">
-                        <h2><i class="fa fa-exclamation-circle"></i></h2>
+                        <h2><i class="fa fa-archive"></i></h2>
                     </div>
                     <div>
                         <h2>
-                            <asp:Label ID="lblItemsBelowReorderLvl" runat="server"></asp:Label></h2>
+                            <asp:Label ID="lblCompletedRequests" runat="server"></asp:Label></h2>
                     </div>
-
-                    <h5>Items below reorder level</h5>
+                    <h5>Completed Requests</h5>
                 </div>
             </a>
         </div>
-        <!-- # Total items in store -->
+        <!-- # Total incomplete requests -->
         <div class="col-sm-12 col-md-3">
-            <a href="StockCardSearch">
+            <a href="DeptRequisitionList?search=Status&q=Incomplete">
                 <div class="col-xs-12 box">
                     <div class="floatleft">
-                        <h2><i class="fa fa-inbox"></i></h2>
+                        <h2><i class="fa fa-envelope"></i></h2>
                     </div>
                     <div>
                         <h2>
-                            <asp:Label ID="lblTotalItemsInStore" runat="server"></asp:Label></h2>
+                            <asp:Label ID="lblIncompleteRequests" runat="server"></asp:Label></h2>
                     </div>
-
-                    <h5>Types of item in store</h5>
+                    <h5>Incomplete Requests</h5>
                 </div>
             </a>
         </div>
+        <!-- # Uncollected Disbursements -->
+        <div class="col-sm-12 col-md-3">
+            <a href="ViewDisbursement">
+                <div class="col-xs-12 box">
+                    <div class="floatleft">
+                        <h2><i class="fa fa-envelope-open"></i></h2>
+                    </div>
+                    <div>
+                        <h2>
+                            <asp:Label ID="lblUncollectedDisbursements" runat="server"></asp:Label></h2>
+                    </div>
+                    <h5>Uncollected Disbursements</h5>
+                </div>
+            </a>
+        </div>        
     </div>
     <div class="row list">
         <div class="col-md-12 disburseDate">
@@ -270,23 +258,27 @@
                 <div class="floatleft">
                     <h4>Next Disbursement Date :
                     <asp:Label runat="server" ID="lblDisbursementDate" CssClass="blink"></asp:Label></h4>
-                </div>
-                <div class="floatright">
-                    <h5>
-                        <a href="DisbursementFormPage">View disbursement form</a></h5>
+                    <span>
+                    Venue:
+                    <asp:Label runat="server" ID="lblCollectionPtName"></asp:Label>
+                    <br />
+                    Time:
+                    <asp:Label runat="server" ID="lblCollectionTime"></asp:Label>
+                    <br />
+                    Rep:
+                    <asp:Label runat="server" ID="lblDeptRepName"></asp:Label>
+                    </span>
                 </div>
             </div>
             <div class="col-md-12" style="padding: 0;">
                 <asp:ListView runat="server" ID="listDisbursements">
                     <LayoutTemplate>
                         <table class="table table-hover">
-                            <thead>
+                            <thead>                                
                                 <tr class="info">
-                                    <th>Department</th>
-                                    <th>Collection Point</th>
-                                    <th style="text-align: right">Collection Time</th>
-                                    <th style="text-align: right">
-                                    Total Item Quantity</t>
+                                    <th style="width:40%;">Item Description</th>
+                                    <th style="text-align:right; width:20%;">Disbursing Quantity</th>
+                                    <th style="text-align:right;">Notes</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -296,10 +288,9 @@
                     </LayoutTemplate>
                     <ItemTemplate>
                         <tr>
-                            <td><%# GetDepartmentName(Eval("DepartmentCode").ToString()) %></td>
-                            <td><%# GetCollectionPtName(Eval("CollectionPointCode").ToString()) %></td>
-                            <td align="right"><%# GetCollectionTimeString(Eval("CollectionPointCode").ToString()) %></td>
-                            <td align="right"><%# GetTotalQty(Eval("DisbursementCode").ToString()) %></td>
+                            <td><%# GetItemDescription(Eval("ItemCode").ToString()) %></td>
+                            <td align="right"><%# Eval("Quantity") %></td>
+                            <td align="right"><%# (string)Eval("Notes") %></td>                          
                         </tr>
                     </ItemTemplate>
                     <EmptyDataTemplate>
@@ -319,9 +310,11 @@
                     <li data-target="#chartCarousel" data-slide-to="1"></li>
                 </ol>
 
-                <div class="carousel-inner">                    
-                    <div class="item" style="min-width: 100%; height: 400px; margin: 0 auto" id="chartDeptCat">
+                <div class="carousel-inner">
+                    <%foreach (string cat in GetCategories()) { %>                    
+                    <div class="item" style="min-width: 100%; height: 400px; margin: 0 auto" id='<%= "chartItemIn" + cat %>'>
                     </div>                    
+                    <%} %>
                     <div class="item active" style="min-width: 100%; height: 400px; margin: 0 auto" id="chartAllCat">
                     </div>                    
                 </div>
@@ -340,39 +333,45 @@
     </div>
 
     <script type="text/javascript">        
-        Highcharts.chart('chartDeptCat', {
+        <%foreach (string cat in GetCategories()) { %>
+        Highcharts.chart('<%= "chartItemIn" + cat %>', {
             chart: {
                 type: 'column'
             },
             title: {
-                text: '<%="Total Request Amount per Department per Category (as of " + DateTime.Now.ToString("d MMM yyyy") + ")"%>'
+                text: '<%="Total Request Quantity per Item in " + cat + " (as fo " + DateTime.Now.ToString("d MMM yyyy") + ")"%>'
             },
             xAxis: {
-                categories: <%= Serialize(GetCategories()) %>
+                categories: <%= Serialize(GetListStationariesDescriptionInCat(cat)) %>
             },
             yAxis: {
                 min: 0,
                 title: {
-                    text: 'Percentage of item quantity requested (%)'
+                    text: 'Item quantity requested (units)'
                 }
             },
             tooltip: {
-                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
-                shared: true
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} units</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
             },
             plotOptions: {
                 column: {
-                    stacking: 'percent'
+                    pointPadding: 0.2,
+                    borderWidth: 0
                 }
             },
             series: [
-                <% foreach(InventoryWebApp.Models.Entities.Department d in GetDepartments()) { %>
                 {
-                    name: '<%= d.DepartmentName %>',
-                    data: <%= Serialize(GetCategoryDeptRequestQtySeries(d.DepartmentCode)) %>
-                },<%}%>
+                    name: '<%= GetDepartmentName(Master.UserDepartmentCode) %>',
+                    data: <%= Serialize(GetRequestQtyPerItemInCatPerDept(cat)) %>
+                },
             ]
         });
+        <%}%>
 
         Highcharts.chart('chartAllCat', {
             chart: {
@@ -407,8 +406,8 @@
             },
             series: [
                 {
-                    name: 'Total Request Quantity',
-                    data: <%= Serialize(GetCategoryTotalRequestQtySeries())  %>
+                    name: '<%= GetDepartmentName(Master.UserDepartmentCode) %>',
+                    data: <%= Serialize(GetCategoryDeptRequestQtySeries(Master.UserDepartmentCode)) %>
                 }
             ]
         });

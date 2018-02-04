@@ -33,7 +33,22 @@ namespace InventoryWebApp.Controllers
         IRetrievalDetailsDAO retrievalDetailsDAO = new RetrievalDetailsDAO();
         ICollectionPointDAO collectionPointDAO = new CollectionPointDAO();
 
-        internal int RecommendReorderQty(string itemCode)
+        public List<Department> ListDepartments()
+        {
+            return departmentDAO.ListDepartment();
+        }
+
+        public List<Request> ListRequests()
+        {
+            return requestDAO.ListAllRequest();
+        }
+
+        public string GetCategoryOfStationery(string itemCode)
+        {
+            return stationeryDAO.GetStationery(itemCode).CategoryCode;
+        }
+
+        public int RecommendReorderQty(string itemCode)
         {
             int recommendQty = 0;
 
@@ -100,7 +115,7 @@ namespace InventoryWebApp.Controllers
             return recommendQty;
         }
 
-        internal List<string> GetTenderYearsFromSupplier(string supplierCode)
+        public List<string> GetTenderYearsFromSupplier(string supplierCode)
         {
             List<string> tenderYears = new List<string>();
             foreach (Tender t in tenderDAO.ListTendersBySupplierCode(supplierCode))
@@ -110,7 +125,7 @@ namespace InventoryWebApp.Controllers
             return tenderYears;
         }
 
-        internal int SumTotalRequiredQuantity(StationeryCatalogue item)
+        public int SumTotalRequiredQuantity(StationeryCatalogue item)
         {
             List<RequestDetail> rdList = ListIncompleteOrProcessingRequestsDetails(item.ItemCode);
 
@@ -128,7 +143,7 @@ namespace InventoryWebApp.Controllers
             return requiredQty;
         }
 
-        internal int SumTotalRemainingQuantity(StationeryCatalogue item)
+        public int SumTotalRemainingQuantity(StationeryCatalogue item)
         {
             List<RequestDetail> rdList = ListIncompleteOrProcessingRequestsDetails(item.ItemCode);
 
@@ -142,12 +157,12 @@ namespace InventoryWebApp.Controllers
             return remainingQty;
         }
 
-        internal Request GetRequest(string requestCode)
+        public Request GetRequest(string requestCode)
         {
             return requestDAO.GetRequest(requestCode);
         }
 
-        internal int SumOfDisbursingQty(List<DisbursementDetail> dDetails)
+        public int SumOfDisbursingQty(List<DisbursementDetail> dDetails)
         {
             int sum = 0;
             foreach (DisbursementDetail dd in dDetails)
@@ -157,7 +172,7 @@ namespace InventoryWebApp.Controllers
             return sum;
         }
 
-        internal List<DisbursementDetail> ListDisbursingDDetails(Request request, StationeryCatalogue item)
+        public List<DisbursementDetail> ListDisbursingDDetails(Request request, StationeryCatalogue item)
         {
             List<DisbursementDetail> returnList = new List<DisbursementDetail>();
             foreach (DisbursementDetail dDetails in dDetailsDAO.SearchDDByRequestAndItemCode(request, item))
@@ -171,7 +186,7 @@ namespace InventoryWebApp.Controllers
             return returnList;
         }
 
-        internal List<RequestDetail> ListIncompleteOrProcessingRequestsDetails(string itemCode)
+        public List<RequestDetail> ListIncompleteOrProcessingRequestsDetails(string itemCode)
         {
             List<RequestDetail> returnList = new List<RequestDetail>();
             List<RequestDetail> rdList = GetRequestDetailsByItemCode(itemCode);
@@ -190,13 +205,13 @@ namespace InventoryWebApp.Controllers
 
         }
 
-        internal List<StationeryCatalogue> ListStationeries()
+        public List<StationeryCatalogue> ListStationeries()
         {
             return stationeryDAO.ListAllStationery();
         }
 
 
-        internal List<RequestDetail> GetAllRequestDetails()
+        public List<RequestDetail> GetAllRequestDetails()
         {
             List<RequestDetail> rdList = new List<RequestDetail>();
             foreach (Request r in requestDAO.ListAllRequest())
@@ -206,7 +221,7 @@ namespace InventoryWebApp.Controllers
             return rdList;
         }
 
-        internal List<RequestDetail> GetRequestDetailsByItemCode(string itemCode)
+        public List<RequestDetail> GetRequestDetailsByItemCode(string itemCode)
         {
             List<RequestDetail> rdList = new List<RequestDetail>();
             foreach (Request r in requestDAO.ListAllRequest())
@@ -222,7 +237,7 @@ namespace InventoryWebApp.Controllers
             return rdList;
         }
 
-        internal int SumOfItemQtyInPendingAndApprovedOrders(string itemCode)
+        public int SumOfItemQtyInPendingAndApprovedOrders(string itemCode)
         {
             int sum = 0;
             foreach (PODetail pod in ListPendingAndApprovedOrderDetails(itemCode))
@@ -232,7 +247,7 @@ namespace InventoryWebApp.Controllers
             return sum;
         }
 
-        internal List<PODetail> ListPendingAndApprovedOrderDetails(string itemCode)
+        public List<PODetail> ListPendingAndApprovedOrderDetails(string itemCode)
         {
             List<PODetail> podList = new List<PODetail>();
             foreach (PODetail pod in poDetailsDAO.ListPODetailsByItemCode(itemCode))
@@ -246,17 +261,17 @@ namespace InventoryWebApp.Controllers
             return podList;
         }
 
-        internal PurchaseOrder GetPurchaseOrderByCode(string poNum)
+        public PurchaseOrder GetPurchaseOrderByCode(string poNum)
         {
             return purchaseOrderDAO.GetPurchaseOrder(poNum);
         }
 
-        internal int? GetStationeryReorderQty(string itemCode)
+        public int? GetStationeryReorderQty(string itemCode)
         {
             return GetStationeryByItemCode(itemCode).ReorderQuantity;
         }
 
-        internal int CancelPurchaseOrder(PurchaseOrder po)
+        public int CancelPurchaseOrder(PurchaseOrder po)
         {
             po.Status = "CANCELLED";
 
@@ -264,7 +279,7 @@ namespace InventoryWebApp.Controllers
 
         }
 
-        //internal int EditingPurchaseOrder(PurchaseOrder po)
+        //public int EditingPurchaseOrder(PurchaseOrder po)
         //{
         //    po.Status = "EDITING";
         //    po.LastUpdatedBy = "yixiang@ssis.edu.sg";
@@ -272,7 +287,7 @@ namespace InventoryWebApp.Controllers
         //    return purchaseOrderDAO.UpdatePurchaseOrder(po);
         //}
 
-        //internal int FinishEditingPurchaseOrder(PurchaseOrder po)
+        //public int FinishEditingPurchaseOrder(PurchaseOrder po)
         //{
         //    po.Status = "PENDING";
         //    po.LastUpdatedBy = "yixiang@ssis.edu.sg";
@@ -280,7 +295,7 @@ namespace InventoryWebApp.Controllers
         //    return purchaseOrderDAO.UpdatePurchaseOrder(po);
         //}
 
-        internal int AckPurchaseOrder(PurchaseOrder po, List<PODetail> poDetails, string username)
+        public int AckPurchaseOrder(PurchaseOrder po, List<PODetail> poDetails, string username)
         {
             Dictionary<StationeryCatalogue, KeyValuePair<int?, decimal?>> newStationeryStockAndPrice
                 = new Dictionary<StationeryCatalogue, KeyValuePair<int?, decimal?>>();
@@ -327,12 +342,12 @@ namespace InventoryWebApp.Controllers
             return purchaseOrderDAO.UpdatePurchaseOrder(po);
         }
 
-        internal string GetItemDescription(string itemCode)
+        public string GetItemDescription(string itemCode)
         {
             return stationeryDAO.GetStationery(itemCode).Description;
         }
 
-        internal int UpdatePODetail(PODetail poDetail)
+        public int UpdatePODetail(PODetail poDetail)
         {
             return poDetailsDAO.UpdatePODetail(poDetail);
         }
@@ -341,12 +356,12 @@ namespace InventoryWebApp.Controllers
 
 
         //start methods for CreatePurchaseOrder.aspx
-        internal List<StationeryCatalogue> GetStationeriesBelowReorderLevel()
+        public List<StationeryCatalogue> GetStationeriesBelowReorderLevel()
         {
             return stationeryDAO.GetStationeriesBelowReorderLevel();
         }
 
-        internal List<PurchaseOrder> CreatePurchaseOrders(List<PurchaseItem> purchaseItems, string username)
+        public List<PurchaseOrder> CreatePurchaseOrders(List<PurchaseItem> purchaseItems, string username)
         {
             int rows = 0;
             var purchaseOrders = new List<PurchaseOrder>();
@@ -401,22 +416,22 @@ namespace InventoryWebApp.Controllers
             return purchaseOrders;
         }
         
-        internal bool IsPurchaseOrderEditable(PurchaseOrder po)
+        public bool IsPurchaseOrderEditable(PurchaseOrder po)
         {
             if (po.Status.ToUpper() == "PENDING") return true;
             return false;
         }
 
-        internal List<PODetail> GetPODetailsByPOCode(string purchaseOrderCode)
+        public List<PODetail> GetPODetailsByPOCode(string purchaseOrderCode)
         {
             return poDetailsDAO.ListPODetailsByPOCode(purchaseOrderCode);
         }
 
-        internal decimal? GetSupplierItemPrice(string supplierCode, string itemCode)
+        public decimal? GetSupplierItemPrice(string supplierCode, string itemCode)
         {
             return supplierDetailsDAO.GetSupplierDetail(supplierCode, itemCode).Price;
         }
-        internal List<String> GetCategories()
+        public List<String> GetCategories()
         {
             List<String> listCat = new List<String>();
             foreach (Category c in catagoryDAO.ListAllCategory())
@@ -426,18 +441,18 @@ namespace InventoryWebApp.Controllers
             return listCat;
         }
 
-        internal StationeryCatalogue GetStationeryByDescription(String description)
+        public StationeryCatalogue GetStationeryByDescription(String description)
         {
             return stationeryDAO.SearchByDescription(description).FirstOrDefault<StationeryCatalogue>();
 
         }
 
-        internal List<String> GetProductListByCat(string categoryCode)
+        public List<String> GetProductListByCat(string categoryCode)
         {
             return stationeryDAO.SearchByCategory(categoryCode).Select(s => s.Description).ToList<String>();
         }
 
-        internal StationeryCatalogue GetStationeryByItemCode(string itemCode)
+        public StationeryCatalogue GetStationeryByItemCode(string itemCode)
         {
             return stationeryDAO.GetStationery(itemCode);
         }
@@ -446,48 +461,50 @@ namespace InventoryWebApp.Controllers
 
 
         //start methods for ViewPurchaseOrder.aspx
-        internal string GetEmployeeName(string username)
+        public string GetEmployeeName(string username)
         {
             return employeeDAO.GetEmployeeName(username);
         }
 
-        internal string GetSupplierName(string supplierCode)
+        public string GetSupplierName(string supplierCode)
         {
             return GetSupplier(supplierCode).SupplierName;
         }
 
-        internal Supplier GetSupplier(string supplierCode)
+        public Supplier GetSupplier(string supplierCode)
         {
             return supplierDAO.GetSupplier(supplierCode);
         }
 
+        public int UpdatePurchaseOrder(PurchaseOrder po)
+        {
+            return purchaseOrderDAO.UpdatePurchaseOrder(po);
+        }
 
-
-        internal List<PurchaseOrder> GetAllPurchaseOrders()
+        public List<PurchaseOrder> GetAllPurchaseOrders()
         {
             return purchaseOrderDAO.ListAllPurchaseOrders();
         }
 
-        internal List<PurchaseOrder> GetPurchaseOrdersByDateCreated(DateTime startDate, DateTime endDate)
+        public List<PurchaseOrder> GetPurchaseOrdersByDateCreated(DateTime startDate, DateTime endDate)
         {
             return purchaseOrderDAO.ListPurchaseOrdersByDateCreated(startDate, endDate);
         }
 
-        internal List<PurchaseOrder> GetPurchaseOrdersByDateCreated(DateTime date)
+        public List<PurchaseOrder> GetPurchaseOrdersByDateCreated(DateTime date)
         {
             return purchaseOrderDAO.ListPurchaseOrdersByDateCreated(date);
         }
 
-        internal int ApprovePurchaseOrder(PurchaseOrder po, string username)
+        public int ApprovePurchaseOrder(PurchaseOrder po, string username)
         {
             po.Status = "APPROVED";
             po.ApprovedBy = username;
             return purchaseOrderDAO.UpdatePurchaseOrder(po);
         }
 
-        internal List<PurchaseOrder> GetPurchaseOrdersBySearchText(int searchIndex, string searchText)
+        public List<PurchaseOrder> GetPurchaseOrdersBySearchText(int searchIndex, string searchText)
         {
-
             using (EntityModel em = new EntityModel())
             {
                 switch (searchIndex)

@@ -9,7 +9,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <ul class="breadcrumb">
-        <li><a href="#">Home</a></li>
+        <li><a href="Home">Home</a></li>
         <li class="active">Trend Analysis</li>
     </ul>
     <div class="container-fluid" id="mainContainer">

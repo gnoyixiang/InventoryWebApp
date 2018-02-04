@@ -261,6 +261,7 @@
     <Content Include="Content\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\font-awesome-4.7.0\HELP-US-OUT.txt" />
     <Content Include="Dept\CreateRequest.aspx" />
+    <Content Include="Dept\Home.aspx" />
     <Content Include="Dept\ItemDetails.aspx" />
     <Content Include="Dept\DeptRequisitionList.aspx" />
     <Content Include="Dept\RequisitionDetails.aspx" />
@@ -436,6 +437,13 @@
     </Compile>
     <Compile Include="Dept\CreateRequest.aspx.designer.cs">
       <DependentUpon>CreateRequest.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dept\Home.aspx.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dept\Home.aspx.designer.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
     </Compile>
     <Compile Include="Dept\ItemDetails.aspx.cs">
       <DependentUpon>ItemDetails.aspx</DependentUpon>

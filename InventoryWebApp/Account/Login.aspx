@@ -4,15 +4,15 @@
 <asp:Content runat="server" ID="Header" ContentPlaceHolderID="head">
     <style>
         .login-form {
-            padding: 0 20% 0 10%;
+            padding: 0 30% 0 10%;
             min-height: 80vh;
-            margin-top: 10vh;
+            margin-top: 15vh;
         }
 
         #loginform {
             color: black;
             background-color: rgba(244, 242, 236, 0.98);
-            padding: 40px 60px;
+            padding: 20px 20px 0 30px ;
             border-radius: 10px;
         }
 

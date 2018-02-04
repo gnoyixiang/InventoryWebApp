@@ -21,7 +21,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <ul class="breadcrumb">
-        <li><a href="#">Home</a></li>
+        <li><a href="Home">Home</a></li>
         <li class="active">Stationery Catalogue</li>
     </ul>
     <div class="container-fluid" id="mainContainer">
@@ -31,7 +31,7 @@
         </div>
     </div>    
     <div class="row">
-        <div class="col-xs-12 col-md-2">
+        <div class="col-xs-12 col-md-3">
             <asp:DropDownList ID="ddlSearchBy" runat="server"  CssClass="form-control">
                 <asp:ListItem>-Choose Category-</asp:ListItem>
                 <asp:ListItem>Description</asp:ListItem>
@@ -44,8 +44,8 @@
             <asp:RequiredFieldValidator ID="tbxSearchRequiredFieldValidator1" Display="Dynamic" runat="server" ErrorMessage="Empty search information" ForeColor="Red" ControlToValidate="txbkeyword"></asp:RequiredFieldValidator>
 
         </div>
-        <div class="col-xs-12 col-md-3">
-        <asp:Button ID="btnSearch" runat="server" Text="Search By" OnClick="btnSearch_Click" Class="btn btn-primary"  />
+        <div class="col-xs-12 col-md-2">
+        <asp:Button ID="btnSearch" runat="server" Text="Search By" OnClick="btnSearch_Click" Class="btn btn-primary" Width="100%" />
             <asp:Label ID="lblSearch" runat="server" ForeColor="Red" ></asp:Label>
         </div>
     </div>

@@ -11,7 +11,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <ul class="breadcrumb">
-        <li><a href="#">Home</a></li>
+        <li><a href="Home">Home</a></li>
         <li class="active">Purchase Orders</li>
     </ul>
     <div class="container-fluid" id="mainContainer">
@@ -28,12 +28,12 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-2">
+            <div class="col-lg-3">
                 <asp:DropDownList runat="server" ID="ddlSearch" CssClass="form-control" Style="margin: 10px 0;"
                     OnSelectedIndexChanged="ddlSearch_SelectedIndexChanged" AutoPostBack="true">
                 </asp:DropDownList>
             </div>
-            <div class="col-lg-8">
+            <div class="col-lg-7">
                 <asp:TextBox runat="server" placeholder="Search" CssClass="form-control" ID="txtSearch"
                     Style="margin: 10px 0;" Visible="true">
                 </asp:TextBox>

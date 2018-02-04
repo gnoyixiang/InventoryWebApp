@@ -11,7 +11,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <ul class="breadcrumb">
-        <li><a href="#">Home</a></li>
+        <li><a href="Home">Home</a></li>
         <li><a href="StockAdjustmentList">Stock Adjustment</a></li>
         <li class="active">Edit Stock Adjustment</li>
     </ul>

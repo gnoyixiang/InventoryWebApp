@@ -7,46 +7,46 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace InventoryWebApp.Store {
+namespace InventoryWebApp.Dept {
     
     
     public partial class Home {
         
         /// <summary>
-        /// lblPendingOrderQty control.
+        /// lblPendingRequests control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPendingOrderQty;
+        protected global::System.Web.UI.WebControls.Label lblPendingRequests;
         
         /// <summary>
-        /// lblPendingAdjQty control.
+        /// lblCompletedRequests control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPendingAdjQty;
+        protected global::System.Web.UI.WebControls.Label lblCompletedRequests;
         
         /// <summary>
-        /// lblItemsBelowReorderLvl control.
+        /// lblIncompleteRequests control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblItemsBelowReorderLvl;
+        protected global::System.Web.UI.WebControls.Label lblIncompleteRequests;
         
         /// <summary>
-        /// lblTotalItemsInStore control.
+        /// lblUncollectedDisbursements control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTotalItemsInStore;
+        protected global::System.Web.UI.WebControls.Label lblUncollectedDisbursements;
         
         /// <summary>
         /// lblDisbursementDate control.
@@ -58,6 +58,33 @@ namespace InventoryWebApp.Store {
         protected global::System.Web.UI.WebControls.Label lblDisbursementDate;
         
         /// <summary>
+        /// lblCollectionPtName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCollectionPtName;
+        
+        /// <summary>
+        /// lblCollectionTime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCollectionTime;
+        
+        /// <summary>
+        /// lblDeptRepName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDeptRepName;
+        
+        /// <summary>
         /// listDisbursements control.
         /// </summary>
         /// <remarks>
@@ -65,5 +92,17 @@ namespace InventoryWebApp.Store {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ListView listDisbursements;
+        
+        /// <summary>
+        /// Master property.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated property.
+        /// </remarks>
+        public new InventoryWebApp.Layout Master {
+            get {
+                return ((InventoryWebApp.Layout)(base.Master));
+            }
+        }
     }
 }

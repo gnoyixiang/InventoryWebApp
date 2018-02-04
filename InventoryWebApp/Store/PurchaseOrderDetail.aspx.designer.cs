@@ -157,13 +157,22 @@ namespace InventoryWebApp.Store {
         protected global::System.Web.UI.WebControls.Label lblReceivedDate;
         
         /// <summary>
-        /// lblNotes control.
+        /// txtFinalNotes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTextArea lblNotes;
+        protected global::System.Web.UI.WebControls.TextBox txtFinalNotes;
+        
+        /// <summary>
+        /// ValidFinalNotes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator ValidFinalNotes;
         
         /// <summary>
         /// btnCancelOrder control.
@@ -173,6 +182,15 @@ namespace InventoryWebApp.Store {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCancelOrder;
+        
+        /// <summary>
+        /// btnSaveFinalNotes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSaveFinalNotes;
         
         /// <summary>
         /// btnModalReject control.

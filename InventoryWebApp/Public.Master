@@ -30,6 +30,10 @@
             padding-top:30vh;
         }
 
+        .logo div{
+            padding-top:30px;
+        }
+
         .login-row{
             min-height:100vh;
             min-width:100%;
@@ -38,6 +42,8 @@
         .fillheight{
             min-height:100vh;
         }
+        
+
         .ml12 {
   font-weight: 700;
   font-size: 1.8em;
@@ -54,7 +60,8 @@
 <body>
     <form runat="server">
         <div class="login-row" >
-            <div class="col-md-5 logo fillheight">
+            <div class="col-md-6 logo fillheight">
+                <div>
                 <i class="fa fa-cubes fa-5x" aria-hidden="true"></i>
                 <br />
                 <br />
@@ -64,10 +71,10 @@
                 <h2 class="ml12">
                     Inventory System                         
                 </h2>
-                
+                </div>
             </div>
 
-            <div class="col-md-7 fillheight">
+            <div class="col-md-6 fillheight">
                 <asp:ContentPlaceHolder ID="MainContent" runat="server">
                 </asp:ContentPlaceHolder>
             </div>

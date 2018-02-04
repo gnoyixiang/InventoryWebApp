@@ -37,7 +37,7 @@ namespace InventoryWebApp.Store
                 if (poDetails != null)
                 {
                     BindData();
-                    
+                    txtFinalNotes.Text = po.Notes;
                 }
                 else
                 {
@@ -104,8 +104,7 @@ namespace InventoryWebApp.Store
             lblReceivedDate.Text = po.DateReceived == null ? "Not Recieved" : String.Format("{0:dd MMM yyyy}", po.DateReceived);
             lblOrderBy.Text = scController.GetEmployeeName(po.UserName);
             lblApprovedBy.Text = scController.GetEmployeeName(po.ApprovedBy);
-            lblReceivedBy.Text = scController.GetEmployeeName(po.ReceivedBy);
-            lblNotes.Value = po.Notes;
+            lblReceivedBy.Text = scController.GetEmployeeName(po.ReceivedBy);            
 
             Label lblGrandTotal = (Label)listDetails.FindControl("lblGrandTotal");
             lblGrandTotal.Text = GetGrandTotal();
@@ -118,6 +117,7 @@ namespace InventoryWebApp.Store
                     btnCancelOrder.Visible = true;
                     btnModalApprove.Visible = true;
                     btnModalReject.Visible = true;
+                    txtFinalNotes.ReadOnly = false;
                     break;
                 case "APPROVED":
                     lblStatus.ForeColor = System.Drawing.Color.Blue;
@@ -125,6 +125,8 @@ namespace InventoryWebApp.Store
                     btnCancelOrder.Visible = true;
                     btnModalApprove.Visible = false;
                     btnModalReject.Visible = false;
+                    txtFinalNotes.ReadOnly = true;
+                    btnSaveFinalNotes.Visible = false;
                     break;
                 case "RECEIVED":
                     lblStatus.ForeColor = System.Drawing.Color.Green;
@@ -132,6 +134,8 @@ namespace InventoryWebApp.Store
                     btnCancelOrder.Visible = false;
                     btnModalApprove.Visible = false;
                     btnModalReject.Visible = false;
+                    txtFinalNotes.ReadOnly = true;
+                    btnSaveFinalNotes.Visible = false;
                     break;
                 case "REJECTED":
                     lblStatus.ForeColor = System.Drawing.Color.Red;
@@ -139,6 +143,8 @@ namespace InventoryWebApp.Store
                     btnCancelOrder.Visible = false;
                     btnModalApprove.Visible = false;
                     btnModalReject.Visible = false;
+                    txtFinalNotes.ReadOnly = true;
+                    btnSaveFinalNotes.Visible = false;
                     break;
                 case "CANCELLED":
                     lblStatus.ForeColor = System.Drawing.Color.OrangeRed;
@@ -146,6 +152,8 @@ namespace InventoryWebApp.Store
                     btnCancelOrder.Visible = false;
                     btnModalApprove.Visible = false;
                     btnModalReject.Visible = false;
+                    txtFinalNotes.ReadOnly = true;
+                    btnSaveFinalNotes.Visible = false;
                     break;
             }
 
@@ -436,6 +444,22 @@ namespace InventoryWebApp.Store
                     return false;
             }
         }
+        
+        protected void btnSaveFinalNotes_Click(object sender, EventArgs e)
+        {
+            string finalNotes = txtFinalNotes.Text;
+            po.Notes = finalNotes;
+            scController.UpdatePurchaseOrder(po);
+            btnSaveFinalNotes.Visible = false;
+            po = scController.GetPurchaseOrderByCode(poNum);
+        }
 
+        protected void txtFinalNotes_TextChanged(object sender, EventArgs e)
+        {
+            if (IsEditable())
+            {
+                btnSaveFinalNotes.Visible = true;
+            }
+        }
     }
 }

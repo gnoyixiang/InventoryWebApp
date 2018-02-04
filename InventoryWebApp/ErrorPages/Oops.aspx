@@ -3,23 +3,28 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
         .errorform {
-            padding-top: 200px;
-            padding-left: 50px;
+            padding-top: 30vh;
+            padding-right:20px;
         }
-
-            .errorform p {
-                color: white;
-            }
-
-            .errorform a {
-                color: gainsboro;
-                text-decoration: underline;
-            }
+        .errorform div{
+            padding-left:20px;
+            border-left:solid 2px #ffffff36;
+            height:40vh;
+            padding-top:10px;
+        }
+        .errorform p{
+            color:white
+        }
+        .errorform a{
+            color:gainsboro;
+            text-decoration:underline;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="errorform">
-        <h2>An Error Has Occurred!</h2>
+        <div>
+        <h2>Oops! An Error Has Occurred!</h2>
         <p>
             An unexpected error has occurred on our website.
         </p>
@@ -27,6 +32,7 @@
             If you have any questions, please contact the site administrator.
         </p>
         <a href="../Default.aspx">Return to Home</a>
+            </div>
     </div>
 
 </asp:Content>

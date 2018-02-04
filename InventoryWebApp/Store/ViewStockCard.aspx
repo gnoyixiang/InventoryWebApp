@@ -26,7 +26,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <ul class="breadcrumb">
-        <li><a href="#">Home</a></li>
+        <li><a href="Home">Home</a></li>
         <li><a href="StockCardSearch.aspx">Search Stock Card</a></li>
         <li class="active">View StockCard</li>
     </ul>
