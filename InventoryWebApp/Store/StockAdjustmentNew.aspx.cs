@@ -8,6 +8,7 @@ using InventoryWebApp.Models.Entities;
 using System.Text;
 using InventoryWebApp.Controllers;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
 
 namespace InventoryWebApp.Store
 {
@@ -122,6 +123,7 @@ namespace InventoryWebApp.Store
 
                 //...handled by PrefillAdjustment:ItemCode,AdjustmentQuant,Reason
                 Adjustment a = sClerkCtrl.PrefillAdjustment(ddlItemChoice.SelectedValue, QuantUpdate, tbxReason.Text);
+                a.UserName = Context.User.Identity.GetUserName();
 
                 sClerkCtrl.SubmitAdjustment(a);
 
@@ -155,6 +157,7 @@ namespace InventoryWebApp.Store
 
                 //...handled by PrefillAdjustment:ItemCode,AdjustmentQuant,Reason
                 Adjustment a = sClerkCtrl.PrefillAdjustment(ddlItemChoice.SelectedValue, QuantUpdate, tbxReason.Text);
+                a.UserName = Context.User.Identity.GetUserName();
 
                 int submitResult = sClerkCtrl.SaveAdjustment(a);
 

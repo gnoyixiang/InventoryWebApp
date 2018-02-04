@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using InventoryWebApp.Models.Entities;
 using InventoryWebApp.Controllers;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
 
 namespace InventoryWebApp.Store
 {
@@ -157,6 +158,7 @@ namespace InventoryWebApp.Store
             //Adjustment a = sClerkCtrl.PrefillAdjustment(adjRetrieved, QuantUpdate, tbxReason.Text);
 
             adjRetrieved.Status = "pending";
+            adjRetrieved.UserName = Context.User.Identity.GetUserName();
             int submitResult = sClerkCtrl.UpdateAdjustment(adjRetrieved, QuantUpdate, tbxReason.Text);
 
             //send email
@@ -190,6 +192,7 @@ namespace InventoryWebApp.Store
             //Adjustment a = sClerkCtrl.PrefillAdjustment(adjRetrieved, QuantUpdate, tbxReason.Text);
 
             //a.Status = "unsubmitted";
+            adjRetrieved.UserName = Context.User.Identity.GetUserName();
             int submitResult = sClerkCtrl.UpdateAdjustment(adjRetrieved, QuantUpdate, tbxReason.Text);
 
             Response.Redirect("/Store/StockAdjustmentList.aspx");
