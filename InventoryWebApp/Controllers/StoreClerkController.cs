@@ -264,23 +264,23 @@ namespace InventoryWebApp.Controllers
 
         }
 
-        internal int EditingPurchaseOrder(PurchaseOrder po)
-        {
-            po.Status = "EDITING";
-            po.LastUpdatedBy = "yixiang@ssis.edu.sg";
-            po.DateLastUpdated = DateTime.Now;
-            return purchaseOrderDAO.UpdatePurchaseOrder(po);
-        }
+        //internal int EditingPurchaseOrder(PurchaseOrder po)
+        //{
+        //    po.Status = "EDITING";
+        //    po.LastUpdatedBy = "yixiang@ssis.edu.sg";
+        //    po.DateLastUpdated = DateTime.Now;
+        //    return purchaseOrderDAO.UpdatePurchaseOrder(po);
+        //}
 
-        internal int FinishEditingPurchaseOrder(PurchaseOrder po)
-        {
-            po.Status = "PENDING";
-            po.LastUpdatedBy = "yixiang@ssis.edu.sg";
-            po.DateLastUpdated = DateTime.Now;
-            return purchaseOrderDAO.UpdatePurchaseOrder(po);
-        }
+        //internal int FinishEditingPurchaseOrder(PurchaseOrder po)
+        //{
+        //    po.Status = "PENDING";
+        //    po.LastUpdatedBy = "yixiang@ssis.edu.sg";
+        //    po.DateLastUpdated = DateTime.Now;
+        //    return purchaseOrderDAO.UpdatePurchaseOrder(po);
+        //}
 
-        internal int AckPurchaseOrder(PurchaseOrder po, List<PODetail> poDetails)
+        internal int AckPurchaseOrder(PurchaseOrder po, List<PODetail> poDetails, string username)
         {
             Dictionary<StationeryCatalogue, KeyValuePair<int?, decimal?>> newStationeryStockAndPrice
                 = new Dictionary<StationeryCatalogue, KeyValuePair<int?, decimal?>>();
@@ -322,7 +322,7 @@ namespace InventoryWebApp.Controllers
             }
 
             po.DateReceived = DateTime.Now;
-            po.ReceivedBy = "yixiang@ssis.edu.sg";
+            po.ReceivedBy = username;
             po.Status = "RECEIVED";
             return purchaseOrderDAO.UpdatePurchaseOrder(po);
         }
@@ -374,7 +374,7 @@ namespace InventoryWebApp.Controllers
                     //po.Notes = txtNotes.Value;
                     po.Status = "PENDING";
                     po.SupplierCode = pi.SupplierCode;
-                    po.UserName = "yixiang@ssis.edu.sg";
+                    po.UserName = username;
                     purchaseOrder = po;
                     purchaseOrders.Add(po);
                 }
@@ -400,12 +400,7 @@ namespace InventoryWebApp.Controllers
             }
             return purchaseOrders;
         }
-
-        private void SendEmail(List<PurchaseOrder> purchaseOrders)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         internal bool IsPurchaseOrderEditable(PurchaseOrder po)
         {
             if (po.Status.ToUpper() == "PENDING") return true;
@@ -483,9 +478,10 @@ namespace InventoryWebApp.Controllers
             return purchaseOrderDAO.ListPurchaseOrdersByDateCreated(date);
         }
 
-        internal int ApprovePurchaseOrder(PurchaseOrder po)
+        internal int ApprovePurchaseOrder(PurchaseOrder po, string username)
         {
             po.Status = "APPROVED";
+            po.ApprovedBy = username;
             return purchaseOrderDAO.UpdatePurchaseOrder(po);
         }
 

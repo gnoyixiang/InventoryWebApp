@@ -16,10 +16,7 @@ namespace InventoryWebApp.Store
     {
         StoreSupervisorController storeSpController = new StoreSupervisorController();
         EmailController emailController = new EmailController();
-
-        Object senderForAdj = null;
-        GridViewCommandEventArgs gvCommandEvent = null;
-
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Context.User.IsInRole("Store Supervisor"))
@@ -81,23 +78,51 @@ namespace InventoryWebApp.Store
 
         protected void gvPendingAdjutment_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            //if(senderForAdj == null || gvCommandEvent == null)
-            //{
-            //    senderForAdj = sender;
-            //    gvCommandEvent = e;
-            //    txtPassword.Text = "";
-            //    lblVerifyError.Visible = false;
-            //    ScriptManager.RegisterStartupScript(this, GetType(), "emailPopup", "$('#emailModal').modal('show');", true);
-            //}            
+                Session["senderForAdj"] = sender;
+                Session["gvCommandEvent"] = e;
+                txtPassword.Text = "";
+                lblVerifyError.Visible = false;
+                ScriptManager.RegisterStartupScript(this, GetType(), "emailPopup", "$('#emailModal').modal('show');", true);
+                       
+        }
+
+        private bool VerifyLoginUser(string username, string password)
+        {
+            // Validate the user password
+            var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            var signinManager = Context.GetOwinContext().GetUserManager<ApplicationSignInManager>();
+
+            // This doen't count login failures towards account lockout
+            // To enable password failures to trigger lockout, change to shouldLockout: true
+            var result = signinManager.PasswordSignIn(username, password, isPersistent: false, shouldLockout: false);
+
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    return true;
+                case SignInStatus.LockedOut:
+                    return false;
+                case SignInStatus.RequiresVerification:
+                    return false;
+                case SignInStatus.Failure:
+                default:
+                    return false;
+            }
+        }
+
+        private void PerformRowCommand()
+        {
+            object sender = Session["senderForAdj"];
+            GridViewCommandEventArgs e = (GridViewCommandEventArgs)Session["gvCommandEvent"];
 
             try
-            {  
+            {
                 if (e.CommandName.Equals("Approve"))
                 {
 
                     Control ctl = e.CommandSource as Control;
                     GridViewRow currentRow = ctl.NamingContainer as GridViewRow;
-                   
+
                     object id = gvPendingAdjutment.DataKeys[currentRow.RowIndex].Value as object;
                     string adjustmentCode = null;
                     if (id != null)
@@ -133,8 +158,8 @@ namespace InventoryWebApp.Store
                     lblErrorMsg.Text = "";
 
                     //send email
-                    string fromEmail = Util.EMAIL;
-                    string password = Util.PASSWORD;
+                    string fromEmail = emailController.GetUserEmail(Context.User.Identity.Name) ;
+                    string password = txtPassword.Text;
                     string username = Context.User.Identity.Name;
                     try
                     {
@@ -165,8 +190,8 @@ namespace InventoryWebApp.Store
                     string rejectstatus = "Reject";
 
 
-                   //This method will use when we login to application and this method can acess who logged in and can get the user
-                     var user = HttpContext.Current.GetOwinContext().Get<ApplicationUserManager>().FindById(User.Identity.GetUserName());
+                    //This method will use when we login to application and this method can acess who logged in and can get the user
+                    var user = HttpContext.Current.GetOwinContext().Get<ApplicationUserManager>().FindById(User.Identity.GetUserName());
                     //this is getting username from user.And Use this to get user name instead hardcode value.
                     //string userName =  user.UserName;
                     //Adjustment adOFReject = new Adjustment();
@@ -189,8 +214,8 @@ namespace InventoryWebApp.Store
                     lblErrorMsg.Text = "Adjustment request rejected";
 
                     //send email
-                    string fromEmail = Util.EMAIL;
-                    string password = Util.PASSWORD;
+                    string fromEmail = emailController.GetUserEmail(Context.User.Identity.Name);
+                    string password = txtPassword.Text;
                     string username = Context.User.Identity.Name;
                     try
                     {
@@ -210,6 +235,34 @@ namespace InventoryWebApp.Store
                 lblSuccessMsg.Text = "";
                 lblErrorMsg.Text = ex.Message;
             }
+        }
+
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {            
+            if (String.IsNullOrEmpty(txtPassword.Text))
+            {
+                lblVerifyError.Visible = true;
+                lblVerifyError.Text = "Password field cannot be empty";
+                ScriptManager.RegisterStartupScript(this, GetType(), "emailPopup",
+                    "document.body.style.padding = '0';$('.modal-backdrop').remove();$('#emailModal').modal('show');", true);
+                return;
+            }
+
+
+            if (!VerifyLoginUser(Context.User.Identity.Name, txtPassword.Text))
+            {
+                lblVerifyError.Visible = true;
+                lblVerifyError.Text = "Incorrect password!";
+                ScriptManager.RegisterStartupScript(this, GetType(), "emailPopup",
+                    "document.body.style.padding = '0';$('.modal-backdrop').remove();$('#emailModal').modal('show');", true);
+                return;
+            }
+
+            ScriptManager.RegisterStartupScript(this, GetType(), "emailPopup",
+                    "document.body.style.padding = '0';$('.modal-backdrop').remove();$('#emailModal').modal('hide');", true);
+
+            PerformRowCommand();
+
         }
     }
 }

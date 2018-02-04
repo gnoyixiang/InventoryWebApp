@@ -52,12 +52,23 @@ namespace InventoryWebApp.Dept
         }
 
         protected void btnModal_Click(object sender, EventArgs e)
-        {
-            if (IsValid)
+        {                
+            try
             {
-                txtPassword.Text = "";
-                lblVerifyError.Visible = false;
-                ScriptManager.RegisterStartupScript(this, GetType(), "emailPopup", "$('#emailModal').modal('show');", true);
+                var stationaries = (List<RequestDTO>)Session["ItemDetails"];
+                if (stationaries.Count != 0) {
+                    if (IsValid)
+                    {
+                        txtPassword.Text = "";
+                        lblVerifyError.Visible = false;
+                        ScriptManager.RegisterStartupScript(this, GetType(), "emailPopup", "$('#emailModal').modal('show');", true);
+                    }
+                }
+            }
+            catch (NullReferenceException ex)
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(),
+                           "alertMessage", "alert('No items have been added to request!');", true);
             }
         }
 
@@ -119,19 +130,19 @@ namespace InventoryWebApp.Dept
                 string requestcode = ec.AddRequest(userName, deptCode, stationaries);
 
                 //send email
-                string fromEmail = Util.EMAIL;
-                string password = Util.PASSWORD;
+                string fromEmail = emailController.GetUserEmail(Context.User.Identity.Name);
+                string password = txtPassword.Text;
                 string username = Context.User.Identity.Name;
                 try
                 {
                     emailController.NewRequestSendEmail(fromEmail, password, username, requestcode);
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
-                           "alertMessage", "alert('Request have been successfully created! Email notifications have been sent successfully!')", true);
+                           "alertMessage", "alert('Request have been successfully created! Email notifications have been sent successfully!');window.location ='DeptRequisitionList';", true);
                 }
                 catch (Exception ex)
                 {
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(),
-                           "alertMessage", "alert('Request have been successfully created! However an error has occurred when sending email!')", true);
+                           "alertMessage", "alert('Request have been successfully created! However an error has occurred when sending email!');window.location ='DeptRequisitionList';", true);
                 }
 
                 //clear

@@ -8,8 +8,8 @@ namespace InventoryWebApp.Models.Entities
 
     public static class Util
     {
-        public static readonly string EMAIL = "yixiang.ssis@gmail.com";
-        public static readonly string PASSWORD = "!Passw0rd";
+        //public static readonly string EMAIL = "yixiang.ssis@gmail.com";
+        //public static readonly string PASSWORD = "!Passw0rd";
 
         public static void EnsureStaticReference<T>()
         {

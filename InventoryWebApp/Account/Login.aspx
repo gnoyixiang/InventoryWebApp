@@ -13,12 +13,13 @@
             color: black;
             background-color: rgba(244, 242, 236, 0.98);
             padding: 40px 60px;
-            border-radius: 40px;
+            border-radius: 10px;
         }
 
         hr {
             border-color: black;
         }
+       
     </style>
 </asp:Content>
 
@@ -76,4 +77,7 @@
             </section>
         </div>
     </div>
+
+    
+
 </asp:Content>
