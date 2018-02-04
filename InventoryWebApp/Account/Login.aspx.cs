@@ -19,14 +19,20 @@ namespace InventoryWebApp.Account
             if (!Page.IsPostBack)
             {
                 if (Request.IsAuthenticated)
+                {
                     if (!string.IsNullOrEmpty(Request.QueryString["ReturnUrl"]))
                     {
                         Response.Redirect("/ErrorPages/401.aspx");
                     }
-                    else
+                    else if (Context.User.IsInRole("Store Clerk") || Context.User.IsInRole("Store Supervisor") || Context.User.IsInRole("Store Manager"))
                     {
-                        Response.Redirect("/");
+                        Response.Redirect("/Store/Home");
                     }
+                    else if (Context.User.IsInRole("Employee") || Context.User.IsInRole("Department Head"))
+                    {
+                        Response.Redirect("/Dept/Home");
+                    }
+                }
             }
 
             RegisterHyperLink.NavigateUrl = "Register";
@@ -55,7 +61,7 @@ namespace InventoryWebApp.Account
                 switch (result)
                 {
                     case SignInStatus.Success:
-                        IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);
+                        IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);                        
                         break;
                     case SignInStatus.LockedOut:
                         Response.Redirect("/Account/Lockout");

@@ -401,7 +401,7 @@ namespace InventoryWebApp.Controllers
                     if (ad.Status.ToLower().Equals(statusOfAdjustment.ToLower()))
                     {
                       StationeryCatalogue tempst =  GetStationaryDetails(ad.ItemCode);
-                        if ((ad.AdjustmentQuant * tempst.Price) < 250 )
+                        if ((ad.AdjustmentQuant * tempst.Price) < 250 && (ad.AdjustmentQuant * tempst.Price) > -250)
                         {
                             pendingAdLdit.Add(ad);
                         }

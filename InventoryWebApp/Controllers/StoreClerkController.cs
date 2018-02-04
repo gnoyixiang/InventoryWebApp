@@ -583,7 +583,7 @@ namespace InventoryWebApp.Controllers
             return a;
         }
         //StockAdjustmentNew.aspx.cs
-        public Adjustment PrefillAdjustment(string selectedItem, int quantityUpdate, string reason)
+        public Adjustment PrefillAdjustment(string selectedItem, int quantityUpdate, string reason, string username)
         {
             DateTime dateCreated = DateTime.Now;
 
@@ -607,14 +607,15 @@ namespace InventoryWebApp.Controllers
             a.ItemCode = stationeryDAO.SearchByDescription(selectedItem).FirstOrDefault().ItemCode;
             a.AdjustmentQuant = quantityUpdate;
             a.Reason = reason;
-
+            a.UserName = username;
             return a;
         }
         //StockAdjustmentEdit.aspx.cs
-        public int UpdateAdjustment(Adjustment submittedAdjustment, int quantityUpdate, string reason)
+        public int UpdateAdjustment(Adjustment submittedAdjustment, int quantityUpdate, string reason, string username)
         {
             submittedAdjustment.AdjustmentQuant = quantityUpdate;
             submittedAdjustment.Reason = reason;
+            submittedAdjustment.UserName = username;
             int a = adjustmentDAO.UpdateAdjustment(submittedAdjustment);
             return a;
         }

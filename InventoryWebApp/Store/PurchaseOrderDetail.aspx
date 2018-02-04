@@ -235,9 +235,8 @@
                         { %>
                     <asp:Button runat="server" ID="btnCancelOrder" CssClass="btn btn-danger" OnClick="btnCancelOrder_Click"
                         Text="Cancel Order" Width="100%" Style="margin-bottom: 10px"
-                        OnClientClick="return confirm('Cancel this order?');" />
-                </div>
-                <%} %>
+                        OnClientClick="return confirm('Cancel this order?');" /><%} %>
+                </div>                
                 <div class="col-lg-3">
                     <asp:Button runat="server" ID="btnSaveFinalNotes" Text="Save Notes" CssClass="btn btn-warning" CausesValidation="true" Width="100%"
                         OnClick="btnSaveFinalNotes_Click" Style="margin-bottom: 10px" Visible="false" />

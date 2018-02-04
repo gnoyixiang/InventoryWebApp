@@ -36,7 +36,7 @@
     </asp:ContentPlaceHolder>
 </head>
 <body>
-    <form runat="server">
+    <form runat="server" defaultbutton="btnDisableEnter" >
         <asp:HiddenField runat="server" ID="hfDepartmentCode" />
 
         <div class="wrapper">
@@ -44,9 +44,16 @@
             <nav id="sidebar">
                 <div class="sidebar-header">
                     <div style="text-align: center">
-                        <i class="fa fa-cubes fa-3x" aria-hidden="true"></i>
-                        <br />
-                        <div style="font-size: 1.5em; font-weight: 600; padding-top: 10px"><span>SSIS</span></div>
+                        <% if (Context.User.IsInRole("Store Clerk") || Context.User.IsInRole("Store Supervisor") || Context.User.IsInRole("Store Manager"))
+                                    { %>
+                                <a href="/Store/Home">
+                                    <% }
+                                        else if (Context.User.IsInRole("Employee") || Context.User.IsInRole("Department Head"))
+                                        {%><a href="/Dept/Home"> <%} %>
+                                               <i class="fa fa-cubes fa-3x" aria-hidden="true"></i>
+                                               <br />
+                                               <div style="font-size: 1.5em; font-weight: 600; padding-top: 10px"><span>SSIS</span></div>
+                                           </a>
                     </div>
                 </div>
 
@@ -232,6 +239,7 @@
             </div>
 
         </div>
+        <asp:Button ID="btnDisableEnter" runat="server" Text="" OnClientClick="return false;" style="display:none;"/>
     </form>
 
 

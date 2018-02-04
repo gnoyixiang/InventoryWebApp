@@ -10,18 +10,6 @@
 namespace InventoryWebApp {
     
     
-    public partial class _Default {
-        
-        /// <summary>
-        /// Master property.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated property.
-        /// </remarks>
-        public new InventoryWebApp.Layout Master {
-            get {
-                return ((InventoryWebApp.Layout)(base.Master));
-            }
-        }
+    public partial class Default {
     }
 }

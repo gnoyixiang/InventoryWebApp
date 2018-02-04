@@ -66,19 +66,19 @@
                 <asp:Label ID="lblReason" runat="server" Text="Reason:"></asp:Label>
             </div>
             <div class="col-md-4 col-sm-5">
-                <asp:TextBox ID="tbxReason" runat="server" Text="" AutoPostBack="True" OnTextChanged="tbxReason_TextChanged" CssClass="form-control"></asp:TextBox>
+                <asp:TextBox ID="tbxReason" runat="server" Text="" AutoPostBack="True" OnTextChanged="tbxReason_TextChanged" CssClass="form-control" AutoCompleteType="Disabled"></asp:TextBox>
             </div>
         </div>
         <div class="row">
             <div class="col-md-2 col-sm-3">
-                <asp:Button runat="server" ID="btnModal" Text="Submit" CssClass="btn btn-success btnform" CausesValidation="true" Width="100%"
+                <asp:Button runat="server" ID="btnModal" Text="Submit" CssClass="btn btn-success btnform" CausesValidation="true" Width="100%" 
                     ValidationGroup="validGroupSubmit" OnClick="btnModal_Click" />
             </div>
             <div class="col-md-2 col-sm-3">
-                <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" CssClass="btn btn-primary btnform" />
+                <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" CssClass="btn btn-primary btnform"   />
             </div>
             <div class="col-md-2 col-sm-3">
-                <asp:Button ID="btnDiscard" runat="server" Text="Cancel" OnClick="btnDiscard_Click" CssClass="btn btn-danger btnform" CausesValidation="false" />
+                <asp:Button ID="btnDiscard" runat="server" Text="Cancel" OnClick="btnDiscard_Click" CssClass="btn btn-danger btnform" CausesValidation="false"  />
             </div>
         </div>
 
@@ -98,7 +98,7 @@
                     </div>
                     <div class="input-group " style="margin-bottom: 10px">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <asp:TextBox type="password" CssClass="form-control" ID="txtPassword" aria-describedby="lblPassword" runat="server"></asp:TextBox>
+                        <asp:TextBox type="password" CssClass="form-control" ID="txtPassword" aria-describedby="lblPassword" runat="server" AutoCompleteType="Disabled"></asp:TextBox>
                     </div>
                     <div style="margin-bottom: 10px">
                         <asp:Label ID="lblVerifyError" runat="server" Text="" ForeColor="Red" Visible="false"></asp:Label>

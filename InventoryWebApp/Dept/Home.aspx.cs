@@ -182,7 +182,7 @@ namespace InventoryWebApp.Dept
             try
             {
                 AssignRole assignRole = dCtrl.ListOfAssignRoleInDepartment(deptCode).Where(ar => ar.TemporaryRoleCode.ToUpper() == "REP").FirstOrDefault();
-                return dCtrl.GetEmployeeName(assignRole.EmployeeCode);
+                return scCtrl.GetEmployee(assignRole.EmployeeCode).EmployeeName;
             }
             catch (Exception ex)
             {

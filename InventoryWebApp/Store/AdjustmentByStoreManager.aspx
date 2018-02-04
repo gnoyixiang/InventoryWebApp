@@ -67,7 +67,7 @@
 
                         <asp:TemplateField ItemStyle-Width="120px" HeaderText="Approve">
                             <ItemTemplate>
-                                <asp:Button Text="Approve" CommandName="Approve" ToolTip="Approve" CssClass="btn btn-success" runat="server" />
+                                <asp:Button Text="Approve" CommandName="Approve" ToolTip="Approve" CssClass="btn btn-success" runat="server"  />
 
                             </ItemTemplate>
 

@@ -157,7 +157,7 @@ namespace InventoryWebApp.Store
             //Adjustment a = sClerkCtrl.PrefillAdjustment(adjRetrieved, QuantUpdate, tbxReason.Text);
 
             adjRetrieved.Status = "pending";
-            int submitResult = sClerkCtrl.UpdateAdjustment(adjRetrieved, QuantUpdate, tbxReason.Text);
+            int submitResult = sClerkCtrl.UpdateAdjustment(adjRetrieved, QuantUpdate, tbxReason.Text, Context.User.Identity.Name);
 
             //send email
             string fromEmail = emailController.GetUserEmail(Context.User.Identity.Name);
@@ -190,7 +190,7 @@ namespace InventoryWebApp.Store
             //Adjustment a = sClerkCtrl.PrefillAdjustment(adjRetrieved, QuantUpdate, tbxReason.Text);
 
             //a.Status = "unsubmitted";
-            int submitResult = sClerkCtrl.UpdateAdjustment(adjRetrieved, QuantUpdate, tbxReason.Text);
+            int submitResult = sClerkCtrl.UpdateAdjustment(adjRetrieved, QuantUpdate, tbxReason.Text, Context.User.Identity.Name);
 
             Response.Redirect("/Store/StockAdjustmentList.aspx");
         }
@@ -202,16 +202,28 @@ namespace InventoryWebApp.Store
         protected void validNewQuantity_ServerValidate(object source, ServerValidateEventArgs args)
         {
             int newQuantity = Convert.ToInt32(args.Value);
-            args.IsValid = newQuantity >= 0;
-            if (!args.IsValid)
+
+            if (!(newQuantity >= 0))
             {
+                args.IsValid = false;
                 tbxNewQuantity.CssClass = "form-control error";
+                validNewQuantity.ErrorMessage = "New quantity cannot be lower than 0";
             }
             else
             {
-                tbxNewQuantity.CssClass = "form-control";
+                StationeryCatalogue stationery = sClerkCtrl.GetStationeryByDescription(lblItemChoiceName.Text);
+                if (newQuantity == stationery.Stock)
+                {
+                    args.IsValid = false;
+                    tbxNewQuantity.CssClass = "form-control error";
+                    validNewQuantity.ErrorMessage = "New quantity cannot same as current stock";
+                }
+                else
+                {
+                    args.IsValid = true;
+                    tbxNewQuantity.CssClass = "form-control";
+                }
             }
-            validNewQuantity.ErrorMessage = "New quantity cannot be lower than 0";
 
         }
     }

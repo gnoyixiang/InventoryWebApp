@@ -20,7 +20,7 @@
                     OnRowDataBound="gvPendingAdjutment_RowDataBound" OnRowCommand="gvPendingAdjutment_RowCommand" CellSpacing="-1" CssClass="table table-striped"
                     HeaderStyle-BackColor="#cfd8dc">
                     <Columns>
-                        <asp:TemplateField HeaderText="ItemCode" SortExpression="ItemCode">
+                        <asp:TemplateField HeaderText="Item Code" SortExpression="ItemCode">
                             <ItemTemplate>
                                 <asp:Label ID="lblItemCode" runat="server" Text='<%# Bind("ItemCode") %>'></asp:Label>
                             </ItemTemplate>
@@ -33,7 +33,7 @@
                             </ItemTemplate>
                         </asp:TemplateField>
 
-                        <asp:TemplateField HeaderText="AdjustmentQuantity" SortExpression="AdjustmentQuant">
+                        <asp:TemplateField HeaderText="Adjustment Quantity" SortExpression="AdjustmentQuant">
                             <ItemTemplate>
                                 <asp:Label ID="lblAdjustmentQuant" runat="server" Text='<%# Bind("AdjustmentQuant") %>'></asp:Label>
                             </ItemTemplate>
@@ -52,7 +52,7 @@
 
                         </asp:TemplateField>
 
-                        <asp:TemplateField HeaderText="HeadRemarks" SortExpression="HeadRemarks">
+                        <asp:TemplateField HeaderText="Head Remarks" SortExpression="HeadRemarks">
                             <ItemTemplate>
                                 <%--<asp:Label ID="lblHeadRemarks" runat="server" Text='<%# Bind("HeadRemarks") %>'></asp:Label>--%>
                                 <asp:TextBox ID="tbxHeadRemarks" runat="server" CssClass="form-control" Text='<%# Bind("HeadRemarks") %>' ViewStateMode="Disabled"></asp:TextBox>

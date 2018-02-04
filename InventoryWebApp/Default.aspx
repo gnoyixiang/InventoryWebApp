@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿<%@ Page Title="Welcome to SSIS" Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="InventoryWebApp.Default" %>
+
+<!DOCTYPE html>
 
 <html>
 <head runat="server">

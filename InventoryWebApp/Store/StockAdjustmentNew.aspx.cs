@@ -121,7 +121,7 @@ namespace InventoryWebApp.Store
                 int QuantUpdate = CreateQuantityUpdate(tbxNewQuantity.Text, lblCurrentStockAmount.Text);
 
                 //...handled by PrefillAdjustment:ItemCode,AdjustmentQuant,Reason
-                Adjustment a = sClerkCtrl.PrefillAdjustment(ddlItemChoice.SelectedValue, QuantUpdate, tbxReason.Text);
+                Adjustment a = sClerkCtrl.PrefillAdjustment(ddlItemChoice.SelectedValue, QuantUpdate, tbxReason.Text, Context.User.Identity.Name);
 
                 sClerkCtrl.SubmitAdjustment(a);
 
@@ -154,7 +154,7 @@ namespace InventoryWebApp.Store
                 int QuantUpdate = CreateQuantityUpdate(tbxNewQuantity.Text, lblCurrentStockAmount.Text);
 
                 //...handled by PrefillAdjustment:ItemCode,AdjustmentQuant,Reason
-                Adjustment a = sClerkCtrl.PrefillAdjustment(ddlItemChoice.SelectedValue, QuantUpdate, tbxReason.Text);
+                Adjustment a = sClerkCtrl.PrefillAdjustment(ddlItemChoice.SelectedValue, QuantUpdate, tbxReason.Text, Context.User.Identity.Name);
 
                 int submitResult = sClerkCtrl.SaveAdjustment(a);
 
@@ -228,5 +228,6 @@ namespace InventoryWebApp.Store
                     return false;
             }
         }
+        
     }
 }
