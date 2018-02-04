@@ -136,7 +136,20 @@ namespace InventoryWebApp.Dept
             var list = scCtrl.GetDisbursingDisbursements().Where(d=>d.DepartmentCode == Master.UserDepartmentCode).ToList();
             if (list.Count > 0)
             {
-                return Convert.ToDateTime(list.Min(d => d.DatePlanToCollect)).ToString("d MMM yyyy");
+                var date = Convert.ToDateTime(list.Min(d => d.DatePlanToCollect));
+                if((date - DateTime.Now).Days >= 3)
+                {
+                    lblDisbursementDate.ForeColor = System.Drawing.Color.Green;
+                }
+                else if ((date - DateTime.Now).Days >= 1)
+                {
+                    lblDisbursementDate.ForeColor = System.Drawing.Color.Orange;
+                }
+                else
+                {
+                    lblDisbursementDate.ForeColor = System.Drawing.Color.Red;
+                }
+                return date.ToString("d MMM yyyy");
             }
             return "No Next Disbursement At The Moment.";
         }
