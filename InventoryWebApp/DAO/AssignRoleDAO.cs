@@ -137,7 +137,7 @@ namespace InventoryWebApp.DAO
         {
             using (EntityModel em = new EntityModel())
             {
-                return em.AssignRoles.Where(p => p.EmployeeCode.Contains(empcode)).Select(p => p.TemporaryRoleCode).FirstOrDefault();
+                return em.AssignRoles.Where(p => p.EmployeeCode.Equals(empcode)).Select(p => p.TemporaryRoleCode).FirstOrDefault();
 
 
 
@@ -157,7 +157,15 @@ namespace InventoryWebApp.DAO
 
             }
         }
+        public List<AssignRole> ListAssignRoleByEmpCode(string empCode)
+        {
 
+            using (EntityModel em = new EntityModel())
+            {
+                return em.AssignRoles.Where(x => x.EmployeeCode==(empCode.Trim())).ToList<AssignRole>();
+
+            }
+        }
         //public List<string> SearchByEmployeeName(string empName)
         //{
 

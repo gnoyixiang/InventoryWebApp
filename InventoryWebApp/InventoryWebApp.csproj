@@ -24,6 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -89,6 +90,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IdentityModel.Selectors" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
@@ -332,8 +335,6 @@
     <Content Include="Store\ViewPurchaseOrders.aspx" />
     <Content Include="Public.Master" />
     <Content Include="Dept\Web.config" />
-    <Content Include="bin\ApplicationInsights.config" />
-    <Content Include="bin\InventoryWebApp.dll.config" />
     <Content Include="LayoutWithoutAjax.Master" />
     <Content Include="Content\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
@@ -409,6 +410,11 @@
     <Content Include="Store\SupplierList.aspx" />
     <Content Include="Dept\ViewDisbursementDetails.aspx" />
     <Content Include="ViewSwitcher.ascx" />
+    <Content Include="WCF\ClerkService.svc" />
+    <Content Include="WCF\DepartmentService.svc" />
+    <Content Include="WCF\EmployeeService.svc" />
+    <Content Include="WCF\LoginService.svc" />
+    <Content Include="WCF\SupervisorService.svc" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -972,11 +978,36 @@
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
+    <Compile Include="WCF\ClerkService.svc.cs">
+      <DependentUpon>ClerkService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="WCF\DepartmentService.svc.cs">
+      <DependentUpon>DepartmentService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="WCF\EmployeeService.svc.cs">
+      <DependentUpon>EmployeeService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="WCF\IClerkService.cs" />
+    <Compile Include="WCF\IDepartmentService.cs" />
+    <Compile Include="WCF\IEmployeeService.cs" />
+    <Compile Include="WCF\ILoginService.cs" />
+    <Compile Include="WCF\ISupervisorService.cs" />
+    <Compile Include="WCF\LoginService.svc.cs">
+      <DependentUpon>LoginService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="WCF\SupervisorService.svc.cs">
+      <DependentUpon>SupervisorService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="bin\roslyn\" />
-    <Folder Include="WCF\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

@@ -9,7 +9,20 @@ namespace InventoryWebApp.DAO
 {
     public class DisbursementDetailsDAO : IDisbursementDetailsDAO
     {
-
+        public List<DisbursementDetail> GetDisbursementDetails(string disbursementCode)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                return em.DisbursementDetails.Where(x => x.DisbursementCode == disbursementCode).ToList();
+            }
+        }
+        public DisbursementDetail GetDisbursementDetail(String disbursementCode, String requestCode, String itemCode)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                return em.DisbursementDetails.Where(dd => dd.DisbursementCode == disbursementCode && dd.RequestCode == requestCode && dd.ItemCode == itemCode).FirstOrDefault();
+            }
+        }
         //Read
         public List<DisbursementDetail> SearchDDByItem(StationeryCatalogue item)
         {

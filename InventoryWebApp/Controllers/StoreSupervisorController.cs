@@ -34,6 +34,11 @@ namespace InventoryWebApp.Controllers
 
         private readonly string  statusOfAdjustment = "Pending";
 
+        public List<AssignRole> ListAssignRoleByEmpCode(String empCode)
+        {
+            return asignDao.ListAssignRoleByEmpCode(empCode);
+        }
+
         public List<Supplier> SupplierList()
         {
             return spDao.ListOfSupplier();

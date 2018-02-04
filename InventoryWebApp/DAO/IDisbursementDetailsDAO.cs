@@ -17,5 +17,7 @@ namespace InventoryWebApp.DAO
         List<DisbursementDetail> ListDDByItemCode(string ItemCode,DateTime start);
         List<DisbursementDetail> ListAllDisbursementDetails();
         List<DisbursementDetail> SearchDDByCode(string code);
+        DisbursementDetail GetDisbursementDetail(String disbursementCode, String requestCode, String itemCode);
+        List<DisbursementDetail> GetDisbursementDetails(string disbursementCode);
     }
 }

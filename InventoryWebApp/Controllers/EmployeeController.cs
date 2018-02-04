@@ -23,7 +23,44 @@ namespace InventoryWebApp.Controllers
         private static ICategoryDAO cDAO = new CategoryDAO();
         IDisbursementDetailsDAO IdbmDetails = new DisbursementDetailsDAO();
         IDisbursementDAO Idbm = new DisbursementDAO();
+        IUserDAO user = new UserDAO();
 
+        public Employee GetEmployee(string username)
+        {
+            return Iempl.GetEmployeeInfo(username);
+        }
+        public Role GetRole(string userName)
+        {
+            return user.getRoleNameByUsername(userName);
+        }
+
+        public int UpdateRequest(Request rq)
+        {
+            return Ir.UpdateRequest(rq);
+        }
+
+        public int UpdateRequestDetails(RequestDetail reDetails)
+        {
+            return rdDAO.UpdateRequestDetail(reDetails);
+        }
+        public List<RequestDetail> ListRequestDetail(string requestCode)
+        {
+            return rdDAO.ListRequestDetail(requestCode);
+        }
+
+        public int UpdateDisbursement(Disbursement d)
+        {
+            return Idbm.UpdateDbmStatus(d);
+
+        }
+        public Disbursement GetDisbursementCode(string disbursementCode)
+        {
+            return Idbm.GetDisbursementByCode(disbursementCode);
+        }
+        public List<DisbursementDetail> DisbursementDetails(string disbrusementCode)
+        {
+            return IdbmDetails.GetDisbursementDetails(disbrusementCode);
+        }
         public Employee GetEmployeeByUsername(string username)
         {
             return Iempl.GetEmployeeInfo(username);
