@@ -33,10 +33,6 @@ namespace InventoryWebApp.Controllers
         IRetrievalDetailsDAO retrievalDetailsDAO = new RetrievalDetailsDAO();
         ICollectionPointDAO collectionPointDAO = new CollectionPointDAO();
 
-        internal Employee GetRepresentative(String departmentCode)
-        {
-            return employeeDAO.GetRepresentative(departmentCode);
-        }
         internal DisbursementDetail GetDisbursementDetail(String disbursementCode, String requestCode, String itemCode)
         {
             return disbursementDetailsDAO.GetDisbursementDetail(disbursementCode, requestCode, itemCode);

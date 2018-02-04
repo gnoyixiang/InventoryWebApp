@@ -38,7 +38,10 @@ namespace InventoryWebApp.Controllers
         {
             return Ir.UpdateRequest(rq);
         }
-
+        public int UpdateRequestStatusWCF(Request rd)
+        {
+            return Ir.UpdateRequestStatusWCF(rd);
+        }
         public int UpdateRequestDetails(RequestDetail reDetails)
         {
             return rdDAO.UpdateRequestDetail(reDetails);

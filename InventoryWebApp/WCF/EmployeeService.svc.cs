@@ -119,7 +119,7 @@ namespace InventoryWebApp.WCF
                         {
                             request.Status = "completed";
                         }
-                        ec.UpdateRequest(request);
+                        ec.UpdateRequestStatusWCF(request);
                     }
                 }
 
