@@ -259,18 +259,23 @@
     <div class="row list">
         <div class="col-md-12 disburseDate">
             <div class="col-md-12" style="padding: 0;">
-                <div class="floatleft">
+                <div>
                     <h4>Next Disbursement Date :
                     <asp:Label runat="server" ID="lblDisbursementDate" CssClass="blink"></asp:Label></h4>
-                    <span>Venue:
-                    <asp:Label runat="server" ID="lblCollectionPtName"></asp:Label>
-                        <br />
-                        Time:
-                    <asp:Label runat="server" ID="lblCollectionTime"></asp:Label>
-                        <br />
-                        Rep:
-                    <asp:Label runat="server" ID="lblDeptRepName"></asp:Label>
-                    </span>
+                    <div class="row">
+                        <div class="col-md-4">
+                            Collection Venue:
+                    <asp:Label runat="server" ID="lblCollectionPtName" Font-Bold="true"></asp:Label>
+                        </div>
+                        <div class="col-md-3">
+                            Collection Time:
+                    <asp:Label runat="server" ID="lblCollectionTime" Font-Bold="true"></asp:Label>
+                        </div>
+                        <div class="col-md-5">
+                            Department Rep:
+                    <asp:Label runat="server" ID="lblDeptRepName" Font-Bold="true"></asp:Label>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-md-12" style="padding: 0;">
