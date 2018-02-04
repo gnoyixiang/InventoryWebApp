@@ -13,6 +13,8 @@ namespace InventoryWebApp.Store
     public partial class Home : System.Web.UI.Page
     {
         StoreClerkController scCtrl = new StoreClerkController();
+        StoreManagerController smCtrl = new StoreManagerController();
+        StoreSupervisorController ssCtrl = new StoreSupervisorController();
         JavaScriptSerializer jss = new JavaScriptSerializer();
 
         protected void Page_Load(object sender, EventArgs e)
@@ -20,7 +22,18 @@ namespace InventoryWebApp.Store
             lblDisbursementDate.Text = GetNextDisburseDate().ToString("dddd, d MMM yyyy");
             lblItemsBelowReorderLvl.Text = CountItemsBelowReorderLvl().ToString();
             lblPendingOrderQty.Text = CountPendingOrders().ToString();
-            lblPendingAdjQty.Text = CountPendingAdj().ToString();
+            if (Context.User.IsInRole("Store Clerk"))
+            {
+                lblPendingAdjQty.Text = CountPendingAdj().ToString();
+            }
+            else if (Context.User.IsInRole("Store Supervisor"))
+            {
+                lblPendingAdjQty.Text = CountPendingAdjStoreSupervisor().ToString();
+            }
+            else if (Context.User.IsInRole("Store Manager"))
+            {
+                lblPendingAdjQty.Text = CountPendingAdjStoreManager().ToString();
+            }
             lblTotalItemsInStore.Text = CountTotalItemsInStore().ToString();
             listDisbursements.DataSource = scCtrl.GetDisbursingDisbursements();
             listDisbursements.DataBind();
@@ -101,6 +114,14 @@ namespace InventoryWebApp.Store
         private int CountPendingAdj()
         {
             return scCtrl.ListAllAdjustments().Where(a => a.Status.ToUpper() == "PENDING").Count();
+        }
+        private int CountPendingAdjStoreManager()
+        {
+            return smCtrl.ListOfPendingAdjustmentByManager().Count();
+        }
+        private int CountPendingAdjStoreSupervisor()
+        {
+            return ssCtrl.ListOfPendingAdjustmentBySupervisor().Count();
         }
 
         private int CountItemsBelowReorderLvl()
