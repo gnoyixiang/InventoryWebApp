@@ -264,6 +264,8 @@
             </a>
         </div>
     </div>
+    <% if (Context.User.IsInRole("Store Clerk"))
+        { %>
     <div class="row list">
         <div class="col-md-12 disburseDate">
             <div class="col-md-12" style="padding: 0;">
@@ -309,6 +311,7 @@
             </div>
         </div>
     </div>
+    <%} %>
     <div class="row bottom">
         <!-- bar chart total order qty by items in each category from start to now by dept -->
 
