@@ -196,7 +196,7 @@
         <!-- # Pending requests -->
         <div class="col-sm-12 col-md-3">
             <a href="DeptRequisitionList?search=Status&q=Pending">
-                <div class="col-xs-12 box" style="color:#777">
+                <div class="col-xs-12 box" style="color:#333; background-color: #99999947;">
                     <div class="floatleft">
                         <h2><i class="fa fa-edit"></i></h2>
                     </div>
@@ -211,7 +211,7 @@
         <!-- # Total completed requests -->
         <div class="col-sm-12 col-md-3">
             <a href="DeptRequisitionList?search=Status&q=Completed">
-                <div class="col-xs-12 box" style="color:green">
+                <div class="col-xs-12 box"  style="color:#333; background-color: #00800038;">
                     <div class="floatleft">
                         <h2><i class="fa fa-archive"></i></h2>
                     </div>
@@ -226,7 +226,7 @@
         <!-- # Total incomplete requests -->
         <div class="col-sm-12 col-md-3">
             <a href="DeptRequisitionList?search=Status&q=Incomplete">
-                <div class="col-xs-12 box" style="color:#ef4f00">
+                <div class="col-xs-12 box" style="color:#333; background-color: #ffa50059;">
                     <div class="floatleft">
                         <h2><i class="fa fa-envelope"></i></h2>
                     </div>
@@ -241,7 +241,7 @@
         <!-- # Uncollected Disbursements -->
         <div class="col-sm-12 col-md-3">
             <a href="ViewDisbursement">
-                <div class="col-xs-12 box" style="color:red">
+                <div class="col-xs-12 box" style="color:#333; background-color: #ff00002e;">
                     <div class="floatleft">
                         <h2><i class="fa fa-envelope-open"></i></h2>
                     </div>
