@@ -37,14 +37,14 @@
 
         <div class="row">
             <div class="col-md-6">
-                <asp:TextBox ID="tbxSearch" runat="server" CssClass="form-control" placeholder="Search Employee Name or Code"> </asp:TextBox>
+                <asp:TextBox ID="tbxSearch" runat="server" CssClass="form-control" placeholder="Search Employee Name or Code" ValidationGroup="searchValidation"> </asp:TextBox>
             </div>
             <div class="col-md-2">
-                <asp:Button ID="btnSearch" runat="server" Text="Search" OnClick="SearchButton_Click" CssClass="btn btn-primary" Width="100%" />
+                <asp:Button ID="btnSearch" runat="server" Text="Search" OnClick="SearchButton_Click" CssClass="btn btn-primary" Width="100%" ValidationGroup="searchValidation"/>
             </div>
             <div class="col-md-4">
                 <asp:Label ID="lblNoresultFound" runat="server" ForeColor="Red" ViewStateMode="Disabled"></asp:Label><br />
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator" runat="server" ErrorMessage="SeachBox cannot be Empty" ControlToValidate="tbxSearch" ForeColor="Red">
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator" runat="server" ErrorMessage="SeachBox cannot be Empty" ControlToValidate="tbxSearch" ForeColor="Red" ValidationGroup="searchValidation">
                 </asp:RequiredFieldValidator>
             </div>
         </div>

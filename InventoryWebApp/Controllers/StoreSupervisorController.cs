@@ -111,7 +111,7 @@ namespace InventoryWebApp.Controllers
 
             foreach (Employee e in empSearchList)
             {
-                  if (e.DepartmentCode.Equals("STOR") && !userRoleName.Equals("Store Supervisor"))
+                  if (e.DepartmentCode.Equals("STOR") && !GetUserRoleName(e.UserName).Equals("Store Supervisor"))
                 {
                    empCodeList.Add(e);
 
@@ -149,20 +149,20 @@ namespace InventoryWebApp.Controllers
 
             List<Employee> empCodeList = new List<Employee>();
             List<Employee> empSearchList = empDao.SearchByEmployeeName(empName);
-            string userRoleName = null;
+           // string userRoleName = null;
 
-            foreach (Employee emp in empSearchList)
-            {
-                userRoleName = GetUserRoleName(emp.UserName);
-                if (userRoleName.Equals("Store Supervisor"))
-                {
-                    break;
-                }
-            }
+            //foreach (Employee emp in empSearchList)
+            //{
+            //    userRoleName = GetUserRoleName(emp.UserName);
+            //    if (userRoleName.Equals("Store Supervisor"))
+            //    {
+            //        break;
+            //    }
+            //}
             foreach (Employee e in empSearchList)
             {
               
-                if (e.DepartmentCode.Equals("STOR")&&!userRoleName.Equals("Store Supervisor"))
+                if (e.DepartmentCode.Equals("STOR")&&!GetUserRoleName(e.UserName).Equals("Store Supervisor"))
                 {
                     empCodeList.Add(e);
 
@@ -298,10 +298,10 @@ namespace InventoryWebApp.Controllers
 
 
         public int UpdateAssignRole(string assignroleCode, string temporaryroleCode,string employeCode,
-            DateTime startDate, DateTime endDate)
+            DateTime startDate, DateTime endDate,string assignedBy)
         {
 
-            int updateValue = asignDao.UpdateAssignRole(assignroleCode, temporaryroleCode, employeCode, startDate, endDate);
+            int updateValue = asignDao.UpdateAssignRole(assignroleCode, temporaryroleCode, employeCode, startDate, endDate, assignedBy);
 
             return updateValue;
         }

@@ -189,33 +189,36 @@ namespace InventoryWebApp.Store
         }
         protected void SearchButton_Click(object sender, EventArgs e)
         {
-
-            string searchCriteria = tbxSearch.Text;
-            //if (searchCriteria == "")
-            //{
-            //    lblNoresultFound.Text = "SearchBox cann't be Empty";
-            //}
-            //else
-            //{
-            List<AssignRole> asRoleList = PopulateGridView(searchCriteria);
-
-
-            if (asRoleList.Count == 0)
+            Page.Validate("searchValidation");
+            if (Page.IsValid)
             {
+                string searchCriteria = tbxSearch.Text;
+                //if (searchCriteria == "")
+                //{
+                //    lblNoresultFound.Text = "SearchBox cann't be Empty";
+                //}
+                //else
+                //{
 
-                PopulateGridViewFromEmp(searchCriteria);
+                List<AssignRole> asRoleList = PopulateGridView(searchCriteria);
 
 
+                if (asRoleList.Count == 0)
+                {
+
+                    PopulateGridViewFromEmp(searchCriteria);
+
+
+                }
+                else
+                {
+
+                    PopulateGridView(searchCriteria);
+
+
+                }
+                //}
             }
-            else
-            {
-
-                PopulateGridView(searchCriteria);
-
-
-            }
-            //}
-
         }
 
         protected void gvSearchResult_OnRowDataBound(object sender, GridViewRowEventArgs e)
@@ -471,6 +474,8 @@ namespace InventoryWebApp.Store
                 //this is getting username from user.
                 //string userName =  user.UserName;
 
+                var userName = Context.User.Identity.Name;
+
                 Page.Validate("updateValidation");
                if (Page.IsValid)
                {
@@ -480,7 +485,7 @@ namespace InventoryWebApp.Store
                     {
                         if (checkValue)
                         {
-                            storeSpController.UpdateAssignRole(assignCode, tempRoleCode, employeeCode, startDate, endDate);
+                            storeSpController.UpdateAssignRole(assignCode, tempRoleCode, employeeCode, startDate, endDate, userName);
                             gvSearchResult.EditIndex = -1;
                             PopulateGridView(tbxSearch.Text);
                             lblSuccessMsg.Text = "AssignRole Updated";
@@ -587,9 +592,10 @@ namespace InventoryWebApp.Store
                     DateTime endDate = DateTime.Parse(txtEndDate.Text);
 
                     //This method will use when we login to application and this method can acess who logged in and can get the user 
-                    var user = HttpContext.Current.GetOwinContext().Get<ApplicationUserManager>().FindById(User.Identity.GetUserName());
+                    //var user = HttpContext.Current.GetOwinContext().Get<ApplicationUserManager>().FindById(User.Identity.GetUserName());
                     //this is getting username from user.
                     //string userName =  user.UserName;
+                  var userName =   Context.User.Identity.Name;
                     Page.Validate("addValidation");
                     if (Page.IsValid)
                     {
@@ -597,7 +603,7 @@ namespace InventoryWebApp.Store
 
                         if (checkValue)
                         {
-                            storeSpController.CreateNewAssignRole(assignRoleCode, tempRoleCode, empCode, startDate, endDate, "yufei@logic.edu.sg");
+                            storeSpController.CreateNewAssignRole(assignRoleCode, tempRoleCode, empCode, startDate, endDate, userName);
                             PopulateGridView(tbxSearch.Text);
                             lblSuccessMsg.Text = "New AssignRole added.";
                             lblErrorMsg.Text = "";

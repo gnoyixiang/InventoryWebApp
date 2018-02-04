@@ -52,7 +52,8 @@ namespace InventoryWebApp.DAO
         }
 
 
-        public int UpdateAssignRole(string assignrolecode, string temporaryrolecode,string empCode,DateTime startdate, DateTime enddate)
+        public int UpdateAssignRole(string assignrolecode, string temporaryrolecode,string empCode,DateTime startdate, 
+            DateTime enddate,string assignedBy)
         {
             using (EntityModel em = new EntityModel())
             {
@@ -61,6 +62,7 @@ namespace InventoryWebApp.DAO
                 asrl.EmployeeCode = empCode;
                 asrl.StartDate = startdate;
                 asrl.EndDate = enddate;
+                asrl.AssignedBy = assignedBy;
                 return em.SaveChanges();
             }
         }
