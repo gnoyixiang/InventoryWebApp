@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/LayoutWithoutAjax.Master" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="InventoryWebApp.Dept.Home" %>
+
 <%@ MasterType VirtualPath="~/LayoutWithoutAjax.Master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <!-- Styles -->
@@ -21,7 +22,7 @@
             background-color: #fff;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             border-radius: 5px;
-            min-height:19vh;
+            min-height: 19vh;
         }
 
             .box a {
@@ -46,15 +47,16 @@
             margin-bottom: 20px;
         }
 
-        .carousel-control{
+        .carousel-control {
             background-image: none !important;
             width: 5%;
             height: 50px;
             top: 350px;
         }
-        .carousel-control span{
-            color:#4f61ac;
-        }
+
+            .carousel-control span {
+                color: #4f61ac;
+            }
 
         /*.blink {
             color:orangered;
@@ -250,22 +252,23 @@
                     <h5>Uncollected Disbursements</h5>
                 </div>
             </a>
-        </div>        
+        </div>
     </div>
+    <% if (Context.User.IsInRole("Employee"))
+        { %>
     <div class="row list">
         <div class="col-md-12 disburseDate">
             <div class="col-md-12" style="padding: 0;">
                 <div class="floatleft">
                     <h4>Next Disbursement Date :
                     <asp:Label runat="server" ID="lblDisbursementDate" CssClass="blink"></asp:Label></h4>
-                    <span>
-                    Venue:
+                    <span>Venue:
                     <asp:Label runat="server" ID="lblCollectionPtName"></asp:Label>
-                    <br />
-                    Time:
+                        <br />
+                        Time:
                     <asp:Label runat="server" ID="lblCollectionTime"></asp:Label>
-                    <br />
-                    Rep:
+                        <br />
+                        Rep:
                     <asp:Label runat="server" ID="lblDeptRepName"></asp:Label>
                     </span>
                 </div>
@@ -274,11 +277,11 @@
                 <asp:ListView runat="server" ID="listDisbursements">
                     <LayoutTemplate>
                         <table class="table table-hover">
-                            <thead>                                
+                            <thead>
                                 <tr class="info">
-                                    <th style="width:40%;">Item Description</th>
-                                    <th style="text-align:right; width:20%;">Disbursing Quantity</th>
-                                    <th style="text-align:right;">Notes</th>
+                                    <th style="width: 40%;">Item Description</th>
+                                    <th style="text-align: right; width: 20%;">Disbursing Quantity</th>
+                                    <th style="text-align: right;">Notes</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -290,7 +293,7 @@
                         <tr>
                             <td><%# GetItemDescription(Eval("ItemCode").ToString()) %></td>
                             <td align="right"><%# Eval("Quantity") %></td>
-                            <td align="right"><%# (string)Eval("Notes") %></td>                          
+                            <td align="right"><%# (string)Eval("Notes") %></td>
                         </tr>
                     </ItemTemplate>
                     <EmptyDataTemplate>
@@ -300,6 +303,7 @@
             </div>
         </div>
     </div>
+    <% } %>
     <div class="row bottom">
         <!-- bar chart total order qty by items in each category from start to now by dept -->
 
@@ -311,12 +315,13 @@
                 </ol>
 
                 <div class="carousel-inner">
-                    <%foreach (string cat in GetCategories()) { %>                    
+                    <%foreach (string cat in GetCategories())
+                        { %>
                     <div class="item" style="min-width: 100%; height: 400px; margin: 0 auto" id='<%= "chartItemIn" + cat %>'>
-                    </div>                    
+                    </div>
                     <%} %>
                     <div class="item active" style="min-width: 100%; height: 400px; margin: 0 auto" id="chartAllCat">
-                    </div>                    
+                    </div>
                 </div>
 
                 <!-- Left and right controls -->
@@ -333,7 +338,8 @@
     </div>
 
     <script type="text/javascript">        
-        <%foreach (string cat in GetCategories()) { %>
+        <%foreach (string cat in GetCategories())
+        { %>
         Highcharts.chart('<%= "chartItemIn" + cat %>', {
             chart: {
                 type: 'column'
@@ -343,7 +349,7 @@
             },
             xAxis: {
                 categories: <%= Serialize(GetListStationariesDescriptionInCat(cat)) %>
-            },
+                },
             yAxis: {
                 min: 0,
                 title: {
@@ -368,7 +374,7 @@
                 {
                     name: '<%= GetDepartmentName(Master.UserDepartmentCode) %>',
                     data: <%= Serialize(GetRequestQtyPerItemInCatPerDept(cat)) %>
-                },
+                    },
             ]
         });
         <%}%>
@@ -408,7 +414,7 @@
                 {
                     name: '<%= GetDepartmentName(Master.UserDepartmentCode) %>',
                     data: <%= Serialize(GetCategoryDeptRequestQtySeries(Master.UserDepartmentCode)) %>
-                }
+                    }
             ]
         });
         
