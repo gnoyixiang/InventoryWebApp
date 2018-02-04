@@ -587,9 +587,10 @@ namespace InventoryWebApp.Store
                     DateTime endDate = DateTime.Parse(txtEndDate.Text);
 
                     //This method will use when we login to application and this method can acess who logged in and can get the user 
-                    var user = HttpContext.Current.GetOwinContext().Get<ApplicationUserManager>().FindById(User.Identity.GetUserName());
+                    //var user = HttpContext.Current.GetOwinContext().Get<ApplicationUserManager>().FindById(User.Identity.GetUserName());
+                    var user1 = Context.User.Identity.Name;
                     //this is getting username from user.
-                    //string userName =  user.UserName;
+                   // string userName =  user1.UserName;
                     Page.Validate("addValidation");
                     if (Page.IsValid)
                     {
@@ -597,7 +598,7 @@ namespace InventoryWebApp.Store
 
                         if (checkValue)
                         {
-                            storeSpController.CreateNewAssignRole(assignRoleCode, tempRoleCode, empCode, startDate, endDate, "yufei@logic.edu.sg");
+                            storeSpController.CreateNewAssignRole(assignRoleCode, tempRoleCode, empCode, startDate, endDate, user1);
                             PopulateGridView(tbxSearch.Text);
                             lblSuccessMsg.Text = "New AssignRole added.";
                             lblErrorMsg.Text = "";
