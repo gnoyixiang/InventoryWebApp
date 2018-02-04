@@ -15,7 +15,7 @@ namespace InventoryWebApp.DAO
             using (EntityModel em = new EntityModel())
             {
                 return em.RequestDetails.Where(rd => rd.RemainingQuant != 0 
-                && (rd.Request.Status == "incomplete" || rd.Request.Status == "processing")).ToList();
+                && (rd.Request.Status == "incompleted" || rd.Request.Status == "processing")).ToList();
             }
         }
 
@@ -39,11 +39,12 @@ namespace InventoryWebApp.DAO
 
         public int UpdateRequestDetailStatus(RequestDetail R, string newStatus)
         {
-            using (EntityModel e = new EntityModel())
+            using (EntityModel em = new EntityModel())
             {
                 int a = -1;
-                R.Status = newStatus;
-                a = e.SaveChanges();
+                RequestDetail rd=em.RequestDetails.Where(r => r.RequestCode == R.RequestCode && r.ItemCode == R.ItemCode).FirstOrDefault<RequestDetail>();
+                rd.Status = newStatus;
+                a = em.SaveChanges();
                 return a;
             }
         }

@@ -97,6 +97,18 @@ namespace InventoryWebApp.DAO
             }
         }
 
+
+        public int UpdateRequestStatusWCF(Request r)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                Request req = em.Requests.Where(x => x.RequestCode == r.RequestCode).FirstOrDefault();
+                req.Status = r.Status;
+                //em.Entry(r).State = EntityState.Modified;
+                return em.SaveChanges();
+            }
+        }
+
         public int UpdateRequestStatus(Request r)
         {
             using (EntityModel em = new EntityModel())

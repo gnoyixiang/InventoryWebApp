@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using InventoryWebApp.Models.Entities;
 using InventoryWebApp.Controllers;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
 
 namespace InventoryWebApp.Store
 {

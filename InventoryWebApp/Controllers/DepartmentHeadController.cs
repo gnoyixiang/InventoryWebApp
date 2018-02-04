@@ -19,10 +19,52 @@ namespace InventoryWebApp.Controllers
         IEmployeeDAO edao = new EmployeeDAO();
         IRoleDAO rdao = new RoleDAO();
         IUserDAO udao = new UserDAO();
+
+        public List<Employee>  ListAllEmployeeNameInDepartment(String deptCode)
+        {
+            List<Employee> empList = new List<Employee>();
+            List<Employee> empSearchList = edao.ListEmployee()
+                .Where(e => e.DepartmentCode == deptCode).ToList();
+            foreach (Employee e in empSearchList)
+            {
+                Role role = udao.getRoleNameByUsername(e.UserName);
+                if (role != null)
+                {
+                    if (role.Id == "Empl")
+                    {
+                        empList.Add(e);
+                    }
+                }
+            }
+            return empList;
+        }
         public List<Employee> ListOfEmployeeNameInDepartment(string empName, string deptCode)
         {
             List<Employee> empList = new List<Employee>();
             List<Employee> empSearchList = edao.SearchByEmployeeName(empName)
+                .Where(e => e.DepartmentCode == deptCode).ToList();
+            foreach (Employee e in empSearchList)
+            {
+                Role role = udao.getRoleNameByUsername(e.UserName);
+                if (role != null)
+                {
+                    if (role.Id == "Empl")
+                    {
+                        empList.Add(e);
+                    }
+                }
+            }
+            return empList;
+        }
+        public Employee GetEmployeeInfoByEmployeeCode(string employeecode)
+        {
+            return edao.GetEmployeeInfoByEmployeeCode(employeecode);
+        }
+
+        public List<Employee> ListOfEmployeeCodeInDepartment(string empCode, string deptCode)
+        {
+            List<Employee> empList = new List<Employee>();
+            List<Employee> empSearchList = edao.SearchByEmployeeCode(empCode)
                 .Where(e => e.DepartmentCode == deptCode).ToList();
             foreach (Employee e in empSearchList)
             {
@@ -42,24 +84,7 @@ namespace InventoryWebApp.Controllers
         {
             return rdao.GetRoleInfo(id);
         }
-        public List<Employee> ListOfEmployeeCodeInDepartment(string empCode, string deptCode)
-        {
-            List<Employee> empList = new List<Employee>();
-            List<Employee> empSearchList = edao.SearchByEmployeeCode(empCode)
-                .Where(e => e.DepartmentCode == deptCode).ToList();
-            foreach (Employee e in empSearchList)
-            {
-                Role role = udao.getRoleNameByUsername(e.UserName);
-                if (role != null)
-                {
-                    if (role.Id == "Empl")
-                    {
-                        empList.Add(e);
-                    }
-                }
-            }
-            return empList;
-        }
+      
         public List<AssignRole> ListOfAssignRoleInDepartment(string deptCode)
         {
             List<Employee> empList = edao.SearchByDept(deptCode);
@@ -75,7 +100,26 @@ namespace InventoryWebApp.Controllers
             }
             return assignList;
         }
+        public bool CheckTemporaryRole(string temporaryrole)
+        {
+            List<AssignRole> listOfAssignRole = adao.ListAssignRole();
+            if (listOfAssignRole.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                foreach (AssignRole a in listOfAssignRole)
+                {
+                    if (a.TemporaryRoleCode.Equals(temporaryrole))
+                    {
+                        return false;
 
+                    }
+                }
+            }
+            return true;
+        }
         public bool CheckTemporaryRole(string temporaryrole,String deptCode)
         {
             List<Employee> empList = edao.SearchByDept(deptCode);
@@ -105,6 +149,41 @@ namespace InventoryWebApp.Controllers
                 }
             }
             return true;
+        }
+        public bool CheckTemporaryRoleAndDates(string temporaryrole, DateTime startdate, DateTime enddate)
+        {
+            List<AssignRole> listOfAssignRole = adao.ListAssignRole();
+            if (listOfAssignRole.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                foreach (AssignRole a in listOfAssignRole)
+                {
+                    /*int i1 = DateTime.Compare( (DateTime)a.StartDate, startdate);
+                    int i2 = DateTime.Compare((DateTime)a.StartDate, enddate);
+                    int j1= DateTime.Compare((DateTime)a.EndDate, startdate);
+                    int j2 = DateTime.Compare((DateTime)a.EndDate, enddate);
+                    */
+                    if (
+                        (a.TemporaryRoleCode.Equals(temporaryrole)) &&
+                       ((DateTime.Compare((DateTime)a.StartDate, startdate) <= 0
+                       &&
+                       DateTime.Compare((DateTime)a.EndDate, startdate) >= 0)
+                       ||
+                       (DateTime.Compare((DateTime)a.StartDate, enddate) <= 0
+                       &&
+                       DateTime.Compare((DateTime)a.EndDate, enddate) >= 0))
+                       )
+                    {
+                        return false;
+
+                    }
+                }
+            }
+            return true;
+
         }
 
         public bool CheckTemporaryRoleAndDates(string temporaryrole, DateTime startdate, DateTime enddate,String deptCode)
@@ -146,6 +225,28 @@ namespace InventoryWebApp.Controllers
                         return false;
 
                     }
+                }
+            }
+            return true;
+
+        }
+        public bool CheckEmployee(string employeecode)
+        {
+            List<AssignRole> listOfAssignRole = adao.ListAssignRole();
+            if (listOfAssignRole.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                foreach (AssignRole a in listOfAssignRole)
+                {
+                    if ((a.EmployeeCode == employeecode) && (a.TemporaryRoleCode != "ActHead"))
+                    {
+                        return false;
+
+                    }
+
                 }
             }
             return true;

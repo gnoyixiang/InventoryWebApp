@@ -24,19 +24,25 @@
             </div>
             <asp:Panel ID="Panel2" runat="server" Visible="false">No Disbursement Details found!</asp:Panel>
             <asp:Panel ID="Panel1" runat="server">
-                <div class="row">
-                    <div class="col-md-4">
-                        <label>Disbursement Code: </label>
-                        <asp:Label ID="lblDisbursementCode" runat="server" Text="Label"></asp:Label>
-                    </div>
-                </div>
-                <br />
-                <div class="row">
-                    <div class="col-md-4">
-                        <label>Disbursment Status: </label>
-                        <asp:Label ID="lblStatus" runat="server" Text="Label"></asp:Label>
-                    </div>
-                </div>
+                <table class="table">
+                    <tr>
+                        <th>Disbursement Code</th>
+                        <td><asp:Label ID="lblDisbursementCode" runat="server" Text="Label"></asp:Label></td>
+
+                        <th>Disbursement Date</th>
+                        <td>
+                            <asp:Label ID="lblDisbursementDate" runat="server" Text="Label"></asp:Label></td>
+                    </tr>
+                    <tr>
+                        <th>Disbursement Status</th>
+                        <td> <asp:Label ID="lblStatus" runat="server" Text="Label"></asp:Label></td>
+
+                        <th>Disbursement Venue</th>
+                        <td>
+                            <asp:Label ID="lblVenue" runat="server" Text="Label"></asp:Label></td>
+                    </tr>
+                </table>
+                
                 <br />
                 <asp:ListView ID="lvDisbursementDetails" runat="server">
                     <LayoutTemplate>

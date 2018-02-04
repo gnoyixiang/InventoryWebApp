@@ -8,6 +8,7 @@ using InventoryWebApp.Models.Entities;
 using System.Text;
 using InventoryWebApp.Controllers;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
 
 namespace InventoryWebApp.Store
 {

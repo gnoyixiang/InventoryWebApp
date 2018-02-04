@@ -8,6 +8,15 @@ namespace InventoryWebApp.DAO
 {
     public class EmployeeDAO : IEmployeeDAO
     {
+
+        public Employee GetEmployeeInfoByEmployeeCode(string employeecode)
+        {
+            using (EntityModel em = new EntityModel())
+            {
+                return em.Employees.Where(x => x.EmployeeCode.Contains(employeecode)).FirstOrDefault();
+            }
+        }
+
         public Employee GetRepresentative(string departmentCode)
         {
             using (EntityModel em = new EntityModel())

@@ -45,6 +45,7 @@ namespace InventoryWebApp.Store
                     int year = DateTime.Now.Year;
                     int month = DateTime.Now.Month;
 
+                    //view transaction of previous month when page is loaded
                     if (month == 1)
                     {
                         startDate = new DateTime(year - 1, 12, 01);
@@ -74,7 +75,8 @@ namespace InventoryWebApp.Store
         {
           
             List<List<TransactionOfRetrieval_Adjustment_PurchaseOrder>> tList = new List<List<TransactionOfRetrieval_Adjustment_PurchaseOrder>>();
-            for(DateTime i = startDate; i <= endDate; i=i.AddMonths(1))
+            //search transaction for each month
+            for (DateTime i = startDate; i <= endDate; i=i.AddMonths(1))
             {
 
                 tranList = supervisorController.GetAllTransaction(sCatalogue.ItemCode, i, new DateTime(i.Year, i.Month, DateTime.DaysInMonth(i.Year, i.Month)));
@@ -94,7 +96,7 @@ namespace InventoryWebApp.Store
                 
             }
 
-
+            //pupulate grid view for each month
             foreach (List<TransactionOfRetrieval_Adjustment_PurchaseOrder> entry in tList)
             {
               
@@ -145,19 +147,24 @@ namespace InventoryWebApp.Store
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            if (sCatalogue != null)
+            Page.Validate("searchValidation") ;
+            if(Page.IsValid)
             {
-                string[] arr = tbxStart.Text.Split('-');
-                int startYear = Convert.ToInt32(arr[0]);
-                int startMonth = Convert.ToInt32(arr[1]);
+                if (sCatalogue != null)
+                {
+                    //get date from text box
+                    string[] arr = tbxStart.Text.Split('-');
+                    int startYear = Convert.ToInt32(arr[0]);
+                    int startMonth = Convert.ToInt32(arr[1]);
 
-                arr = tbxEnd.Text.Split('-');
-                int endYear = Convert.ToInt32(arr[0]);
-                int endMonth = Convert.ToInt32(arr[1]);
+                    arr = tbxEnd.Text.Split('-');
+                    int endYear = Convert.ToInt32(arr[0]);
+                    int endMonth = Convert.ToInt32(arr[1]);
 
-                startDate = new DateTime(startYear, startMonth, 01);
-                endDate = new DateTime(endYear, endMonth, DateTime.DaysInMonth(endYear, endMonth));
-                BindGrid();
+                    startDate = new DateTime(startYear, startMonth, 01);
+                    endDate = new DateTime(endYear, endMonth, DateTime.DaysInMonth(endYear, endMonth));
+                    BindGrid();
+                }
             }
         }
         protected void valDateRange_ServerValidate(object source, ServerValidateEventArgs args)
