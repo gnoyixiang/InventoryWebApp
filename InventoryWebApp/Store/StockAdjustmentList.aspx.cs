@@ -69,27 +69,43 @@ namespace InventoryWebApp.Store
 
         protected void gvAdjustmentStatus_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            if (e.Row.RowType == DataControlRowType.DataRow)
+            if (Context.User.IsInRole("Store Clerk"))
             {
-                //int ParameterId = 1;
-
-                Adjustment a = (Adjustment)e.Row.DataItem;
-
-                if (a.Status == "unsubmitted")
+                if (e.Row.RowType == DataControlRowType.DataRow)
                 {
-                    HyperLink hl = e.Row.FindControl("HyperLink1") as HyperLink;
-                    //hl.NavigateUrl = "~/StockAdjustmentEdit.aspx?AdjustmentCode=" + ParameterId.ToString();
-                    hl.NavigateUrl = "~/Store/StockAdjustmentEdit.aspx?AdjustmentCode=" + a.AdjustmentCode;
-                    hl.Text = "Edit";
+                    //int ParameterId = 1;
+
+                    Adjustment a = (Adjustment)e.Row.DataItem;
+
+                    if (a.Status == "unsubmitted")
+                    {
+                        HyperLink hl = e.Row.FindControl("HyperLink1") as HyperLink;
+                        //hl.NavigateUrl = "~/StockAdjustmentEdit.aspx?AdjustmentCode=" + ParameterId.ToString();
+                        hl.NavigateUrl = "~/Store/StockAdjustmentEdit.aspx?AdjustmentCode=" + a.AdjustmentCode;
+                        hl.Text = "Edit";
+                    }
+                    else
+                    {
+                        HyperLink hl = e.Row.FindControl("HyperLink1") as HyperLink;
+                        //hl.NavigateUrl = "~/StockAdjustmentView.aspx?AdjustmentCode=" + ParameterId.ToString();
+                        hl.NavigateUrl = "~/Store/StockAdjustmentView.aspx?AdjustmentCode=" + a.AdjustmentCode;
+                        hl.Text = "View";
+                    }
                 }
-                else
+            }
+            else
+            {
+                if (e.Row.RowType == DataControlRowType.DataRow)
                 {
+                    Adjustment a = (Adjustment)e.Row.DataItem;
+
                     HyperLink hl = e.Row.FindControl("HyperLink1") as HyperLink;
                     //hl.NavigateUrl = "~/StockAdjustmentView.aspx?AdjustmentCode=" + ParameterId.ToString();
                     hl.NavigateUrl = "~/Store/StockAdjustmentView.aspx?AdjustmentCode=" + a.AdjustmentCode;
                     hl.Text = "View";
                 }
             }
+
         }
     }
 }
