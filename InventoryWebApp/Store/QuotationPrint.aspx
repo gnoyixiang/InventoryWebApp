@@ -22,7 +22,7 @@
         <asp:Panel ID="panelForm" runat="server">
             <div>
                 <div style="text-align: right;">
-                    <a href="#" onclick='printDiv("printA")'><i class="fa fa-print fa-2x" aria-hidden="true"></i></a>
+                    <a href="" onclick='printDiv("printA")'><i class="fa fa-print fa-2x" aria-hidden="true"></i></a>
                 </div>
             </div>
             <div id="printA">
