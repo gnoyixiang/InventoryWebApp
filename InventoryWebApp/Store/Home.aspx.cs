@@ -13,14 +13,27 @@ namespace InventoryWebApp.Store
     public partial class Home : System.Web.UI.Page
     {
         StoreClerkController scCtrl = new StoreClerkController();
+        StoreManagerController smCtrl = new StoreManagerController();
+        StoreSupervisorController ssCtrl = new StoreSupervisorController();
         JavaScriptSerializer jss = new JavaScriptSerializer();
 
         protected void Page_Load(object sender, EventArgs e)
         {        
-            lblDisbursementDate.Text = GetNextDisburseDate().ToString("dddd, d MMM yyyy");
+            lblDisbursementDate.Text = GetNextDisburseDate();
             lblItemsBelowReorderLvl.Text = CountItemsBelowReorderLvl().ToString();
             lblPendingOrderQty.Text = CountPendingOrders().ToString();
-            lblPendingAdjQty.Text = CountPendingAdj().ToString();
+            if (Context.User.IsInRole("Store Clerk"))
+            {
+                lblPendingAdjQty.Text = CountPendingAdj().ToString();
+            }
+            else if (Context.User.IsInRole("Store Supervisor"))
+            {
+                lblPendingAdjQty.Text = CountPendingAdjStoreSupervisor().ToString();
+            }
+            else if (Context.User.IsInRole("Store Manager"))
+            {
+                lblPendingAdjQty.Text = CountPendingAdjStoreManager().ToString();
+            }
             lblTotalItemsInStore.Text = CountTotalItemsInStore().ToString();
             listDisbursements.DataSource = scCtrl.GetDisbursingDisbursements();
             listDisbursements.DataBind();
@@ -102,15 +115,42 @@ namespace InventoryWebApp.Store
         {
             return scCtrl.ListAllAdjustments().Where(a => a.Status.ToUpper() == "PENDING").Count();
         }
+        private int CountPendingAdjStoreManager()
+        {
+            return smCtrl.ListOfPendingAdjustmentByManager().Count();
+        }
+        private int CountPendingAdjStoreSupervisor()
+        {
+            return ssCtrl.ListOfPendingAdjustmentBySupervisor().Count();
+        }
 
         private int CountItemsBelowReorderLvl()
         {
             return scCtrl.GetStationeriesBelowReorderLevel().Count();
         }
 
-        private DateTime GetNextDisburseDate()
+        private string GetNextDisburseDate()
         {
-            return Convert.ToDateTime(scCtrl.GetDisbursingDisbursements().Min(d => d.DatePlanToCollect));
+            var list = scCtrl.GetDisbursingDisbursements();
+            if (list.Count > 0)
+            {
+                var date = Convert.ToDateTime(list.Min(d => d.DatePlanToCollect));
+                if ((date - DateTime.Now).Days >= 3)
+                {
+                    lblDisbursementDate.ForeColor = System.Drawing.Color.Green;
+                }
+                else if ((date - DateTime.Now).Days >= 1)
+                {
+                    lblDisbursementDate.ForeColor = System.Drawing.Color.Orange;
+                }
+                else
+                {
+                    lblDisbursementDate.ForeColor = System.Drawing.Color.Red;
+                }
+                return date.ToString("dddd, d MMM yyyy");
+            }
+            
+            return "No Next Disbursement At The Moment.";
         }
 
         protected string GetDepartmentName(string deptCode)
