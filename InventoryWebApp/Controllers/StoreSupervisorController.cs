@@ -504,46 +504,48 @@ namespace InventoryWebApp.Controllers
             List<DisbursementDetail> dList = new List<DisbursementDetail>();
             List<Adjustment> adjList = new List<Adjustment>();
             List<PODetail> podList = new List<PODetail>();
+
+            //add disbursement to transaction list
             dList = dbdDAO.ListDDByItemCode(itemCode, start);
             foreach (DisbursementDetail d in dList)
             {
                 Disbursement r = dbDAO.GetDisbursementByCode(d.DisbursementCode);
 
-                //if (r.DateDisbursed > start)
-                //{
                 string depName = GetDepartment(r.DepartmentCode).DepartmentName;
                 tList.Add(new TransactionOfRetrieval_Adjustment_PurchaseOrder(r.DateDisbursed, d.ActualQuantity.ToString(), depName, r.DepartmentCode, ""));
 
-                // }
             }
 
+            //add adjustment to transaction list
             adjList = adjustmentDao.ListAllAdjustmentsByItemCode(itemCode, start);
             foreach (Adjustment adj in adjList)
             {
-                //if (adj.DateApproved > start)
+
                 tList.Add(new TransactionOfRetrieval_Adjustment_PurchaseOrder(adj.DateApproved, adj.AdjustmentQuant.ToString(), "Adjustment", "", ""));
             }
 
+            //add purchase order to transaction list
             podList = podDAO.ListPODetailByItemCodeAndDate(itemCode, start);
             foreach (PODetail pod in podList)
             {
 
                 PurchaseOrder po = poDAO.GetPurchaseOrder(pod.PurchaseOrderCode);
-                //if (po.DateReceived > start)
-                //{
+
                 string supName = GetSupplier(po.SupplierCode).SupplierName;
                 tList.Add(new TransactionOfRetrieval_Adjustment_PurchaseOrder(po.DateReceived, pod.Quantity.ToString(), supName, "", po.SupplierCode));
 
-                //}
             }
             if (tList.Count == 0)
             {
                 return null;
             }
+
+            //sort transaction list based on date
             tList.Sort();
             int? currentStock = Convert.ToInt32(stationaryDao.GetStationery(itemCode).Stock);
 
             tList.Last().Balance = currentStock;
+            //calculate balance 
             for (int i = tList.Count - 1; i > 0; i--)
             {
                 if (tList[i].SupId != "")
@@ -562,6 +564,8 @@ namespace InventoryWebApp.Controllers
                     currentStock = tList[i - 1].Balance;
                 }
             }
+
+            //return transaction list between start and end date
             List<TransactionOfRetrieval_Adjustment_PurchaseOrder> tListBeforeEndDate = new List<TransactionOfRetrieval_Adjustment_PurchaseOrder>();
             foreach (TransactionOfRetrieval_Adjustment_PurchaseOrder trans in tList)
             {

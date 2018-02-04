@@ -15,16 +15,16 @@ namespace InventoryWebApp.Dept
         EmployeeController ec = new EmployeeController();
         string dCode;
         string rCode;
-        
+
 
         protected void Page_Load(object sender, EventArgs e)
-        {           
-            if (Request.QueryString["DISBURSEMENTCODE"] != null && Request.QueryString["REQUESTCODE"]!=null)
+        {
+            if (Request.QueryString["DISBURSEMENTCODE"] != null && Request.QueryString["REQUESTCODE"] != null)
             {
                 dCode = Request.QueryString["DISBURSEMENTCODE"];
                 rCode = Request.QueryString["REQUESTCODE"];
             }
-            else if(Request.QueryString["DISBURSEMENTCODE"] != null && Request.QueryString["REQUESTCODE"] == null)
+            else if (Request.QueryString["DISBURSEMENTCODE"] != null && Request.QueryString["REQUESTCODE"] == null)
             {
                 dCode = Request.QueryString["DISBURSEMENTCODE"];
             }
@@ -48,7 +48,12 @@ namespace InventoryWebApp.Dept
                 //else
                 //    lblRequestCode.Text = "-";
 
-                lblStatus.Text = ((string)sc.GetDisbursement(dCode).Status).ToUpper() ;
+                lblStatus.Text = ((string)sc.GetDisbursement(dCode).Status).ToUpper();
+                lblVenue.Text = sc.GetCollectionPointByCode(sc.GetDisbursement(dCode).CollectionPointCode).CollectionVenue;
+
+                lblDisbursementDate.Text = ((DateTime)sc.GetDisbursement(dCode).DatePlanToCollect).ToString("dd MMM yyyy") + " at " + DateTime.Today.Add((TimeSpan)sc.GetCollectionPointByCode(sc.GetDisbursement(dCode).CollectionPointCode).CollectionTime).ToString("hh:mm tt");
+
+
             }
         }
 

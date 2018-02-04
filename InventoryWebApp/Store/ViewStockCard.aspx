@@ -53,7 +53,7 @@
                             <td style="border: none">
                                 <div class="input-group">
                                     <div class="input-group-addon">From</div>
-                                    <asp:TextBox ID="tbxStart" runat="server" TextMode="Month" CssClass="form-control"></asp:TextBox>
+                                    <asp:TextBox ID="tbxStart" runat="server" TextMode="Month" CssClass="form-control" ValidationGroup="searchValidation"></asp:TextBox>
                                 </div>
                                 <div>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator"
@@ -61,31 +61,36 @@
                                         ControlToValidate="tbxStart"
                                         Display="Dynamic"
                                         ForeColor="Red"
-                                        ErrorMessage=" Date is required!" />
+                                        ErrorMessage=" Date is required!"
+                                        ValidationGroup="searchValidation" />
                                 </div>
                             </td>
                             <td style="border: none">
                                 <div class="input-group">
                                     <div class="input-group-addon">To</div>
-                                    <asp:TextBox ID="tbxEnd" runat="server" TextMode="Month" CssClass="form-control" Width="90%"></asp:TextBox>
+                                    <asp:TextBox ID="tbxEnd" runat="server" TextMode="Month" CssClass="form-control" Width="90%" ValidationGroup="searchValidation"></asp:TextBox>
                                 </div>
                                 <div>
+                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1"
+                                        runat="server"
+                                        ControlToValidate="tbxEnd"
+                                        Display="Dynamic"
+                                        ForeColor="Red"
+                                        ErrorMessage=" Date is required!" 
+                                        ValidationGroup="searchValidation"/>
                                     <asp:CustomValidator runat="server"
                                         Display="Dynamic"
                                         ID="valDateRange"
                                         ControlToValidate="tbxStart"
                                         OnServerValidate="valDateRange_ServerValidate"
-                                        ErrorMessage="Please enter valid date" ForeColor="Red" /><br />
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1"
-                                        runat="server"
-                                        ControlToValidate="tbxEnd"
-                                        Display="Dynamic"
-                                        ForeColor="Red"
-                                        ErrorMessage=" Date is required!" />
+                                        ErrorMessage="Please enter valid date" ForeColor="Red"
+                                        ValidationGroup="searchValidation" /><br />
+                                   
                                 </div>
                             </td>
                             <td style="border: none">
-                                <asp:Button ID="btnSearch" runat="server" Text="Search" OnClick="btnSearch_Click" CssClass="btn btn-primary" /></td>
+                                <asp:Button ID="btnSearch" runat="server" Text="Search" OnClick="btnSearch_Click" CssClass="btn btn-primary"
+                                    ValidationGroup="searchValidation" /></td>
                         </tr>
 
                     </table>
