@@ -19,7 +19,7 @@ namespace InventoryWebApp.Store
 
         protected void Page_Load(object sender, EventArgs e)
         {        
-            lblDisbursementDate.Text = GetNextDisburseDate().ToString("dddd, d MMM yyyy");
+            lblDisbursementDate.Text = GetNextDisburseDate();
             lblItemsBelowReorderLvl.Text = CountItemsBelowReorderLvl().ToString();
             lblPendingOrderQty.Text = CountPendingOrders().ToString();
             if (Context.User.IsInRole("Store Clerk"))
@@ -129,9 +129,28 @@ namespace InventoryWebApp.Store
             return scCtrl.GetStationeriesBelowReorderLevel().Count();
         }
 
-        private DateTime GetNextDisburseDate()
+        private string GetNextDisburseDate()
         {
-            return Convert.ToDateTime(scCtrl.GetDisbursingDisbursements().Min(d => d.DatePlanToCollect));
+            var list = scCtrl.GetDisbursingDisbursements();
+            if (list.Count > 0)
+            {
+                var date = Convert.ToDateTime(list.Min(d => d.DatePlanToCollect));
+                if ((date - DateTime.Now).Days >= 3)
+                {
+                    lblDisbursementDate.ForeColor = System.Drawing.Color.Green;
+                }
+                else if ((date - DateTime.Now).Days >= 1)
+                {
+                    lblDisbursementDate.ForeColor = System.Drawing.Color.Orange;
+                }
+                else
+                {
+                    lblDisbursementDate.ForeColor = System.Drawing.Color.Red;
+                }
+                return date.ToString("dddd, d MMM yyyy");
+            }
+            
+            return "No Next Disbursement At The Moment.";
         }
 
         protected string GetDepartmentName(string deptCode)
