@@ -45,6 +45,8 @@ namespace InventoryWebApp.Store
                     panelDetails.Visible = true;
                 }
             }
+
+            
         }
 
         protected bool IsEditable()

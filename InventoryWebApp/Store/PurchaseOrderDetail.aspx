@@ -288,7 +288,7 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-bottom: 10px">Close</button>
                             <asp:Button runat="server" ID="btnSubmit" Text="Submit" CssClass="btn btn-success" CausesValidation="true" type="button"
-                                OnClick="btnSubmit_Click" Style="margin-bottom: 10px; margin-left: 0" />
+                                OnClick="btnSubmit_Click" Style="margin-bottom: 10px; margin-left: 0" OnClientClick="if(this.value === 'Submitting..') { return false; } else { this.value = 'Submitting..'; }"/>
                         </div>
                     </div>
                 </div>
