@@ -150,7 +150,7 @@ namespace InventoryWebApp.WCF
 
                     controller.UpdateAdjustmentBySupervisor(ad);
 
-                    return "amit";
+                    return "Success";
                 }
                 catch (Exception e)
                 {

@@ -82,13 +82,13 @@
                     </ItemTemplate>
                 </asp:TemplateField>
 
-                <asp:TemplateField HeaderText="ReportTo" SortExpression="Report To">
+                <%--<asp:TemplateField HeaderText="ReportTo" SortExpression="Report To">
 
                     <ItemTemplate>
                         <asp:Label ID="lblReportTo" runat="server" Text='<%# Bind("ReportTo") %>'></asp:Label>
                     </ItemTemplate>
 
-                </asp:TemplateField>
+                </asp:TemplateField>--%>
 
             </Columns>
 
