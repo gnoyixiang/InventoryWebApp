@@ -56,6 +56,7 @@ namespace InventoryWebApp.Controllers
             }
             return empList;
         }
+
         public Employee GetEmployeeInfoByEmployeeCode(string employeecode)
         {
             return edao.GetEmployeeInfoByEmployeeCode(employeecode);
@@ -80,11 +81,12 @@ namespace InventoryWebApp.Controllers
             return empList;
         }
 
+
         public Role GetRoleInfo(string id)
         {
             return rdao.GetRoleInfo(id);
         }
-      
+
         public List<AssignRole> ListOfAssignRoleInDepartment(string deptCode)
         {
             List<Employee> empList = edao.SearchByDept(deptCode);
@@ -100,6 +102,7 @@ namespace InventoryWebApp.Controllers
             }
             return assignList;
         }
+
         public bool CheckTemporaryRole(string temporaryrole)
         {
             List<AssignRole> listOfAssignRole = adao.ListAssignRole();
@@ -120,7 +123,7 @@ namespace InventoryWebApp.Controllers
             }
             return true;
         }
-        public bool CheckTemporaryRole(string temporaryrole,String deptCode)
+        public bool CheckTemporaryRole(string temporaryrole, String deptCode)
         {
             List<Employee> empList = edao.SearchByDept(deptCode);
             List<AssignRole> assignList = new List<AssignRole>();
@@ -150,6 +153,7 @@ namespace InventoryWebApp.Controllers
             }
             return true;
         }
+
         public bool CheckTemporaryRoleAndDates(string temporaryrole, DateTime startdate, DateTime enddate)
         {
             List<AssignRole> listOfAssignRole = adao.ListAssignRole();
@@ -186,7 +190,7 @@ namespace InventoryWebApp.Controllers
 
         }
 
-        public bool CheckTemporaryRoleAndDates(string temporaryrole, DateTime startdate, DateTime enddate,String deptCode)
+        public bool CheckTemporaryRoleAndDates(string temporaryrole, DateTime startdate, DateTime enddate, String deptCode)
         {
             List<Employee> empList = edao.SearchByDept(deptCode);
             List<AssignRole> assignList = new List<AssignRole>();
@@ -230,6 +234,7 @@ namespace InventoryWebApp.Controllers
             return true;
 
         }
+
         public bool CheckEmployee(string employeecode)
         {
             List<AssignRole> listOfAssignRole = adao.ListAssignRole();
@@ -252,7 +257,7 @@ namespace InventoryWebApp.Controllers
             return true;
 
         }
-        public bool CheckEmployee(string employeecode,String deptCode)
+        public bool CheckEmployee(string employeecode, String deptCode)
         {
             List<Employee> empList = edao.SearchByDept(deptCode);
             List<AssignRole> assignList = new List<AssignRole>();
@@ -283,6 +288,7 @@ namespace InventoryWebApp.Controllers
             return true;
 
         }
+
         public string GetRoleName(string a)
         {
 
