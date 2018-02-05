@@ -54,12 +54,12 @@
                             <LayoutTemplate>
                                 <table class="table">
                                     <tr>
-                                        <th>Request Code</th>
+                                        <%--<th>Request Code</th>--%>
                                         <th>Stationery</th>
-                                        <th>Status</th>
+                                        <%--<th>Status</th>--%>
                                         <th>Remaining Quantity</th>
                                         <th>Quantity</th>
-                                        <th>Notes</th>
+                                        <%--<th>Notes</th>--%>
 
                                     </tr>
                                     <tr id="itemPlaceholder" runat="server">
@@ -68,12 +68,12 @@
                             </LayoutTemplate>
                             <ItemTemplate>
                                 <tr>
-                                    <td><%# Eval("RequestCode") %></a></td>
+                                    <%--<td><%# Eval("RequestCode") %></a></td>--%>
                                     <td><%# GetItemDescription((string)Eval("ItemCode")) %></td>
-                                    <td><%# Eval("Status") %></td>
+                                    <%--<td><%# Eval("Status") %></td>--%>
                                     <td><%# Eval("RemainingQuant") %></td>
                                     <td><%# Eval("Quantity") %></td>
-                                    <td><%# Eval("Notes") %></td>
+                                    <%--<td><%# Eval("Notes") %></td>--%>
                                     <% if (IsEditable() && IsEmployee())
                                         { %>
                                     <td align="center" style="width: 3%">
@@ -91,19 +91,20 @@
                             <EditItemTemplate>
                                 <tr>
                                     <%--<asp:HiddenField ID="hfMinReorderQty" runat="server" />--%>
-                                    <td>
-                                        <asp:Label ID="lblEditRequisitionCode" runat="server"><%# Eval("RequestCode") %></asp:Label></td>
-                                    <td>
-                                        <asp:Label ID="lblEditItemCode" runat="server"><%# Eval("ItemCode") %></asp:Label></td>
-                                    <td>
-                                        <asp:Label ID="lblEditStatus" runat="server"><%# Eval("Status") %></asp:Label></td>
+                                   <%-- <td>
+                                        <asp:Label ID="lblEditRequisitionCode" runat="server"><%# Eval("RequestCode") %></asp:Label></td>--%>
+                                    <td><%# GetItemDescription((string)Eval("ItemCode")) %></td>
+                                    <%--<td>
+                                        <asp:Label ID="lblEditItemCode" runat="server"><%# Eval("ItemCode") %></asp:Label></td>--%>
+                                    <%--<td>
+                                        <asp:Label ID="lblEditStatus" runat="server"><%# Eval("Status") %></asp:Label></td>--%>
                                     <td>
                                         <asp:Label ID="lblEditRemainingQuantity" runat="server"><%# Eval("RemainingQuant") %></asp:Label></td>
                                     <td align="left">
                                         <asp:TextBox ID="txtOrderQuantity" runat="server" CssClass="control"
                                             TextMode="Number" Width="80px" Text='<%# Bind("Quantity") %>' /></td>
-                                    <td>
-                                        <asp:Label ID="lblEditNotes" runat="server"><%# Eval("Notes") %></asp:Label></td>
+                                    <%--<td>
+                                        <asp:Label ID="lblEditNotes" runat="server"><%# Eval("Notes") %></asp:Label></td>--%>
 
                                     <td align="center">
                                         <asp:LinkButton ID="UpdateButton" runat="server" CommandName="Update">

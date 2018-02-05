@@ -49,7 +49,7 @@
                         <table class="table table-striped">
                             <tr style="background-color:#cfd8dc">
                                 <th>Request Code</th>
-                                <th>Item Code</th>
+                                <th>Item Description</th>
                                 <th>Quantity</th>
                                 <th>Notes</th>
 
@@ -61,7 +61,7 @@
                     <ItemTemplate>
                         <tr>
                             <td><%# Eval("RequestCode") %></td>
-                            <td><%# Eval("ItemCode") %></td>
+                            <td><%# GetItemDescription(Eval("ItemCode").ToString()) %></td>
                             <td><%# Eval("Quantity") %></td>
                             <td><%# Eval("Notes") %></td>
                         </tr>

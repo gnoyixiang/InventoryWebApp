@@ -57,6 +57,11 @@ namespace InventoryWebApp.Dept
             }
         }
 
+        protected String GetItemDescription(String itemCode)
+        {
+            return sc.GetItemDescription(itemCode);
+        }
+
 
     }
 }

@@ -77,7 +77,7 @@
                 OnPageIndexChanging="gvNewRequest_PageIndexChanging" AllowPaging="True" CssClass="table " OnRowDataBound="gvNewRequest_RowDataBound">
 
                 <Columns>
-                    <asp:BoundField DataField="ItemCode" HeaderText="Item Number" ReadOnly="true" />
+                    <asp:BoundField DataField="ItemCode" HeaderText="Item Number" ReadOnly="true" Visible="false"/>
                     <asp:BoundField DataField="Category" HeaderText="Category" ReadOnly="true" />
                     <asp:BoundField DataField="Description" HeaderText="Description" ReadOnly="true" />
                     <asp:TemplateField HeaderText="Quantity" SortExpression="Quantity">

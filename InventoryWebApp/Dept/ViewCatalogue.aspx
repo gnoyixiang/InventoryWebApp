@@ -55,20 +55,28 @@
         CssClass="table table-striped   " HeaderStyle-BackColor="#cfd8dc">
        
         <Columns>
-            <asp:TemplateField HeaderText="Stationery Number" ItemStyle-Width="150px">
-                <ItemTemplate>
-                    <asp:HyperLink ID="ItemCode" runat="server" ForeColor="Blue"
-                        Text='<%# Eval("ItemCode") %>'>
-                    </asp:HyperLink> 
-                   
-                </ItemTemplate>
-            </asp:TemplateField>
+           
             <asp:BoundField DataField="CategoryCode" HeaderText="Category">
                 <ItemStyle Width="150px"></ItemStyle>
             </asp:BoundField>
             <asp:BoundField DataField="Description" HeaderText="Description">
                 <ItemStyle Width="150px"></ItemStyle>
             </asp:BoundField>
+             <asp:TemplateField HeaderText="Click to Order" ItemStyle-Width="150px">
+                <ItemTemplate>
+                    <%--<asp:HyperLink ID="ItemCode" runat="server" ForeColor="Blue"
+                        Text='<%# Eval("ItemCode") %>'>
+                    </asp:HyperLink> --%>
+                    <% if (!IsRedirect())
+                        { %>
+                    <a href='<%# "ItemDetails.aspx?ItemCode=" + Eval("ItemCode") %>'>Order</a><%}
+                                            else
+                                            { %>
+                    <a href='<%# "ItemDetails.aspx?ItemCode=" + Eval("ItemCode") +"&REQUESTCODE=" + Request.QueryString["REQUESTCODE"] %>'>Order</a>
+                    <%} %>
+                </ItemTemplate>
+
+            </asp:TemplateField>
         </Columns>
         <PagerSettings Mode="NumericFirstLast" FirstPageText="First" LastPageText="Last" PreviousPageText="Previous" NextPageText="Next" />
         <PagerStyle ForeColor="Black" HorizontalAlign="Center" CssClass="pager-style"/>

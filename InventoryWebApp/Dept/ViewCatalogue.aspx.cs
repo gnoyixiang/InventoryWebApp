@@ -87,18 +87,20 @@ namespace InventoryWebApp.Dept
             string itcode;
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
+                //e.Row.RowIndex
                 HyperLink HyperLink1 = e.Row.FindControl("itemcode") as HyperLink;
-                itcode = HyperLink1.Text;
-                if (IsRedirect())
-                {
-                    HyperLink1.NavigateUrl = "ItemDetails.aspx?ItemCode=" +
-                         itcode + "&REQUESTCODE=" + RequestC;
-                }
-                else
-                {
-                    HyperLink1.NavigateUrl = "ItemDetails.aspx?ItemCode=" +
-                         itcode;
-                }
+                
+                //itcode = HyperLink1.Text;
+                //if (IsRedirect())
+                //{
+                //    HyperLink1.NavigateUrl = "ItemDetails.aspx?ItemCode=" +
+                //         itcode + "&REQUESTCODE=" + RequestC;
+                //}
+                //else
+                //{
+                //    HyperLink1.NavigateUrl = "ItemDetails.aspx?ItemCode=" +
+                //         itcode;
+                //}
 
             }
 

@@ -28,22 +28,10 @@
             <table>
                 <tr>
                     <td>
-                        <asp:Label ID="lbl1" runat="server" Text="Item Number: "></asp:Label>&nbsp;<br />
+                        <asp:Label ID="lbl1" runat="server" Text="Item Number: " Visible="false"></asp:Label>&nbsp;<br />
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td>
                     <td>
-                        <asp:Label ID="lblItemCode" runat="server"></asp:Label>
-                        <br />
-                        <br />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <asp:Label ID="lbl2" runat="server" Text="Category: "></asp:Label>
-                        <br />
-                        <br />
-                    </td>
-                    <td>
-                        <asp:Label ID="lblCategory" runat="server"></asp:Label>
+                        <asp:Label ID="lblItemCode" runat="server" Visible="false"></asp:Label>
                         <br />
                         <br />
                     </td>
@@ -60,6 +48,19 @@
                         <br />
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <asp:Label ID="lbl2" runat="server" Text="Category: "></asp:Label>
+                        <br />
+                        <br />
+                    </td>
+                    <td>
+                        <asp:Label ID="lblCategory" runat="server"></asp:Label>
+                        <br />
+                        <br />
+                    </td>
+                </tr>
+                
                 <tr>
                     <td>
                         <asp:Label ID="lblQuantity" runat="server" Text="Quantity: "></asp:Label></td>
@@ -92,7 +93,7 @@
                 </tr>
             </table>
             <br />
-            <asp:Button ID="btnAddToRequest" runat="server" Text="Add to Request" OnClick="btnAddToRequest_Click" Class="btn btn-primary" />
+            <asp:Button ID="btnAddToRequest" runat="server" Text="Add to Request" OnClick="btnAddToRequest_Click" Class="btn btn-success" />
 
             <!-- Modal -->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

@@ -78,6 +78,7 @@ namespace InventoryWebApp.Dept
             if (rdlQuantity.SelectedItem != null)
             {
                 tbxQuantity.Text = rdlQuantity.SelectedItem.Text;
+                lblQuantityResult.Text = "Quantity for this item is:" + Convert.ToInt32(tbxQuantity.Text);
                 tbxRequiredValidator.Visible = false;
                 lblAnotherQuantity.Visible = false;
             }
