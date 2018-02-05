@@ -45,6 +45,8 @@ namespace InventoryWebApp.Store
                     panelDetails.Visible = true;
                 }
             }
+
+            
         }
 
         protected bool IsEditable()
@@ -459,6 +461,23 @@ namespace InventoryWebApp.Store
             if (IsEditable())
             {
                 btnSaveFinalNotes.Visible = true;
+            }
+        }
+
+        protected void ValidFinalNotes_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            if (source is CustomValidator && IsPostBack)
+            {
+                string notes = args.Value;
+                args.IsValid = notes.Count<char>() <= 200;
+                if (!args.IsValid)
+                {
+                    txtFinalNotes.CssClass = "control error";
+                }
+                else
+                {
+                    txtFinalNotes.CssClass = "control";
+                }
             }
         }
     }

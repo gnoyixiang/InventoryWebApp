@@ -220,8 +220,8 @@
                 <div class="col-md-11">
                     <asp:TextBox ID="txtFinalNotes" runat="server" Rows="3" CssClass="control" ReadOnly="true" OnTextChanged="txtFinalNotes_TextChanged" AutoPostBack="true"
                                             resize="none" TextMode="MultiLine" Width="100%" Text='<%# Bind("Notes") %>' Style="resize: none"></asp:TextBox>
-                    <asp:CustomValidator ID="ValidFinalNotes" runat="server"
-                                        OnServerValidate="ValidNotes_ServerValidate" ValidationGroup="ValidGroupFinalNotes"
+                    <asp:CustomValidator ID="ValidFinalNotes" runat="server" 
+                                        OnServerValidate="ValidFinalNotes_ServerValidate" ValidationGroup="ValidGroupFinalNotes"
                                         ControlToValidate="txtFinalNotes" ForeColor="Red" ErrorMessage="Maximum 200 characters allowed."
                                         Display="Dynamic"></asp:CustomValidator>
                     
@@ -288,7 +288,7 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-bottom: 10px">Close</button>
                             <asp:Button runat="server" ID="btnSubmit" Text="Submit" CssClass="btn btn-success" CausesValidation="true" type="button"
-                                OnClick="btnSubmit_Click" Style="margin-bottom: 10px; margin-left: 0" />
+                                OnClick="btnSubmit_Click" Style="margin-bottom: 10px; margin-left: 0" OnClientClick="if(this.value === 'Submitting..') { return false; } else { this.value = 'Submitting..'; }"/>
                         </div>
                     </div>
                 </div>

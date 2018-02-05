@@ -193,7 +193,7 @@
         <!-- # Pending orders -->
         <div class="col-sm-12 col-md-3">
             <a href="ViewPurchaseOrders?search=5&q=Pending">
-                <div class="col-xs-12 box">
+                <div class="col-xs-12 box"  style="color:#333; background-color: #99999947;">
                     <div class="floatleft">
                         <h2><i class="fa fa-shopping-cart"></i></h2>
                     </div>
@@ -219,7 +219,7 @@
                         { %>
                     <a href="AdjustmentByStoreManager">
                         <%} %>
-                        <div class="col-xs-12 box">
+                        <div class="col-xs-12 box"  style="color:#333; background-color: #ffa50059;">
                             <div class="floatleft">
                                 <h2><i class="fa fa-edit"></i></h2>
                             </div>
@@ -234,9 +234,9 @@
         <!-- # Items below reorder level -->
         <div class="col-sm-12 col-md-3">
             <a href="CreateNewOrder">
-                <div class="col-xs-12 box">
+                <div class="col-xs-12 box" style="color:#333; background-color: #ff00002e;">
                     <div class="floatleft">
-                        <h2><i class="fa fa-exclamation-circle"></i></h2>
+                        <h2><i class="fa fa-exclamation-circle" ></i></h2>
                     </div>
                     <div>
                         <h2>
@@ -250,7 +250,7 @@
         <!-- # Total items in store -->
         <div class="col-sm-12 col-md-3">
             <a href="StockCardSearch">
-                <div class="col-xs-12 box">
+                <div class="col-xs-12 box" style="color:#333; background-color: #00800038;">
                     <div class="floatleft">
                         <h2><i class="fa fa-inbox"></i></h2>
                     </div>
