@@ -15,6 +15,7 @@ namespace InventoryWebApp.WCF
     {
         DepartmentHeadController dCon = new DepartmentHeadController();
         ILoginService loginService = new LoginService();
+        EmployeeController eCon = new EmployeeController();
 
         public List<WCFRequest> ListAllPendingRequest(string deptCode, string email, string password)
         {
@@ -199,6 +200,7 @@ namespace InventoryWebApp.WCF
 
         public String AddAssignRole(WCFAssignRole wcfassignrole, string email, string password)
         {
+
             if (loginService.ValidateUser(email, password))
             {
                 //try
@@ -210,8 +212,8 @@ namespace InventoryWebApp.WCF
                 DateTime startdateselected = Convert.ToDateTime(wcfassignrole.StartDate);
                 DateTime enddateselected = Convert.ToDateTime(wcfassignrole.EndDate);
 
-                bool checkvalue = dCon.CheckTemporaryRoleAndDates(rolecodeselected, startdateselected, enddateselected);
-                bool checkemployee = dCon.CheckEmployee(wcfassignrole.EmployeeCode);
+                bool checkvalue = dCon.CheckTemporaryRoleAndDates(rolecodeselected, startdateselected, enddateselected, eCon.GetDeptCodeByUserName(email));
+                bool checkemployee = dCon.CheckEmployee(wcfassignrole.EmployeeCode, eCon.GetEmployeeNameByUserName(email));
                 if (checkvalue && checkemployee)
                 {
                     dCon.AddAssignRole(assignrolecode, rolecodeselected, wcfassignrole.EmployeeCode, startdateselected, enddateselected, wcfassignrole.AssignedBy);
@@ -225,8 +227,8 @@ namespace InventoryWebApp.WCF
             }
             else
             {
-                bool checkvalue = dCon.CheckTemporaryRole(rolecodeselected);
-                bool checkemployee = dCon.CheckEmployee(wcfassignrole.EmployeeCode);
+                bool checkvalue = dCon.CheckTemporaryRole(rolecodeselected, eCon.GetDeptCodeByUserName(email));
+                bool checkemployee = dCon.CheckEmployee(wcfassignrole.EmployeeCode, eCon.GetEmployeeNameByUserName(email));
                 if (checkvalue && checkemployee)
                 {
                     dCon.AddTemporaryRole(assignrolecode, rolecodeselected, wcfassignrole.EmployeeCode);
