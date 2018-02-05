@@ -213,7 +213,7 @@ namespace InventoryWebApp.WCF
                 DateTime enddateselected = Convert.ToDateTime(wcfassignrole.EndDate);
 
                 bool checkvalue = dCon.CheckTemporaryRoleAndDates(rolecodeselected, startdateselected, enddateselected, eCon.GetDeptCodeByUserName(email));
-                bool checkemployee = dCon.CheckEmployee(wcfassignrole.EmployeeCode, eCon.GetEmployeeNameByUserName(email));
+                bool checkemployee = dCon.CheckEmployee(wcfassignrole.EmployeeCode, eCon.GetDeptCodeByUserName(email));
                 if (checkvalue && checkemployee)
                 {
                     dCon.AddAssignRole(assignrolecode, rolecodeselected, wcfassignrole.EmployeeCode, startdateselected, enddateselected, wcfassignrole.AssignedBy);
@@ -228,7 +228,7 @@ namespace InventoryWebApp.WCF
             else
             {
                 bool checkvalue = dCon.CheckTemporaryRole(rolecodeselected, eCon.GetDeptCodeByUserName(email));
-                bool checkemployee = dCon.CheckEmployee(wcfassignrole.EmployeeCode, eCon.GetEmployeeNameByUserName(email));
+                bool checkemployee = dCon.CheckEmployee(wcfassignrole.EmployeeCode, eCon.GetDeptCodeByUserName(email));
                 if (checkvalue && checkemployee)
                 {
                     dCon.AddTemporaryRole(assignrolecode, rolecodeselected, wcfassignrole.EmployeeCode);
