@@ -78,7 +78,8 @@ namespace InventoryWebApp
                         {
                             tempRoleCode = assignRole.TemporaryRoleCode;
                         }
-                        else if (DateTime.Now >= assignRole.StartDate && DateTime.Now <= assignRole.EndDate)
+                        else if (DateTime.Now.Date >= Convert.ToDateTime(assignRole.StartDate).Date 
+                            && DateTime.Now.Date <= Convert.ToDateTime(assignRole.EndDate).Date)
                         {
                             tempRoleCode = assignRole.TemporaryRoleCode;
                         }
