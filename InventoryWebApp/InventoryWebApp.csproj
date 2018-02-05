@@ -269,6 +269,7 @@
     <Content Include="Dept\DeptRequisitionList.aspx" />
     <Content Include="Dept\RequisitionDetails.aspx" />
     <Content Include="Dept\UpdateCollectionPoint.aspx" />
+    <Content Include="SQL\script.sql" />
     <Content Include="Store\Home.aspx" />
     <Content Include="Store\MapTrial.aspx" />
     <Content Include="Store\RequisitionDetails.aspx" />
