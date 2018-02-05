@@ -13,12 +13,17 @@ namespace ConsoleTestApp
     class Program
     {
         static StoreClerkController sClerkCtrl = new StoreClerkController();
-        public static List<WCF_RetrievalDetail> GetAllocatingRetrievalDetails()
+        public static List<WCF_RetrievalDetail> GetProcessingRetrievalDetails()
         {
-                  Retrieval r = sClerkCtrl.GetCurrentRetrieval();
-                if (r != null)
+            if (sClerkCtrl.GetDisbursementsByStatus("allocating").Count == 0)
+            {
+                Retrieval r = sClerkCtrl.GetCurrentRetrieval();
+                if (r == null)
                 {
-                    sClerkCtrl.GetAllocatingDisbursementList();
+                    return null;
+                }
+                else
+                {
                     List<RetrievalDetail> rdList = r.RetrievalDetails.ToList<RetrievalDetail>();
                     List<WCF_RetrievalDetail> wrdList = new List<WCF_RetrievalDetail>();
                     foreach (var item in rdList)
@@ -28,14 +33,18 @@ namespace ConsoleTestApp
                     }
                     return wrdList;
                 }
+
+            }
+            else
+            {
                 return null;
-            
-            
+            }
+
         }
         public static void Main(String[] args)
         {
             IClerkService cs = new ClerkService();
-            GetAllocatingRetrievalDetails();
+            GetProcessingRetrievalDetails();
 
             //IStationeryCatalogueDAO sDAO = new StationeryCatalogueDAO();
             //ISupplierDetailsDAO sdDAO = new SupplierDetailsDAO();

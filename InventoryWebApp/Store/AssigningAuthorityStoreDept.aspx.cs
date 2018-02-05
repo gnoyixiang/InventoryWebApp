@@ -585,25 +585,21 @@ namespace InventoryWebApp.Store
 
                     string tempRoleCode = (gvSearchResult.FooterRow.FindControl("ddlTemporaryRoleCodeFooter") as DropDownList).SelectedValue;
 
-                    TextBox txtstartDate = (gvSearchResult.FooterRow.FindControl("tbxStartDateFooter") as TextBox);
-                    DateTime startDate = DateTime.Parse(txtstartDate.Text);
-
-                    TextBox txtEndDate = (gvSearchResult.FooterRow.FindControl("tbxEndDateFooter") as TextBox);
-                    DateTime endDate = DateTime.Parse(txtEndDate.Text);
-
-                    //This method will use when we login to application and this method can acess who logged in and can get the user 
-                    //var user = HttpContext.Current.GetOwinContext().Get<ApplicationUserManager>().FindById(User.Identity.GetUserName());
-                    var user1 = Context.User.Identity.Name;
-                    //this is getting username from user.
-                   // string userName =  user1.UserName;
+                    
+                  var userName =   Context.User.Identity.Name;
                     Page.Validate("addValidation");
                     if (Page.IsValid)
                     {
+                        TextBox txtstartDate = (gvSearchResult.FooterRow.FindControl("tbxStartDateFooter") as TextBox);
+                        DateTime startDate = DateTime.Parse(txtstartDate.Text);
+
+                        TextBox txtEndDate = (gvSearchResult.FooterRow.FindControl("tbxEndDateFooter") as TextBox);
+                        DateTime endDate = DateTime.Parse(txtEndDate.Text);
                         bool checkValue = storeSpController.CheckTempRoleAndDates(tempRoleCode, startDate, endDate);
 
                         if (checkValue)
                         {
-                            storeSpController.CreateNewAssignRole(assignRoleCode, tempRoleCode, empCode, startDate, endDate, user1);
+                            storeSpController.CreateNewAssignRole(assignRoleCode, tempRoleCode, empCode, startDate, endDate, userName);
                             PopulateGridView(tbxSearch.Text);
                             lblSuccessMsg.Text = "New AssignRole added.";
                             lblErrorMsg.Text = "";

@@ -16,8 +16,8 @@ namespace InventoryWebApp.WCF
     {
         StoreClerkController sClerkCtrl = new StoreClerkController();
         ILoginService loginService = new LoginService();
-        
-        
+
+
         public void ConfirmCollectionDate(string date, string userName, string password)
         {
             if (loginService.ValidateUser(userName, password))
@@ -25,8 +25,9 @@ namespace InventoryWebApp.WCF
                 sClerkCtrl.SetCollectionDateToDisbursement(DateTime.ParseExact(date, "ddMMyyyy", null), userName);
                 sClerkCtrl.UpdateCurrentRetrievalToRetrieved();
             }
-            else{
-            return;
+            else
+            {
+                return;
             }
         }
         public WCF_CollectionDate GetCollectionDate(String email, String password)
@@ -64,7 +65,7 @@ namespace InventoryWebApp.WCF
                 return null;
             }
         }
-        public void UpdateRetrievalDetail(WCF_RetrievalDetail wrd,String email, String password)
+        public void UpdateRetrievalDetail(WCF_RetrievalDetail wrd, String email, String password)
 
         {
             if (loginService.ValidateUser(email, password))
@@ -72,7 +73,7 @@ namespace InventoryWebApp.WCF
                 RetrievalDetail rdCurrent = sClerkCtrl.GetProcessingRetrievalDetailByItemCode(wrd.ItemCode);
                 rdCurrent.QuantityRetrieved = Int32.Parse(wrd.QuantityRetrieved);
                 rdCurrent.Notes = wrd.Notes;
-                
+
                 sClerkCtrl.UpdateRetrievalDetail(rdCurrent);
             }
 
@@ -96,29 +97,29 @@ namespace InventoryWebApp.WCF
             if (loginService.ValidateUser(email, password))
             {
                 if (sClerkCtrl.GetDisbursementsByStatus("allocating").Count == 0)
-            {
-                Retrieval r = sClerkCtrl.GetCurrentRetrieval();
-                if (r == null)
                 {
-                    return null;
+                    Retrieval r = sClerkCtrl.GetCurrentRetrieval();
+                    if (r == null)
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        List<RetrievalDetail> rdList = r.RetrievalDetails.ToList<RetrievalDetail>();
+                        List<WCF_RetrievalDetail> wrdList = new List<WCF_RetrievalDetail>();
+                        foreach (var item in rdList)
+                        {
+                            WCF_RetrievalDetail wrd = new WCF_RetrievalDetail(item.RetrievalCode, sClerkCtrl.GetStationeryByCode(item.ItemCode).Description, item.QuantityRetrieved.ToString(), item.QuantityNeeded.ToString(), item.Notes, r.Status, r.DateRetrieved == null ? "" : ((DateTime)r.DateRetrieved).ToString("dd MMM yyyy"), sClerkCtrl.GetStationeryByCode(item.ItemCode).Stock.ToString(), sClerkCtrl.GetStationeryByCode(item.ItemCode).Location, item.ItemCode);
+                            wrdList.Add(wrd);
+                        }
+                        return wrdList;
+                    }
+
                 }
                 else
                 {
-                    List<RetrievalDetail> rdList = r.RetrievalDetails.ToList<RetrievalDetail>();
-                    List<WCF_RetrievalDetail> wrdList = new List<WCF_RetrievalDetail>();
-                    foreach (var item in rdList)
-                    {
-                        WCF_RetrievalDetail wrd = new WCF_RetrievalDetail(item.RetrievalCode, sClerkCtrl.GetStationeryByCode(item.ItemCode).Description, item.QuantityRetrieved.ToString(), item.QuantityNeeded.ToString(), item.Notes, r.Status, r.DateRetrieved == null ? "" : ((DateTime)r.DateRetrieved).ToString("dd MMM yyyy"), sClerkCtrl.GetStationeryByCode(item.ItemCode).Stock.ToString(), sClerkCtrl.GetStationeryByCode(item.ItemCode).Location, item.ItemCode);
-                        wrdList.Add(wrd);
-                    }
-                    return wrdList;
+                    return null;
                 }
-
-            }
-            else
-            {
-                return null;
-            }
             }
             else
             {
