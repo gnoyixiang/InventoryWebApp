@@ -475,5 +475,61 @@ namespace InventoryWebApp.Controllers
             return ddDAO.SearchDDByCode(code);
         }
 
+        public bool CheckDates(string assignrolecode, string temporaryrole, DateTime startdate, DateTime enddate, String deptCode)
+        {
+            List<Employee> empList = edao.SearchByDept(deptCode);
+            List<AssignRole> assignList = new List<AssignRole>();
+            foreach (Employee e in empList)
+            {
+                List<AssignRole> assList = adao.SearchByEmployeeCode(e.EmployeeCode);
+                foreach (AssignRole a in assList)
+                {
+                    assignList.Add(a);
+                }
+            }
+            if (assignList.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                foreach (AssignRole a in assignList)
+                {
+                    /*int i1 = DateTime.Compare( (DateTime)a.StartDate, startdate);
+                    int i2 = DateTime.Compare((DateTime)a.StartDate, enddate);
+                    int j1= DateTime.Compare((DateTime)a.EndDate, startdate);
+                    int j2 = DateTime.Compare((DateTime)a.EndDate, enddate);
+                    */
+                    if (
+                        (a.AssignRoleCode != assignrolecode) &&
+                        (a.TemporaryRoleCode.Equals(temporaryrole)) &&
+                       ((DateTime.Compare((DateTime)a.StartDate, startdate) <= 0
+                       &&
+                       DateTime.Compare((DateTime)a.EndDate, startdate) >= 0)
+                       ||
+                       (DateTime.Compare((DateTime)a.StartDate, enddate) <= 0
+                       &&
+                       DateTime.Compare((DateTime)a.EndDate, enddate) >= 0))
+                       )
+                    {
+                        return false;
+                    }
+                    else if ((a.AssignRoleCode == assignrolecode) &&
+                        (a.TemporaryRoleCode.Equals(temporaryrole)) &&
+                       ((DateTime.Compare((DateTime)a.StartDate, startdate) < 0
+                       &&
+                       DateTime.Compare((DateTime)a.EndDate, startdate) > 0)
+                       ||
+                       (DateTime.Compare((DateTime)a.StartDate, enddate) < 0
+                       &&
+                       DateTime.Compare((DateTime)a.EndDate, enddate) > 0)))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return true;
+
+        }
     }
 }
