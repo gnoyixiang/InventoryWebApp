@@ -67,7 +67,7 @@ namespace InventoryWebApp.Dept
         {
             lblRequestCode.Text = RO.RequestCode.ToString();
             lblStatus.Text = RO.Status.ToUpper().ToString();
-            lblDepartmentName.Text = RO.DepartmentCode.ToString();
+            lblDepartmentName.Text = ec.GetDeptNameByCode(RO.DepartmentCode.ToString());
             lblEmployeeName.Text = GetEmployeeName(RO.UserName);
             lblComment.Text = (string)RO.HeadRemarks;
         }

@@ -20,6 +20,7 @@ namespace InventoryWebApp.Dept
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            btnModal.Visible = false;
             btnSubmit.Visible = false;
             btnClear.Visible = false;
             if (!IsPostBack)
@@ -36,6 +37,7 @@ namespace InventoryWebApp.Dept
                 var itemDetails = (List<RequestDTO>)Session["ItemDetails"];
                 if (itemDetails.Count != 0)
                 {
+                    btnModal.Visible = true;
                     btnSubmit.Visible = true;
                     btnClear.Visible = true;
                 }
